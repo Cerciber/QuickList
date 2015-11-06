@@ -29,16 +29,16 @@ import com.quicklist.clases.Horario;
 import com.quicklist.clases.PlanDeEstudios;
 import com.quicklist.clases.ResultadoDeAprendizaje;
 import com.quicklist.Confirmacion;
-import com.quicklist.DatosActividad;
-import com.quicklist.DatosActividadDeAprendizaje;
-import com.quicklist.DatosAprendiz;
-import com.quicklist.DatosCompetencia;
-import com.quicklist.DatosFicha;
-import com.quicklist.DatosFormacion;
-import com.quicklist.DatosFuncionarios;
-import com.quicklist.DatosHorario;
-import com.quicklist.DatosPlanDeEstudios;
-import com.quicklist.DatosResultadoDeAprendizaje;
+import com.quicklist.FormActividad;
+import com.quicklist.FormActividadDeAprendizaje;
+import com.quicklist.FormAprendiz;
+import com.quicklist.FormCompetencia;
+import com.quicklist.FormFicha;
+import com.quicklist.FormFormacion;
+import com.quicklist.FormFuncionarios;
+import com.quicklist.FormHorario;
+import com.quicklist.FormPlanDeEstudios;
+import com.quicklist.FormResultadoDeAprendizaje;
 import com.quicklist.PantallaInicio;
 import com.quicklist.PantallaUsuario;
 import com.quicklist.TomarAsistencia;
@@ -58,7 +58,7 @@ public class PantallasAdministrador {
             
             if("EditarMisDatos".equals(nombreClase)){
                 
-                DatosFuncionarios p = new DatosFuncionarios(tipo,pantallaActual,nombreClase,usuario,Arreglo.agregar(ID, usuario),declaracion);
+                FormFuncionarios p = new FormFuncionarios(tipo,pantallaActual,nombreClase,usuario,Arreglo.agregar(ID, usuario),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -131,7 +131,7 @@ public class PantallasAdministrador {
 
                 String retorno="Administrador.Funcionarios.Ver";
                 
-                DatosFuncionarios p = new DatosFuncionarios(tipo,retorno,pantallaActual,usuario,ID,declaracion);
+                FormFuncionarios p = new FormFuncionarios(tipo,retorno,pantallaActual,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -220,7 +220,7 @@ public class PantallasAdministrador {
                 
                 String retorno="Administrador.Funcionarios";
                 
-                DatosFuncionarios p = new DatosFuncionarios(tipo,retorno,pantallaActual,usuario,ID,declaracion);
+                FormFuncionarios p = new FormFuncionarios(tipo,retorno,pantallaActual,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -263,7 +263,7 @@ public class PantallasAdministrador {
 
                 String retorno="Administrador.Fichas.Ver";
                 
-                DatosFicha p = new DatosFicha(tipo,retorno,nombreClase,usuario,ID,declaracion);
+                FormFicha p = new FormFicha(tipo,retorno,nombreClase,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -311,7 +311,7 @@ public class PantallasAdministrador {
                 
                 String retorno="Administrador.Fichas";
                 
-                DatosFicha p = new DatosFicha(tipo,retorno,nombreClase,usuario,ID,declaracion);
+                FormFicha p = new FormFicha(tipo,retorno,nombreClase,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -354,7 +354,7 @@ public class PantallasAdministrador {
 
                 String retorno="Administrador.Fichas.Ver.Aprendices.Ver";
                 
-                DatosAprendiz p = new DatosAprendiz(tipo,retorno,nombreClase,usuario,ID,declaracion);
+                FormAprendiz p = new FormAprendiz(tipo,retorno,nombreClase,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -400,9 +400,9 @@ public class PantallasAdministrador {
             if("Administrador.Fichas.Ver.Aprendices.Ingresar".equals(nombreClase)){
 
                 
-                String retorno="Administrador.Fichas.Ver.Aprendices.Ver";
+                String retorno="Administrador.Fichas.Ver.Aprendices";
                 
-                DatosAprendiz p = new DatosAprendiz(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
+                FormAprendiz p = new FormAprendiz(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -446,7 +446,7 @@ public class PantallasAdministrador {
 
                 String retorno="Administrador.Fichas.Ver.Horarios.Ver";
                 
-                DatosHorario p = new DatosHorario(tipo,retorno,nombreClase,usuario,ID,declaracion);
+                FormHorario p = new FormHorario(tipo,retorno,nombreClase,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -493,7 +493,7 @@ public class PantallasAdministrador {
                 
                 String retorno="Administrador.Fichas.Ver.Horarios";
                 
-                DatosHorario p = new DatosHorario(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
+                FormHorario p = new FormHorario(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -538,7 +538,7 @@ public class PantallasAdministrador {
 
                 String retorno="Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver";
                 
-                DatosActividad p = new DatosActividad(tipo,retorno,nombreClase,usuario,ID,declaracion);
+                FormActividad p = new FormActividad(tipo,retorno,nombreClase,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -585,7 +585,7 @@ public class PantallasAdministrador {
                 
                 String retorno="Administrador.Fichas.Ver.Horarios.Ver.Actividades";
                 
-                DatosActividad p = new DatosActividad(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
+                FormActividad p = new FormActividad(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -642,7 +642,7 @@ public class PantallasAdministrador {
                 String retorno="Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver";
                 String vinculo="Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar.Siguiente";
                 
-                DatosFormacion p = new DatosFormacion(tipo,vinculo,retorno,nombreClase,usuario,ID,declaracion);
+                FormFormacion p = new FormFormacion(tipo,vinculo,retorno,nombreClase,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -690,7 +690,7 @@ public class PantallasAdministrador {
                 String retorno="Administrador.Fichas.Ver.Horarios.Ver.Asistencia";
                 String vinculo="Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ingresar.Siguiente";
                 
-                DatosFormacion p = new DatosFormacion(tipo,vinculo,retorno,nombreClase,usuario,Arreglo.agregar(Arreglo.quitar(ID),"☺"),declaracion);
+                FormFormacion p = new FormFormacion(tipo,vinculo,retorno,nombreClase,usuario,Arreglo.agregar(Arreglo.quitar(ID),"☺"),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -748,7 +748,7 @@ public class PantallasAdministrador {
 
                 String retorno="Administrador.PlanDeEstudios.Ver";
                 
-                DatosPlanDeEstudios p = new DatosPlanDeEstudios(tipo,retorno,nombreClase,usuario,ID,declaracion);
+                FormPlanDeEstudios p = new FormPlanDeEstudios(tipo,retorno,nombreClase,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -795,7 +795,7 @@ public class PantallasAdministrador {
                 
                 String retorno="Administrador.PlanDeEstudios";
                 
-                DatosPlanDeEstudios p = new DatosPlanDeEstudios(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
+                FormPlanDeEstudios p = new FormPlanDeEstudios(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -839,7 +839,7 @@ public class PantallasAdministrador {
 
                 String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver";
                 
-                DatosCompetencia p = new DatosCompetencia(tipo,retorno,nombreClase,usuario,ID,declaracion);
+                FormCompetencia p = new FormCompetencia(tipo,retorno,nombreClase,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -886,7 +886,7 @@ public class PantallasAdministrador {
                 
                 String retorno="Administrador.PlanDeEstudios.Ver.Competencia";
                 
-                DatosCompetencia p = new DatosCompetencia(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
+                FormCompetencia p = new FormCompetencia(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -930,7 +930,7 @@ public class PantallasAdministrador {
 
                 String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver";
                 
-                DatosActividadDeAprendizaje p = new DatosActividadDeAprendizaje(tipo,retorno,nombreClase,usuario,ID,declaracion);
+                FormActividadDeAprendizaje p = new FormActividadDeAprendizaje(tipo,retorno,nombreClase,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -977,7 +977,7 @@ public class PantallasAdministrador {
                 
                 String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje";
                 
-                DatosActividadDeAprendizaje p = new DatosActividadDeAprendizaje(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
+                FormActividadDeAprendizaje p = new FormActividadDeAprendizaje(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -1021,7 +1021,7 @@ public class PantallasAdministrador {
 
                 String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver";
                 
-                DatosResultadoDeAprendizaje p = new DatosResultadoDeAprendizaje(tipo,retorno,nombreClase,usuario,ID,declaracion);
+                FormResultadoDeAprendizaje p = new FormResultadoDeAprendizaje(tipo,retorno,nombreClase,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -1068,7 +1068,7 @@ public class PantallasAdministrador {
                 
                 String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje";
                 
-                DatosResultadoDeAprendizaje p = new DatosResultadoDeAprendizaje(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
+                FormResultadoDeAprendizaje p = new FormResultadoDeAprendizaje(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();

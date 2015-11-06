@@ -1,5 +1,5 @@
 /*
- * DatosFormacion.java
+ * DatosHorario.java
  *
  * version 1.0
  *
@@ -14,26 +14,26 @@
 
 package com.quicklist;
 
-import com.quicklist.clases.Ficha;
+import com.quicklist.clases.Actividad;
 import java.awt.Component;
 import java.sql.Statement;
-import com.quicklist.clases.Formacion;
 import com.quicklist.clases.Funcionario;
+import com.quicklist.clases.Horario;
+import com.quicklist.clases.ResultadoDeAprendizaje;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.AnimacionObjetos;
+import com.quicklist.funciones.RestingirCampo;
 import javax.swing.JOptionPane;
 
 
-public final class DatosFormacion extends javax.swing.JPanel {
+public final class FormHorario extends javax.swing.JPanel {
 
     public String usuario;
     Statement declaracion;
     public Component[] objeto;
     public int velocidad=100;
-    String vinculo;
-    String fecha;
     String retorno;
     String tipo;
     String[] ID;
@@ -41,11 +41,10 @@ public final class DatosFormacion extends javax.swing.JPanel {
     String nombrePantalla;
     
     //menu de botones
-    public DatosFormacion(String tipo, String vinculo, String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
+    public FormHorario(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
         
         this.tipo=tipo;
         this.retorno=retorno;
-        this.vinculo=vinculo;
         this.usuario=usuario;
         this.declaracion=declaracion;
         this.ID=ID;
@@ -55,10 +54,6 @@ public final class DatosFormacion extends javax.swing.JPanel {
         datosUsuario();
         datosActividad(ID);
         new MoverObjeto(jPanel8);
-        
-        for(int i=0;i<=ID.length-1;i++)
-        {System.out.print(ID[i]+" ");}
-        System.out.println();
         
         
     }
@@ -74,15 +69,43 @@ public final class DatosFormacion extends javax.swing.JPanel {
     
     public void datosActividad(String[] ID) {
         
+        String[][] nombres=ResultadoDeAprendizaje.SeleccionarNombres(declaracion);
+        
+        ID_ResultadoDeAprendizaje= new String[nombres.length];
+        
+        for (int i=0;i<=nombres.length-1;i++){
+        
+            ID_ResultadoDeAprendizaje[i]=nombres[i][0];
+            this.jComboBox3.addItem(nombres[i][1]);
+            
+        }
+        
+        nombres=Funcionario.SeleccionarNombres(declaracion);
+        
+        for (int i=0;i<=nombres.length-1;i++){
+        
+            this.jComboBox4.addItem(nombres[i][0]);
+            
+        }
         
         if("☺".equals(ID[ID.length-1])){
+
+            
             
         }else{
 
-            String[][] lista=Formacion.SeleccionarPorID(declaracion, ID[ID.length-1]);
+            String[][] lista=Horario.SeleccionarPorID(declaracion, ID[ID.length-1]);
 
-            Calendario.darFecha(jDateChooser1,lista[0][2]);
-            fecha=Calendario.obtenerFecha(jDateChooser1);
+            jComboBox3.setSelectedItem(lista[0][3]);
+            jComboBox4.setSelectedItem(lista[0][4]);
+            jComboBox5.setSelectedItem(lista[0][5]);
+            jComboBox6.setSelectedItem(lista[0][6].substring(0,2));
+            jComboBox7.setSelectedItem(lista[0][6].substring(3,5));
+            jComboBox8.setSelectedItem(lista[0][7].substring(0,2));
+            jComboBox9.setSelectedItem(lista[0][7].substring(3,5));
+            Calendario.darFecha(jDateChooser1,lista[0][8]);
+            Calendario.darFecha(jDateChooser2,lista[0][9]);
+            jTextField9.setText(lista[0][10]);
 
 
         }
@@ -115,8 +138,24 @@ public final class DatosFormacion extends javax.swing.JPanel {
         jButton8 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jTextField9 = new javax.swing.JTextField();
+        jComboBox3 = new javax.swing.JComboBox();
+        jComboBox4 = new javax.swing.JComboBox();
+        jComboBox5 = new javax.swing.JComboBox();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jComboBox6 = new javax.swing.JComboBox();
+        jComboBox7 = new javax.swing.JComboBox();
+        jComboBox8 = new javax.swing.JComboBox();
+        jComboBox9 = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
@@ -227,7 +266,7 @@ public final class DatosFormacion extends javax.swing.JPanel {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -251,16 +290,123 @@ public final class DatosFormacion extends javax.swing.JPanel {
 
         jPanel8.setOpaque(false);
 
+        jLabel16.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("Resultado De Aprendizaje");
+        jLabel16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel16.setOpaque(true);
+
+        jLabel17.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel17.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("Funcionario");
+        jLabel17.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel17.setOpaque(true);
+
+        jLabel18.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel18.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("Dia");
+        jLabel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel18.setOpaque(true);
+
         jLabel19.setBackground(new java.awt.Color(204, 255, 255));
         jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 102, 102));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("*Fecha Formación");
+        jLabel19.setText("Hora Inicio");
         jLabel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel19.setOpaque(true);
 
+        jLabel20.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel20.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("Hora Fin");
+        jLabel20.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel20.setOpaque(true);
+
+        jLabel21.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel21.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("*Fecha Inicio");
+        jLabel21.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel21.setOpaque(true);
+
+        jLabel22.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel22.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("*Fecha Fin");
+        jLabel22.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel22.setOpaque(true);
+
+        jLabel23.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel23.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setText("*Lugar");
+        jLabel23.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel23.setOpaque(true);
+
+        jTextField9.setBackground(new java.awt.Color(0, 153, 153));
+        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jTextField9.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField9ActionPerformed(evt);
+            }
+        });
+        jTextField9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField9KeyTyped(evt);
+            }
+        });
+
+        jComboBox3.setBackground(new java.awt.Color(0, 153, 153));
+        jComboBox3.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
+        jComboBox3.setForeground(new java.awt.Color(255, 255, 255));
+
+        jComboBox4.setBackground(new java.awt.Color(0, 153, 153));
+        jComboBox4.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
+        jComboBox4.setForeground(new java.awt.Color(255, 255, 255));
+
+        jComboBox5.setBackground(new java.awt.Color(0, 153, 153));
+        jComboBox5.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
+        jComboBox5.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo" }));
+
         jDateChooser1.setBackground(new java.awt.Color(0, 153, 153));
         jDateChooser1.setOpaque(false);
+
+        jDateChooser2.setBackground(new java.awt.Color(0, 153, 153));
+        jDateChooser2.setOpaque(false);
+
+        jComboBox6.setBackground(new java.awt.Color(0, 153, 153));
+        jComboBox6.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
+        jComboBox6.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+
+        jComboBox7.setBackground(new java.awt.Color(0, 153, 153));
+        jComboBox7.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
+        jComboBox7.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+
+        jComboBox8.setBackground(new java.awt.Color(0, 153, 153));
+        jComboBox8.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
+        jComboBox8.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+
+        jComboBox9.setBackground(new java.awt.Color(0, 153, 153));
+        jComboBox9.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
+        jComboBox9.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -268,9 +414,31 @@ public final class DatosFormacion extends javax.swing.JPanel {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField9)
+                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox6, 0, 116, Short.MAX_VALUE)
+                            .addComponent(jComboBox8, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox9, 0, 116, Short.MAX_VALUE)
+                            .addComponent(jComboBox7, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(30, 30, 30))
         );
         jPanel8Layout.setVerticalGroup(
@@ -278,8 +446,38 @@ public final class DatosFormacion extends javax.swing.JPanel {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(jComboBox3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(jComboBox4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(jComboBox5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jComboBox6)
+                    .addComponent(jComboBox7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(jComboBox8)
+                    .addComponent(jComboBox9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );
 
@@ -348,7 +546,7 @@ public final class DatosFormacion extends javax.swing.JPanel {
 
         jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jButton6.setForeground(new java.awt.Color(0, 102, 102));
-        jButton6.setText("Siguiente");
+        jButton6.setText("Guardar");
         jButton6.setBorder(null);
         jButton6.setContentAreaFilled(false);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -362,12 +560,12 @@ public final class DatosFormacion extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 632, Short.MAX_VALUE)
+            .addGap(0, 611, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(26, 26, 26)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(73, Short.MAX_VALUE)))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(119, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,7 +592,7 @@ public final class DatosFormacion extends javax.swing.JPanel {
             
         }else{
         
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(Arreglo.quitar(ID)),declaracion);
+            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
         
         }
         
@@ -419,6 +617,10 @@ public final class DatosFormacion extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField9ActionPerformed
+
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
         if("PantallaInicio".equals(retorno)){
@@ -427,7 +629,7 @@ public final class DatosFormacion extends javax.swing.JPanel {
 
         }else{
 
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);          
+            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
 
         }
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -452,59 +654,61 @@ public final class DatosFormacion extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         
-        String[] datos=new String[6];
+        String[] datos={ID[ID.length-2],
+                        ID_ResultadoDeAprendizaje[jComboBox3.getSelectedIndex()],
+                        jComboBox4.getSelectedItem().toString(),
+                        jComboBox5.getSelectedItem().toString(),
+                        jComboBox6.getSelectedItem().toString()+":"+jComboBox7.getSelectedItem().toString(),
+                        jComboBox8.getSelectedItem().toString()+":"+jComboBox9.getSelectedItem().toString(),
+                        Calendario.obtenerFecha(jDateChooser1),
+                        Calendario.obtenerFecha(jDateChooser2),
+                        jTextField9.getText()};
         
-        datos[0]=ID[ID.length-2];
-        datos[1]=Calendario.obtenerFecha(jDateChooser1);
-        
-
         if("☺".equals(ID[ID.length-1])){
 
-            if(Calendario.obtenerFecha(jDateChooser1)==null){
+            if("".equals(jTextField9.getText()) ||
+               Calendario.obtenerFecha(jDateChooser1)==null ||
+               Calendario.obtenerFecha(jDateChooser2)==null){
 
                  JOptionPane.showMessageDialog(null,
                  "Debe diligenciar los campos obligatorios (*)", "Error", 
                  JOptionPane.ERROR_MESSAGE);
 
-            }else if(Formacion.VerificarFecha(declaracion, datos[1], ID[ID.length-2])){
-
-                    JOptionPane.showMessageDialog(null,
-                    "La Fecha seleccionada ya existe", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-
             }else{
-
-                Formacion.Insertar(declaracion,ID,datos);
-                String dato = Formacion.SeleccionarUltimoRegistro(declaracion);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,vinculo,nombrePantalla,tipo,usuario,Arreglo.agregar(ID,dato),declaracion);
+                
+                Horario.Insertar(declaracion, datos);
+                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno+".Ver",nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
 
             }
                 
         }else{
 
-            if(Calendario.obtenerFecha(jDateChooser1)==null){
+            if("".equals(jTextField9.getText()) ||
+               Calendario.obtenerFecha(jDateChooser1)==null ||
+               Calendario.obtenerFecha(jDateChooser2)==null){
 
                  JOptionPane.showMessageDialog(null,
                  "Debe diligenciar los campos obligatorios (*)", "Error", 
                  JOptionPane.ERROR_MESSAGE);
 
-            }else if(Formacion.VerificarFecha(declaracion, datos[1], ID[ID.length-2]) &&
-                    (!fecha.equals(datos[1]))){
-
-                    JOptionPane.showMessageDialog(null,
-                    "La Fecha seleccionada ya existe", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-
-            }else {
-
-                Formacion.ActualizarEnID(declaracion, datos, ID[ID.length-2]);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,vinculo,nombrePantalla,tipo,usuario,Arreglo.agregar(ID),declaracion);
+            }else{
+                
+                Horario.ActualizarEnID(declaracion, datos, ID[ID.length-1]);
+                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
             
-            } 
+            }
                 
         }
 
+        
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
+        
+        RestingirCampo.longitud(evt, jTextField9.getText().length(), 2147483647);
+        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        
+    }//GEN-LAST:event_jTextField9KeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -518,10 +722,25 @@ public final class DatosFormacion extends javax.swing.JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JComboBox jComboBox5;
+    private javax.swing.JComboBox jComboBox6;
+    private javax.swing.JComboBox jComboBox7;
+    private javax.swing.JComboBox jComboBox8;
+    private javax.swing.JComboBox jComboBox9;
     private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
@@ -530,5 +749,6 @@ public final class DatosFormacion extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     public javax.swing.JPanel jPanel8;
+    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }

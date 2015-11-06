@@ -26,7 +26,7 @@ import com.quicklist.funciones.RestingirCampo;
 import javax.swing.JOptionPane;
 
 
-public final class DatosResultadoDeAprendizaje extends javax.swing.JPanel {
+public final class FormResultadoDeAprendizaje extends javax.swing.JPanel {
 
     public String usuario;
     Statement declaracion;
@@ -39,7 +39,7 @@ public final class DatosResultadoDeAprendizaje extends javax.swing.JPanel {
     String nombrePantalla;
     
     //menu de botones
-    public DatosResultadoDeAprendizaje(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
+    public FormResultadoDeAprendizaje(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
         
         this.tipo=tipo;
         this.retorno=retorno;

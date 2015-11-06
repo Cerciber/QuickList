@@ -11,26 +11,19 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist;
 
 import java.awt.Component;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
-import com.quicklist.funciones.ConvertirConsulta;
 import com.quicklist.funciones.AnimacionObjetos;
+import com.quicklist.funciones.DatosUsuario;
 
 /**
  * Esta clase permite confirmar si el usuario realmente desdea realizar 
  * una acción determinada de gran importancia
- * 
- * @version 1.0 4 Nov 2015
- * @author Cesar Torres, Andres Santana, Alejandra Sierra
  */
-
 public final class Confirmacion extends javax.swing.JPanel {
 
     int velocidad = 100;    //Corrimiento de la animación de los objetos
@@ -81,47 +74,47 @@ public final class Confirmacion extends javax.swing.JPanel {
         /*
          * Se asignan los valores de los parametros de forma global
          */
-        this.tipo=tipo;
-        this.retorno=retorno;
-        this.usuario=usuario;
-        this.declaracion=declaracion;
-        this.ID=ID;
-        this.vinculo=vinculo;
-        this.nombrePantalla=nombrePantalla;
+        this.tipo = tipo;
+        this.retorno = retorno;
+        this.usuario = usuario;
+        this.declaracion = declaracion;
+        this.ID = ID;
+        this.vinculo = vinculo;
+        this.nombrePantalla = nombrePantalla;
         
         initComponents();   //Se crean los componentes graficos
-        datosUsuario();     //Se cargan y se ubican los datos del usuario
         
-        /* Se asigna la variable String con la pregunta-- en el label */
+        /* Se cargan y se ubican los datos del usuario */
+        new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
+        
+        /* Se asigna la variable String con la pregunta en el label */
         jLabel15.setText(pregunta);
         
+        /**
+         * Permite que el usuario pueda mover el panel que contiene la tabla
+         * dentro del frame con el mouse y con las flechas del teclado
+         */
         new MoverObjeto(jPanel8);
         
         
-    }
-    
-    
-    public void datosUsuario() {
-        
-        try {
-            
-            ResultSet resultado = declaracion.executeQuery("select Nombre,Primer_Apellido,Documento_De_Identidad  from T_Informacion_funcionarios where Documento_De_Identidad="+usuario+";");    
-            String[] campos={"Nombre","Primer_Apellido","Documento_De_Identidad"};
-            String[][] menu=new ConvertirConsulta().ArregloString(resultado,campos);
-            jLabel1.setText(menu[0][0]+" "+menu[0][1]);
-            jLabel2.setText(menu[0][2]);
-            
-        } catch (SQLException ex) {System.out.println(ex);}
-        
-    }
-    
+    } 
 
+    /**
+     * Permite seleccionar los componentes en el panel a los cuales 
+     * se les dara animación
+     */
     public void movimiento(){
         
+        /* Se crea el arreglo global con los componentes */
         objeto = new Component[3];
         objeto[0]=this.jLabel15;
         objeto[1]=this.jButton5;
         objeto[2]=this.jButton6;
+        
+        /* 
+         * Permite dar un movimiento inicial a los objetos del arreglo en 
+         * forma secuencial
+         */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
     
     }
@@ -138,6 +131,7 @@ public final class Confirmacion extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -214,11 +208,11 @@ public final class Confirmacion extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 66, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel7.setOpaque(false);
@@ -464,43 +458,79 @@ public final class Confirmacion extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
        new AnimacionObjetos().RIzquierda(objeto, velocidad,this,vinculo[0],nombrePantalla,tipo,usuario,ID,declaracion);
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
         new AnimacionObjetos().RIzquierda(objeto, velocidad,this,vinculo[1],nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    /**
+     * Boton "Volver"
+     * Este evento permite retornar a la pantalla desde la que 
+     * se accedió a la actual
+     */
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
 
-        if("PantallaInicio".equals(retorno)){
+        /* Se verifica si el retorno corresponde a la pantalla inicio.*/
+        if ("PantallaInicio".equals(retorno)) {
 
+            /* Se emplea la funcionalidad del botón "Salir" */
             jButton4ActionPerformed(evt);
 
-        }else{
+        } else {
 
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-
+            /* 
+             * Se animan los objetos para que salgan del panel y se realiza 
+             * el cambio de pantalla
+             */
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
+                                         nombrePantalla, tipo, usuario, 
+                                         Arreglo.quitar(ID), declaracion);
+            
         }
 
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    /**
+     * Boton "Salir"
+     * Este evento permite retornar a la pantalla de ingreso y cerrar la sesión
+     */
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
 
-        Component[] componentes=new Component[objeto.length+2];
-        componentes[0]=jPanel2;
-        componentes[1]=jPanel3;
+        /*
+         * Se crea un arreglo de componentes para alamcenar todos los objetos 
+         * que se van a animar al momento de la salida
+         */
+        Component[] componentes = new Component[objeto.length+2];
+        
+        componentes[0] = jPanel2;   //Se añade el panel superior
+        componentes[1] = jPanel3;   //Se añade el panel inferior
 
-        for(int i=2;i<=componentes.length-1;i++){
-
-            componentes[i]=objeto[i-2];
+        /* Se añaden los demas objetos a los que se les dió la animación */
+        for (int i = 2; i <= componentes.length - 1; i++){
+            componentes[i] = objeto[i - 2];       
         }
 
-        new AnimacionObjetos().RIzquierda(componentes, velocidad,this,"PantallaInicio",nombrePantalla,tipo,usuario,null,declaracion);
-
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
+                                     "PantallaInicio", nombrePantalla, tipo, 
+                                     usuario, null, declaracion);
+        
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
@@ -523,6 +553,7 @@ public final class Confirmacion extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -1,5 +1,5 @@
 /*
- * DatosFicha.java
+ * DatosFormacion.java
  *
  * version 1.0
  *
@@ -14,35 +14,38 @@
 
 package com.quicklist;
 
+import com.quicklist.clases.Ficha;
 import java.awt.Component;
 import java.sql.Statement;
-import javax.swing.JOptionPane;
-import com.quicklist.clases.Ficha;
+import com.quicklist.clases.Formacion;
 import com.quicklist.clases.Funcionario;
-import com.quicklist.clases.PlanDeEstudios;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.AnimacionObjetos;
+import javax.swing.JOptionPane;
 
 
-public final class DatosFicha extends javax.swing.JPanel {
+public final class FormFormacion extends javax.swing.JPanel {
 
     public String usuario;
     Statement declaracion;
     public Component[] objeto;
     public int velocidad=100;
+    String vinculo;
+    String fecha;
     String retorno;
     String tipo;
     String[] ID;
-    String[] ID_Plan_De_Estudios;
+    String[] ID_ResultadoDeAprendizaje;
     String nombrePantalla;
     
     //menu de botones
-    public DatosFicha(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
+    public FormFormacion(String tipo, String vinculo, String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
         
         this.tipo=tipo;
         this.retorno=retorno;
+        this.vinculo=vinculo;
         this.usuario=usuario;
         this.declaracion=declaracion;
         this.ID=ID;
@@ -52,6 +55,10 @@ public final class DatosFicha extends javax.swing.JPanel {
         datosUsuario();
         datosActividad(ID);
         new MoverObjeto(jPanel8);
+        
+        for(int i=0;i<=ID.length-1;i++)
+        {System.out.print(ID[i]+" ");}
+        System.out.println();
         
         
     }
@@ -67,27 +74,17 @@ public final class DatosFicha extends javax.swing.JPanel {
     
     public void datosActividad(String[] ID) {
         
-        String[][] nombres=PlanDeEstudios.SeleccionarNombres(declaracion);
-        ID_Plan_De_Estudios = new String [nombres.length];
-        
-        for (int i=0;i<=nombres.length-1;i++){
-        
-            ID_Plan_De_Estudios[i]=nombres[i][0];
-            this.jComboBox1.addItem(nombres[i][1]);
-            
-        }
         
         if("☺".equals(ID[ID.length-1])){
-
+            
         }else{
 
-            String[][] lista=Ficha.SeleccionarPorID(declaracion, ID[ID.length-1]);
+            String[][] lista=Formacion.SeleccionarPorID(declaracion, ID[ID.length-1]);
 
-            jTextField2.setText(lista[0][1]);
-            jComboBox1.setSelectedItem(lista[0][2]);
-            Calendario.darFecha(jDateChooser1,lista[0][3]);
-            Calendario.darFecha(jDateChooser2,lista[0][4]);
-           
+            Calendario.darFecha(jDateChooser1,lista[0][2]);
+            fecha=Calendario.obtenerFecha(jDateChooser1);
+
+
         }
 
     }
@@ -106,6 +103,11 @@ public final class DatosFicha extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -113,14 +115,8 @@ public final class DatosFicha extends javax.swing.JPanel {
         jButton8 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jLabel19 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
@@ -135,6 +131,52 @@ public final class DatosFicha extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jPanel4.setOpaque(false);
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI Symbol", 1, 24)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 204, 204));
+        jButton1.setText("☼");
+        jButton1.setBorder(null);
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton1);
+
+        jButton2.setFont(new java.awt.Font("Segoe UI Symbol", 1, 24)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 204, 204));
+        jButton2.setText("?");
+        jButton2.setBorder(null);
+        jButton2.setContentAreaFilled(false);
+        jPanel4.add(jButton2);
+
+        jButton3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 204, 204));
+        jButton3.setText("Volver");
+        jButton3.setBorder(null);
+        jButton3.setContentAreaFilled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton3);
+
+        jButton4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 204, 204));
+        jButton4.setText("Salir");
+        jButton4.setBorder(null);
+        jButton4.setContentAreaFilled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton4);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel6.setOpaque(false);
@@ -185,10 +227,15 @@ public final class DatosFicha extends javax.swing.JPanel {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(320, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -204,57 +251,16 @@ public final class DatosFicha extends javax.swing.JPanel {
 
         jPanel8.setOpaque(false);
 
-        jLabel15.setBackground(new java.awt.Color(204, 255, 255));
-        jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("*Ficha");
-        jLabel15.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel15.setOpaque(true);
-
-        jTextField2.setBackground(new java.awt.Color(0, 153, 153));
-        jTextField2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jLabel16.setBackground(new java.awt.Color(204, 255, 255));
-        jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Plan De Estudios");
-        jLabel16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel16.setOpaque(true);
-
-        jLabel17.setBackground(new java.awt.Color(204, 255, 255));
-        jLabel17.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("*Fecha inicio");
-        jLabel17.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel17.setOpaque(true);
-
-        jLabel30.setBackground(new java.awt.Color(204, 255, 255));
-        jLabel30.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel30.setText("*Fecha fin");
-        jLabel30.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel30.setOpaque(true);
-
-        jComboBox1.setBackground(new java.awt.Color(0, 153, 153));
-        jComboBox1.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("*Fecha Formación");
+        jLabel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel19.setOpaque(true);
 
         jDateChooser1.setBackground(new java.awt.Color(0, 153, 153));
         jDateChooser1.setOpaque(false);
-
-        jDateChooser2.setBackground(new java.awt.Color(0, 153, 153));
-        jDateChooser2.setOpaque(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -262,17 +268,9 @@ public final class DatosFicha extends javax.swing.JPanel {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
                 .addGap(30, 30, 30))
         );
         jPanel8Layout.setVerticalGroup(
@@ -280,20 +278,8 @@ public final class DatosFicha extends javax.swing.JPanel {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );
 
@@ -362,7 +348,7 @@ public final class DatosFicha extends javax.swing.JPanel {
 
         jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jButton6.setForeground(new java.awt.Color(0, 102, 102));
-        jButton6.setText("Guardar");
+        jButton6.setText("Siguiente");
         jButton6.setBorder(null);
         jButton6.setContentAreaFilled(false);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -376,12 +362,12 @@ public final class DatosFicha extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 599, Short.MAX_VALUE)
+            .addGap(0, 632, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(26, 26, 26)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(107, Short.MAX_VALUE)))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(73, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,9 +386,38 @@ public final class DatosFicha extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       
+        if("PantallaInicio".equals(retorno)){
+        
+            jButton4ActionPerformed(evt);
+            
+        }else{
+        
+            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(Arreglo.quitar(ID)),declaracion);
+        
+        }
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+  
+        Component[] componentes=new Component[objeto.length+2];
+        componentes[0]=jPanel2;
+        componentes[1]=jPanel3;
+        
+        for(int i=2;i<=componentes.length-1;i++){
+        
+            componentes[i]=objeto[i-2];
+        }
+        
+        new AnimacionObjetos().RIzquierda(componentes, velocidad,this,"PantallaInicio",nombrePantalla,tipo,usuario,ID,declaracion);
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
@@ -412,7 +427,7 @@ public final class DatosFicha extends javax.swing.JPanel {
 
         }else{
 
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
+            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);          
 
         }
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -436,86 +451,84 @@ public final class DatosFicha extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
-        String[] datos={jTextField2.getText(),
-            ID_Plan_De_Estudios[jComboBox1.getSelectedIndex()],
-            Calendario.obtenerFecha(jDateChooser1),
-            Calendario.obtenerFecha(jDateChooser2)};
+        
+        String[] datos=new String[6];
+        
+        datos[0]=ID[ID.length-2];
+        datos[1]=Calendario.obtenerFecha(jDateChooser1);
+        
 
         if("☺".equals(ID[ID.length-1])){
 
-            if("".equals(jTextField2.getText()) ||
-               Calendario.obtenerFecha(jDateChooser1)==null ||
-               Calendario.obtenerFecha(jDateChooser2)==null){
+            if(Calendario.obtenerFecha(jDateChooser1)==null){
 
                  JOptionPane.showMessageDialog(null,
                  "Debe diligenciar los campos obligatorios (*)", "Error", 
                  JOptionPane.ERROR_MESSAGE);
 
-            }else if(Ficha.VerificarID(declaracion,jTextField2.getText())){
+            }else if(Formacion.VerificarFecha(declaracion, datos[1], ID[ID.length-2])){
 
-                JOptionPane.showMessageDialog(null,
-                    "La Ficha seleccionada ya existe", "Error",
+                    JOptionPane.showMessageDialog(null,
+                    "La Fecha seleccionada ya existe", "Error",
                     JOptionPane.ERROR_MESSAGE);
 
             }else{
 
-                Ficha.Insertar(declaracion, datos);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno+".Ver",nombrePantalla,tipo,usuario,ID,declaracion);
-            }
+                Formacion.Insertar(declaracion,ID,datos);
+                String dato = Formacion.SeleccionarUltimoRegistro(declaracion);
+                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,vinculo,nombrePantalla,tipo,usuario,Arreglo.agregar(ID,dato),declaracion);
 
+            }
+                
         }else{
 
-            if("".equals(jTextField2.getText()) ||
-               Calendario.obtenerFecha(jDateChooser1)==null ||
-               Calendario.obtenerFecha(jDateChooser2)==null){
+            if(Calendario.obtenerFecha(jDateChooser1)==null){
 
                  JOptionPane.showMessageDialog(null,
                  "Debe diligenciar los campos obligatorios (*)", "Error", 
                  JOptionPane.ERROR_MESSAGE);
 
-            }else if(Ficha.VerificarID(declaracion,jTextField2.getText()) &&
-                !jTextField2.getText().equals(ID[ID.length-1])){
+            }else if(Formacion.VerificarFecha(declaracion, datos[1], ID[ID.length-2]) &&
+                    (!fecha.equals(datos[1]))){
 
-                JOptionPane.showMessageDialog(null,
-                    "La Ficha seleccionada ya existe", "Error",
+                    JOptionPane.showMessageDialog(null,
+                    "La Fecha seleccionada ya existe", "Error",
                     JOptionPane.ERROR_MESSAGE);
 
-            }else{
+            }else {
 
-                Ficha.ActualizarEnID(declaracion, datos, ID[ID.length-1]);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-
-            }
-
+                Formacion.ActualizarEnID(declaracion, datos, ID[ID.length-2]);
+                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,vinculo,nombrePantalla,tipo,usuario,Arreglo.agregar(ID),declaracion);
+            
+            } 
+                
         }
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     public javax.swing.JPanel jPanel8;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

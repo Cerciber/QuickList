@@ -1,5 +1,5 @@
 /*
- * DatosAprendiz.java
+ * FormAprendiz.java
  *
  * version 1.0
  *
@@ -11,7 +11,6 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist;
 
 import java.awt.Component;
@@ -25,115 +24,175 @@ import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.ConvertirConsulta;
 import com.quicklist.funciones.AnimacionObjetos;
+import com.quicklist.funciones.DatosUsuario;
 import com.quicklist.funciones.RestingirCampo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Esta clase permite a los usuarios instructor y administrador ingresar y 
+ * editar los datos de un aprendiz específico
+ */
+public final class FormAprendiz extends javax.swing.JPanel {
 
-public final class DatosAprendiz extends javax.swing.JPanel {
-
-    public String usuario;
-    Statement declaracion;
-    public Component[] objeto;
-    public int velocidad=100;
-    String retorno;
-    String tipo;
-    String[] ID;
-    String nombrePantalla;
+    int velocidad = 100;    //Corrimiento de la animación de los objetos
+    String usuario;     //Documento del usuario que accede a la clase
+    String retorno;     //Ruta de acceso a la ventana anterior
+    String tipo;    //Rol del usuario que accede a la clase
+    String nombrePantalla;      //Ruta de la ventana actual
     
-    //menu de botones
-    public DatosAprendiz(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
-        
-        this.tipo=tipo;
-        this.retorno=retorno;
-        this.usuario=usuario;
-        this.declaracion=declaracion;
-        this.ID=ID;
-        this.nombrePantalla=nombrePantalla;
-        
-        initComponents();
-        datosUsuario();
-        datosActividad(ID);
-        new MoverObjeto(jPanel8);
-        
-        
-    }
+    /** 
+     * Arreglo que almacena los identificadores nesesarios para cargar los 
+     * datos en cada una de las pantallas a las que se ha accedido desde el 
+     * login para recuperar las pantallas anteriores en caso de retorno
+     */
+    String[] ID;    
+    
+    /**
+     * Objeto empleado para realizar la consultas en la base de datos
+     */
+    Statement declaracion;      
+    
+    /**
+     * Arreglo que contiene todos los componentes de la pantalla 
+     * a los cuales se les da movimineto inicial
+     */
+    Component[] objeto;
     
     
-     public void datosUsuario() {
+    /**
+     * Metodo constructor de la clase
+     * @param tipo
+     * @param retorno
+     * @param nombrePantalla
+     * @param usuario
+     * @param ID
+     * @param declaracion 
+     */
+    public FormAprendiz(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
         
-        try {
-            
-            ResultSet resultado=null;
-            
-            if("Aprendiz".equals(tipo)){resultado = declaracion.executeQuery("select Nombre,Primer_Apellido,Documento_De_Identidad  from T_Informacion_Aprendices where Documento_De_Identidad="+usuario+";");}
-            if("Instructor".equals(tipo)){resultado = declaracion.executeQuery("select Nombre,Primer_Apellido,Documento_De_Identidad  from T_Informacion_Funcionarios where Documento_De_Identidad="+usuario+" and cargo='INSTRUCTOR';");}
-            if("Administrador".equals(tipo)){resultado = declaracion.executeQuery("select Nombre,Primer_Apellido,Documento_De_Identidad  from T_Informacion_Funcionarios where Documento_De_Identidad="+usuario+" and cargo='ADMINISTRADOR';");}
-            
-            String[] campos={"Nombre","Primer_Apellido","Documento_De_Identidad"};
-            String[][] menu=new ConvertirConsulta().ArregloString(resultado,campos);
-            jLabel1.setText(menu[0][0]+" "+menu[0][1]);
-            jLabel2.setText(menu[0][2]);
-            
-        } catch (SQLException ex) {System.out.println(ex);}
+        /*
+         * Se asignan los valores de los parametros de forma global
+         */
+        this.tipo = tipo;
+        this.retorno = retorno;
+        this.usuario = usuario;
+        this.declaracion = declaracion;
+        this.ID = ID;
+        this.nombrePantalla = nombrePantalla;
+        
+        initComponents();   //Se crean los componentes graficos
+        
+        /* Se cargan y se ubican los datos del usuario */
+        new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
+        
+        datosActividad(ID);     //Se carga y se ubica la tabla de información
+        
+        /**
+         * Permite que el usuario pueda mover el panel que contiene la tabla
+         * dentro del frame con el mouse y con las flechas del teclado
+         */
+        new MoverObjeto(jPanel8); 
         
     }
     
     public void datosActividad(String[] ID){
         
-        String[][] nombres=Ficha.SeleccionarNombres(declaracion);
+        /*
+         * Se realiza la busqueda en la base de datos de los nombres de las 
+         * fichas existentes y se asigna en un arreglo bidimensional
+         */
+        String[][] nombres = Ficha.SeleccionarNombres(declaracion);
         
-        for (int i=0;i<=nombres.length-1;i++){
+        /*Se asignan los nombres de las fuchas a la lista desplegable*/
+        for (int i = 0; i <= nombres.length - 1; i++) {
         
-            this.jComboBox2.addItem(nombres[i][0]);
+            this.jComboBox2.addItem(nombres[i][0]);     //Anadir texto
             
         }
         
-        if("☺".equals(ID[ID.length-1])){
+        /*
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
+        if (!"☺".equals(ID[ID.length - 1])) {
 
-            jTextField2.setText("");
-            jPasswordField1.setText("");
-            jTextField3.setText("");
-            jTextField16.setText("");
-            jTextField17.setText("");
-            Calendario.darFecha(jDateChooser1,"01/01/1900");
-            jTextField5.setText("");
-            jTextField9.setText("");
-            jTextField10.setText("");
-            jTextField12.setText("");
-            jTextField13.setText("");
-            jTextField14.setText("");
-            jTextField15.setText("");
-
-        }else{
-
+            /*
+             * Se realiza la busqueda en la base de datos y se asigna en un 
+             * arreglo bidimensional
+             */
             String[][] lista=Aprendiz.SeleccionarPorDocumento(declaracion, ID[ID.length-1]);
 
+            /*Se asigna el documento del aprendiz*/
             jTextField2.setText(lista[0][1]);
+            
+            /*Se asigna la contraseña del aprendiz*/
             jPasswordField1.setText(lista[0][2]);
+            
+            /*Se asigna el nombre del aprendiz*/
             jTextField3.setText(lista[0][3]);
+            
+            /*Se asigna el primer apellido del aprendiz*/
             jTextField16.setText(lista[0][4]);
+            
+            /*Se asigna el segundo apellido del aprendiz*/
             jTextField17.setText(lista[0][5]);
+            
+            /*Se asigna la fecha de nacimiento del aprendiz*/
             Calendario.darFecha(jDateChooser1,lista[0][6]);
+            
+            /*Se asigna el correo electronico del aprendiz*/
             jTextField5.setText(lista[0][7]);
+            
+            /*Se asigna el genero del aprendiz*/
             jComboBox1.setSelectedItem(lista[0][8]);
+            
+            /*Se asigna la ficha del aprendiz*/
             jComboBox2.setSelectedItem(lista[0][9]);
+            
+            /*Se asigna el telefono fijo del aprendiz*/
             jTextField9.setText(lista[0][10]);
+            
+            /*Se asigna el celular del aprendiz*/
             jTextField10.setText(lista[0][11]);
+            
+            /*Se asigna el estado del aprendiz*/
             jComboBox3.setSelectedItem(lista[0][12]);
+            
+            /*Se asigna el proyecto del aprendiz*/
             jTextField12.setText(lista[0][13]);
+            
+            /*Se asignan los estilos y ritmos de aprendizaje del aprendiz*/
             jTextField13.setText(lista[0][14]);
+            
+            /*Se asigna estrategia metodologica de preferencia del aprendiz*/
             jTextField14.setText(lista[0][15]);
+            
+            /*
+             * Se asignan las caracteristicas culturales y sociales del 
+             * aprendiz
+             */
             jTextField15.setText(lista[0][16]);
 
+            /*
+             * Se verifica si el tipo de usuario que accedió al sistema es un 
+             * aprendiz
+             */
             if("Aprendiz".equals(tipo)){
             
-                jTextField2.setFocusable(false);
-                jTextField3.setFocusable(false);
-                jTextField16.setFocusable(false);
-                jTextField17.setFocusable(false);
-                jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { lista[0][9] }));
-                jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { lista[0][12] }));
+                jTextField2.setFocusable(false);    //No seleccionable
+                jTextField3.setFocusable(false);    //No seleccionable
+                jTextField16.setFocusable(false);       //No seleccionable
+                jTextField17.setFocusable(false);       //No seleccionable
+                
+                /*Se asigna un unico elemento en la lista desplegable*/
+                jComboBox2.setModel(new javax.swing
+                        .DefaultComboBoxModel(new String[] { lista[0][9] }));
+                
+                /*Se asigna un unico elemento en la lista desplegable*/
+                jComboBox3.setModel(new javax.swing
+                        .DefaultComboBoxModel(new String[] { lista[0][12] }));
             
             }
             
@@ -143,8 +202,19 @@ public final class DatosAprendiz extends javax.swing.JPanel {
     
     public void movimiento(){
         
-        Component[] objeto2={jPanel8};
-        objeto=objeto2;
+        /* Se crea el arreglo con los componentes */
+        Component[] objeto2 = {jPanel8};
+        
+        /*
+         * Se asigna el arreglo de forma global para que este se pueda 
+         * utiizar en los eventos
+         */
+        objeto = objeto2;
+        
+        /* 
+         * Permite dar un movimiento inicial a los objetos del arreglo en 
+         * forma secuencial
+         */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
     
     }
@@ -156,6 +226,7 @@ public final class DatosAprendiz extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -216,11 +287,11 @@ public final class DatosAprendiz extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 66, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel7.setOpaque(false);
@@ -888,29 +959,50 @@ public final class DatosAprendiz extends javax.swing.JPanel {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        if("PantallaInicio".equals(retorno)){
+        /* Se verifica si el retorno corresponde a la pantalla inicio.*/
+        if ("PantallaInicio".equals(retorno)) {
 
+            /* Se emplea la funcionalidad del botón "Salir" */
             jButton11ActionPerformed(evt);
 
-        }else{
+        } else {
 
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-
+            /* 
+             * Se animan los objetos para que salgan del panel y se realiza 
+             * el cambio de pantalla
+             */
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
+                                         nombrePantalla, tipo, usuario, 
+                                         Arreglo.quitar(ID), declaracion);
+            
         }
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
 
-        Component[] componentes=new Component[objeto.length+2];
-        componentes[0]=jPanel2;
-        componentes[1]=jPanel3;
+        /*
+         * Se crea un arreglo de componentes para alamcenar todos los objetos 
+         * que se van a animar al momento de la salida
+         */
+        Component[] componentes = new Component[objeto.length + 2];
+        
+        componentes[0] = jPanel2;   //Se añade el panel superior
+        componentes[1] = jPanel3;   //Se añade el panel inferior
 
-        for(int i=2;i<=componentes.length-1;i++){
-
-            componentes[i]=objeto[i-2];
+        /* Se añaden los demas objetos a los que se les dió la animación */
+        for (int i = 2; i <= componentes.length - 1; i++) {
+            componentes[i] = objeto[i - 2];       
         }
 
-        new AnimacionObjetos().RIzquierda(componentes, velocidad,this,"PantallaInicio",nombrePantalla,tipo,usuario,null,declaracion);
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
+                                     "PantallaInicio", nombrePantalla, tipo, 
+                                     usuario, null, declaracion);
+        
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -919,87 +1011,121 @@ public final class DatosAprendiz extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
-            
-        String[] datos={jTextField2.getText(),
-                        String.valueOf(jPasswordField1.getPassword()),
-                        jTextField3.getText(),
-                        jTextField16.getText(),
-                        jTextField17.getText(),
-                        Calendario.obtenerFecha(jDateChooser1),
-                        jTextField5.getText(),
-                        jComboBox1.getSelectedItem().toString(),
-                        jComboBox2.getSelectedItem().toString(),
-                        jTextField9.getText(),
-                        jTextField10.getText(),
-                        jComboBox3.getSelectedItem().toString(),
-                        jTextField12.getText(),
-                        jTextField13.getText(),
-                        jTextField14.getText(),
-                        jTextField15.getText()};
+        /*
+         * Se crea un arrelo para recojer los datos de los inputs 
+         */    
+        String[] datos = {jTextField2.getText(),
+                          String.valueOf(jPasswordField1.getPassword()),
+                          jTextField3.getText(),
+                          jTextField16.getText(),
+                          jTextField17.getText(),
+                          Calendario.obtenerFecha(jDateChooser1),
+                          jTextField5.getText(),
+                          jComboBox1.getSelectedItem().toString(),
+                          jComboBox2.getSelectedItem().toString(),
+                          jTextField9.getText(),
+                          jTextField10.getText(),
+                          jComboBox3.getSelectedItem().toString(),
+                          jTextField12.getText(),
+                          jTextField13.getText(),
+                          jTextField14.getText(),
+                          jTextField15.getText()};
         
-        if("☺".equals(ID[ID.length-1])){
+        if ("☺".equals(ID[ID.length - 1])) {
 
-            if("".equals(jTextField2.getText()) ||
-               "".equals(String.valueOf(jPasswordField1.getPassword())) ||
-               "".equals(jTextField3.getText()) ||
-               "".equals(jTextField16.getText()) ||
-               "".equals(jTextField17.getText()) ||
-               "".equals(jTextField5.getText()) ||
-               "".equals(jTextField10.getText()) ||
-               Calendario.obtenerFecha(jDateChooser1)==null){
+            /* Se verifica si los datos del formulario estan vacios */
+            if ("".equals(jTextField2.getText())
+                    || "".equals(String.valueOf(jPasswordField1.getPassword()))
+                    || "".equals(jTextField3.getText())
+                    || "".equals(jTextField16.getText())
+                    || "".equals(jTextField17.getText())
+                    || "".equals(jTextField5.getText()) 
+                    || "".equals(jTextField10.getText())
+                    || Calendario.obtenerFecha(jDateChooser1) == null) {
 
+                /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
                 "Debe diligenciar los campos obligatorios (*)", "Error", 
                 JOptionPane.ERROR_MESSAGE);
 
-            }else if(Aprendiz.VerificarDocumento(declaracion,jTextField2.getText()) || Funcionario.VerificarDocumento(declaracion,jTextField2.getText())){
-
-                JOptionPane.showMessageDialog(null,
-                "El documento seleccionado ya existe", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+            /* Se verifica si el docuemento ingresado ya existe */
+            } else if (Aprendiz.VerificarDocumento(declaracion, 
+                        jTextField2.getText()) 
+                        || Funcionario.VerificarDocumento(declaracion,
+                        jTextField2.getText())) {
+                
+                        /* Se muestra un mensaje de error */
+                        JOptionPane.showMessageDialog(null,
+                        "El documento seleccionado ya existe", "Error", 
+                        JOptionPane.ERROR_MESSAGE);
 
             }else{
 
+                /*
+                 * Se insertan los datos del aprendiz en 
+                 * la base de datos
+                 */
                 Aprendiz.Insertar(declaracion, datos);
                 
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
+                /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                        retorno + ".Ver", nombrePantalla, tipo, usuario, 
+                        Arreglo.quitar(ID), declaracion);
                 
             }
 
-        }else{
+        } else {
 
-            if("".equals(jTextField2.getText()) ||
-               "".equals(String.valueOf(jPasswordField1.getPassword())) ||
-               "".equals(jTextField3.getText()) ||
-               "".equals(jTextField16.getText()) ||
-               "".equals(jTextField17.getText()) ||
-               "".equals(jTextField5.getText()) ||
-               "".equals(jTextField10.getText()) ||
-               Calendario.obtenerFecha(jDateChooser1)==null){
+            /* Se verifica si los datos del formulario estan vacios */
+            if ("".equals(jTextField2.getText())
+                    || "".equals(String.valueOf(jPasswordField1.getPassword()))
+                    || "".equals(jTextField3.getText())
+                    || "".equals(jTextField16.getText())
+                    || "".equals(jTextField17.getText())
+                    || "".equals(jTextField5.getText()) 
+                    || "".equals(jTextField10.getText())
+                    || Calendario.obtenerFecha(jDateChooser1) == null) {
 
+                /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
                 "Debe diligenciar los campos obligatorios (*)", "Error", 
                 JOptionPane.ERROR_MESSAGE);
 
-            }else if((Aprendiz.VerificarDocumento(declaracion,jTextField2.getText()) || Funcionario.VerificarDocumento(declaracion,jTextField2.getText())) && 
-               !jTextField2.getText().equals(ID[ID.length-1])){
+            /* 
+             * Se verifica si el docuemento ingresado ya existe y es 
+             * diferente al actual
+             */
+            } else if ((Aprendiz.VerificarDocumento(declaracion, 
+                    jTextField2.getText()) 
+                    || Funcionario.VerificarDocumento(declaracion, 
+                    jTextField2.getText())) 
+                    && !jTextField2.getText().equals(ID[ID.length-1])) {
 
+                /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null, 
                 "El documento seleccionado ya existe", "Error", 
                 JOptionPane.ERROR_MESSAGE);
 
-            }else{
+            } else {
 
-                Aprendiz.ActualizarEnDocumento(declaracion, datos, ID[ID.length-1]);
+                /*
+                 * Se actualizan los datos del aprendiz en 
+                 * la base de datos
+                 */
+                Aprendiz.ActualizarEnDocumento(declaracion, datos, 
+                                               ID[ID.length-1]);
                 
-                if(usuario.equals(ID[ID.length-1])){
+                /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                        retorno, nombrePantalla, tipo, usuario, 
+                        Arreglo.quitar(ID), declaracion);
                 
-                    usuario=jTextField2.getText();
-                    
-                }
-                
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-
             }
             
         }
@@ -1008,88 +1134,137 @@ public final class DatosAprendiz extends javax.swing.JPanel {
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
         
-        RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
+        /* Dar una longitud maxima de caracteres de 18 */
         RestingirCampo.longitud(evt, jTextField2.getText().length(), 18);
+        
+        /* Restringir los caracteres no numericos */
+        RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField2KeyTyped
 
     private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
         
-        RestingirCampo.longitud(evt, String.valueOf(jPasswordField1.getPassword()).length(), 30);
+        /* Dar una longitud maxima de caracteres de 30 */
+        RestingirCampo.longitud(evt, String.valueOf(jPasswordField1
+                .getPassword()).length(), 30);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jPasswordField1KeyTyped
 
     private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 30 */
         RestingirCampo.longitud(evt, jTextField3.getText().length(), 30);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        
+        /* Restringir el caracter 32 (espacio) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
         
     }//GEN-LAST:event_jTextField3KeyTyped
 
     private void jTextField16KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField16KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 30 */
         RestingirCampo.longitud(evt, jTextField16.getText().length(), 30);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        
+        /* Restringir el caracter 32 (espacio) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
         
     }//GEN-LAST:event_jTextField16KeyTyped
 
     private void jTextField17KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField17KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 30 */
         RestingirCampo.longitud(evt, jTextField17.getText().length(), 30);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        
+        /* Restringir el caracter 32 (espacio) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
         
     }//GEN-LAST:event_jTextField17KeyTyped
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField17.getText().length(), 100);
+        /* Dar una longitud maxima de caracteres de 100 */
+        RestingirCampo.longitud(evt, jTextField5.getText().length(), 100);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        
+        /* Restringir el caracter 32 (espacio) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
         
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 18 */
         RestingirCampo.longitud(evt, jTextField9.getText().length(), 18);
+        
+        /* Restringir los caracteres no numericos*/
         RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField9KeyTyped
 
     private void jTextField10KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField10KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField9.getText().length(), 18);
+        /* Dar una longitud maxima de caracteres de 18 */
+        RestingirCampo.longitud(evt, jTextField10.getText().length(), 18);
+        
+        /* Restringir los caracteres no numericos*/
         RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField10KeyTyped
 
     private void jTextField12KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField12KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField2.getText().length(), 2147483647);
+        /* Dar una longitud maxima de caracteres de 2147483647 */
+        RestingirCampo.longitud(evt, jTextField12.getText().length(), 
+                                2147483647);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField12KeyTyped
 
     private void jTextField13KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField13KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField2.getText().length(), 2147483647);
+        /* Dar una longitud maxima de caracteres de 2147483647 */
+        RestingirCampo.longitud(evt, jTextField13.getText().length(), 
+                                2147483647);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField13KeyTyped
 
     private void jTextField14KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField14KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField2.getText().length(), 2147483647);
+        /* Dar una longitud maxima de caracteres de 2147483647 */
+        RestingirCampo.longitud(evt, jTextField14.getText().length(), 
+                                2147483647);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField14KeyTyped
 
     private void jTextField15KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField15KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField2.getText().length(), 2147483647);
+        /* Dar una longitud maxima de caracteres de 2147483647 */
+        RestingirCampo.longitud(evt, jTextField15.getText().length(), 
+                                2147483647);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField15KeyTyped
@@ -1122,6 +1297,7 @@ public final class DatosAprendiz extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel1;

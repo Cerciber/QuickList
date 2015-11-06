@@ -1,5 +1,5 @@
 /*
- * DatosActividadDeAprendizaje.java
+ * FormActividadDeAprendizaje.java
  *
  * version 1.0
  *
@@ -14,68 +14,105 @@
 
 package com.quicklist;
 
-import com.quicklist.clases.Actividad;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.ActividadDeAprendizaje;
-import com.quicklist.clases.Funcionario;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
-import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.AnimacionObjetos;
+import com.quicklist.funciones.DatosUsuario;
 import com.quicklist.funciones.RestingirCampo;
 import javax.swing.JOptionPane;
 
+/**
+ * Esta clase permite al administrador ingresar y 
+ * editar los datos de las actividades de aprendizaje 
+ */
+public final class FormActividadDeAprendizaje extends javax.swing.JPanel {
 
-public final class DatosActividadDeAprendizaje extends javax.swing.JPanel {
-
-    public String usuario;
-    Statement declaracion;
-    public Component[] objeto;
-    public int velocidad=100;
-    String retorno;
-    String tipo;
-    String[] ID;
-    String[] ID_ResultadoDeAprendizaje;
-    String nombrePantalla;
+    int velocidad = 100;    //Corrimiento de la animación de los objetos
+    String usuario;     //Documento del usuario que accede a la clase
+    String retorno;     //Ruta de acceso a la ventana anterior
+    String tipo;    //Rol del usuario que accede a la clase
+    String nombrePantalla;      //Ruta de la ventana actual
     
-    //menu de botones
-    public DatosActividadDeAprendizaje(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
-        
-        this.tipo=tipo;
-        this.retorno=retorno;
-        this.usuario=usuario;
-        this.declaracion=declaracion;
-        this.ID=ID;
-        this.nombrePantalla=nombrePantalla;
-        
-        initComponents();
-        datosUsuario();
-        datosActividad(ID);
-        new MoverObjeto(jPanel8);
-        
-        
-    }
+    /** 
+     * Arreglo que almacena los identificadores nesesarios para cargar los 
+     * datos en cada una de las pantallas a las que se ha accedido desde el 
+     * login para recuperar las pantallas anteriores en caso de retorno
+     */
+    String[] ID;    
     
+    /**
+     * Objeto empleado para realizar la consultas en la base de datos
+     */
+    Statement declaracion;      
     
-    public void datosUsuario() {
+    /**
+     * Arreglo que contiene todos los componentes de la pantalla 
+     * a los cuales se les da movimineto inicial
+     */
+    Component[] objeto;
+    
+    /**
+     * Metodo constructor de la clase
+     * @param tipo
+     * @param retorno
+     * @param nombrePantalla
+     * @param usuario
+     * @param ID
+     * @param declaracion 
+     */
+    public FormActividadDeAprendizaje(String tipo, String retorno, 
+                                      String nombrePantalla, 
+                                      String usuario, String[] ID, 
+                                      Statement declaracion) {
         
-        String[][] menu=Funcionario.SeleccionarDatosUsuario(declaracion, usuario);
-        jLabel1.setText(menu[0][0]+" "+menu[0][1]);
-        jLabel2.setText(menu[0][2]);
+        /*
+         * Se asignan los valores de los parametros de forma global
+         */
+        this.tipo = tipo;
+        this.retorno = retorno;
+        this.usuario = usuario;
+        this.declaracion = declaracion;
+        this.ID = ID;
+        this.nombrePantalla = nombrePantalla;
+        
+        initComponents();   //Se crean los componentes graficos
+        
+        /* Se cargan y se ubican los datos del usuario */
+        new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
+        
+        datosActividad(ID);     //Se carga y se ubica la tabla de información
+        
+        /**
+         * Permite que el usuario pueda mover el panel que contiene la tabla
+         * dentro del frame con el mouse y con las flechas del teclado
+         */
+        new MoverObjeto(jPanel8); 
         
     }
     
     public void datosActividad(String[] ID) {
         
-        
-        if("☺".equals(ID[ID.length-1])){
-            
-        }else{
+        /*
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
+        if (!"☺".equals(ID[ID.length - 1])) {
 
-            String[][] lista=ActividadDeAprendizaje.SeleccionarPorID(declaracion, ID[ID.length-1]);
+            /*
+             * Se realiza la busqueda en la base de datos y se asigna en un 
+             * arreglo bidimensional
+             */
+            String[][] lista = ActividadDeAprendizaje
+                    .SeleccionarPorID(declaracion, ID[ID.length-1]);
 
+            /*Se asigna la fase correspondiente a la actividad de aprendizaje*/
             jComboBox1.setSelectedItem(lista[0][1]);
+            
+            /*Se asigna el nombre de la actividad de aprendizaje*/
             jTextField2.setText(lista[0][2]);
 
         }
@@ -84,8 +121,19 @@ public final class DatosActividadDeAprendizaje extends javax.swing.JPanel {
     
     public void movimiento(){
         
-        Component[] objeto2={jPanel8};
-        objeto=objeto2;
+        /* Se crea el arreglo con los componentes */
+        Component[] objeto2 = {jPanel8};
+        
+        /*
+         * Se asigna el arreglo de forma global para que este se pueda 
+         * utiizar en los eventos
+         */
+        objeto = objeto2;
+        
+        /* 
+         * Permite dar un movimiento inicial a los objetos del arreglo en 
+         * forma secuencial
+         */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
     
     }
@@ -97,6 +145,7 @@ public final class DatosActividadDeAprendizaje extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -129,11 +178,11 @@ public final class DatosActividadDeAprendizaje extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 66, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel7.setOpaque(false);
@@ -360,29 +409,50 @@ public final class DatosActividadDeAprendizaje extends javax.swing.JPanel {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        if("PantallaInicio".equals(retorno)){
+        /* Se verifica si el retorno corresponde a la pantalla inicio.*/
+        if ("PantallaInicio".equals(retorno)) {
 
+            /* Se emplea la funcionalidad del botón "Salir" */
             jButton11ActionPerformed(evt);
 
-        }else{
+        } else {
 
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-
+            /* 
+             * Se animan los objetos para que salgan del panel y se realiza 
+             * el cambio de pantalla
+             */
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
+                                         nombrePantalla, tipo, usuario, 
+                                         Arreglo.quitar(ID), declaracion);
+            
         }
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
 
-        Component[] componentes=new Component[objeto.length+2];
-        componentes[0]=jPanel2;
-        componentes[1]=jPanel3;
+        /*
+         * Se crea un arreglo de componentes para alamcenar todos los objetos 
+         * que se van a animar al momento de la salida
+         */
+        Component[] componentes = new Component[objeto.length + 2];
+        
+        componentes[0] = jPanel2;   //Se añade el panel superior
+        componentes[1] = jPanel3;   //Se añade el panel inferior
 
-        for(int i=2;i<=componentes.length-1;i++){
-
-            componentes[i]=objeto[i-2];
+        /* Se añaden los demas objetos a los que se les dió la animación */
+        for (int i = 2; i <= componentes.length - 1; i++) {
+            componentes[i] = objeto[i - 2];       
         }
 
-        new AnimacionObjetos().RIzquierda(componentes, velocidad,this,"PantallaInicio",nombrePantalla,tipo,usuario,null,declaracion);
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
+                                     "PantallaInicio", nombrePantalla, tipo, 
+                                     usuario, null, declaracion);
+        
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -391,41 +461,82 @@ public final class DatosActividadDeAprendizaje extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
        
-        String[] datos=new String[3];
+        /*
+         * Se crea un arrelo para contener los datos de la actividad de 
+         * aprendizaje con una longitud de 3 correspondientes a identificador 
+         * de la competencia más los inputs 
+         */
+        String[] datos = new String[3];
         
-        datos[0]=ID[ID.length-2];
-        datos[1]=jComboBox1.getSelectedItem().toString();
-        datos[2]=jTextField2.getText();
+        /** Se obtiene el identificador del la competencia */
+        datos[0] = ID[ID.length-2];
         
+        /** Se obtiene el la fase de la actividad de aprendizaje */
+        datos[1] = jComboBox1.getSelectedItem().toString();
+        
+        /** Se obtiene el nombre de la actividad de aprendizaje */
+        datos[2] = jTextField2.getText();
 
-        if("☺".equals(ID[ID.length-1])){
+        /*
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
+        if ("☺".equals(ID[ID.length - 1])) {
 
-            if("".equals(jTextField2.getText())){
+            /* Se verifica si los datos del formulario estan vacios */
+            if ("".equals(jTextField2.getText())) {
 
+                /* Se muestra un mensaje de error */
                  JOptionPane.showMessageDialog(null,
                  "Debe diligenciar los campos obligatorios (*)", "Error", 
                  JOptionPane.ERROR_MESSAGE);
 
-            }else{
+            } else {
                 
+                /*
+                 * Se insertan los datos de la actividad de aprendizaje en 
+                 * la base de datos
+                 */
                 ActividadDeAprendizaje.Insertar(declaracion,datos);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno+".Ver",nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
+                
+                /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                        retorno + ".Ver", nombrePantalla, tipo, usuario, 
+                        Arreglo.quitar(ID), declaracion);
                 
             }
            
-        }else{
+        } else {
 
-            if("".equals(jTextField2.getText())){
+            /* Se verifica si los datos del formulario estan vacios */
+            if ("".equals(jTextField2.getText())) {
 
+                /* Se muestra un mensaje de error */
                  JOptionPane.showMessageDialog(null,
                  "Debe diligenciar los campos obligatorios (*)", "Error", 
                  JOptionPane.ERROR_MESSAGE);
 
             }else{
                 
-                ActividadDeAprendizaje.ActualizarEnID(declaracion, datos, ID[ID.length-1]);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-            
+                /*
+                 * Se actualizan los datos de la actividad de aprendizaje en 
+                 * la base de datos
+                 */
+                ActividadDeAprendizaje.ActualizarEnID(declaracion, datos, 
+                                                      ID[ID.length-1]);
+                
+                /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                        retorno, nombrePantalla, tipo, usuario, 
+                        Arreglo.quitar(ID), declaracion);
+                
             }
                 
         }
@@ -439,7 +550,11 @@ public final class DatosActividadDeAprendizaje extends javax.swing.JPanel {
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField2.getText().length(), 2147483647);
+        /* Dar una longitud maxima de caracteres de 2147483647 */
+        RestingirCampo.longitud(evt, jTextField2.getText().length(), 
+                                2147483647);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField2KeyTyped
@@ -457,6 +572,7 @@ public final class DatosActividadDeAprendizaje extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;

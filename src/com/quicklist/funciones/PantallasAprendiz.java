@@ -14,8 +14,8 @@
 
 package com.quicklist.funciones;
 
-import com.quicklist.DatosAprendiz;
-import com.quicklist.DatosFuncionarios;
+import com.quicklist.FormAprendiz;
+import com.quicklist.FormFuncionarios;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JPanel;
@@ -42,7 +42,7 @@ public class PantallasAprendiz {
     
             if("EditarMisDatos".equals(nombreClase)){
 
-                DatosAprendiz p = new DatosAprendiz(tipo,pantallaActual,nombreClase,usuario,Arreglo.agregar(ID, usuario),declaracion);
+                FormAprendiz p = new FormAprendiz(tipo,pantallaActual,nombreClase,usuario,Arreglo.agregar(ID, usuario),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();

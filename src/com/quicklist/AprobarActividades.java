@@ -11,7 +11,6 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist;
 
 import java.awt.Component;
@@ -20,21 +19,17 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import com.quicklist.clases.EstadoActividad;
-import com.quicklist.clases.Funcionario;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.AnimacionObjetos;
+import com.quicklist.funciones.DatosUsuario;
 import com.quicklist.funciones.UbicarLista;
 
 /**
  * Esta clase permite a los usuarios instructor y administrador aprobar 
  * las actividades requeridas para el diligenciamiento del Formato de 
  * Etapa Lectiva
- * 
- * @version 1.0 3 Nov 2015
- * @author Cesar Torres, Andres Santana, Alejandra Sierra
  */
-
 public final class AprobarActividades extends javax.swing.JPanel {
     
     int velocidad = 100;    //Corrimiento de la animación de los objetos
@@ -98,7 +93,10 @@ public final class AprobarActividades extends javax.swing.JPanel {
         this.nombrePantalla = nombrePantalla;
         
         initComponents();   //Se crean los componentes graficos
-        datosUsuario();     //Se cargan y se ubican los datos del usuario
+        
+        /* Se cargan y se ubican los datos del usuario */
+        new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
+        
         datosActividad(ID);     //Se carga y se ubica la tabla de información
         
         /**
@@ -106,27 +104,6 @@ public final class AprobarActividades extends javax.swing.JPanel {
          * dentro del frame con el mouse y con las flechas del teclado
          */
         new MoverObjeto(jPanel8); 
-        
-    }
-    
-    /**
-     * Este metodo carga y ubica los datos del usuario
-     */
-    public void datosUsuario() {
-        
-        /*
-         * Se realiza la busqueda en la base de datos y se asigna en un 
-         * arreglo bidimensional
-         */
-        String[][] menu = Funcionario.SeleccionarDatosUsuario(declaracion, 
-                                                              usuario);
-        
-        /*
-         * Se extrae el nombre, el apellido y el documento del usuario y 
-         * se ubican en la parte izquierda del panel superior
-         */
-        jLabel1.setText(menu[0][0] + " " + menu[0][1]);
-        jLabel2.setText(menu[0][2]);
         
     }
     
@@ -311,6 +288,7 @@ public final class AprobarActividades extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -342,11 +320,11 @@ public final class AprobarActividades extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 66, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel7.setOpaque(false);
@@ -605,7 +583,7 @@ public final class AprobarActividades extends javax.swing.JPanel {
     /**
      * Boton "Volver"
      * Este evento permite retornar a la pantalla desde la que 
-     * se accedió a la acual
+     * se accedió a la actual
      */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
@@ -629,6 +607,10 @@ public final class AprobarActividades extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    /**
+     * Boton "Salir"
+     * Este evento permite retornar a la pantalla de ingreso y cerrar la sesión
+     */
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
 
         /*
@@ -672,6 +654,7 @@ public final class AprobarActividades extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

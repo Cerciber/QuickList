@@ -1,5 +1,5 @@
 /*
- * DatosActividad.java
+ * DatosPlanDeEstudios.java
  *
  * version 1.0
  *
@@ -14,10 +14,11 @@
 
 package com.quicklist;
 
+import com.quicklist.clases.Actividad;
 import java.awt.Component;
 import java.sql.Statement;
-import com.quicklist.clases.Actividad;
 import com.quicklist.clases.Funcionario;
+import com.quicklist.clases.PlanDeEstudios;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
@@ -26,7 +27,7 @@ import com.quicklist.funciones.RestingirCampo;
 import javax.swing.JOptionPane;
 
 
-public final class DatosActividad extends javax.swing.JPanel {
+public final class FormPlanDeEstudios extends javax.swing.JPanel {
 
     public String usuario;
     Statement declaracion;
@@ -39,7 +40,7 @@ public final class DatosActividad extends javax.swing.JPanel {
     String nombrePantalla;
     
     //menu de botones
-    public DatosActividad(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
+    public FormPlanDeEstudios(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
         
         this.tipo=tipo;
         this.retorno=retorno;
@@ -72,17 +73,13 @@ public final class DatosActividad extends javax.swing.JPanel {
             
         }else{
 
-            String[][] lista=Actividad.SeleccionarPorID(declaracion, ID[ID.length-1]);
+            String[][] lista=PlanDeEstudios.SeleccionarPorID(declaracion, ID[ID.length-1]);
 
-            jTextField5.setText(lista[0][2]);
-            jTextField7.setText(lista[0][3]);
-            if("D".equals(lista[0][4]))jComboBox4.setSelectedItem("Digital");
-            if("F".equals(lista[0][4]))jComboBox4.setSelectedItem("Fisico");
-            if("C".equals(lista[0][5]))jComboBox5.setSelectedItem("Conocimiento");
-            if("D".equals(lista[0][5]))jComboBox5.setSelectedItem("Desempeño");
-            if("P".equals(lista[0][5]))jComboBox5.setSelectedItem("Producto");
-            Calendario.darFecha(jDateChooser1,lista[0][6]);
-
+            jTextField5.setText(lista[0][1]);
+            jTextField7.setText(lista[0][2]);
+            jTextField8.setText(lista[0][3]);
+            jTextField9.setText(lista[0][4]);
+            jComboBox5.setSelectedItem(lista[0][5]);
 
         }
 
@@ -115,10 +112,10 @@ public final class DatosActividad extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
-        jComboBox4 = new javax.swing.JComboBox();
         jComboBox5 = new javax.swing.JComboBox();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jTextField7 = new javax.swing.JTextField();
+        jTextField8 = new javax.swing.JTextField();
+        jTextField9 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
@@ -183,7 +180,7 @@ public final class DatosActividad extends javax.swing.JPanel {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(347, Short.MAX_VALUE))
+                .addContainerGap(370, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,7 +203,7 @@ public final class DatosActividad extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 102, 102));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("*Nombre Actividad");
+        jLabel15.setText("*Nombre");
         jLabel15.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel15.setOpaque(true);
 
@@ -214,7 +211,7 @@ public final class DatosActividad extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 102, 102));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("*Nombre Evidencia");
+        jLabel16.setText("*Programa");
         jLabel16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel16.setOpaque(true);
 
@@ -222,7 +219,7 @@ public final class DatosActividad extends javax.swing.JPanel {
         jLabel17.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(0, 102, 102));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("Medio");
+        jLabel17.setText("*Versión");
         jLabel17.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel17.setOpaque(true);
 
@@ -230,7 +227,7 @@ public final class DatosActividad extends javax.swing.JPanel {
         jLabel18.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 102, 102));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Tipo");
+        jLabel18.setText("*Meses Etapa Lectiva");
         jLabel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel18.setOpaque(true);
 
@@ -238,7 +235,7 @@ public final class DatosActividad extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 102, 102));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("*Entrega De Evidencia");
+        jLabel19.setText("Nivel de formación");
         jLabel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel19.setOpaque(true);
 
@@ -257,18 +254,10 @@ public final class DatosActividad extends javax.swing.JPanel {
             }
         });
 
-        jComboBox4.setBackground(new java.awt.Color(0, 153, 153));
-        jComboBox4.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
-        jComboBox4.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Digital", "Fisico" }));
-
         jComboBox5.setBackground(new java.awt.Color(0, 153, 153));
         jComboBox5.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
         jComboBox5.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Conocimiento", "Desempeño", "Producto" }));
-
-        jDateChooser1.setBackground(new java.awt.Color(0, 153, 153));
-        jDateChooser1.setOpaque(false);
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Técnico", "Tecnólogo", "Complementario" }));
 
         jTextField7.setBackground(new java.awt.Color(0, 153, 153));
         jTextField7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -282,6 +271,36 @@ public final class DatosActividad extends javax.swing.JPanel {
         jTextField7.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField7KeyTyped(evt);
+            }
+        });
+
+        jTextField8.setBackground(new java.awt.Color(0, 153, 153));
+        jTextField8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jTextField8.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField8.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField8ActionPerformed(evt);
+            }
+        });
+        jTextField8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField8KeyTyped(evt);
+            }
+        });
+
+        jTextField9.setBackground(new java.awt.Color(0, 153, 153));
+        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jTextField9.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField9ActionPerformed(evt);
+            }
+        });
+        jTextField9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField9KeyTyped(evt);
             }
         });
 
@@ -299,11 +318,11 @@ public final class DatosActividad extends javax.swing.JPanel {
                     .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
                     .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
+                    .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                    .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );
         jPanel8Layout.setVerticalGroup(
@@ -323,16 +342,20 @@ public final class DatosActividad extends javax.swing.JPanel {
                     .addComponent(jTextField7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox4))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jTextField8))
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox5))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jTextField9))
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBox5)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );
 
@@ -397,6 +420,11 @@ public final class DatosActividad extends javax.swing.JPanel {
         jButton13.setText("?");
         jButton13.setBorder(null);
         jButton13.setContentAreaFilled(false);
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
         jPanel12.add(jButton13);
 
         jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -415,12 +443,12 @@ public final class DatosActividad extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 626, Short.MAX_VALUE)
+            .addGap(0, 649, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(26, 26, 26)
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(134, Short.MAX_VALUE)))
+                    .addContainerGap(157, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,6 +475,42 @@ public final class DatosActividad extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
 
+    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField8ActionPerformed
+
+    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField9ActionPerformed
+
+    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+        
+        RestingirCampo.longitud(evt, jTextField5.getText().length(), 100);
+        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        
+    }//GEN-LAST:event_jTextField5KeyTyped
+
+    private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
+        
+        RestingirCampo.longitud(evt, jTextField7.getText().length(), 100);
+        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        
+    }//GEN-LAST:event_jTextField7KeyTyped
+
+    private void jTextField8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyTyped
+        
+        RestingirCampo.longitud(evt, jTextField8.getText().length(), 9);
+        RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
+        
+    }//GEN-LAST:event_jTextField8KeyTyped
+
+    private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
+        
+        RestingirCampo.longitud(evt, jTextField9.getText().length(), 2);
+        RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
+        
+    }//GEN-LAST:event_jTextField9KeyTyped
+
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
         if("PantallaInicio".equals(retorno)){
@@ -472,6 +536,7 @@ public final class DatosActividad extends javax.swing.JPanel {
         }
 
         new AnimacionObjetos().RIzquierda(componentes, velocidad,this,"PantallaInicio",nombrePantalla,tipo,usuario,null,declaracion);
+        
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -482,22 +547,19 @@ public final class DatosActividad extends javax.swing.JPanel {
         
         String[] datos=new String[6];
         
-        datos[0]=ID[ID.length-2];
-        datos[1]=jTextField5.getText();
-        datos[2]=jTextField7.getText();
-        if("Digital".equals(jComboBox4.getSelectedItem()))datos[3]="D";
-        if("Fisico".equals(jComboBox4.getSelectedItem()))datos[3]="F";
-        if("Conocimiento".equals(jComboBox5.getSelectedItem()))datos[4]="C";
-        if("Desempeño".equals(jComboBox5.getSelectedItem()))datos[4]="D";
-        if("Producto".equals(jComboBox5.getSelectedItem()))datos[4]="P";
-        datos[5]=Calendario.obtenerFecha(jDateChooser1);
+        datos[0]=jTextField5.getText();
+        datos[1]=jTextField7.getText();
+        datos[2]=jTextField8.getText();
+        datos[3]=jTextField9.getText();
+        datos[4]=jComboBox5.getSelectedItem().toString();
         
 
         if("☺".equals(ID[ID.length-1])){
 
             if("".equals(jTextField5.getText()) ||
                "".equals(jTextField7.getText()) ||
-               Calendario.obtenerFecha(jDateChooser1)==null){
+               "".equals(jTextField8.getText()) ||
+               "".equals(jTextField9.getText())){
 
                  JOptionPane.showMessageDialog(null,
                  "Debe diligenciar los campos obligatorios (*)", "Error", 
@@ -505,17 +567,17 @@ public final class DatosActividad extends javax.swing.JPanel {
 
             }else{
                 
-                Actividad.Insertar(declaracion,ID,datos);
+                PlanDeEstudios.Insertar(declaracion,datos);
                 new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno+".Ver",nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-                
+
             }
-            
-                
+  
         }else{
 
             if("".equals(jTextField5.getText()) ||
                "".equals(jTextField7.getText()) ||
-               Calendario.obtenerFecha(jDateChooser1)==null){
+               "".equals(jTextField8.getText()) ||
+               "".equals(jTextField9.getText())){
 
                  JOptionPane.showMessageDialog(null,
                  "Debe diligenciar los campos obligatorios (*)", "Error", 
@@ -523,29 +585,18 @@ public final class DatosActividad extends javax.swing.JPanel {
 
             }else{
                 
-                Actividad.ActualizarEnID(declaracion, datos, ID[ID.length-1]);
+                PlanDeEstudios.ActualizarEnID(declaracion, datos, ID[ID.length-1]);
                 new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
             
             }
                 
         }
-
-        
+       
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
-        
-        RestingirCampo.longitud(evt, jTextField5.getText().length(), 100);
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
-        
-    }//GEN-LAST:event_jTextField5KeyTyped
-
-    private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
-       
-        RestingirCampo.longitud(evt, jTextField7.getText().length(), 100);
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
-        
-    }//GEN-LAST:event_jTextField7KeyTyped
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -555,9 +606,7 @@ public final class DatosActividad extends javax.swing.JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -574,5 +623,7 @@ public final class DatosActividad extends javax.swing.JPanel {
     public javax.swing.JPanel jPanel8;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }

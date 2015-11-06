@@ -323,8 +323,8 @@ public class PantallaInicio extends javax.swing.JPanel {
         
         try {
             
-                                                            //"jdbc:sqlserver://CERCIBER\\SQLEXPRESS:1433;databaseName=BaseDeDatosQuickList
-            Connection conexion= DriverManager.getConnection("jdbc:sqlserver://CERCIBER\\SQLEXPRESS:1433;databaseName=BaseDeDatosQuickList","cerciber","123456789");
+            //Connection conexion= DriverManager.getConnection("jdbc:sqlserver://CERCIBER\\SQLEXPRESS:1433;databaseName=BaseDeDatosQuickList","quicklistcerciber","123456789");
+            Connection conexion= DriverManager.getConnection("jdbc:sqlserver://BaseDeDatosQuickList.mssql.somee.com;databaseName=BaseDeDatosQuickList","quicklistcerciber","123456789");
             declaracion = conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
             ResultSet resultado;
             

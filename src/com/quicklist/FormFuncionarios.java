@@ -25,7 +25,7 @@ import com.quicklist.funciones.AnimacionObjetos;
 import com.quicklist.funciones.RestingirCampo;
 
 
-public final class DatosFuncionarios extends javax.swing.JPanel {
+public final class FormFuncionarios extends javax.swing.JPanel {
 
     public String usuario;
     Statement declaracion;
@@ -37,7 +37,7 @@ public final class DatosFuncionarios extends javax.swing.JPanel {
     String nombrePantalla;
     
     //menu de botones
-    public DatosFuncionarios(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
+    public FormFuncionarios(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
         
         this.tipo=tipo;
         this.retorno=retorno;

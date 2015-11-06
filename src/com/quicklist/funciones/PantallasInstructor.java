@@ -16,10 +16,10 @@ package com.quicklist.funciones;
 
 import com.quicklist.AprobarActividades;
 import com.quicklist.Confirmacion;
-import com.quicklist.DatosActividad;
-import com.quicklist.DatosAprendiz;
-import com.quicklist.DatosFormacion;
-import com.quicklist.DatosFuncionarios;
+import com.quicklist.FormActividad;
+import com.quicklist.FormAprendiz;
+import com.quicklist.FormFormacion;
+import com.quicklist.FormFuncionarios;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JPanel;
@@ -44,7 +44,7 @@ public class PantallasInstructor {
 
             if("EditarMisDatos".equals(nombreClase)){
                 
-                DatosFuncionarios p = new DatosFuncionarios(tipo,pantallaActual,nombreClase,usuario,Arreglo.agregar(ID, usuario),declaracion);
+                FormFuncionarios p = new FormFuncionarios(tipo,pantallaActual,nombreClase,usuario,Arreglo.agregar(ID, usuario),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -194,7 +194,7 @@ public class PantallasInstructor {
                 String retorno="Instructor.Fichas.Horario.Menu.Asistencia.Ver";
                 String vinculo="Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar.siguiente";
                 
-                DatosFormacion p = new DatosFormacion(tipo,vinculo,retorno,nombreClase,usuario,ID,declaracion);
+                FormFormacion p = new FormFormacion(tipo,vinculo,retorno,nombreClase,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -241,7 +241,7 @@ public class PantallasInstructor {
                 String retorno="Instructor.Fichas.Horario.Menu.Asistencia";
                 String vinculo="Instructor.Fichas.Horario.Menu.Asistencia.Ingresar.Siguiente";
                 
-                DatosFormacion p = new DatosFormacion(tipo,vinculo,retorno,nombreClase,usuario,Arreglo.agregar(Arreglo.quitar(ID),"☺"),declaracion);
+                FormFormacion p = new FormFormacion(tipo,vinculo,retorno,nombreClase,usuario,Arreglo.agregar(Arreglo.quitar(ID),"☺"),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -298,7 +298,7 @@ public class PantallasInstructor {
 
                 String retorno="Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver";
                 
-                DatosActividad p = new DatosActividad(tipo,retorno,nombreClase,usuario,ID,declaracion);
+                FormActividad p = new FormActividad(tipo,retorno,nombreClase,usuario,ID,declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -345,7 +345,7 @@ public class PantallasInstructor {
 
                 String retorno="Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva";
                 
-                DatosActividad p = new DatosActividad(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
+                FormActividad p = new FormActividad(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
