@@ -11,7 +11,6 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist;
 
 import java.awt.Component;

@@ -11,7 +11,6 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist;
 
 import java.awt.Component;
@@ -24,7 +23,10 @@ import com.quicklist.funciones.DatosUsuario;
 import com.quicklist.funciones.RestingirCampo;
 import javax.swing.JOptionPane;
 
-
+/**
+ * Esta clase permite al administrador ingresar y 
+ * editar una competencia especifica
+ */
 public final class FormCompetencia extends javax.swing.JPanel {
 
     int velocidad = 100;    //Corrimiento de la animación de los objetos
