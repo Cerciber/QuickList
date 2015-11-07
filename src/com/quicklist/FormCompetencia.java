@@ -1,5 +1,5 @@
 /*
- * DatosCompetencia.java
+ * FormCompetencia.java
  *
  * version 1.0
  *
@@ -104,7 +104,7 @@ public final class FormCompetencia extends javax.swing.JPanel {
              * arreglo bidimensional
              */
             String[][] lista = Competencia.SeleccionarPorID(declaracion, 
-                                                            ID[ID.length-1]);
+                                                            ID[ID.length - 1]);
 
             /* Se asigna el nombre de la competencia */
             jTextField5.setText(lista[0][2]);
@@ -113,7 +113,7 @@ public final class FormCompetencia extends javax.swing.JPanel {
 
     }
     
-    public void movimiento(){
+    public void movimiento() {
         
         /* Se crea el arreglo con los componentes */
         Component[] objeto2 = {jPanel8};
@@ -449,7 +449,7 @@ public final class FormCompetencia extends javax.swing.JPanel {
          * identificadores lo que identifica que se esta haciendo una insersión
          * y no una actualización.
          */
-        if ("☺".equals(ID[ID.length-1])) {
+        if ("☺".equals(ID[ID.length - 1])) {
 
             /* Se verifica si los datos del formulario estan vacios */
             if ("".equals(jTextField5.getText())) {
@@ -465,7 +465,7 @@ public final class FormCompetencia extends javax.swing.JPanel {
                  * Se insertan los datos de la competencia en 
                  * la base de datos
                  */
-                Competencia.Insertar(declaracion,datos);
+                Competencia.Insertar(declaracion, datos);
                 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 

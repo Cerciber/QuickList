@@ -1,5 +1,5 @@
 /*
- * DatosFicha.java
+ * FormFicha.java
  *
  * version 1.0
  *
@@ -11,7 +11,6 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist;
 
 import java.awt.Component;
@@ -24,78 +23,148 @@ import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.AnimacionObjetos;
+import com.quicklist.funciones.DatosUsuario;
 
-
+/**
+ * Esta clase permite al administrador ingresar y 
+ * editar la informacion de una ficha especifica
+ */
 public final class FormFicha extends javax.swing.JPanel {
 
-    public String usuario;
-    Statement declaracion;
-    public Component[] objeto;
-    public int velocidad=100;
-    String retorno;
-    String tipo;
-    String[] ID;
+    int velocidad = 100;    //Corrimiento de la animación de los objetos
+    String usuario;     //Documento del usuario que accede a la clase
+    String retorno;     //Ruta de acceso a la ventana anterior
+    String tipo;    //Rol del usuario que accede a la clase
+    String nombrePantalla;      //Ruta de la ventana actual
+    
+    /** 
+     * Arreglo que almacena los identificadores nesesarios para cargar los 
+     * datos en cada una de las pantallas a las que se ha accedido desde el 
+     * login para recuperar las pantallas anteriores en caso de retorno
+     */
+    String[] ID;    
+    
+    /**
+     * Objeto empleado para realizar la consultas en la base de datos
+     */
+    Statement declaracion;      
+    
+    /**
+     * Arreglo que contiene todos los componentes de la pantalla 
+     * a los cuales se les da movimineto inicial
+     */
+    Component[] objeto;
+    
+    /**
+     * Arreglo que contiene todos los identificadores de los planes de estudio 
+     * existentes
+     */
     String[] ID_Plan_De_Estudios;
-    String nombrePantalla;
     
-    //menu de botones
-    public FormFicha(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
+    /**
+     * Metodo constructor de la clase
+     * @param tipo
+     * @param retorno
+     * @param nombrePantalla
+     * @param usuario
+     * @param ID
+     * @param declaracion 
+     */
+    public FormFicha(String tipo, String retorno, String nombrePantalla, 
+                     String usuario, String[] ID, Statement declaracion) {
         
-        this.tipo=tipo;
-        this.retorno=retorno;
-        this.usuario=usuario;
-        this.declaracion=declaracion;
-        this.ID=ID;
-        this.nombrePantalla=nombrePantalla;
+        /*
+         * Se asignan los valores de los parametros de forma global
+         */
+        this.tipo = tipo;
+        this.retorno = retorno;
+        this.usuario = usuario;
+        this.declaracion = declaracion;
+        this.ID = ID;
+        this.nombrePantalla = nombrePantalla;
         
-        initComponents();
-        datosUsuario();
-        datosActividad(ID);
-        new MoverObjeto(jPanel8);
+        initComponents();   //Se crean los componentes graficos
         
+        /* Se cargan y se ubican los datos del usuario */
+        new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
         
-    }
-    
-    
-    public void datosUsuario() {
+        datosActividad(ID);     //Se carga y se ubica la tabla de información
         
-        String[][] menu=Funcionario.SeleccionarDatosUsuario(declaracion, usuario);
-        jLabel1.setText(menu[0][0]+" "+menu[0][1]);
-        jLabel2.setText(menu[0][2]);
+        /**
+         * Permite que el usuario pueda mover el panel que contiene la tabla
+         * dentro del frame con el mouse y con las flechas del teclado
+         */
+        new MoverObjeto(jPanel8); 
         
     }
     
     public void datosActividad(String[] ID) {
         
-        String[][] nombres=PlanDeEstudios.SeleccionarNombres(declaracion);
+        /* Se seleccionan los planes de estudios existentes y se almacenan 
+         * en un arreglo bidimencional
+         */
+        String[][] nombres = PlanDeEstudios.SeleccionarNombres(declaracion);
+        
+        /* Se instancia la varible global para almacenar los ID de los planes 
+         * de estudio 
+         */
         ID_Plan_De_Estudios = new String [nombres.length];
         
-        for (int i=0;i<=nombres.length-1;i++){
+        /* Se guargan los IDs en el arreglo para ubiar el item seleccionado 
+         * y se asignan los nombres en la lista desplegable
+         */
+        for (int i = 0; i <= nombres.length - 1; i++) {
         
             ID_Plan_De_Estudios[i]=nombres[i][0];
             this.jComboBox1.addItem(nombres[i][1]);
             
         }
         
-        if("☺".equals(ID[ID.length-1])){
+        /*
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
+        if (!"☺".equals(ID[ID.length - 1])) {
 
-        }else{
+            /*
+             * Se realiza la busqueda en la base de datos y se asigna en un 
+             * arreglo bidimensional
+             */
+            String[][] lista = Ficha.SeleccionarPorID(declaracion, 
+                                                      ID[ID.length - 1]);
 
-            String[][] lista=Ficha.SeleccionarPorID(declaracion, ID[ID.length-1]);
-
+            /* Se asigna el numero de la ficha */
             jTextField2.setText(lista[0][1]);
+            
+            /* Se asigna el nombre del plan de estudios */
             jComboBox1.setSelectedItem(lista[0][2]);
+            
+            /* Se asigna la fecha de inicio */
             Calendario.darFecha(jDateChooser1,lista[0][3]);
+            
+            /* Se asigna la fecha de finalización */
             Calendario.darFecha(jDateChooser2,lista[0][4]);
            
         }
 
     }
     
-    public void movimiento(){
+    public void movimiento() {
         
-        Component[] objeto2={jPanel8};
-        objeto=objeto2;
+        /* Se crea el arreglo con los componentes */
+        Component[] objeto2 = {jPanel8};
+        
+        /*
+         * Se asigna el arreglo de forma global para que este se pueda 
+         * utiizar en los eventos
+         */
+        objeto = objeto2;
+        
+        /* 
+         * Permite dar un movimiento inicial a los objetos del arreglo en 
+         * forma secuencial
+         */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
     
     }
@@ -107,6 +176,7 @@ public final class FormFicha extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -143,11 +213,11 @@ public final class FormFicha extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 66, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel7.setOpaque(false);
@@ -406,29 +476,50 @@ public final class FormFicha extends javax.swing.JPanel {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        if("PantallaInicio".equals(retorno)){
+        /* Se verifica si el retorno corresponde a la pantalla inicio.*/
+        if ("PantallaInicio".equals(retorno)) {
 
+            /* Se emplea la funcionalidad del botón "Salir" */
             jButton11ActionPerformed(evt);
 
-        }else{
+        } else {
 
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-
+            /* 
+             * Se animan los objetos para que salgan del panel y se realiza 
+             * el cambio de pantalla
+             */
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
+                                         nombrePantalla, tipo, usuario, 
+                                         Arreglo.quitar(ID), declaracion);
+            
         }
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
 
-        Component[] componentes=new Component[objeto.length+2];
-        componentes[0]=jPanel2;
-        componentes[1]=jPanel3;
+        /*
+         * Se crea un arreglo de componentes para alamcenar todos los objetos 
+         * que se van a animar al momento de la salida
+         */
+        Component[] componentes = new Component[objeto.length + 2];
+        
+        componentes[0] = jPanel2;   //Se añade el panel superior
+        componentes[1] = jPanel3;   //Se añade el panel inferior
 
-        for(int i=2;i<=componentes.length-1;i++){
-
-            componentes[i]=objeto[i-2];
+        /* Se añaden los demas objetos a los que se les dió la animación */
+        for (int i = 2; i <= componentes.length - 1; i++) {
+            componentes[i] = objeto[i - 2];       
         }
 
-        new AnimacionObjetos().RIzquierda(componentes, velocidad,this,"PantallaInicio",nombrePantalla,tipo,usuario,null,declaracion);
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
+                                     "PantallaInicio", nombrePantalla, tipo, 
+                                     usuario, null, declaracion);
+        
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -437,54 +528,96 @@ public final class FormFicha extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
-        String[] datos={jTextField2.getText(),
+        /*
+         * Se crea un arrelo con cada uno de los datos de la ficha obtenidos 
+         * del formulario
+         */
+        String[] datos = {jTextField2.getText(),
             ID_Plan_De_Estudios[jComboBox1.getSelectedIndex()],
             Calendario.obtenerFecha(jDateChooser1),
             Calendario.obtenerFecha(jDateChooser2)};
 
-        if("☺".equals(ID[ID.length-1])){
+        /*
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
+        if ("☺".equals(ID[ID.length-1])) {
 
-            if("".equals(jTextField2.getText()) ||
-               Calendario.obtenerFecha(jDateChooser1)==null ||
-               Calendario.obtenerFecha(jDateChooser2)==null){
+            /* Se verifica si los datos del formulario estan vacios */
+            if ("".equals(jTextField2.getText())
+                || Calendario.obtenerFecha(jDateChooser1) == null
+                || Calendario.obtenerFecha(jDateChooser2) == null) {
 
-                 JOptionPane.showMessageDialog(null,
-                 "Debe diligenciar los campos obligatorios (*)", "Error", 
-                 JOptionPane.ERROR_MESSAGE);
-
-            }else if(Ficha.VerificarID(declaracion,jTextField2.getText())){
-
+                /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
-                    "La Ficha seleccionada ya existe", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                "Debe diligenciar los campos obligatorios (*)", "Error", 
+                JOptionPane.ERROR_MESSAGE);
 
-            }else{
+            /* Se verifica si la ficha ingresada ya existe */
+            } else if (Ficha.VerificarID(declaracion, jTextField2.getText())) {
 
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                "La Ficha seleccionada ya existe", "Error",
+                JOptionPane.ERROR_MESSAGE);
+
+            } else {
+
+                /*
+                 * Se insertan los datos de la ficha en 
+                 * la base de datos
+                 */
                 Ficha.Insertar(declaracion, datos);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno+".Ver",nombrePantalla,tipo,usuario,ID,declaracion);
+                
+                /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                        retorno + ".Ver", nombrePantalla, tipo, usuario, 
+                        Arreglo.quitar(ID), declaracion);
             }
 
-        }else{
+        } else {
 
-            if("".equals(jTextField2.getText()) ||
-               Calendario.obtenerFecha(jDateChooser1)==null ||
-               Calendario.obtenerFecha(jDateChooser2)==null){
+            /* Se verifica si los datos del formulario estan vacios */
+            if ("".equals(jTextField2.getText())
+                    || Calendario.obtenerFecha(jDateChooser1) == null
+                    || Calendario.obtenerFecha(jDateChooser2) == null) {
 
-                 JOptionPane.showMessageDialog(null,
-                 "Debe diligenciar los campos obligatorios (*)", "Error", 
-                 JOptionPane.ERROR_MESSAGE);
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                "Debe diligenciar los campos obligatorios (*)", "Error", 
+                JOptionPane.ERROR_MESSAGE);
 
-            }else if(Ficha.VerificarID(declaracion,jTextField2.getText()) &&
-                !jTextField2.getText().equals(ID[ID.length-1])){
+            /* 
+             * Se verifica si la ficha ingresada ya existe y si es diferente a 
+             * la cargada inicialmente
+             */
+            }else if(Ficha.VerificarID(declaracion,jTextField2.getText())
+                    && !jTextField2.getText().equals(ID[ID.length-1])){
 
+                /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
                     "La Ficha seleccionada ya existe", "Error",
                     JOptionPane.ERROR_MESSAGE);
 
-            }else{
+            } else {
 
-                Ficha.ActualizarEnID(declaracion, datos, ID[ID.length-1]);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
+                /*
+                 * Se actualizan los datos de la ficha en 
+                 * la base de datos
+                 */
+                Ficha.ActualizarEnID(declaracion, datos, ID[ID.length - 1]);
+                
+                /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                        retorno, nombrePantalla, tipo, usuario, 
+                        Arreglo.quitar(ID), declaracion);
 
             }
 
@@ -508,6 +641,7 @@ public final class FormFicha extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;

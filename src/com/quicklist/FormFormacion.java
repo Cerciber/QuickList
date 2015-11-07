@@ -14,7 +14,6 @@
 
 package com.quicklist;
 
-import com.quicklist.clases.Ficha;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Formacion;
@@ -23,67 +22,115 @@ import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.AnimacionObjetos;
+import com.quicklist.funciones.DatosUsuario;
 import javax.swing.JOptionPane;
 
-
+/**
+ * Esta clase permite al administrador ingresar y 
+ * editar la fecha de una formación especifica
+ */
 public final class FormFormacion extends javax.swing.JPanel {
 
-    public String usuario;
-    Statement declaracion;
-    public Component[] objeto;
-    public int velocidad=100;
-    String vinculo;
-    String fecha;
-    String retorno;
-    String tipo;
-    String[] ID;
-    String[] ID_ResultadoDeAprendizaje;
-    String nombrePantalla;
+    int velocidad = 100;    //Corrimiento de la animación de los objetos
+    String usuario;     //Documento del usuario que accede a la clase
+    String vinculo;     //Ruta de acceso a la ventana siguiente
+    String retorno;     //Ruta de acceso a la ventana anterior
+    String tipo;    //Rol del usuario que accede a la clase
+    String nombrePantalla;      //Ruta de la ventana actual
+    String fecha;       //Fecha de la formación cargada
     
-    //menu de botones
-    public FormFormacion(String tipo, String vinculo, String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
+    /** 
+     * Arreglo que almacena los identificadores nesesarios para cargar los 
+     * datos en cada una de las pantallas a las que se ha accedido desde el 
+     * login para recuperar las pantallas anteriores en caso de retorno
+     */
+    String[] ID;    
+    
+    /**
+     * Objeto empleado para realizar la consultas en la base de datos
+     */
+    Statement declaracion;      
+    
+    /**
+     * Arreglo que contiene todos los componentes de la pantalla 
+     * a los cuales se les da movimineto inicial
+     */
+    Component[] objeto;
+    
+    /**
+     * Metodo constructor de la clase
+     * @param tipo
+     * @param vinculo
+     * @param retorno
+     * @param nombrePantalla
+     * @param usuario
+     * @param ID
+     * @param declaracion 
+     */
+    public FormFormacion(String tipo, String vinculo, String retorno, 
+                         String nombrePantalla, String usuario, String[] ID, 
+                         Statement declaracion) {
         
-        this.tipo=tipo;
-        this.retorno=retorno;
-        this.vinculo=vinculo;
-        this.usuario=usuario;
-        this.declaracion=declaracion;
-        this.ID=ID;
-        this.nombrePantalla=nombrePantalla;
+        /*
+         * Se asignan los valores de los parametros de forma global
+         */
+        this.tipo = tipo;
+        this.retorno = retorno;
+        this.vinculo = vinculo;
+        this.usuario = usuario;
+        this.declaracion = declaracion;
+        this.ID = ID;
+        this.nombrePantalla = nombrePantalla;
         
-        initComponents();
-        datosUsuario();
-        datosActividad(ID);
-        new MoverObjeto(jPanel8);
+        initComponents();   //Se crean los componentes graficos
         
-        for(int i=0;i<=ID.length-1;i++)
-        {System.out.print(ID[i]+" ");}
+        /* Se cargan y se ubican los datos del usuario */
+        new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
+        
+        datosActividad(ID);     //Se carga y se ubica la tabla de información
+        
+        /**
+         * Permite que el usuario pueda mover el panel que contiene la tabla
+         * dentro del frame con el mouse y con las flechas del teclado
+         */
+        new MoverObjeto(jPanel8); 
+        
+        /**
+        * Se imprime el arreglo de identificadores en la consola serial.
+        * Esta parte es exclusiva para informar el estado de la aplicación 
+        * y no posee ninguna funcionalidad
+        */
+        for (int i = 0; i <= ID.length - 1; i++) {
+            
+            System.out.print(ID[i] + " ");
+            
+        }
+        
         System.out.println();
-        
-        
-    }
-    
-    
-    public void datosUsuario() {
-        
-        String[][] menu=Funcionario.SeleccionarDatosUsuario(declaracion, usuario);
-        jLabel1.setText(menu[0][0]+" "+menu[0][1]);
-        jLabel2.setText(menu[0][2]);
         
     }
     
     public void datosActividad(String[] ID) {
         
-        
-        if("☺".equals(ID[ID.length-1])){
+        /*
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
+        if (!"☺".equals(ID[ID.length - 1])) {
+
+            /*
+             * Se realiza la busqueda en la base de datos y se asigna en un 
+             * arreglo bidimensional
+             */
+            String[][] lista = Formacion.SeleccionarPorID(declaracion, 
+                                                          ID[ID.length - 1]);
+
+            /* Se asigna la fecha de la formación en el formulario */
+            Calendario.darFecha(jDateChooser1, lista[0][2]);
             
-        }else{
-
-            String[][] lista=Formacion.SeleccionarPorID(declaracion, ID[ID.length-1]);
-
-            Calendario.darFecha(jDateChooser1,lista[0][2]);
-            fecha=Calendario.obtenerFecha(jDateChooser1);
-
+            /* Se asigna la fecha de la formación en la variable global */
+            fecha = Calendario.obtenerFecha(jDateChooser1);
 
         }
 
@@ -91,8 +138,19 @@ public final class FormFormacion extends javax.swing.JPanel {
     
     public void movimiento(){
         
-        Component[] objeto2={jPanel8};
-        objeto=objeto2;
+        /* Se crea el arreglo con los componentes */
+        Component[] objeto2 = {jPanel8};
+        
+        /*
+         * Se asigna el arreglo de forma global para que este se pueda 
+         * utiizar en los eventos
+         */
+        objeto = objeto2;
+        
+        /* 
+         * Permite dar un movimiento inicial a los objetos del arreglo en 
+         * forma secuencial
+         */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
     
     }
@@ -103,12 +161,8 @@ public final class FormFormacion extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -132,52 +186,6 @@ public final class FormFormacion extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jPanel4.setOpaque(false);
-        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
-
-        jButton1.setFont(new java.awt.Font("Segoe UI Symbol", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 204, 204));
-        jButton1.setText("☼");
-        jButton1.setBorder(null);
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jButton1);
-
-        jButton2.setFont(new java.awt.Font("Segoe UI Symbol", 1, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 204, 204));
-        jButton2.setText("?");
-        jButton2.setBorder(null);
-        jButton2.setContentAreaFilled(false);
-        jPanel4.add(jButton2);
-
-        jButton3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 204, 204));
-        jButton3.setText("Volver");
-        jButton3.setBorder(null);
-        jButton3.setContentAreaFilled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jButton3);
-
-        jButton4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(0, 204, 204));
-        jButton4.setText("Salir");
-        jButton4.setBorder(null);
-        jButton4.setContentAreaFilled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jButton4);
-
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel6.setOpaque(false);
 
@@ -185,11 +193,11 @@ public final class FormFormacion extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 66, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel7.setOpaque(false);
@@ -227,15 +235,10 @@ public final class FormFormacion extends javax.swing.JPanel {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -386,64 +389,53 @@ public final class FormFormacion extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       
-        if("PantallaInicio".equals(retorno)){
-        
-            jButton4ActionPerformed(evt);
-            
-        }else{
-        
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(Arreglo.quitar(ID)),declaracion);
-        
-        }
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-  
-        Component[] componentes=new Component[objeto.length+2];
-        componentes[0]=jPanel2;
-        componentes[1]=jPanel3;
-        
-        for(int i=2;i<=componentes.length-1;i++){
-        
-            componentes[i]=objeto[i-2];
-        }
-        
-        new AnimacionObjetos().RIzquierda(componentes, velocidad,this,"PantallaInicio",nombrePantalla,tipo,usuario,ID,declaracion);
-        
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        if("PantallaInicio".equals(retorno)){
+        /* Se verifica si el retorno corresponde a la pantalla inicio.*/
+        if ("PantallaInicio".equals(retorno)) {
 
+            /* Se emplea la funcionalidad del botón "Salir" */
             jButton11ActionPerformed(evt);
 
-        }else{
+        } else {
 
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);          
-
+            /* 
+             * Se animan los objetos para que salgan del panel y se realiza 
+             * el cambio de pantalla
+             */
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
+                                         nombrePantalla, tipo, usuario, 
+                                         Arreglo.quitar(ID), declaracion);
+            
         }
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
 
-        Component[] componentes=new Component[objeto.length+2];
-        componentes[0]=jPanel2;
-        componentes[1]=jPanel3;
+        /*
+         * Se crea un arreglo de componentes para alamcenar todos los objetos 
+         * que se van a animar al momento de la salida
+         */
+        Component[] componentes = new Component[objeto.length + 2];
+        
+        componentes[0] = jPanel2;   //Se añade el panel superior
+        componentes[1] = jPanel3;   //Se añade el panel inferior
 
-        for(int i=2;i<=componentes.length-1;i++){
-
-            componentes[i]=objeto[i-2];
+        /* Se añaden los demas objetos a los que se les dió la animación */
+        for (int i = 2; i <= componentes.length - 1; i++) {
+            componentes[i] = objeto[i - 2];       
         }
 
-        new AnimacionObjetos().RIzquierda(componentes, velocidad,this,"PantallaInicio",nombrePantalla,tipo,usuario,null,declaracion);
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
+                                     "PantallaInicio", nombrePantalla, tipo, 
+                                     usuario, null, declaracion);
+        
+        
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -452,53 +444,107 @@ public final class FormFormacion extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         
-        String[] datos=new String[6];
+        /*
+         * Se crea un arrelo para contener los datos de la formación
+         * con una longitud de 2 correspondientes a identificador del horario
+         * más la fecha de la formación
+         */
+        String[] datos=new String[2];
         
+        /** Se obtiene el identificador del horario */
         datos[0]=ID[ID.length-2];
+        
+        /** Se obtiene la fecha de la formación */
         datos[1]=Calendario.obtenerFecha(jDateChooser1);
         
+        /*
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
+        if ("☺".equals(ID[ID.length - 1])) {
 
-        if("☺".equals(ID[ID.length-1])){
+            /* Se verifica si los datos del formulario estan vacios */
+            if (Calendario.obtenerFecha(jDateChooser1) == null) {
 
-            if(Calendario.obtenerFecha(jDateChooser1)==null){
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                "Debe diligenciar los campos obligatorios (*)", "Error", 
+                JOptionPane.ERROR_MESSAGE);
 
-                 JOptionPane.showMessageDialog(null,
-                 "Debe diligenciar los campos obligatorios (*)", "Error", 
-                 JOptionPane.ERROR_MESSAGE);
+            /* 
+             * Se verifica si la fecha de formación ya existe en el horario 
+             * actual 
+             */
+            } else if (Formacion.VerificarFecha(declaracion, datos[1], 
+                                                ID[ID.length - 2])) {
 
-            }else if(Formacion.VerificarFecha(declaracion, datos[1], ID[ID.length-2])){
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                "La Fecha seleccionada ya existe", "Error",
+                JOptionPane.ERROR_MESSAGE);
 
-                    JOptionPane.showMessageDialog(null,
-                    "La Fecha seleccionada ya existe", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            } else {
 
-            }else{
-
-                Formacion.Insertar(declaracion,ID,datos);
+                /*
+                 * Se insertan los datos de la formación en 
+                 * la base de datos
+                 */
+                Formacion.Insertar(declaracion, ID, datos);
+                
+                /* 
+                 * Se selecciona el horario ingresado para obetener el 
+                 * identificador
+                 */
                 String dato = Formacion.SeleccionarUltimoRegistro(declaracion);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,vinculo,nombrePantalla,tipo,usuario,Arreglo.agregar(ID,dato),declaracion);
+                
+                /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                        vinculo, nombrePantalla, tipo, usuario, 
+                        Arreglo.agregar(ID, dato), declaracion);
 
             }
                 
-        }else{
+        } else {
 
-            if(Calendario.obtenerFecha(jDateChooser1)==null){
+            /* Se verifica si los datos del formulario estan vacios */
+            if (Calendario.obtenerFecha(jDateChooser1) == null) {
 
-                 JOptionPane.showMessageDialog(null,
-                 "Debe diligenciar los campos obligatorios (*)", "Error", 
-                 JOptionPane.ERROR_MESSAGE);
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                "Debe diligenciar los campos obligatorios (*)", "Error", 
+                JOptionPane.ERROR_MESSAGE);
 
-            }else if(Formacion.VerificarFecha(declaracion, datos[1], ID[ID.length-2]) &&
-                    (!fecha.equals(datos[1]))){
+            /* 
+             * Se verifica si la fecha seleccionada ya existe y es diferente 
+             * a la actual
+             */
+            } else if (Formacion.VerificarFecha(declaracion, datos[1], 
+                    ID[ID.length - 2]) && (!fecha.equals(datos[1]))) {
 
-                    JOptionPane.showMessageDialog(null,
-                    "La Fecha seleccionada ya existe", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                "La Fecha seleccionada ya existe", "Error",
+                JOptionPane.ERROR_MESSAGE);
 
-            }else {
+            } else {
 
-                Formacion.ActualizarEnID(declaracion, datos, ID[ID.length-2]);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,vinculo,nombrePantalla,tipo,usuario,Arreglo.agregar(ID),declaracion);
+                /*
+                 * Se actualizan los datos de la formación en 
+                 * la base de datos
+                 */
+                Formacion.ActualizarEnID(declaracion, datos, ID[ID.length - 2]);
+                
+                /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                        vinculo, nombrePantalla, tipo, usuario, 
+                        Arreglo.agregar(ID), declaracion);
             
             } 
                 
@@ -508,13 +554,9 @@ public final class FormFormacion extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -522,11 +564,11 @@ public final class FormFormacion extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     public javax.swing.JPanel jPanel8;

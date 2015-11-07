@@ -1,5 +1,5 @@
 /*
- * DatosFuncionarios.java
+ * FormFuncionarios.java
  *
  * version 1.0
  *
@@ -11,7 +11,6 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist;
 
 import java.awt.Component;
@@ -20,83 +19,135 @@ import javax.swing.JOptionPane;
 import com.quicklist.clases.Funcionario;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
-import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.AnimacionObjetos;
+import com.quicklist.funciones.DatosUsuario;
 import com.quicklist.funciones.RestingirCampo;
 
-
+/**
+ * Esta clase permite a los usuarios administrador e instructor ingresar y 
+ * editar los datos de un funcionario especifico
+ */
 public final class FormFuncionarios extends javax.swing.JPanel {
 
-    public String usuario;
-    Statement declaracion;
-    public Component[] objeto;
-    public int velocidad=100;
-    String retorno;
-    String tipo;
-    String[] ID;
-    String nombrePantalla;
+    int velocidad = 100;    //Corrimiento de la animación de los objetos
+    String usuario;     //Documento del usuario que accede a la clase
+    String retorno;     //Ruta de acceso a la ventana anterior
+    String tipo;    //Rol del usuario que accede a la clase
+    String nombrePantalla;      //Ruta de la ventana actual
     
-    //menu de botones
-    public FormFuncionarios(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
+    /** 
+     * Arreglo que almacena los identificadores nesesarios para cargar los 
+     * datos en cada una de las pantallas a las que se ha accedido desde el 
+     * login para recuperar las pantallas anteriores en caso de retorno
+     */
+    String[] ID;    
+    
+    /**
+     * Objeto empleado para realizar la consultas en la base de datos
+     */
+    Statement declaracion;      
+    
+    /**
+     * Arreglo que contiene todos los componentes de la pantalla 
+     * a los cuales se les da movimineto inicial
+     */
+    Component[] objeto;
+    
+    
+    /**
+     * Metodo constructor de la clase
+     * @param tipo
+     * @param retorno
+     * @param nombrePantalla
+     * @param usuario
+     * @param ID
+     * @param declaracion 
+     */
+    public FormFuncionarios(String tipo, String retorno, String nombrePantalla, 
+            String usuario, String[] ID, Statement declaracion) {
         
-        this.tipo=tipo;
-        this.retorno=retorno;
-        this.usuario=usuario;
-        this.declaracion=declaracion;
-        this.ID=ID;
-        this.nombrePantalla=nombrePantalla;
+        /*
+         * Se asignan los valores de los parametros de forma global
+         */
+        this.tipo = tipo;
+        this.retorno = retorno;
+        this.usuario = usuario;
+        this.declaracion = declaracion;
+        this.ID = ID;
+        this.nombrePantalla = nombrePantalla;
         
-        initComponents();
-        datosUsuario();
-        datosActividad(ID);
-        new MoverObjeto(jPanel8);
+        initComponents();   //Se crean los componentes graficos
         
+        /* Se cargan y se ubican los datos del usuario */
+        new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
+        
+        datosActividad(ID);     //Se carga y se ubica la tabla de información
+        
+        /**
+         * Permite que el usuario pueda mover el panel que contiene la tabla
+         * dentro del frame con el mouse y con las flechas del teclado
+         */
+        new MoverObjeto(jPanel8); 
         
     }
-    
-    
-    public void datosUsuario() {
-        
-        String[][] menu=Funcionario.SeleccionarDatosUsuario(declaracion, usuario);
-        jLabel1.setText(menu[0][0]+" "+menu[0][1]);
-        jLabel2.setText(menu[0][2]);
-        
-    }
-    
+
     public void datosActividad(String[] ID) {
         
-        if("☺".equals(ID[ID.length-1])){
+        /*
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
+        if (!"☺".equals(ID[ID.length - 1])) {
 
-            jTextField2.setText("");
-            jPasswordField1.setText("");
-            jTextField3.setText("");
-            jTextField4.setText("");
-            jTextField5.setText("");
-            jTextField7.setText("");
-            jTextField8.setText("");
-            jTextField9.setText("");
+            /*
+             * Se realiza la busqueda en la base de datos y se asigna en un 
+             * arreglo bidimensional
+             */
+            String[][] lista = Funcionario
+                    .SeleccionarPorDocumento(declaracion, ID[ID.length - 1]);
 
-        }else{
-
-            String[][] lista=Funcionario.SeleccionarPorDocumento(declaracion, ID[ID.length-1]);
-
+            /*Se asigna el documento del instructor*/
             jTextField2.setText(lista[0][1]);
+            
+            /*Se asigna la contrseña del instructor*/
             jPasswordField1.setText(lista[0][2]);
+            
+            /*Se asigna el nombre del instructor*/
             jTextField3.setText(lista[0][3]);
+            
+            /*Se asigna el primer apellido del instructor*/
             jTextField4.setText(lista[0][4]);
+            
+            /*Se asigna el segundo apellido del instructor*/
             jTextField5.setText(lista[0][5]);
+            
+            /*Se asigna el cargo del instructor*/
             jComboBox1.setSelectedItem(lista[0][6]);
+            
+            /*Se asigna el correo del instructor*/
             jTextField7.setText(lista[0][7]);
+            
+            /*Se asigna el telefono fijo del instructor*/
             jTextField8.setText(lista[0][8]);
+            
+            /*Se asigna el telefono celular del instructor*/
             jTextField9.setText(lista[0][9]);
 
+            /*
+             * Se verifica si el tipo de usuario que accedió al sistema es un 
+             * instructor
+             */
             if("Instructor".equals(tipo)){
             
-                jTextField2.setFocusable(false);
-                jTextField3.setFocusable(false);
-                jTextField4.setFocusable(false);
-                jTextField5.setFocusable(false);
-                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { lista[0][6] }));
+                jTextField2.setFocusable(false);    //No seleccionable
+                jTextField3.setFocusable(false);    //No seleccionable
+                jTextField4.setFocusable(false);    //No seleccionable
+                jTextField5.setFocusable(false);    //No seleccionable
+                
+                /*Se asigna un unico elemento en la lista desplegable*/
+                jComboBox1.setModel(new javax.swing
+                        .DefaultComboBoxModel(new String[] { lista[0][6] }));
             
             }
             
@@ -106,8 +157,19 @@ public final class FormFuncionarios extends javax.swing.JPanel {
     
     public void movimiento(){
         
-        Component[] objeto2={jPanel8};
-        objeto=objeto2;
+        /* Se crea el arreglo con los componentes */
+        Component[] objeto2 = {jPanel8};
+        
+        /*
+         * Se asigna el arreglo de forma global para que este se pueda 
+         * utiizar en los eventos
+         */
+        objeto = objeto2;
+        
+        /* 
+         * Permite dar un movimiento inicial a los objetos del arreglo en 
+         * forma secuencial
+         */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
     
     }
@@ -119,6 +181,7 @@ public final class FormFuncionarios extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -165,11 +228,11 @@ public final class FormFuncionarios extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 66, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel7.setOpaque(false);
@@ -610,29 +673,50 @@ public final class FormFuncionarios extends javax.swing.JPanel {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        if("PantallaInicio".equals(retorno)){
+        /* Se verifica si el retorno corresponde a la pantalla inicio.*/
+        if ("PantallaInicio".equals(retorno)) {
 
+            /* Se emplea la funcionalidad del botón "Salir" */
             jButton11ActionPerformed(evt);
 
-        }else{
-            
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
+        } else {
 
+            /* 
+             * Se animan los objetos para que salgan del panel y se realiza 
+             * el cambio de pantalla
+             */
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
+                                         nombrePantalla, tipo, usuario, 
+                                         Arreglo.quitar(ID), declaracion);
+            
         }
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
 
-        Component[] componentes=new Component[objeto.length+2];
-        componentes[0]=jPanel2;
-        componentes[1]=jPanel3;
+        /*
+         * Se crea un arreglo de componentes para alamcenar todos los objetos 
+         * que se van a animar al momento de la salida
+         */
+        Component[] componentes = new Component[objeto.length + 2];
+        
+        componentes[0] = jPanel2;   //Se añade el panel superior
+        componentes[1] = jPanel3;   //Se añade el panel inferior
 
-        for(int i=2;i<=componentes.length-1;i++){
-
-            componentes[i]=objeto[i-2];
+        /* Se añaden los demas objetos a los que se les dió la animación */
+        for (int i = 2; i <= componentes.length - 1; i++) {
+            componentes[i] = objeto[i - 2];       
         }
 
-        new AnimacionObjetos().RIzquierda(componentes, velocidad,this,"PantallaInicio",nombrePantalla,tipo,usuario,null,declaracion);
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
+                                     "PantallaInicio", nombrePantalla, tipo, 
+                                     usuario, null, declaracion);
+        
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -641,75 +725,123 @@ public final class FormFuncionarios extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         
-        String[] datos={jTextField2.getText(),
-                        String.valueOf(jPasswordField1.getPassword()),
-                        jTextField3.getText(),
-                        jTextField4.getText(),
-                        jTextField5.getText(),
-                        jComboBox1.getSelectedItem().toString(),
-                        jTextField7.getText(),
-                        jTextField8.getText(),
-                        jTextField9.getText()};
+        /*
+         * Se crea un arrelo para recojer los datos de los inputs 
+         */   
+        String[] datos={ jTextField2.getText(),
+                         String.valueOf(jPasswordField1.getPassword()),
+                         jTextField3.getText(),
+                         jTextField4.getText(),
+                         jTextField5.getText(),
+                         jComboBox1.getSelectedItem().toString(),
+                         jTextField7.getText(),
+                         jTextField8.getText(),
+                         jTextField9.getText() };
         
-        if("☺".equals(ID[ID.length-1])){
+        /*
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
+        if ("☺".equals(ID[ID.length - 1])) {
 
-            if("".equals(jTextField2.getText()) ||
-               "".equals(String.valueOf(jPasswordField1.getPassword())) ||
-               "".equals(jTextField3.getText()) ||
-               "".equals(jTextField4.getText()) ||
-               "".equals(jTextField5.getText()) ||
-               "".equals(jTextField7.getText()) ||
-               "".equals(jTextField9.getText())){
+            /* Se verifica si los datos del formulario estan vacios */
+            if ("".equals(jTextField2.getText())
+                || "".equals(String.valueOf(jPasswordField1.getPassword())) 
+                || "".equals(jTextField3.getText()) 
+                || "".equals(jTextField4.getText()) 
+                || "".equals(jTextField5.getText()) 
+                || "".equals(jTextField7.getText()) 
+                || "".equals(jTextField9.getText())) {
 
+                /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
                 "Debe diligenciar los campos obligatorios (*)", "Error", 
                 JOptionPane.ERROR_MESSAGE);
 
-            }else if(Funcionario.VerificarDocumento(declaracion,jTextField2.getText())){
+            /* Se verifica si el docuemento ingresado ya existe */
+            } else if (Funcionario.VerificarDocumento(declaracion, 
+                                                      jTextField2.getText())) {
 
+                /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
                 "El documento seleccionado ya existe", "Error", 
                 JOptionPane.ERROR_MESSAGE);
 
-            }else{
+            } else {
 
+                /*
+                 * Se insertan los datos del instructor en 
+                 * la base de datos
+                 */
                 Funcionario.Insertar(declaracion, datos);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno+".Ver",nombrePantalla,tipo,usuario,ID,declaracion);
+                
+                 /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                        retorno + ".Ver", nombrePantalla, tipo, usuario, 
+                        Arreglo.quitar(ID), declaracion);
 
             }
 
-        }else{
+        } else {
 
-            if("".equals(jTextField2.getText()) ||
-               "".equals(String.valueOf(jPasswordField1.getPassword())) ||
-               "".equals(jTextField3.getText()) ||
-               "".equals(jTextField4.getText()) ||
-               "".equals(jTextField5.getText()) ||
-               "".equals(jTextField7.getText()) ||
-               "".equals(jTextField9.getText())){
+            /* Se verifica si los datos del formulario estan vacios */
+            if ("".equals(jTextField2.getText())
+                || "".equals(String.valueOf(jPasswordField1.getPassword())) 
+                || "".equals(jTextField3.getText()) 
+                || "".equals(jTextField4.getText()) 
+                || "".equals(jTextField5.getText()) 
+                || "".equals(jTextField7.getText()) 
+                || "".equals(jTextField9.getText())) {
 
+                /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
                 "Debe diligenciar los campos obligatorios (*)", "Error", 
                 JOptionPane.ERROR_MESSAGE);
 
-            }else if(Funcionario.VerificarDocumento(declaracion,jTextField2.getText()) && 
-               !jTextField2.getText().equals(ID[ID.length-1])){
+            /* 
+             * Se verifica si el docuemento ingresado ya existe y es 
+             * diferente al actual
+             */
+            } else if (Funcionario.VerificarDocumento(declaracion, 
+                    jTextField2.getText()) && !jTextField2.getText()
+                            .equals(ID[ID.length - 1])) {
 
+                /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null, 
                 "El documento seleccionado ya existe", "Error", 
                 JOptionPane.ERROR_MESSAGE);
 
-            }else{
+            } else {
 
-                Funcionario.ActualizarEnDocumento(declaracion, datos, ID[ID.length-1]);
+                /*
+                 * Se actualizan los datos del instructor en 
+                 * la base de datos
+                 */
+                Funcionario.ActualizarEnDocumento(declaracion, datos, 
+                                                  ID[ID.length - 1]);
                 
-                if(usuario.equals(ID[ID.length-1])){
                 
-                    usuario=jTextField2.getText();
+                /* 
+                 * Se verifica si el documento del usuario se ha actualizado 
+                 * para cambiarlo en pantalla
+                 */
+                if (usuario.equals(ID[ID.length - 1])) {
+                
+                    usuario = jTextField2.getText();
                     
                 }
                 
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
+                /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                        retorno, nombrePantalla, tipo, usuario, 
+                        Arreglo.quitar(ID), declaracion);
 
             }
             
@@ -748,60 +880,92 @@ public final class FormFuncionarios extends javax.swing.JPanel {
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
         
-        RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
+        /* Dar una longitud maxima de caracteres de 18 */
         RestingirCampo.longitud(evt, jTextField2.getText().length(), 18);
+        
+        /* Restringir los caracteres no numericos */
+        RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField2KeyTyped
 
     private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 30 */
         RestingirCampo.longitud(evt, String.valueOf(jPasswordField1.getPassword()).length(), 30);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jPasswordField1KeyTyped
 
     private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 30 */
         RestingirCampo.longitud(evt, jTextField3.getText().length(), 30);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        
+        /* Restringir el caracter 32 (espacio) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
         
     }//GEN-LAST:event_jTextField3KeyTyped
 
     private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 30 */
         RestingirCampo.longitud(evt, jTextField4.getText().length(), 30);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        
+        /* Restringir el caracter 32 (espacio) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
         
     }//GEN-LAST:event_jTextField4KeyTyped
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 30 */
         RestingirCampo.longitud(evt, jTextField5.getText().length(), 30);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        
+        /* Restringir el caracter 32 (espacio) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
         
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 30 */
         RestingirCampo.longitud(evt, jTextField7.getText().length(), 100);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        
+        /* Restringir el caracter 32 (espacio) */
         RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
         
     }//GEN-LAST:event_jTextField7KeyTyped
 
     private void jTextField8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 18 */
         RestingirCampo.longitud(evt, jTextField8.getText().length(), 18);
+        
+        /* Restringir los caracteres no numericos*/
         RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField8KeyTyped
 
     private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 18 */
         RestingirCampo.longitud(evt, jTextField9.getText().length(), 18);
+        
+        /* Restringir los caracteres no numericos*/
         RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField9KeyTyped
@@ -826,6 +990,7 @@ public final class FormFuncionarios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;

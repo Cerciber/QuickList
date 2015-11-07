@@ -122,7 +122,8 @@ public final class FormAprendiz extends javax.swing.JPanel {
              * Se realiza la busqueda en la base de datos y se asigna en un 
              * arreglo bidimensional
              */
-            String[][] lista=Aprendiz.SeleccionarPorDocumento(declaracion, ID[ID.length-1]);
+            String[][] lista = Aprendiz
+                    .SeleccionarPorDocumento(declaracion, ID[ID.length - 1]);
 
             /*Se asigna el documento del aprendiz*/
             jTextField2.setText(lista[0][1]);
@@ -1014,23 +1015,28 @@ public final class FormAprendiz extends javax.swing.JPanel {
         /*
          * Se crea un arrelo para recojer los datos de los inputs 
          */    
-        String[] datos = {jTextField2.getText(),
-                          String.valueOf(jPasswordField1.getPassword()),
-                          jTextField3.getText(),
-                          jTextField16.getText(),
-                          jTextField17.getText(),
-                          Calendario.obtenerFecha(jDateChooser1),
-                          jTextField5.getText(),
-                          jComboBox1.getSelectedItem().toString(),
-                          jComboBox2.getSelectedItem().toString(),
-                          jTextField9.getText(),
-                          jTextField10.getText(),
-                          jComboBox3.getSelectedItem().toString(),
-                          jTextField12.getText(),
-                          jTextField13.getText(),
-                          jTextField14.getText(),
-                          jTextField15.getText()};
+        String[] datos = { jTextField2.getText(),
+                           String.valueOf(jPasswordField1.getPassword()),
+                           jTextField3.getText(),
+                           jTextField16.getText(),
+                           jTextField17.getText(),
+                           Calendario.obtenerFecha(jDateChooser1),
+                           jTextField5.getText(),
+                           jComboBox1.getSelectedItem().toString(),
+                           jComboBox2.getSelectedItem().toString(),
+                           jTextField9.getText(),
+                           jTextField10.getText(),
+                           jComboBox3.getSelectedItem().toString(),
+                           jTextField12.getText(),
+                           jTextField13.getText(),
+                           jTextField14.getText(),
+                           jTextField15.getText() };
         
+        /*
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
         if ("☺".equals(ID[ID.length - 1])) {
 
             /* Se verifica si los datos del formulario estan vacios */
