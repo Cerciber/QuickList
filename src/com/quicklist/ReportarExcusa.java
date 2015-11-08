@@ -10,7 +10,7 @@ import com.quicklist.clases.Funcionario;
 import com.quicklist.clases.Inasistencia;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.ConvertirFoto;
-import com.quicklist.funciones.RestingirCampo;
+import com.quicklist.funciones.Validaciones;
 import java.awt.Frame;
 import java.io.File;
 import java.io.FileInputStream;
@@ -305,8 +305,8 @@ public class ReportarExcusa extends javax.swing.JFrame {
 
     private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
         
-        RestingirCampo.longitud(evt, jTextArea1.getText().length(), 2147483647);
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.longitud(evt, jTextArea1.getText().length(), 2147483647);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextArea1KeyTyped
 

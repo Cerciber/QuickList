@@ -69,37 +69,37 @@ public class RAprendices {
             menu = Ficha.SeleccionarResgistrosReporteAprendices(declaracion, ficha);
             HSSFCellStyle estiloRegistro = hoja.getRow(5).getCell(1).getCellStyle();
             
-            for(int i=0;i<menu[0].length;i++){
+            for(int i=0;i<menu.length;i++){
                 
                 try{
                         
                     fila = hoja.getRow(i+5);
                     
-                    celda = fila.getCell(0);
+                    celda = fila.createCell(0);
                     celda.setCellValue(menu[i][0]);
                     celda.setCellStyle(estiloRegistro);
                     
-                    celda = fila.getCell(1);
+                    celda = fila.createCell(1);
                     celda.setCellValue(menu[i][1]);
                     celda.setCellStyle(estiloRegistro);
                     
-                    celda = fila.getCell(2);
+                    celda = fila.createCell(2);
                     celda.setCellValue(menu[i][2]);
                     celda.setCellStyle(estiloRegistro);
                     
-                    celda = fila.getCell(3);
+                    celda = fila.createCell(3);
                     celda.setCellValue(menu[i][3]);
                     celda.setCellStyle(estiloRegistro);
                     
-                    celda = fila.getCell(4);
+                    celda = fila.createCell(4);
                     celda.setCellValue(menu[i][4]);
                     celda.setCellStyle(estiloRegistro);
                     
-                    celda = fila.getCell(5);
+                    celda = fila.createCell(5);
                     celda.setCellValue(menu[i][5]);
                     celda.setCellStyle(estiloRegistro);
                     
-                    celda = fila.getCell(6);
+                    celda = fila.createCell(6);
                     celda.setCellValue(menu[i][6]);
                     celda.setCellStyle(estiloRegistro);
                                 
@@ -113,7 +113,15 @@ public class RAprendices {
 
             if (resp==JFileChooser.APPROVE_OPTION){
 
-                File direccion = new File (abrirArchivo.getSelectedFile().toString()+".xls");
+                String extencion = abrirArchivo.getSelectedFile().toString();
+                
+                if (!".xls".equals(extencion.substring(extencion.length()-4))) {
+                    
+                    extencion = extencion+".xls";
+                    
+                }
+                
+                File direccion = new File (extencion);
 
                 FileOutputStream salida = new FileOutputStream(direccion);
 

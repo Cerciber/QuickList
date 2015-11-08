@@ -23,7 +23,7 @@ import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.AnimacionObjetos;
-import com.quicklist.funciones.RestingirCampo;
+import com.quicklist.funciones.Validaciones;
 import javax.swing.JOptionPane;
 
 
@@ -485,29 +485,29 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField5.getText().length(), 100);
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.longitud(evt, jTextField5.getText().length(), 100);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField7.getText().length(), 100);
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.longitud(evt, jTextField7.getText().length(), 100);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField7KeyTyped
 
     private void jTextField8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField8.getText().length(), 9);
-        RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
+        Validaciones.longitud(evt, jTextField8.getText().length(), 9);
+        Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField8KeyTyped
 
     private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField9.getText().length(), 2);
-        RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
+        Validaciones.longitud(evt, jTextField9.getText().length(), 2);
+        Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField9KeyTyped
 

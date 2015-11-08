@@ -24,6 +24,7 @@ import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.AnimacionObjetos;
 import com.quicklist.funciones.DatosUsuario;
 import com.quicklist.funciones.UbicarLista;
+import javax.swing.JCheckBox;
 
 /**
  * Esta clase permite a los usuarios instructor y administrador aprobar 
@@ -66,7 +67,8 @@ public final class AprobarActividades extends javax.swing.JPanel {
      * Arreglo que contiene la lista desplegable de cada componente
      * por registro
      */
-    JComboBox[][] jComboBox;
+    JCheckBox[][] jCheckBox;
+    
     
     /**
      * Metodo constructor de la clase
@@ -141,7 +143,7 @@ public final class AprobarActividades extends javax.swing.JPanel {
          * igual a 3 referentes a los datos mencionados y una longitud 
          * horizontal igual al numero de aprendices
          */
-        jComboBox = new JComboBox[lista.length][5];
+        jCheckBox = new JCheckBox[lista.length][5];
         
         /*
          * Se le da el diseño a los botones del titulo de cada columna
@@ -171,11 +173,11 @@ public final class AprobarActividades extends javax.swing.JPanel {
         columna[0].setText("Documento");
         columna[1].setText("Nombre");
         columna[2].setText("Apellido");
-        columna[3].setText("Autenticidad");
-        columna[4].setText("Calidad");
-        columna[5].setText("Pertinencia");
-        columna[6].setText("Vigencia");
-        columna[7].setText("¿Logró el aprendizaje?");
+        columna[3].setText("A");
+        columna[4].setText("C");
+        columna[5].setText("P");
+        columna[6].setText("V");
+        columna[7].setText("L");
         
         /**
          * Se le da el diseño al arreglo de labels y se asignan en ellos 
@@ -210,8 +212,8 @@ public final class AprobarActividades extends javax.swing.JPanel {
                                       .createBevelBorder(javax.swing.border
                                       .BevelBorder.RAISED));
                 
-                /*No opacar*/
-                label[i][j].setOpaque(false);
+                /*Opacar*/
+                label[i][j].setOpaque(true);
 
             }
         }
@@ -222,29 +224,40 @@ public final class AprobarActividades extends javax.swing.JPanel {
          * Calidad, Pertinencia, Vigenicia y Estado del aprendizaje de cada 
          * aprendiz 
          */
-        for (int i = 0; i <= jComboBox.length - 1; i++) {
-            for (int j = 0; j <= jComboBox[i].length -1; j++) {
+        for (int i = 0; i <= jCheckBox.length - 1; i++) {
+            for (int j = 0; j <= jCheckBox[i].length -1; j++) {
 
                 /*Instanciación*/
-                jComboBox[i][j] = new JComboBox();
+                jCheckBox[i][j] = new JCheckBox();
                 
                 /*Dar color de fondo*/
-                jComboBox[i][j].setBackground(new java.awt.Color(0, 153, 153));
+                jCheckBox[i][j].setBackground(new java.awt.Color(204, 255, 
+                                                                 255));
                 
                 /*Dar fuente, tipo de letra y tamaño*/
-                jComboBox[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi",
+                jCheckBox[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi",
                                                           0, 14));
                 
                 /*Dar color de letra*/
-                jComboBox[i][j].setForeground(new java.awt.Color(255, 255,
+                jCheckBox[i][j].setForeground(new java.awt.Color(255, 255,
                                                                  255));
                 
-                /*Dar datos "Si y no" en la lista desplegable*/
-                jComboBox[i][j].setModel(new javax.swing.
-                        DefaultComboBoxModel(new String[] { "Si", "No" }));
+                /*Dar alineamiento horizontal*/
+                jCheckBox[i][j].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 
-                /*Asignar dato seleccionado segun la consulta */
-                jComboBox[i][j].setSelectedItem(lista[i][j + 5]);
+                /*Opacar*/
+                jCheckBox[i][j].setOpaque(true);
+                
+                /*Asignar cuadro seleccionado segun la consulta */
+                if ("Si".equals(lista[i][j + 5])) {
+                    
+                    jCheckBox[i][j].setSelected(true);
+                    
+                } else if ("No".equals(lista[i][j + 5])){
+                    
+                    jCheckBox[i][j].setSelected(false);
+                    
+                }
 
             }
         }
@@ -254,7 +267,7 @@ public final class AprobarActividades extends javax.swing.JPanel {
          * en forma de tabla relacionando a los aprendices con el estado de 
          * la actividad y con el titulo de cada columna
          */
-        new UbicarLista(jPanel8, jComboBox, label, columna);
+        new UbicarLista(jPanel8, jCheckBox, label, columna);
         
     }
     
@@ -547,18 +560,26 @@ public final class AprobarActividades extends javax.swing.JPanel {
          * Se crea un arreglo bidimencional para recolectar la informacion 
          * de los ComboBoxs
          */
-        String[][] datos = new String[jComboBox.length]
-                                     [jComboBox[0].length + 1];
+        String[][] datos = new String[jCheckBox.length]
+                                     [jCheckBox[0].length + 1];
         
         /* 
          * Se obtiene el item seleccionado en cada ComboBox y se guarda 
          * en el arreglo
          */
-        for (int i = 0; i <= jComboBox.length - 1; i++) {
-            for (int j = 0;j <= jComboBox[i].length - 1; j++) {
+        for (int i = 0; i <= jCheckBox.length - 1; i++) {
+            for (int j = 0;j <= jCheckBox[i].length - 1; j++) {
 
-                /*Obtener dato seleccionado y convertirlo a String*/
-                datos[i][j] = jComboBox[i][j].getSelectedItem().toString();
+                /*Obtener dato seleccionado en el checkbox*/
+                if (jCheckBox[i][j].isSelected()) {
+                    
+                    datos[i][j] = "Si";
+                    
+                } else {
+                    
+                    datos[i][j] = "No";
+                    
+                }
 
             }
             

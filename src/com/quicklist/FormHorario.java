@@ -24,7 +24,7 @@ import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.AnimacionObjetos;
-import com.quicklist.funciones.RestingirCampo;
+import com.quicklist.funciones.Validaciones;
 import javax.swing.JOptionPane;
 
 
@@ -705,8 +705,8 @@ public final class FormHorario extends javax.swing.JPanel {
 
     private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField9.getText().length(), 2147483647);
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.longitud(evt, jTextField9.getText().length(), 2147483647);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField9KeyTyped
 

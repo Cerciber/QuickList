@@ -25,7 +25,7 @@ import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.ConvertirConsulta;
 import com.quicklist.funciones.AnimacionObjetos;
 import com.quicklist.funciones.DatosUsuario;
-import com.quicklist.funciones.RestingirCampo;
+import com.quicklist.funciones.Validaciones;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -1054,18 +1054,26 @@ public final class FormAprendiz extends javax.swing.JPanel {
                 "Debe diligenciar los campos obligatorios (*)", "Error", 
                 JOptionPane.ERROR_MESSAGE);
 
+            /* Se verifica si el formato del correo es correcto */
+            } else if (!Validaciones.formatoCorreo(jTextField5.getText())) {
+                
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                "Formato de correo incorrecto", "Error", 
+                JOptionPane.ERROR_MESSAGE);
+
             /* Se verifica si el docuemento ingresado ya existe */
             } else if (Aprendiz.VerificarDocumento(declaracion, 
                         jTextField2.getText()) 
                         || Funcionario.VerificarDocumento(declaracion,
                         jTextField2.getText())) {
                 
-                        /* Se muestra un mensaje de error */
-                        JOptionPane.showMessageDialog(null,
-                        "El documento seleccionado ya existe", "Error", 
-                        JOptionPane.ERROR_MESSAGE);
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                "El documento seleccionado ya existe", "Error", 
+                JOptionPane.ERROR_MESSAGE);
 
-            }else{
+            } else {
 
                 /*
                  * Se insertan los datos del aprendiz en 
@@ -1098,6 +1106,14 @@ public final class FormAprendiz extends javax.swing.JPanel {
                 /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
                 "Debe diligenciar los campos obligatorios (*)", "Error", 
+                JOptionPane.ERROR_MESSAGE);
+
+            /* Se verifica si el formato del correo es correcto */
+            } else if (!Validaciones.formatoCorreo(jTextField5.getText())) {
+                
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                "Formato de correo incorrecto", "Error", 
                 JOptionPane.ERROR_MESSAGE);
 
             /* 
@@ -1141,137 +1157,146 @@ public final class FormAprendiz extends javax.swing.JPanel {
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
         
         /* Dar una longitud maxima de caracteres de 18 */
-        RestingirCampo.longitud(evt, jTextField2.getText().length(), 18);
+        Validaciones.longitud(evt, jTextField2.getText().length(), 18);
         
         /* Restringir los caracteres no numericos */
-        RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
+        Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField2KeyTyped
 
     private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
         
         /* Dar una longitud maxima de caracteres de 30 */
-        RestingirCampo.longitud(evt, String.valueOf(jPasswordField1
+        Validaciones.longitud(evt, String.valueOf(jPasswordField1
                 .getPassword()).length(), 30);
         
         /* Restringir el caracter 39 (comilla simple) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jPasswordField1KeyTyped
 
     private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
         
         /* Dar una longitud maxima de caracteres de 30 */
-        RestingirCampo.longitud(evt, jTextField3.getText().length(), 30);
+        Validaciones.longitud(evt, jTextField3.getText().length(), 30);
         
         /* Restringir el caracter 39 (comilla simple) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
         /* Restringir el caracter 32 (espacio) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 32);
+        
+        /* restringir numeros */
+        Validaciones.restringirCaracterEntre(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField3KeyTyped
 
     private void jTextField16KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField16KeyTyped
         
         /* Dar una longitud maxima de caracteres de 30 */
-        RestingirCampo.longitud(evt, jTextField16.getText().length(), 30);
+        Validaciones.longitud(evt, jTextField16.getText().length(), 30);
         
         /* Restringir el caracter 39 (comilla simple) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
         /* Restringir el caracter 32 (espacio) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 32);
+        
+        /* restringir numeros */
+        Validaciones.restringirCaracterEntre(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField16KeyTyped
 
     private void jTextField17KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField17KeyTyped
         
         /* Dar una longitud maxima de caracteres de 30 */
-        RestingirCampo.longitud(evt, jTextField17.getText().length(), 30);
+        Validaciones.longitud(evt, jTextField17.getText().length(), 30);
         
         /* Restringir el caracter 39 (comilla simple) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
         /* Restringir el caracter 32 (espacio) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 32);
+        
+        /* restringir numeros */
+        Validaciones.restringirCaracterEntre(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField17KeyTyped
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
         
         /* Dar una longitud maxima de caracteres de 100 */
-        RestingirCampo.longitud(evt, jTextField5.getText().length(), 100);
+        Validaciones.longitud(evt, jTextField5.getText().length(), 100);
         
         /* Restringir el caracter 39 (comilla simple) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
         /* Restringir el caracter 32 (espacio) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 32);
         
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
         
         /* Dar una longitud maxima de caracteres de 18 */
-        RestingirCampo.longitud(evt, jTextField9.getText().length(), 18);
+        Validaciones.longitud(evt, jTextField9.getText().length(), 18);
         
         /* Restringir los caracteres no numericos*/
-        RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
+        Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField9KeyTyped
 
     private void jTextField10KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField10KeyTyped
         
         /* Dar una longitud maxima de caracteres de 18 */
-        RestingirCampo.longitud(evt, jTextField10.getText().length(), 18);
+        Validaciones.longitud(evt, jTextField10.getText().length(), 18);
         
         /* Restringir los caracteres no numericos*/
-        RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
+        Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField10KeyTyped
 
     private void jTextField12KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField12KeyTyped
         
         /* Dar una longitud maxima de caracteres de 2147483647 */
-        RestingirCampo.longitud(evt, jTextField12.getText().length(), 
+        Validaciones.longitud(evt, jTextField12.getText().length(), 
                                 2147483647);
         
         /* Restringir el caracter 39 (comilla simple) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField12KeyTyped
 
     private void jTextField13KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField13KeyTyped
         
         /* Dar una longitud maxima de caracteres de 2147483647 */
-        RestingirCampo.longitud(evt, jTextField13.getText().length(), 
+        Validaciones.longitud(evt, jTextField13.getText().length(), 
                                 2147483647);
         
         /* Restringir el caracter 39 (comilla simple) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField13KeyTyped
 
     private void jTextField14KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField14KeyTyped
         
         /* Dar una longitud maxima de caracteres de 2147483647 */
-        RestingirCampo.longitud(evt, jTextField14.getText().length(), 
+        Validaciones.longitud(evt, jTextField14.getText().length(), 
                                 2147483647);
         
         /* Restringir el caracter 39 (comilla simple) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField14KeyTyped
 
     private void jTextField15KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField15KeyTyped
         
         /* Dar una longitud maxima de caracteres de 2147483647 */
-        RestingirCampo.longitud(evt, jTextField15.getText().length(), 
+        Validaciones.longitud(evt, jTextField15.getText().length(), 
                                 2147483647);
         
         /* Restringir el caracter 39 (comilla simple) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField15KeyTyped
 

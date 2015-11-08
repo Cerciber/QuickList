@@ -20,7 +20,7 @@ import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.AnimacionObjetos;
 import com.quicklist.funciones.DatosUsuario;
-import com.quicklist.funciones.RestingirCampo;
+import com.quicklist.funciones.Validaciones;
 import javax.swing.JOptionPane;
 
 /**
@@ -550,11 +550,11 @@ public final class FormActividadDeAprendizaje extends javax.swing.JPanel {
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
         
         /* Dar una longitud maxima de caracteres de 2147483647 */
-        RestingirCampo.longitud(evt, jTextField2.getText().length(), 
+        Validaciones.longitud(evt, jTextField2.getText().length(), 
                                 2147483647);
         
         /* Restringir el caracter 39 (comilla simple) */
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField2KeyTyped
 

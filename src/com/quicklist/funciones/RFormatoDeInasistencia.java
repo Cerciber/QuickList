@@ -166,7 +166,7 @@ public class RFormatoDeInasistencia {
 
                 }
                 
-                menu2=Inasistencia.SeleccionarPorAprendiz(declaracion, menu[i][0]);
+                menu2=Inasistencia.SeleccionarPorAprendizHorario(declaracion, menu[i][0], horario);
                 
                 for(int j=0;j<menu2.length;j++){
 
@@ -212,7 +212,15 @@ public class RFormatoDeInasistencia {
 
             if (resp==JFileChooser.APPROVE_OPTION){
 
-                File direccion = new File (abrirArchivo.getSelectedFile().toString()+".xls");
+                String extencion = abrirArchivo.getSelectedFile().toString();
+                
+                if (!".xls".equals(extencion.substring(extencion.length()-4))) {
+                    
+                    extencion = extencion+".xls";
+                    
+                }
+                
+                File direccion = new File (extencion);
 
                 FileOutputStream salida = new FileOutputStream(direccion);
 

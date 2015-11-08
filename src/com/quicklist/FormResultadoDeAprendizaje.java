@@ -22,7 +22,7 @@ import com.quicklist.clases.ResultadoDeAprendizaje;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.AnimacionObjetos;
-import com.quicklist.funciones.RestingirCampo;
+import com.quicklist.funciones.Validaciones;
 import javax.swing.JOptionPane;
 
 
@@ -413,8 +413,8 @@ public final class FormResultadoDeAprendizaje extends javax.swing.JPanel {
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
         
-        RestingirCampo.longitud(evt, jTextField2.getText().length(), 2147483647);
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.longitud(evt, jTextField2.getText().length(), 2147483647);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField2KeyTyped
 

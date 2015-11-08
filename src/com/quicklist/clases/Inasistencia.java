@@ -72,13 +72,16 @@ public class Inasistencia {
         
     }
     
-    public static String[][] SeleccionarPorAprendiz (Statement declaracion, String aprendiz){
+    public static String[][] SeleccionarPorAprendizHorario (Statement declaracion, String aprendiz, String horario){
     
         String[][] menu = null;
         
         try {
             
-            ResultSet resultado = declaracion.executeQuery("select [Estado_De_Inasistencia] from [dbo].[T_Inasistencia] where [ID_Aprendiz]="+aprendiz);    
+            ResultSet resultado = declaracion.executeQuery("select [Estado_De_Inasistencia] from [dbo].[T_Inasistencia]\n" +
+                                                            "join [dbo].[T_Formacion] on [dbo].[T_Inasistencia].ID_Formacion= [dbo].[T_Formacion].ID_Formacion\n" +
+                                                            "join [dbo].[T_Horario] on [dbo].[T_Horario].ID_Horario = [dbo].[T_Formacion].ID_Horario\n" +
+                                                            " where [ID_Aprendiz]="+aprendiz+" and [dbo].[T_Horario].ID_Horario ="+horario);    
             String[] campos={"Estado_De_Inasistencia"};
             menu=new ConvertirConsulta().ArregloString(resultado,campos);
             

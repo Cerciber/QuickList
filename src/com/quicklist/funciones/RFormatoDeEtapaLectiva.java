@@ -56,7 +56,15 @@ public class RFormatoDeEtapaLectiva {
 
             if (resp==JFileChooser.APPROVE_OPTION){
 
-                File direccion = new File (abrirArchivo.getSelectedFile().toString()+".xls");
+                String extencion = abrirArchivo.getSelectedFile().toString();
+                
+                if (!".xls".equals(extencion.substring(extencion.length()-4))) {
+                    
+                    extencion = extencion+".xls";
+                    
+                }
+                
+                File direccion = new File (extencion);
 
                 FileOutputStream salida = new FileOutputStream(direccion);
 
@@ -463,7 +471,15 @@ public class RFormatoDeEtapaLectiva {
 
             if (resp==JFileChooser.APPROVE_OPTION){
 
-                File direccion = new File (abrirArchivo.getSelectedFile().toString()+".xls");
+                String extencion = abrirArchivo.getSelectedFile().toString();
+                
+                if (!".xls".equals(extencion.substring(extencion.length()-4))) {
+                    
+                    extencion = extencion+".xls";
+                    
+                }
+                
+                File direccion = new File (extencion);
 
                 FileOutputStream salida = new FileOutputStream(direccion);
 
@@ -869,7 +885,15 @@ public class RFormatoDeEtapaLectiva {
 
             if (resp==JFileChooser.APPROVE_OPTION){
 
-                File direccion = new File (abrirArchivo.getSelectedFile().toString()+".xls");
+                String extencion = abrirArchivo.getSelectedFile().toString();
+                
+                if (!".xls".equals(extencion.substring(extencion.length()-4))) {
+                    
+                    extencion = extencion+".xls";
+                    
+                }
+                
+                File direccion = new File (extencion);
 
                 FileOutputStream salida = new FileOutputStream(direccion);
 

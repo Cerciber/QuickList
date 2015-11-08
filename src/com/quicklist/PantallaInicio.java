@@ -24,9 +24,7 @@ import java.sql.Statement;
 import javax.swing.JPanel;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.ConvertirConsulta;
-import com.quicklist.funciones.RFormatoDeEtapaLectiva;
-import com.quicklist.funciones.RestingirCampo;
-import javax.swing.JFrame;
+import com.quicklist.funciones.Validaciones;
 
 /**
  *
@@ -323,8 +321,8 @@ public class PantallaInicio extends javax.swing.JPanel {
         
         try {
             
-            //Connection conexion= DriverManager.getConnection("jdbc:sqlserver://CERCIBER\\SQLEXPRESS:1433;databaseName=BaseDeDatosQuickList","quicklistcerciber","123456789");
-            Connection conexion= DriverManager.getConnection("jdbc:sqlserver://BaseDeDatosQuickList.mssql.somee.com;databaseName=BaseDeDatosQuickList","quicklistcerciber","123456789");
+            Connection conexion= DriverManager.getConnection("jdbc:sqlserver://CERCIBER\\SQLEXPRESS:1433;databaseName=BaseDeDatosQuickList","cerciber","123456789");
+            //Connection conexion= DriverManager.getConnection("jdbc:sqlserver://BaseDeDatosQuickList.mssql.somee.com;databaseName=BaseDeDatosQuickList","quicklistcerciber","123456789");
             declaracion = conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
             ResultSet resultado;
             
@@ -394,17 +392,17 @@ public class PantallaInicio extends javax.swing.JPanel {
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
         
-        RestingirCampo.caracterFueraDe(evt, evt.getKeyChar(), '0', '9');
-        RestingirCampo.longitud(evt, jTextField2.getText().length(), 18);
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 32);
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
+        Validaciones.longitud(evt, jTextField2.getText().length(), 18);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 32);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField2KeyTyped
 
     private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
         
-        RestingirCampo.longitud(evt, String.valueOf(jPasswordField1.getPassword()).length(), 30);
-        RestingirCampo.caracter(evt, evt.getKeyChar(), (char) 39);
+        Validaciones.longitud(evt, String.valueOf(jPasswordField1.getPassword()).length(), 30);
+        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jPasswordField1KeyTyped
 
