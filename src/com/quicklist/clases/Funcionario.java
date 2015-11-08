@@ -145,7 +145,7 @@ public class Funcionario {
         try {
             
             ResultSet resultado = declaracion.executeQuery("select * from T_Informacion_Funcionarios;");
-            String[] campos={"Documento_De_Identidad"};
+            String[] campos={"Documento_De_Identidad","Nombre","Primer_Apellido","Segundo_Apellido"};
             menu=new ConvertirConsulta().ArregloString(resultado,campos);
             
         } catch (SQLException ex) {System.out.println(ex);}

@@ -62,6 +62,12 @@ public final class FormHorario extends javax.swing.JPanel {
      */
     String[] ID_ResultadoDeAprendizaje;
     
+    /* 
+     * Arreglo que contiene el identificador de los instructores
+     * existentes en el plan de estudios
+     */
+    String[] ID_Instructor;
+    
     /**
      * Metodo constructor de la clase
      * @param tipo
@@ -130,13 +136,17 @@ public final class FormHorario extends javax.swing.JPanel {
          */
         nombres = Funcionario.SeleccionarNombres(declaracion);
         
+        /*Se prepara el arreglo con el numero de registros cargados*/
+        ID_Instructor = new String[nombres.length];
+        
         /*
          * Se asignan los nombres de los funcionarios en la lista 
          * desplegable
          */
         for (int i = 0; i <= nombres.length - 1; i++) {
         
-            this.jComboBox4.addItem(nombres[i][0]);
+            ID_Instructor[i] = nombres[i][0];
+            this.jComboBox4.addItem(nombres[i][1]+" "+nombres[i][2]+" "+nombres[i][3]+" - "+nombres[i][0]);
             
         }
         
@@ -680,7 +690,7 @@ public final class FormHorario extends javax.swing.JPanel {
          */  
         String[] datos={ID[ID.length-2],
                         ID_ResultadoDeAprendizaje[jComboBox3.getSelectedIndex()],
-                        jComboBox4.getSelectedItem().toString(),
+                        ID_Instructor[jComboBox4.getSelectedIndex()],
                         jComboBox5.getSelectedItem().toString(),
                         jComboBox6.getSelectedItem().toString() + ":"+jComboBox7.getSelectedItem().toString(),
                         jComboBox8.getSelectedItem().toString() + ":"+jComboBox9.getSelectedItem().toString(),

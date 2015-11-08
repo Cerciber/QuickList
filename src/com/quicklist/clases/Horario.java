@@ -147,12 +147,16 @@ public class Horario {
         
         try {
             
-            ResultSet resultado = declaracion.executeQuery("select * from T_Horario join T_Resultado_De_Aprendizaje on T_Horario.ID_Resultado_De_Aprendizaje=T_Resultado_De_Aprendizaje.ID_Resultado_De_Aprendizaje where ID_Horario = "+ID+";");    
-            String[] campos={"ID_Horario","ID_Ficha","ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje","ID_Funcionario","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar"};
+            ResultSet resultado = declaracion.executeQuery("select ID_Horario,ID_Ficha,T_Horario.ID_Resultado_De_Aprendizaje,Resultado_De_Aprendizaje,concat(Nombre,' ', Primer_Apellido,' ',Segundo_Apellido,' - ',ID_Funcionario) as funcionario,Dia_Semana,Hora_Inicio,Hora_Fin,Fecha_Inicio,Fecha_Fin,Lugar \n" +
+                                                            "from T_Horario \n" +
+                                                            "join T_Resultado_De_Aprendizaje on T_Horario.ID_Resultado_De_Aprendizaje=T_Resultado_De_Aprendizaje.ID_Resultado_De_Aprendizaje \n" +
+                                                            "join T_Informacion_Funcionarios on T_Horario.ID_Funcionario=T_Informacion_Funcionarios.Documento_De_Identidad \n" +
+                                                            "where ID_Horario ="+ID+";");    
+            String[] campos={"ID_Horario","ID_Ficha","ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje","funcionario","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar"};
             menu=new ConvertirConsulta().ArregloString(resultado,campos);
             
-            Calendario.reducirFecha(menu,8);
             Calendario.reducirFecha(menu,9);
+            Calendario.reducirFecha(menu,10);
             
         } catch (SQLException ex) {}
         
