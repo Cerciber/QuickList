@@ -36,6 +36,7 @@ import com.quicklist.funciones.DatosUsuario;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 
 
 public final class PantallaUsuario extends javax.swing.JPanel {
@@ -339,8 +340,19 @@ public final class PantallaUsuario extends javax.swing.JPanel {
                 if("".equals(nombreColumna[i])){
                     columna[i].setBackground(new java.awt.Color(190, 255, 255));
                     columna[i].setFocusable(false);
+                }else{
+                    
+                    final int i2=i-2;
+                    
+                    columna[i].addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            
+                            EventosMenu.darColorColumna(componente, i2);
+                            
+                        }
+                    });
+                    
                 }
-
             }
             
             new UbicarLista(jPanel8,componente,boton,columna);
@@ -583,6 +595,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
             }
         });
 
+        jScrollPane1.setBackground(new java.awt.Color(153, 255, 51));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jTextArea1.setBackground(new java.awt.Color(204, 255, 255));
@@ -594,6 +607,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
         jTextArea1.setText("Realizar hjhkjhkjhkjhkjhkjhkjhkjhkjhkjhkj el informe de requerimientos teniendo en cuenta cada uno de  los asepectos descritos en las normas IEEE");
         jTextArea1.setWrapStyleWord(true);
         jTextArea1.setFocusable(false);
+        jTextArea1.setOpaque(false);
         jScrollPane1.setViewportView(jTextArea1);
 
         jPanel9.setBackground(new java.awt.Color(0, 153, 153));

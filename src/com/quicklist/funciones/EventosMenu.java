@@ -19,6 +19,7 @@ import java.awt.Component;
 import java.sql.Statement;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -82,6 +83,35 @@ public class EventosMenu {
                
             }
            
+        }
+        
+    }
+    
+    public static void darColorColumna(final Component[][] componente, int columna){
+        
+        for(int j=0;j<=componente.length-1;j++){
+            for(int k=0;k<=componente[0].length-1;k++){  
+
+                try{
+
+                    if(k==columna){
+
+                        
+                        componente[j][k].setBackground(new java.awt.Color(150, 255, 255));
+                        ((JScrollPane)componente[j][k]).getViewport().getView().setBackground(new java.awt.Color(150, 255, 255));
+
+                    }else{
+
+                        componente[j][k].setBackground(new java.awt.Color(190, 255, 255));
+                        ((JScrollPane)componente[j][k]).getViewport().getView().setBackground(new java.awt.Color(190, 255, 255));
+
+                    }
+
+                }catch(NullPointerException ex){}
+                 catch(ClassCastException ex){}
+
+            }
+
         }
         
     }
