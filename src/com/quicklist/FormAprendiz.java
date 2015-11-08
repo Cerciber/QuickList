@@ -104,7 +104,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
          */
         String[][] nombres = Ficha.SeleccionarNombres(declaracion);
         
-        /*Se asignan los nombres de las fuchas a la lista desplegable*/
+        /*Se asignan los nombres de las fichas a la lista desplegable*/
         for (int i = 0; i <= nombres.length - 1; i++) {
         
             this.jComboBox2.addItem(nombres[i][0]);     //Anadir texto

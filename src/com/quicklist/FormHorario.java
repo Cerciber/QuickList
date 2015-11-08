@@ -11,10 +11,8 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist;
 
-import com.quicklist.clases.Actividad;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Funcionario;
@@ -24,89 +22,167 @@ import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.AnimacionObjetos;
+import com.quicklist.funciones.DatosUsuario;
 import com.quicklist.funciones.Validaciones;
 import javax.swing.JOptionPane;
 
-
+/**
+ * Esta clase permite al administrador ingresar y 
+ * editar los datos de un horario específico
+ */
 public final class FormHorario extends javax.swing.JPanel {
 
-    public String usuario;
-    Statement declaracion;
-    public Component[] objeto;
-    public int velocidad=100;
-    String retorno;
-    String tipo;
-    String[] ID;
+    int velocidad = 100;    //Corrimiento de la animación de los objetos
+    String usuario;     //Documento del usuario que accede a la clase
+    String retorno;     //Ruta de acceso a la ventana anterior
+    String tipo;    //Rol del usuario que accede a la clase
+    String nombrePantalla;      //Ruta de la ventana actual
+    
+    /** 
+     * Arreglo que almacena los identificadores nesesarios para cargar los 
+     * datos en cada una de las pantallas a las que se ha accedido desde el 
+     * login para recuperar las pantallas anteriores en caso de retorno
+     */
+    String[] ID;    
+    
+    /**
+     * Objeto empleado para realizar la consultas en la base de datos
+     */
+    Statement declaracion;      
+    
+    /**
+     * Arreglo que contiene todos los componentes de la pantalla 
+     * a los cuales se les da movimineto inicial
+     */
+    Component[] objeto;
+    
+    /* 
+     * Arreglo que contiene el identificador de los resultados de 
+     * aprendizaje existentes en el plan de estudios
+     */
     String[] ID_ResultadoDeAprendizaje;
-    String nombrePantalla;
     
-    //menu de botones
-    public FormHorario(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
+    /**
+     * Metodo constructor de la clase
+     * @param tipo
+     * @param retorno
+     * @param nombrePantalla
+     * @param usuario
+     * @param ID
+     * @param declaracion 
+     */
+    public FormHorario(String tipo, String retorno, String nombrePantalla, 
+            String usuario, String[] ID, Statement declaracion) {
         
-        this.tipo=tipo;
-        this.retorno=retorno;
-        this.usuario=usuario;
-        this.declaracion=declaracion;
-        this.ID=ID;
-        this.nombrePantalla=nombrePantalla;
+        /*
+         * Se asignan los valores de los parametros de forma global
+         */
+        this.tipo = tipo;
+        this.retorno = retorno;
+        this.usuario = usuario;
+        this.declaracion = declaracion;
+        this.ID = ID;
+        this.nombrePantalla = nombrePantalla;
         
-        initComponents();
-        datosUsuario();
-        datosActividad(ID);
-        new MoverObjeto(jPanel8);
+        initComponents();   //Se crean los componentes graficos
         
+        /* Se cargan y se ubican los datos del usuario */
+        new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
         
-    }
-    
-    
-    public void datosUsuario() {
+        datosActividad(ID);     //Se carga y se ubica la tabla de información
         
-        String[][] menu=Funcionario.SeleccionarDatosUsuario(declaracion, usuario);
-        jLabel1.setText(menu[0][0]+" "+menu[0][1]);
-        jLabel2.setText(menu[0][2]);
+        /**
+         * Permite que el usuario pueda mover el panel que contiene la tabla
+         * dentro del frame con el mouse y con las flechas del teclado
+         */
+        new MoverObjeto(jPanel8); 
         
     }
     
     public void datosActividad(String[] ID) {
         
-        String[][] nombres=ResultadoDeAprendizaje.SeleccionarNombres(declaracion);
+        /*
+         * Se realiza la busqueda en la base de datos de los nombres de los 
+         * resultados de aprendizajes accesibles y se asigna en un arreglo 
+         * bidimensional
+         */
+        String[][] nombres = ResultadoDeAprendizaje
+                .SeleccionarNombres(declaracion);
         
-        ID_ResultadoDeAprendizaje= new String[nombres.length];
+        /*Se prepara el arreglo con el numero de registros cargados*/
+        ID_ResultadoDeAprendizaje = new String[nombres.length];
         
-        for (int i=0;i<=nombres.length-1;i++){
+        /*
+         * Se asignan los nombres de los resultaados de aprendizaje a la lista 
+         * desplegable y se añaden en el arreglo
+         */
+        for (int i = 0; i <= nombres.length - 1; i++) {
         
-            ID_ResultadoDeAprendizaje[i]=nombres[i][0];
+            ID_ResultadoDeAprendizaje[i] = nombres[i][0];
             this.jComboBox3.addItem(nombres[i][1]);
             
         }
         
-        nombres=Funcionario.SeleccionarNombres(declaracion);
+        /*
+         * Se realiza la busqueda en la base de datos de los nombres de los 
+         * funcionarios accesibles y se asigna en un arreglo 
+         * bidimensional
+         */
+        nombres = Funcionario.SeleccionarNombres(declaracion);
         
-        for (int i=0;i<=nombres.length-1;i++){
+        /*
+         * Se asignan los nombres de los funcionarios en la lista 
+         * desplegable
+         */
+        for (int i = 0; i <= nombres.length - 1; i++) {
         
             this.jComboBox4.addItem(nombres[i][0]);
             
         }
         
-        if("☺".equals(ID[ID.length-1])){
+        /*
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
+        if (!"☺".equals(ID[ID.length - 1])) {
 
-            
-            
-        }else{
+            /*
+             * Se realiza la busqueda en la base de datos y se asigna en un 
+             * arreglo bidimensional
+             */
+            String[][] lista = Horario.SeleccionarPorID(declaracion, 
+                                                        ID[ID.length - 1]);
 
-            String[][] lista=Horario.SeleccionarPorID(declaracion, ID[ID.length-1]);
-
+            /* Se asigna el resultado de aprendizaje */
             jComboBox3.setSelectedItem(lista[0][3]);
+            
+            /* Se asigna el funcionario */
             jComboBox4.setSelectedItem(lista[0][4]);
+            
+            /* Se asigna el dia de la semana */
             jComboBox5.setSelectedItem(lista[0][5]);
+            
+            /* Se asigna la hora de la hora de inicio */
             jComboBox6.setSelectedItem(lista[0][6].substring(0,2));
+            
+            /* Se asigna el minuto de la hora de inicio */
             jComboBox7.setSelectedItem(lista[0][6].substring(3,5));
+            
+            /* Se asigna la hora de la hora de finalización */
             jComboBox8.setSelectedItem(lista[0][7].substring(0,2));
+            
+            /* Se asigna el minuto de la hora de finalización */
             jComboBox9.setSelectedItem(lista[0][7].substring(3,5));
+            
+            /* Se asigna la fecha de inicio */
             Calendario.darFecha(jDateChooser1,lista[0][8]);
+            
+            /* Se asigna la fecha de finalización */
             Calendario.darFecha(jDateChooser2,lista[0][9]);
+            
+            /* Se asigna el lugar de la formación */
             jTextField9.setText(lista[0][10]);
-
 
         }
 
@@ -114,8 +190,19 @@ public final class FormHorario extends javax.swing.JPanel {
     
     public void movimiento(){
         
-        Component[] objeto2={jPanel8};
-        objeto=objeto2;
+        /* Se crea el arreglo con los componentes */
+        Component[] objeto2 = {jPanel8};
+        
+        /*
+         * Se asigna el arreglo de forma global para que este se pueda 
+         * utiizar en los eventos
+         */
+        objeto = objeto2;
+        
+        /* 
+         * Permite dar un movimiento inicial a los objetos del arreglo en 
+         * forma secuencial
+         */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
     
     }
@@ -126,12 +213,8 @@ public final class FormHorario extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -171,52 +254,6 @@ public final class FormHorario extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jPanel4.setOpaque(false);
-        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
-
-        jButton1.setFont(new java.awt.Font("Segoe UI Symbol", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 204, 204));
-        jButton1.setText("☼");
-        jButton1.setBorder(null);
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jButton1);
-
-        jButton2.setFont(new java.awt.Font("Segoe UI Symbol", 1, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 204, 204));
-        jButton2.setText("?");
-        jButton2.setBorder(null);
-        jButton2.setContentAreaFilled(false);
-        jPanel4.add(jButton2);
-
-        jButton3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 204, 204));
-        jButton3.setText("Volver");
-        jButton3.setBorder(null);
-        jButton3.setContentAreaFilled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jButton3);
-
-        jButton4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(0, 204, 204));
-        jButton4.setText("Salir");
-        jButton4.setBorder(null);
-        jButton4.setContentAreaFilled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jButton4);
-
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel6.setOpaque(false);
 
@@ -224,11 +261,11 @@ public final class FormHorario extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 66, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel7.setOpaque(false);
@@ -266,15 +303,10 @@ public final class FormHorario extends javax.swing.JPanel {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addContainerGap(328, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -433,11 +465,11 @@ public final class FormHorario extends javax.swing.JPanel {
                     .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox6, 0, 116, Short.MAX_VALUE)
+                            .addComponent(jComboBox6, 0, 114, Short.MAX_VALUE)
                             .addComponent(jComboBox8, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox9, 0, 116, Short.MAX_VALUE)
+                            .addComponent(jComboBox9, 0, 114, Short.MAX_VALUE)
                             .addComponent(jComboBox7, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(30, 30, 30))
         );
@@ -560,12 +592,12 @@ public final class FormHorario extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 611, Short.MAX_VALUE)
+            .addGap(0, 607, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(26, 26, 26)
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(119, Short.MAX_VALUE)))
+                    .addContainerGap(115, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -584,68 +616,57 @@ public final class FormHorario extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       
-        if("PantallaInicio".equals(retorno)){
-        
-            jButton4ActionPerformed(evt);
-            
-        }else{
-        
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-        
-        }
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-  
-        Component[] componentes=new Component[objeto.length+2];
-        componentes[0]=jPanel2;
-        componentes[1]=jPanel3;
-        
-        for(int i=2;i<=componentes.length-1;i++){
-        
-            componentes[i]=objeto[i-2];
-        }
-        
-        new AnimacionObjetos().RIzquierda(componentes, velocidad,this,"PantallaInicio",nombrePantalla,tipo,usuario,ID,declaracion);
-        
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        if("PantallaInicio".equals(retorno)){
+        /* Se verifica si el retorno corresponde a la pantalla inicio.*/
+        if ("PantallaInicio".equals(retorno)) {
 
+            /* Se emplea la funcionalidad del botón "Salir" */
             jButton11ActionPerformed(evt);
 
-        }else{
+        } else {
 
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-
+            /* 
+             * Se animan los objetos para que salgan del panel y se realiza 
+             * el cambio de pantalla
+             */
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
+                                         nombrePantalla, tipo, usuario, 
+                                         Arreglo.quitar(ID), declaracion);
+            
         }
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
 
-        Component[] componentes=new Component[objeto.length+2];
-        componentes[0]=jPanel2;
-        componentes[1]=jPanel3;
+        /*
+         * Se crea un arreglo de componentes para alamcenar todos los objetos 
+         * que se van a animar al momento de la salida
+         */
+        Component[] componentes = new Component[objeto.length + 2];
+        
+        componentes[0] = jPanel2;   //Se añade el panel superior
+        componentes[1] = jPanel3;   //Se añade el panel inferior
 
-        for(int i=2;i<=componentes.length-1;i++){
-
-            componentes[i]=objeto[i-2];
+        /* Se añaden los demas objetos a los que se les dió la animación */
+        for (int i = 2; i <= componentes.length - 1; i++) {
+            componentes[i] = objeto[i - 2];       
         }
 
-        new AnimacionObjetos().RIzquierda(componentes, velocidad,this,"PantallaInicio",nombrePantalla,tipo,usuario,null,declaracion);
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
+                                     "PantallaInicio", nombrePantalla, tipo, 
+                                     usuario, null, declaracion);
+        
+        
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -654,71 +675,103 @@ public final class FormHorario extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         
+        /*
+         * Se crea un arrelo para recojer los datos de los inputs 
+         */  
         String[] datos={ID[ID.length-2],
                         ID_ResultadoDeAprendizaje[jComboBox3.getSelectedIndex()],
                         jComboBox4.getSelectedItem().toString(),
                         jComboBox5.getSelectedItem().toString(),
-                        jComboBox6.getSelectedItem().toString()+":"+jComboBox7.getSelectedItem().toString(),
-                        jComboBox8.getSelectedItem().toString()+":"+jComboBox9.getSelectedItem().toString(),
+                        jComboBox6.getSelectedItem().toString() + ":"+jComboBox7.getSelectedItem().toString(),
+                        jComboBox8.getSelectedItem().toString() + ":"+jComboBox9.getSelectedItem().toString(),
                         Calendario.obtenerFecha(jDateChooser1),
                         Calendario.obtenerFecha(jDateChooser2),
                         jTextField9.getText()};
         
-        if("☺".equals(ID[ID.length-1])){
+        /*
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
+        if ("☺".equals(ID[ID.length - 1])){
 
-            if("".equals(jTextField9.getText()) ||
-               Calendario.obtenerFecha(jDateChooser1)==null ||
-               Calendario.obtenerFecha(jDateChooser2)==null){
+            /* Se verifica si los datos del formulario estan vacios */
+            if ("".equals(jTextField9.getText())
+                    || Calendario.obtenerFecha(jDateChooser1) == null
+                    || Calendario.obtenerFecha(jDateChooser2) == null) {
 
-                 JOptionPane.showMessageDialog(null,
-                 "Debe diligenciar los campos obligatorios (*)", "Error", 
-                 JOptionPane.ERROR_MESSAGE);
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                "Debe diligenciar los campos obligatorios (*)", "Error", 
+                JOptionPane.ERROR_MESSAGE);
 
-            }else{
+            } else {
                 
+                 /*
+                 * Se insertan los datos del horario en 
+                 * la base de datos
+                 */
                 Horario.Insertar(declaracion, datos);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno+".Ver",nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-
+                
+                /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                        retorno + ".Ver", nombrePantalla, tipo, usuario, 
+                        Arreglo.quitar(ID), declaracion);
+                
             }
                 
-        }else{
+        } else {
 
-            if("".equals(jTextField9.getText()) ||
-               Calendario.obtenerFecha(jDateChooser1)==null ||
-               Calendario.obtenerFecha(jDateChooser2)==null){
+            /* Se verifica si los datos del formulario estan vacios */
+            if ("".equals(jTextField9.getText())
+                        || Calendario.obtenerFecha(jDateChooser1) == null
+                        || Calendario.obtenerFecha(jDateChooser2) == null) {
 
-                 JOptionPane.showMessageDialog(null,
-                 "Debe diligenciar los campos obligatorios (*)", "Error", 
-                 JOptionPane.ERROR_MESSAGE);
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                "Debe diligenciar los campos obligatorios (*)", "Error", 
+                JOptionPane.ERROR_MESSAGE);
 
-            }else{
+            } else {
                 
-                Horario.ActualizarEnID(declaracion, datos, ID[ID.length-1]);
-                new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-            
+                /*
+                 * Se actualizan los datos del horario en 
+                 * la base de datos
+                 */
+                Horario.ActualizarEnID(declaracion, datos, ID[ID.length - 1]);
+                
+                /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                        retorno, nombrePantalla, tipo, usuario, 
+                        Arreglo.quitar(ID), declaracion);
+                
             }
                 
         }
-
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 2147483647 */
         Validaciones.longitud(evt, jTextField9.getText().length(), 2147483647);
+        
+        /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField9KeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -741,11 +794,11 @@ public final class FormHorario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     public javax.swing.JPanel jPanel8;
