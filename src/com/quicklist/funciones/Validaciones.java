@@ -52,27 +52,7 @@ public class Validaciones {
         }
         
     }
-    
-    public static void permitirCaracterEntre(KeyEvent evt, char real, char inicio, char fin) {
-        
-        if(!(real>=inicio && real<=fin)){
-            
-            evt.consume();
-            
-        }
-        
-    }
-    
-    public static void permitirCaracterFueraDe(KeyEvent evt, char real, char inicio, char fin) {
-        
-        if(!(real<inicio || real>fin)){
-            
-            evt.consume();
-            
-        }
-        
-    }
-    
+
     public static boolean formatoCorreo(String correo) {
         
         boolean arroba = false;
