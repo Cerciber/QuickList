@@ -5,6 +5,7 @@
  */
 package com.quicklist.clases;
 
+import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.ConvertirConsulta;
 import java.awt.Point;
 import java.sql.ResultSet;
@@ -23,12 +24,13 @@ public class Consulta {
     public String[] campos; 
     public String[] alias; 
     public String columnaSeleccionada;
-    public int nColumnaSeleccionada;
+    public int nColumnaSeleccionada=0;
     public String columnaSeleccionadaAnterior;
-    public String orientacion; 
-    public String nRegistros; 
-    public String busqueda;
-    public String condicion;
+    public String orientacion="ASC"; 
+    public String nRegistros="40"; 
+    public String busqueda="";
+    public String condicion="1=1";
+    public int[] nFechas;
     public JPanel panelContenedor;
     public Point posicion = new Point(0,0);
     
@@ -90,7 +92,13 @@ public class Consulta {
         
         this.panelContenedor=panelContenedor;
         
-    }   
+    }  
+    
+    public void nFechas(int[] nFechas){
+        
+        this.nFechas=nFechas;
+        
+    }  
     
     public String[][] ejecutarConsulta(){
         
@@ -119,6 +127,17 @@ public class Consulta {
             System.out.println("#######################################");
             ResultSet resultado = declaracion.executeQuery(consulta);
             menu=new ConvertirConsulta().ArregloString(resultado,alias);
+            
+            try{
+                
+                for(int i=0;i<nFechas.length;i++){
+
+                    Calendario.reducirFecha(menu,nFechas[i]);
+
+                }
+                
+            }catch(NullPointerException ex){}
+                
             
         } catch (SQLException ex) {System.out.println(ex);}
         

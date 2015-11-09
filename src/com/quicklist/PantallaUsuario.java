@@ -348,7 +348,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
                     columna[i].setFocusable(false);
                 }else{
                     
-                    final int i2=i-2;
+                    final int i2=i-boton[0].length;
                     final String[] ID1=this.ID;
                     
                     columna[i].addActionListener(new java.awt.event.ActionListener() {
@@ -394,7 +394,13 @@ public final class PantallaUsuario extends javax.swing.JPanel {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
 
                     consulta.posicion=jPanel8.getLocation();
-                    consulta.nRegistros(jTextField2.getText());
+                    
+                    if(!jTextField2.getText().isEmpty()){
+                        
+                        consulta.nRegistros(jTextField2.getText());
+                        
+                    }
+                    
                     consulta.busqueda(jTextField3.getText()); 
                     
                     String menu[][]=consulta.ejecutarConsulta();
