@@ -42,6 +42,7 @@ import com.quicklist.FormResultadoDeAprendizaje;
 import com.quicklist.PantallaInicio;
 import com.quicklist.PantallaUsuario;
 import com.quicklist.TomarAsistencia;
+import com.quicklist.clases.Consulta;
 
 /**
  *
@@ -113,14 +114,27 @@ public class PantallasAdministrador {
             
             if("Administrador.Funcionarios.Ver".equals(nombreClase)){
 
-                String[][] menu=Funcionario.SeleccionarTodos(declaracion);
                 String[] nombreBotones={"Editar","Borrar"};
                 String[] nombreIcono={"Editar Usuario","Borrar Usuario"};
                 String[] columna={"","","Documento","Contrasena","Nombre","Primer Apellido","Segundo Apellido","cargo","Correo Electronico","Telefono","Celular"};
                 String[] vinculo={"Administrador.Funcionarios.Ver.Editar","Administrador.Funcionarios.Ver.Borrar"};
                 String retorno="Administrador.Funcionarios";
 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Informacion_Funcionarios");
+                String[] campos={"Documento_De_Identidad","Documento_De_Identidad","Contrasena","Nombre","Primer_Apellido","Segundo_Apellido","cargo","Correo_Electronico","Telefono_Fijo","Telefono_Celular"};
+                c.campos(campos);
+                String[] alias={"ID","Documento_De_Identidad","Contrasena","Nombre","Primer_Apellido","Segundo_Apellido","cargo","Correo_Electronico","Telefono_Fijo","Telefono_Celular"};
+                c.alias(alias);
+                c.columnaSeleccionada("Documento_De_Identidad");
+                c.orientacion("ASC");
+                c.nRegistros("5");
+                c.busqueda("");
+                c.condicion("1=1");
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();

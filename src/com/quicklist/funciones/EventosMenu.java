@@ -97,8 +97,8 @@ public class EventosMenu {
                     if(k==columna){
 
                         
-                        componente[j][k].setBackground(new java.awt.Color(150, 255, 255));
-                        ((JScrollPane)componente[j][k]).getViewport().getView().setBackground(new java.awt.Color(150, 255, 255));
+                        componente[j][k].setBackground(new java.awt.Color(229, 255, 255));
+                        ((JScrollPane)componente[j][k]).getViewport().getView().setBackground(new java.awt.Color(229, 255, 255));
 
                     }else{
 
