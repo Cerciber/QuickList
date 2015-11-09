@@ -809,13 +809,24 @@ public class PantallasAdministrador {
                 String[] nombreBotones={"Editar","Borrar","Competencias"};
                 String[] nombreIcono={"Editar","Borrar","Competencias"};
                 String[] columna={"","","","Nombre","Programa","Version","Meses Etapa Lectiva","Nivel De Formacion"};
-                String[][] menu=PlanDeEstudios.SeleccionarTodos(declaracion);
                 String[] vinculo={"Administrador.PlanDeEstudios.Ver.Editar","Administrador.PlanDeEstudios.Ver.Borrar","Administrador.PlanDeEstudios.Ver.Competencia"};
                 String retorno="Administrador.PlanDeEstudios";
 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Plan_De_Estudios");
+                String[] campos={"ID_Plan_De_Estudios","Nombre_PlanDeEstudios","Nombre_Programa","Version_Plan_De_Estudios","Meses_Etapa_Lectiva","Nivel_De_Formacion"};
+                c.campos(campos);
+                String[] alias={"ID_Plan_De_Estudios","Nombre_PlanDeEstudios","Nombre_Programa","Version_Plan_De_Estudios","Meses_Etapa_Lectiva","Nivel_De_Formacion"};
+                c.alias(alias);
+                c.columnaSeleccionada("Nombre_PlanDeEstudios");
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
+                
+                
                 panelContenedor.validate();
                 p.movimientoSecuencial();
                 
@@ -899,12 +910,22 @@ public class PantallasAdministrador {
 
                 String[] nombreBotones={"Editar","Borrar","Actividades De Aprendizaje"};
                 String[] nombreIcono={"Editar","Borrar","Actividades De Aprendizaje"};
-                String[] columna={"","","","Competencia_A_Desarrollar"};
-                String[][] menu=Competencia.SeleccionarPorPlanDeEstudios(declaracion,ID[ID.length-1]);
+                String[] columna={"","","","Competencia A Desarrollar"};
                 String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.Editar","Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje"};
                 String retorno="Administrador.PlanDeEstudios.Ver.Competencia";
 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Competencias");
+                String[] campos={"ID_Competencia","Competencia_A_Desarrollar"};
+                c.campos(campos);
+                String[] alias={"ID_Competencia","Competencia_A_Desarrollar"};
+                c.alias(alias);
+                c.columnaSeleccionada("Competencia_A_Desarrollar");
+                c.condicion("ID_Plan_De_Estudios = "+ID[ID.length-1]);
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -991,11 +1012,21 @@ public class PantallasAdministrador {
                 String[] nombreBotones={"Editar","Borrar","Resultado De Aprendizaje"};
                 String[] nombreIcono={"Editar","Borrar","Resultado De Aprendizaje"};
                 String[] columna={"","","","Fase Del Proyecto","Actividad De Aprendizaje"};
-                String[][] menu=ActividadDeAprendizaje.SeleccionarPorCompetencia(declaracion,ID[ID.length-1]);
                 String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Editar","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje"};
                 String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje";
 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Actividad_De_Aprendizaje");
+                String[] campos={"ID_Actividad_De_Aprendizaje","Fase_Del_Proyecto","Actividad_De_Aprendizaje"};
+                c.campos(campos);
+                String[] alias={"ID_Actividad_De_Aprendizaje","Fase_Del_Proyecto","Actividad_De_Aprendizaje"};
+                c.alias(alias);
+                c.columnaSeleccionada("Fase_Del_Proyecto");
+                c.condicion("ID_Competencia = "+ID[ID.length-1]);
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -1082,11 +1113,21 @@ public class PantallasAdministrador {
                 String[] nombreBotones={"Editar","Borrar"};
                 String[] nombreIcono={"Editar","Borrar"};
                 String[] columna={"","","Resultado_De_Aprendizaje"};
-                String[][] menu=ResultadoDeAprendizaje.SeleccionarPorActividadDeAprendizaje(declaracion,ID[ID.length-1]);
                 String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Editar","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar"};
                 String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje";
 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Resultado_De_Aprendizaje");
+                String[] campos={"ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje"};
+                c.campos(campos);
+                String[] alias={"ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje"};
+                c.alias(alias);
+                c.columnaSeleccionada("Resultado_De_Aprendizaje");
+                c.condicion("ID_Actividad_De_Aprendizaje = "+ID[ID.length-1]);
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
