@@ -790,7 +790,7 @@ public final class FormFuncionarios extends javax.swing.JPanel {
                  */
                 new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
                         retorno + ".Ver", nombrePantalla, tipo, usuario, 
-                        Arreglo.quitar(ID), declaracion);
+                        Arreglo.agregar(Arreglo.quitar(ID)), declaracion);
 
             }
 

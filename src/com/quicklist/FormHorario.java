@@ -414,6 +414,11 @@ public final class FormHorario extends javax.swing.JPanel {
         jComboBox3.setBackground(new java.awt.Color(0, 153, 153));
         jComboBox3.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
         jComboBox3.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
 
         jComboBox4.setBackground(new java.awt.Color(0, 153, 153));
         jComboBox4.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
@@ -776,6 +781,15 @@ public final class FormHorario extends javax.swing.JPanel {
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jTextField9KeyTyped
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        
+        /* Se muestra un mensaje de error */
+        JOptionPane.showMessageDialog(null,
+        jComboBox3.getSelectedItem().toString(),"Resultado De Aprendizaje", 
+        JOptionPane.INFORMATION_MESSAGE);
+        
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

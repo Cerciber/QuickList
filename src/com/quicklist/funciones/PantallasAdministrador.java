@@ -472,24 +472,23 @@ public class PantallasAdministrador {
                 String[] nombreBotones={"Editar","Borrar","Actividades","Asistencia"};
                 String[] nombreIcono={"Editar","Borrar","Actividades","Asistencia"};
                 String[] columna={"","","","","instructor","Dia","Hora Inicio","Hora Fin","Fecha Inicio","Fecha Fin","Lugar","Resultado De Aprendizaje"};
-                String[][] menu=Horario.SeleccionarPorFicha(declaracion, ID[ID.length-1]);
                 String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Editar","Administrador.Fichas.Ver.Horarios.Ver.Borrar","Administrador.Fichas.Ver.Horarios.Ver.Actividades","Administrador.Fichas.Ver.Horarios.Ver.Asistencia"};
                 String retorno="Administrador.Fichas.Ver.Horarios";
 
                 Consulta c = new Consulta(declaracion);
-                c.tabla("T_Informacion_Aprendices");
-                String[] campos={"Documento_De_Identidad","Documento_De_Identidad","Contrasena","Nombre","Primer_Apellido","Segundo_Apellido","Fecha_De_Nacimiento","Correo_Electronico","Genero","ID_Ficha","Telefono_Fijo","Telefono_Celular","estado","nombre_Proyecto","Estilos_Y_Ritmos_De_Aprendizaje","Estrategia_Metodológica_De_Preferencia","Caracteristicas_Culturales_Y_Sociales"};
+                c.tabla("T_Horario join T_Resultado_De_Aprendizaje on T_Horario.ID_Resultado_De_Aprendizaje=T_Resultado_De_Aprendizaje.ID_Resultado_De_Aprendizaje join T_Informacion_Funcionarios on T_Horario.ID_Funcionario=T_Informacion_Funcionarios.Documento_De_Identidad");
+                String[] campos={"ID_Horario","CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
                 c.campos(campos);
-                String[] alias={"ID","Documento_De_Identidad","Contrasena","Nombre","Primer_Apellido","Segundo_Apellido","Fecha_De_Nacimiento","Correo_Electronico","Genero","ID_Ficha","Telefono_Fijo","Telefono_Celular","estado","nombre_Proyecto","Estilos_Y_Ritmos_De_Aprendizaje","Estrategia_Metodológica_De_Preferencia","Caracteristicas_Culturales_Y_Sociales"};
+                String[] alias={"ID_Horario","instructor","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
                 c.alias(alias);
-                c.columnaSeleccionada("Documento_De_Identidad");
+                c.columnaSeleccionada("CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)");
                 c.condicion("ID_Ficha = "+ID[ID.length-1]);
-                int[] nFechas={6};
+                int[] nFechas={5,6};
                 c.nFechas(nFechas);
                 c.panelContenedor(panelContenedor);
                 String menu[][]=c.ejecutarConsulta();
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -577,11 +576,23 @@ public class PantallasAdministrador {
                 String[] nombreBotones={"Editar","Borrar","Aprobar"};
                 String[] nombreIcono={"Editar","Borrar","Aprobar"};
                 String[] columna={"","","","Nombre Actividad","Nombre Evidencia","Medio","Tipo","Fecha RecoleccionEvidencia"};
-                String[][] menu=Actividad.SeleccionarPorHorario(declaracion, ID[ID.length-1]);
                 String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Editar","Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar","Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Aprobar"};
                 String retorno="Administrador.Fichas.Ver.Horarios.Ver.Actividades";
 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Actividades");
+                String[] campos={"ID_Actividad","Nombre_Actividad","Nombre_Evidencia","Medio","Tipo","Fecha_RecoleccionEvidencia"};
+                c.campos(campos);
+                String[] alias={"ID_Actividad","Nombre_Actividad","Nombre_Evidencia","Medio","Tipo","Fecha_RecoleccionEvidencia"};
+                c.alias(alias);
+                c.columnaSeleccionada("Nombre_Actividad");
+                c.condicion("ID_Horario = "+ID[ID.length-1]);
+                int[] nFechas={5};
+                c.nFechas(nFechas);
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -679,11 +690,23 @@ public class PantallasAdministrador {
                 String[] nombreBotones={"Editar","Borrar"};
                 String[] nombreIcono={"Editar","Borrar"};
                 String[] columna={"","","Fecha"};
-                String[][] menu=Formacion.SeleccionarPorHorario(declaracion, ID[ID.length-1]);
                 String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar","Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Borrar"};
                 String retorno="Administrador.Fichas.Ver.Horarios.Ver.Asistencia";
 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Formacion");
+                String[] campos={"ID_Formacion","Fecha"};
+                c.campos(campos);
+                String[] alias={"ID_Formacion","Fecha"};
+                c.alias(alias);
+                c.columnaSeleccionada("Fecha");
+                c.condicion("ID_Horario = "+ID[ID.length-1]);
+                int[] nFechas={1};
+                c.nFechas(nFechas);
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
