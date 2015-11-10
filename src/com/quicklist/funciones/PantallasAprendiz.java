@@ -24,6 +24,7 @@ import com.quicklist.ReportarExcusa;
 import com.quicklist.clases.ActividadDeAprendizaje;
 import com.quicklist.clases.Aprendiz;
 import com.quicklist.clases.Competencia;
+import com.quicklist.clases.Consulta;
 import com.quicklist.clases.Funcionario;
 import com.quicklist.clases.Horario;
 import com.quicklist.clases.Inasistencia;
@@ -94,14 +95,26 @@ public class PantallasAprendiz {
             
             if("Aprendiz.Asistencia.Horario".equals(nombreClase)){
 
-                String[][] menu=Horario.SeleccionarActualPorAprendiz(declaracion, usuario);
                 String[] nombreBotones={"Formaciones"};
                 String[] nombreIcono={"Formaciones"};
                 String[] columna={"","instructor","Dia Semana","Hora Inicio","Hora Fin","Fecha Inicio","Fecha Fin","Lugar","Resultado De Aprendizaje"};
                 String[] vinculo={"Aprendiz.Asistencia.Horario.Descripcion"};
                 String retorno="Aprendiz.Asistencia";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Horario join T_Resultado_De_Aprendizaje on T_Horario.ID_Resultado_De_Aprendizaje=T_Resultado_De_Aprendizaje.ID_Resultado_De_Aprendizaje join T_Informacion_Aprendices on T_Horario.ID_Ficha=T_Informacion_Aprendices.ID_Ficha join T_Informacion_Funcionarios on T_Horario.ID_Funcionario=T_Informacion_Funcionarios.Documento_De_Identidad  ");
+                String[] campos={"ID_Horario","CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
+                c.campos(campos);
+                String[] alias={"ID_Horario","instructor","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
+                c.alias(alias);
+                c.columnaSeleccionada("CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)");
+                c.condicion("T_Informacion_Aprendices.Documento_De_Identidad = "+usuario+" and Fecha_Inicio <= getDate() and Fecha_Fin >= getDate()");
+                c.panelContenedor(panelContenedor);
+                int[] nFechas={5,6};
+                c.nFechas(nFechas);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -111,14 +124,26 @@ public class PantallasAprendiz {
 //            
             if("Aprendiz.Asistencia.Horario.Descripcion".equals(nombreClase)){
 
-                String[][] menu=Inasistencia.SeleccionarPorHorario(declaracion,usuario,ID[ID.length-1]);
                 String[] nombreBotones={"Excusa"};
                 String[] nombreIcono={"Excusa"};
                 String[] columna={"","Fecha","Estado","Justificacion"};
                 String[] vinculo={"Aprendiz.Asistencia.Horario.Descripcion.ReportarExcusa"};
                 String retorno="Aprendiz.Asistencia.Horario";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Inasistencia join T_Formacion on T_Inasistencia.ID_Formacion = T_Formacion.ID_Formacion ");
+                String[] campos={"ID_Inasistencia","Fecha","Estado_De_Inasistencia","Justificacion_De_Inasistencia"};
+                c.campos(campos);
+                String[] alias={"ID_Inasistencia","Fecha","Estado_De_Inasistencia","Justificacion_De_Inasistencia"};
+                c.alias(alias);
+                c.columnaSeleccionada("Fecha");
+                c.condicion("ID_Horario="+ID[ID.length-1]+" and ID_Aprendiz="+usuario);
+                c.panelContenedor(panelContenedor);
+                int[] nFechas={1};
+                c.nFechas(nFechas);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -137,14 +162,24 @@ public class PantallasAprendiz {
             
             if("Aprendiz.Asistencia.Competencia".equals(nombreClase)){
 
-                String[][] menu=Competencia.SeleccionarPorAprendiz(declaracion,usuario);
                 String[] nombreBotones={"Actividades De Aprendizaje"};
                 String[] nombreIcono={"Actividades De Aprendizaje"};
                 String[] columna={"","Competencia_A_Desarrollar"};
                 String[] vinculo={"Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje"};
                 String retorno="Aprendiz.Asistencia";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Competencias join T_Plan_De_Estudios on T_Competencias.ID_Plan_De_Estudios=T_Plan_De_Estudios.ID_Plan_De_Estudios join T_Fichas on T_Fichas.ID_Plan_De_Estudios=T_Plan_De_Estudios.ID_Plan_De_Estudios join T_Informacion_Aprendices on T_Fichas.Numero_De_Ficha=T_Informacion_Aprendices.ID_Ficha ");
+                String[] campos={"ID_Competencia","Competencia_A_Desarrollar"};
+                c.campos(campos);
+                String[] alias={"ID_Competencia","Competencia_A_Desarrollar"};
+                c.alias(alias);
+                c.columnaSeleccionada("Competencia_A_Desarrollar");
+                c.condicion("Documento_De_Identidad = "+usuario);
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -154,14 +189,25 @@ public class PantallasAprendiz {
             
             if("Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje".equals(nombreClase)){
 
-                String[][] menu=ActividadDeAprendizaje.SeleccionarPorCompetencia(declaracion, ID[ID.length-1]);
                 String[] nombreBotones={"Resultado De Aprendizaje"};
                 String[] nombreIcono={"Resultado De Aprendizaje"};
                 String[] columna={"","Fase_Del_Proyecto","Actividad_De_Aprendizaje"};
                 String[] vinculo={"Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje"};
                 String retorno="Aprendiz.Asistencia.Competencia";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Actividad_De_Aprendizaje");
+                String[] campos={"ID_Actividad_De_Aprendizaje","Fase_Del_Proyecto","Actividad_De_Aprendizaje"};
+                c.campos(campos);
+                String[] alias={"ID_Actividad_De_Aprendizaje","Fase_Del_Proyecto","Actividad_De_Aprendizaje"};
+                c.alias(alias);
+                c.columnaSeleccionada("Fase_Del_Proyecto");
+                c.condicion("ID_Competencia = "+ID[ID.length-1]);
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -171,14 +217,24 @@ public class PantallasAprendiz {
             
             if("Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje".equals(nombreClase)){
 
-                String[][] menu=ResultadoDeAprendizaje.SeleccionarPorActividadDeAprendizaje(declaracion,ID[ID.length-1]);
                 String[] nombreBotones={"Horario"};
                 String[] nombreIcono={"Horarios"};
                 String[] columna={"","Resultado_De_Aprendizaje"};
                 String[] vinculo={"Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario"};
                 String retorno="Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Resultado_De_Aprendizaje");
+                String[] campos={"ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje"};
+                c.campos(campos);
+                String[] alias={"ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje"};
+                c.alias(alias);
+                c.columnaSeleccionada("Resultado_De_Aprendizaje");
+                c.condicion("ID_Actividad_De_Aprendizaje = "+ID[ID.length-1]);
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -188,14 +244,26 @@ public class PantallasAprendiz {
             
             if("Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario".equals(nombreClase)){
 
-                String[][] menu=Horario.SeleccionarPorResultadoDeAprendizaje(declaracion, ID[ID.length-1]);
                 String[] nombreBotones={"Formaciones"};
                 String[] nombreIcono={"Formaciones"};
                 String[] columna={"","Instructor","Dia Semana","Hora Inicio","Hora Fin","Fecha Inicio","Fecha Fin","Lugar","Resultado De Aprendizaje"};
                 String[] vinculo={"Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario.Asistencia"};
                 String retorno="Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Horario join T_Resultado_De_Aprendizaje on T_Horario.ID_Resultado_De_Aprendizaje=T_Resultado_De_Aprendizaje.ID_Resultado_De_Aprendizaje join T_Informacion_Funcionarios on T_Horario.ID_Funcionario=T_Informacion_Funcionarios.Documento_De_Identidad ");
+                String[] campos={"ID_Horario","CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
+                c.campos(campos);
+                String[] alias={"ID_Horario","instructor","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
+                c.alias(alias);
+                c.columnaSeleccionada("CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)");
+                c.condicion("T_Horario.ID_Resultado_De_Aprendizaje = "+ID[ID.length-1]);
+                c.panelContenedor(panelContenedor);
+                int[] nFechas={5,6};
+                c.nFechas(nFechas);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -205,14 +273,26 @@ public class PantallasAprendiz {
             
             if("Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario.Asistencia".equals(nombreClase)){
 
-                String[][] menu=Inasistencia.SeleccionarPorHorario(declaracion, usuario, ID[ID.length-1]);
                 String[] nombreBotones={"Excusa"};
                 String[] nombreIcono={"Excusa"};
                 String[] columna={"","Fecha","Estado","Justificacion"};
                 String[] vinculo={"Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario.Asistencia.ReportarExcusa"};
                 String retorno="Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Inasistencia join T_Formacion on T_Inasistencia.ID_Formacion = T_Formacion.ID_Formacion ");
+                String[] campos={"ID_Inasistencia","Fecha","Estado_De_Inasistencia","Justificacion_De_Inasistencia"};
+                c.campos(campos);
+                String[] alias={"ID_Inasistencia","Fecha","Estado_De_Inasistencia","Justificacion_De_Inasistencia"};
+                c.alias(alias);
+                c.columnaSeleccionada("Fecha");
+                c.condicion("ID_Horario="+ID[ID.length-1]+" and ID_Aprendiz="+usuario);
+                c.panelContenedor(panelContenedor);
+                int[] nFechas={1};
+                c.nFechas(nFechas);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -250,14 +330,24 @@ public class PantallasAprendiz {
             
             if("Aprendiz.FormatoEtapaLectiva.Instructor".equals(nombreClase)){
 
-                String[][] menu=Funcionario.SeleccionarPorAprendiz(declaracion, usuario);
                 String[] nombreBotones={"Formato De Etapa Lectiva"};
                 String[] nombreIcono={"Formato"};
                 String[] columna={"","Nombre","Primer Apellido","Segundo Apellido","cargo","Correo Electronico","Telefono","Celular"};
                 String[] vinculo={"Aprendiz.FormatoEtapaLectiva.Instructor.Obtener"};
                 String retorno="Aprendiz.FormatoEtapaLectiva";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Informacion_Funcionarios join T_Horario on  T_Informacion_Funcionarios.Documento_De_Identidad=T_Horario.ID_Funcionario join T_Informacion_Aprendices on  T_Informacion_Aprendices.ID_Ficha=T_Horario.ID_Ficha ");
+                String[] campos={"T_Informacion_Funcionarios.Documento_De_Identidad","T_Informacion_Funcionarios.Nombre","T_Informacion_Funcionarios.Primer_Apellido","T_Informacion_Funcionarios.Segundo_Apellido","cargo","T_Informacion_Funcionarios.Correo_Electronico","T_Informacion_Funcionarios.Telefono_Fijo","T_Informacion_Funcionarios.Telefono_Celular"};
+                c.campos(campos);
+                String[] alias={"Documento_De_Identidad","Nombre","Primer_Apellido","Segundo_Apellido","cargo","Correo_Electronico","Telefono_Fijo","Telefono_Celular"};
+                c.alias(alias);
+                c.columnaSeleccionada("T_Informacion_Funcionarios.Nombre");
+                c.condicion("T_Informacion_Aprendices.Documento_De_Identidad = "+usuario);
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -274,14 +364,26 @@ public class PantallasAprendiz {
             
             if("Aprendiz.FormatoEtapaLectiva.Horario".equals(nombreClase)){
 
-                String[][] menu=Horario.SeleccionarActualPorAprendiz(declaracion, usuario);
                 String[] nombreBotones={"Formato De Etapa Lectiva"};
                 String[] nombreIcono={"Formato"};
                 String[] columna={"","instructor","Dia","Hora Inicio","Hora Fin","Fecha Inicio","Fecha Fin","Lugar","Resultado De Aprendizaje"};
                 String[] vinculo={"Aprendiz.FormatoEtapaLectiva.Horario.Obtener"};
                 String retorno="Aprendiz.FormatoEtapaLectiva";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Horario join T_Resultado_De_Aprendizaje on T_Horario.ID_Resultado_De_Aprendizaje=T_Resultado_De_Aprendizaje.ID_Resultado_De_Aprendizaje join T_Informacion_Aprendices on T_Horario.ID_Ficha=T_Informacion_Aprendices.ID_Ficha join T_Informacion_Funcionarios on T_Horario.ID_Funcionario=T_Informacion_Funcionarios.Documento_De_Identidad");
+                String[] campos={"ID_Horario","CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
+                c.campos(campos);
+                String[] alias={"ID_Horario","instructor","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
+                c.alias(alias);
+                c.columnaSeleccionada("CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)");
+                c.condicion("T_Informacion_Aprendices.Documento_De_Identidad = "+usuario+" and Fecha_Inicio<=getDate() and Fecha_Fin>=getDate()");
+                c.panelContenedor(panelContenedor);
+                int[] nFechas={5,6};
+                c.nFechas(nFechas);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -298,14 +400,24 @@ public class PantallasAprendiz {
             
             if("Aprendiz.FormatoEtapaLectiva.Competencias".equals(nombreClase)){
 
-                String[][] menu=Competencia.SeleccionarPorAprendiz(declaracion,usuario);
                 String[] nombreBotones={"Actividades De Aprendizaje"};
                 String[] nombreIcono={"Actividades De Aprendizaje"};
                 String[] columna={"","Competencia A Desarrollar"};
                 String[] vinculo={"Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje"};
                 String retorno="Aprendiz.FormatoEtapaLectiva";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Competencias join T_Plan_De_Estudios on T_Competencias.ID_Plan_De_Estudios=T_Plan_De_Estudios.ID_Plan_De_Estudios join T_Fichas on T_Fichas.ID_Plan_De_Estudios=T_Plan_De_Estudios.ID_Plan_De_Estudios join T_Informacion_Aprendices on T_Fichas.Numero_De_Ficha=T_Informacion_Aprendices.ID_Ficha");
+                String[] campos={"ID_Competencia","Competencia_A_Desarrollar"};
+                c.campos(campos);
+                String[] alias={"ID_Competencia","Competencia_A_Desarrollar"};
+                c.alias(alias);
+                c.columnaSeleccionada("Competencia_A_Desarrollar");
+                c.condicion("Documento_De_Identidad = "+usuario);
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -315,14 +427,24 @@ public class PantallasAprendiz {
             
             if("Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje".equals(nombreClase)){
 
-                String[][] menu=ActividadDeAprendizaje.SeleccionarPorCompetencia(declaracion, ID[ID.length-1]);
                 String[] nombreBotones={"Resultado De Aprendizaje"};
                 String[] nombreIcono={"Resultado De Aprendizaje"};
                 String[] columna={"","Fase","Actividad De Aprendizaje"};
                 String[] vinculo={"Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje.ResultadoDeAprendizaje"};
                 String retorno="Aprendiz.FormatoEtapaLectiva.Competencias";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Actividad_De_Aprendizaje");
+                String[] campos={"ID_Actividad_De_Aprendizaje","Fase_Del_Proyecto","Actividad_De_Aprendizaje"};
+                c.campos(campos);
+                String[] alias={"ID_Actividad_De_Aprendizaje","Fase_Del_Proyecto","Actividad_De_Aprendizaje"};
+                c.alias(alias);
+                c.columnaSeleccionada("Fase_Del_Proyecto");
+                c.condicion("ID_Competencia = "+ID[ID.length-1]);
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -332,14 +454,24 @@ public class PantallasAprendiz {
             
             if("Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje.ResultadoDeAprendizaje".equals(nombreClase)){
 
-                String[][] menu=ResultadoDeAprendizaje.SeleccionarPorActividadDeAprendizaje(declaracion,ID[ID.length-1]);
                 String[] nombreBotones={"Horario"};
                 String[] nombreIcono={"Horarios"};
                 String[] columna={"","Resultado De Aprendizaje"};
                 String[] vinculo={"Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario"};
                 String retorno="Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Resultado_De_Aprendizaje");
+                String[] campos={"ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje"};
+                c.campos(campos);
+                String[] alias={"ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje"};
+                c.alias(alias);
+                c.columnaSeleccionada("Resultado_De_Aprendizaje");
+                c.condicion("ID_Actividad_De_Aprendizaje = "+ID[ID.length-1]);
+                c.panelContenedor(panelContenedor);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -349,14 +481,26 @@ public class PantallasAprendiz {
             
             if("Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario".equals(nombreClase)){
 
-                String[][] menu=Horario.SeleccionarPorResultadoDeAprendizaje(declaracion,ID[ID.length-1]);
                 String[] nombreBotones={"Formato De Etapa Lactiva"};
                 String[] nombreIcono={"Formato"};
                 String[] columna={"","instructor","Dia","Hora Inicio","Hora Fin","Fecha Inicio","Fecha Fin","Lugar","Resultado De Aprendizaje"};
                 String[] vinculo={"Aprendiz.FormatoEtapaLectiva.Horario.Obtener"};
                 String retorno="Aprendiz.FormatoEtapaLectiva";
                 
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Horario join T_Resultado_De_Aprendizaje on T_Horario.ID_Resultado_De_Aprendizaje=T_Resultado_De_Aprendizaje.ID_Resultado_De_Aprendizaje join T_Informacion_Funcionarios on T_Horario.ID_Funcionario=T_Informacion_Funcionarios.Documento_De_Identidad");
+                String[] campos={"ID_Horario","CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
+                c.campos(campos);
+                String[] alias={"ID_Horario","instructor","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
+                c.alias(alias);
+                c.columnaSeleccionada("CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)");
+                c.condicion("T_Horario.ID_Resultado_De_Aprendizaje = "+ID[ID.length-1]);
+                c.panelContenedor(panelContenedor);
+                int[] nFechas={5,6};
+                c.nFechas(nFechas);
+                String menu[][]=c.ejecutarConsulta();
+                
+                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();

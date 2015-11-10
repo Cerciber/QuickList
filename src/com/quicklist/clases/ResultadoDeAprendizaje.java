@@ -31,7 +31,7 @@ public class ResultadoDeAprendizaje {
         
         try {
             
-            ResultSet resultado = declaracion.executeQuery("select * from T_Resultado_De_Aprendizaje where ID_Resultado_De_Aprendizaje = "+ID+";");    
+            ResultSet resultado = declaracion.executeQuery("select * from T_Resultado_De_Aprendizaje where ID_Resultado_De_Aprendizaje = "+ID+" ");    
             String[] campos={"ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje"};
             menu=new ConvertirConsulta().ArregloString(resultado,campos);
            
@@ -81,7 +81,7 @@ public class ResultadoDeAprendizaje {
         
         try {
             
-            ResultSet resultado = declaracion.executeQuery("select * from T_Resultado_De_Aprendizaje;");
+            ResultSet resultado = declaracion.executeQuery("select ID_Resultado_De_Aprendizaje,Resultado_De_Aprendizaje from T_Resultado_De_Aprendizaje order by Resultado_De_Aprendizaje;");
             String[] campos={"ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje"};
             menu=new ConvertirConsulta().ArregloString(resultado,campos);
             

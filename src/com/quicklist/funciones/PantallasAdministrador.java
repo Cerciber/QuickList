@@ -1132,7 +1132,6 @@ public class PantallasAdministrador {
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
-                
 
             }
             

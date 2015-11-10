@@ -155,8 +155,8 @@ public class Horario {
             String[] campos={"ID_Horario","ID_Ficha","ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje","funcionario","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar"};
             menu=new ConvertirConsulta().ArregloString(resultado,campos);
             
+            Calendario.reducirFecha(menu,8);
             Calendario.reducirFecha(menu,9);
-            Calendario.reducirFecha(menu,10);
             
         } catch (SQLException ex) {}
         
