@@ -28,6 +28,8 @@ public class Consulta {
     public String columnaSeleccionadaAnterior;
     public String orientacion="ASC"; 
     public String nRegistros="40"; 
+    public int nRegistrosPagina=10; 
+    public int registroInicial=0; 
     public String busqueda="";
     public String condicion="1=1";
     public int[] nFechas;
@@ -106,7 +108,7 @@ public class Consulta {
         
         try {
             
-            String consulta = "select top("+nRegistros+")";
+            String consulta = "select ";
             
             for (int i=0;i<campos.length;i++){
                 
@@ -120,7 +122,7 @@ public class Consulta {
             
             consulta = consulta.concat("from "+tabla+" where "+columnaSeleccionada+" like ('%"+busqueda+"%') "
                     +" and "+condicion+" order by "+columnaSeleccionada
-                    +" "+orientacion);
+                    +" "+orientacion+" OFFSET "+registroInicial+" ROWS FETCH NEXT "+nRegistrosPagina+" ROWS ONLY");
             
             System.out.println("#######################################");
             System.out.println(consulta);
