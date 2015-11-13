@@ -93,6 +93,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
         new MoverObjeto(jPanel8);
         jTextField3.setText(consulta.busqueda);
         jTextField4.setText(consulta.nRegistrosPagina+"");
+        jLabel6.setText("1-"+consulta.paginaActual+"-"+consulta.paginaFinal);
         
     }    
     
@@ -235,6 +236,13 @@ public final class PantallaUsuario extends javax.swing.JPanel {
         
         if(!jTextField4.getText().isEmpty()){
 
+            if(consulta.nRegistrosPagina!=Integer.parseInt(jTextField4.getText())){
+                
+                consulta.registroInicial=0;
+                consulta.paginaActual=1;
+                
+            }
+            
             consulta.nRegistrosPagina=Integer.parseInt(jTextField4.getText());
 
         }
@@ -436,6 +444,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
                     if(consulta.registroInicial-consulta.nRegistrosPagina>=0){
                         
+                        consulta.paginaActual--;
                         consulta.registroInicial-=consulta.nRegistrosPagina;
                         buscar(nombreBoton,nombreIcono,nombreColumna,vinculo);
                         
@@ -447,11 +456,13 @@ public final class PantallaUsuario extends javax.swing.JPanel {
             jButton10.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
 
+                    consulta.paginaActual++;
                     consulta.registroInicial+=consulta.nRegistrosPagina;
                     String[][] menu = buscar(nombreBoton,nombreIcono,nombreColumna,vinculo);
                     
                     if(menu.length==0){
                         
+                        consulta.paginaActual--;
                         consulta.registroInicial-=consulta.nRegistrosPagina;
                         buscar(nombreBoton,nombreIcono,nombreColumna,vinculo);
                         
@@ -507,6 +518,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
         jButton10 = new javax.swing.JButton();
         jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
@@ -649,6 +661,11 @@ public final class PantallaUsuario extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(0, 204, 204));
         jLabel5.setText("Div. pág.");
 
+        jLabel6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("1-3-10");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -658,9 +675,11 @@ public final class PantallaUsuario extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -683,7 +702,8 @@ public final class PantallaUsuario extends javax.swing.JPanel {
                         .addGroup(jPanel5Layout.createSequentialGroup()
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jButton9)
-                                .addComponent(jButton10))
+                                .addComponent(jButton10)
+                                .addComponent(jLabel6))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1021,6 +1041,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

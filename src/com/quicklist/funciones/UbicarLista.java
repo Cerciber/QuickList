@@ -342,7 +342,7 @@ public final class UbicarLista {
         
         for(int j=0;j<=campo.length-1;j++){
         
-            parallelGroupComponentes[0].addComponent(campo[j], javax.swing.GroupLayout.DEFAULT_SIZE,  javax.swing.GroupLayout.DEFAULT_SIZE,  Short.MAX_VALUE); 
+            parallelGroupComponentes[0].addComponent(campo[j], 50,50,50); 
 
         }
         
@@ -350,13 +350,13 @@ public final class UbicarLista {
             
             for(int j=0;j<=objeto[i-1].length-1;j++){
         
-                parallelGroupComponentes[i].addComponent(objeto[i-1][j], javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE); 
+                parallelGroupComponentes[i].addComponent(objeto[i-1][j], 50,50,50); 
                 
             }
 
             for(int j=0;j<=boton[i-1].length-1;j++){
         
-                parallelGroupComponentes[i].addComponent(boton[i-1][j], javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE);
+                parallelGroupComponentes[i].addComponent(boton[i-1][j], 50,50,50);
                 
             }
             

@@ -29,6 +29,8 @@ public class Consulta {
     public String orientacion="ASC"; 
     public String nRegistros="40"; 
     public int nRegistrosPagina=10; 
+    public int paginaActual=1; 
+    public int paginaFinal=1; 
     public int registroInicial=0; 
     public String busqueda="";
     public String condicion="1=1";
@@ -121,13 +123,33 @@ public class Consulta {
             }
             
             consulta = consulta.concat("from "+tabla+" where "+columnaSeleccionada+" like ('%"+busqueda+"%') "
+                    +" and "+condicion+" order by "+columnaSeleccionada);
+            
+            ResultSet resultado = declaracion.executeQuery(consulta);
+            menu=new ConvertirConsulta().ArregloString(resultado,alias);
+            
+            paginaFinal=(menu.length+this.nRegistrosPagina-1)/this.nRegistrosPagina;
+            
+            consulta = "select ";
+            
+            for (int i=0;i<campos.length;i++){
+                
+                consulta = consulta.concat(campos[i]+" ");
+                consulta = consulta.concat("as "+alias[i]+" ");
+                if(i!=campos.length-1){
+                    consulta = consulta.concat(", ");
+                }
+                
+            }
+            
+            consulta = consulta.concat("from "+tabla+" where "+columnaSeleccionada+" like ('%"+busqueda+"%') "
                     +" and "+condicion+" order by "+columnaSeleccionada
                     +" "+orientacion+" OFFSET "+registroInicial+" ROWS FETCH NEXT "+nRegistrosPagina+" ROWS ONLY");
             
             System.out.println("#######################################");
             System.out.println(consulta);
             System.out.println("#######################################");
-            ResultSet resultado = declaracion.executeQuery(consulta);
+            resultado = declaracion.executeQuery(consulta);
             menu=new ConvertirConsulta().ArregloString(resultado,alias);
             
             try{

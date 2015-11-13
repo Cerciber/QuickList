@@ -40,7 +40,7 @@ public class PantallaInicio extends javax.swing.JPanel {
     public PantallaInicio() {
         
         initComponents();
-        new MoverObjeto(jPanel1);    
+        new MoverObjeto(jPanel1);
         
     }
     
