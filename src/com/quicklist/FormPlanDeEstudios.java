@@ -52,6 +52,10 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
         initComponents();
         datosUsuario();
         datosActividad(ID);
+        
+        /*Quitar el boton de edición de datos*/
+        jButton8.setVisible(false);
+        
         new MoverObjeto(jPanel8);
         
         
@@ -100,6 +104,7 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -133,16 +138,27 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel6.setOpaque(false);
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel6MousePressed(evt);
+            }
+        });
+
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel3MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 66, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel7.setOpaque(false);
@@ -598,6 +614,22 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton13ActionPerformed
 
+    private void jPanel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MousePressed
+        
+        Foto foto = new Foto(jLabel3,declaracion,usuario,tipo);
+        foto.setLocationRelativeTo(null);
+        foto.setVisible(true);
+        
+    }//GEN-LAST:event_jPanel6MousePressed
+
+    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
+
+        Foto foto = new Foto(jLabel3,declaracion,usuario,tipo);
+        foto.setLocationRelativeTo(null);
+        foto.setVisible(true);
+
+    }//GEN-LAST:event_jLabel3MousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton11;
@@ -614,6 +646,7 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;

@@ -89,6 +89,9 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel3">
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel3MousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -146,6 +149,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Editar mis datos"/>
                 <Property name="autoscrolls" type="boolean" value="true"/>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="opaque" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -218,7 +222,7 @@
                       <Component id="jButton5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jComboBox4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="22" max="32767" attributes="0"/>
+                      <EmptySpace pref="54" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

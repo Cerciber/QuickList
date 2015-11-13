@@ -87,6 +87,9 @@ public final class Confirmacion extends javax.swing.JPanel {
         /* Se cargan y se ubican los datos del usuario */
         new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
         
+        /*Quitar el boton de edición de datos*/
+        jButton8.setVisible(false);
+        
         /* Se asigna la variable String con la pregunta en el label */
         jLabel15.setText(pregunta);
         
@@ -364,7 +367,9 @@ public final class Confirmacion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        
+        new AnimacionObjetos().RIzquierda(objeto, velocidad,this,"EditarMisDatos",nombrePantalla,tipo,usuario,ID,declaracion);
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

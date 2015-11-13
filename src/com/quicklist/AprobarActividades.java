@@ -115,6 +115,9 @@ public final class AprobarActividades extends javax.swing.JPanel {
      */
     public void datosActividad(String[] ID) {
         
+        /*Quitar el boton de edición de datos*/
+        jButton8.setVisible(false);
+        
         /*
          * Se realiza la busqueda en la base de datos y se asigna en un 
          * arreglo bidimensional
@@ -329,6 +332,12 @@ public final class AprobarActividades extends javax.swing.JPanel {
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel6.setOpaque(false);
 
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel3MousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -358,6 +367,7 @@ public final class AprobarActividades extends javax.swing.JPanel {
         jButton8.setForeground(new java.awt.Color(204, 255, 255));
         jButton8.setText("Editar mis datos");
         jButton8.setAutoscrolls(true);
+        jButton8.setFocusable(false);
         jButton8.setOpaque(false);
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -440,7 +450,7 @@ public final class AprobarActividades extends javax.swing.JPanel {
                 .addComponent(jButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -541,10 +551,6 @@ public final class AprobarActividades extends javax.swing.JPanel {
 
         add(jPanel3, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
@@ -661,6 +667,19 @@ public final class AprobarActividades extends javax.swing.JPanel {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+
+        new AnimacionObjetos().RIzquierda(objeto, velocidad,this,"EditarMisDatos",nombrePantalla,tipo,usuario,ID,declaracion);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
+        
+        Foto foto = new Foto(jLabel3,declaracion,usuario,tipo);
+        foto.setLocationRelativeTo(null);
+        foto.setVisible(true);
+        
+    }//GEN-LAST:event_jLabel3MousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

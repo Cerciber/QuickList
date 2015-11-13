@@ -89,6 +89,9 @@ public final class FormFormacion extends javax.swing.JPanel {
         
         datosActividad(ID);     //Se carga y se ubica la tabla de información
         
+        /*Quitar el boton de edición de datos*/
+        jButton8.setVisible(false);
+        
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
@@ -188,6 +191,12 @@ public final class FormFormacion extends javax.swing.JPanel {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel6.setOpaque(false);
+
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel3MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -386,7 +395,9 @@ public final class FormFormacion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        
+        new AnimacionObjetos().RIzquierda(objeto, velocidad,this,"EditarMisDatos",nombrePantalla,tipo,usuario,ID,declaracion);
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -551,6 +562,14 @@ public final class FormFormacion extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
+        
+        Foto foto = new Foto(jLabel3,declaracion,usuario,tipo);
+        foto.setLocationRelativeTo(null);
+        foto.setVisible(true);
+        
+    }//GEN-LAST:event_jLabel3MousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
