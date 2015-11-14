@@ -16,6 +16,7 @@ package com.quicklist;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Actividad;
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
@@ -56,6 +57,11 @@ public final class FormActividad extends javax.swing.JPanel {
     Component[] objeto;
     
     /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf=cargarConfiguracion();
+    
+    /**
      * Metodo constructor de la clase
      * @param tipo
      * @param retorno
@@ -88,6 +94,18 @@ public final class FormActividad extends javax.swing.JPanel {
         
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
+        
+        /*Dar fuente, tipo de letra y tamaño*/
+        jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel17.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel18.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jTextField5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jTextField7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jComboBox4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jComboBox5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jDateChooser1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla

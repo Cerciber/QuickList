@@ -13,6 +13,7 @@
  */
 package com.quicklist;
 
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -62,6 +63,11 @@ public final class FormFicha extends javax.swing.JPanel {
     String[] ID_Plan_De_Estudios;
     
     /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf=cargarConfiguracion();
+    
+    /**
      * Metodo constructor de la clase
      * @param tipo
      * @param retorno
@@ -92,6 +98,16 @@ public final class FormFicha extends javax.swing.JPanel {
         
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
+        
+        /*Dar fuente, tipo de letra y tamaño*/
+        jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel17.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel30.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jTextField2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jComboBox1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jDateChooser1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jDateChooser2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla

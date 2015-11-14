@@ -14,6 +14,7 @@
 
 package com.quicklist;
 
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Formacion;
@@ -58,6 +59,11 @@ public final class FormFormacion extends javax.swing.JPanel {
     Component[] objeto;
     
     /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf=cargarConfiguracion();
+    
+    /**
      * Metodo constructor de la clase
      * @param tipo
      * @param vinculo
@@ -91,6 +97,10 @@ public final class FormFormacion extends javax.swing.JPanel {
         
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
+        
+        /*Dar fuente, tipo de letra y tamaño*/
+        jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jDateChooser1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla

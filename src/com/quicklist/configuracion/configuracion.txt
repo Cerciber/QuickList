@@ -4,9 +4,9 @@ Ventana:
 750
 530
 Titulos:
-24
-Contenido tabla:
 20
+Contenido tabla:
+17
 Altura de campo:
 70
 Espacio entre celdas:
@@ -38,8 +38,8 @@ CUENTA
 Recordar contrase�a:
 1
 Usuario:
-2
+3
 Contraseña:
-2
+3
 tipo:
-Instructor
+Administrador

@@ -129,7 +129,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
             for(int i=0;i<=boton.length-1;i++){
 
                 boton[i] = new JButton();
-                boton[i].setFont(jButton5.getFont());
+                boton[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
                 boton[i].setBackground(jButton5.getBackground());
                 boton[i].setForeground(jButton5.getForeground());
                 boton[i].setText(menu[i]);
@@ -140,95 +140,6 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
             new UbicarLista(jPanel8,boton);
             new EventosMenu(objeto,velocidad,boton,this,vinculo,nombrePantalla,tipo,usuario,declaracion,ID);
-
-    }
-    
-    public void crearMenu2(String[][] menu, String[] vinculo, String[] nombreBoton){
-        
-            String[] ID = new String[menu.length]; 
-            String[][] menu2 = new String[menu.length][menu[0].length-1];
-            
-            for(int i=0;i<=menu.length-1;i++){
-            
-                ID[i] = menu[i][0];
-                
-                for(int j=1;j<=menu[0].length-1;j++){
-
-                    menu2[i][j-1]=menu[i][j];
-
-                }
-            }
-            menu=menu2;  
-        
-            scrollPane = new JScrollPane[menu.length][menu[0].length];
-            TextArea = new JTextArea[menu.length][menu[0].length];
-            objeto = new Component[(menu.length*menu[0].length)+(menu.length*nombreBoton.length)];
-            
-            for(int i=0;i<=scrollPane.length-1;i++){
-
-                for(int j=0;j<=scrollPane[i].length-1;j++){
-
-                    scrollPane[i][j] = new JScrollPane();
-                    scrollPane[i][j].setBorder(jScrollPane1.getBorder());
-                    
-                    TextArea[i][j] = new JTextArea();
-                    
-                    TextArea[i][j].setBackground(jTextArea1.getBackground());
-                    TextArea[i][j].setColumns(jTextArea1.getColumns());
-                    TextArea[i][j].setFont(jTextArea1.getFont());
-                    TextArea[i][j].setForeground(jTextArea1.getForeground());
-                    TextArea[i][j].setLineWrap(jTextArea1.getLineWrap());
-                    TextArea[i][j].setRows(jTextArea1.getRows());
-                    TextArea[i][j].setOpaque(true);
-                    TextArea[i][j].setText(menu[i][j]);
-                    TextArea[i][j].setWrapStyleWord(jTextArea1.getWrapStyleWord());
-                    TextArea[i][j].setFocusable(false);
-                    TextArea[i][j].setComponentOrientation (ComponentOrientation.RIGHT_TO_LEFT);
-                    scrollPane[i][j].setViewportView(TextArea[i][j]);
-                    
-                }
-
-            }
-            
-            JButton[][] boton = new JButton[menu.length][nombreBoton.length];
-            
-            for(int i=0;i<=menu.length-1;i++){
-
-                for(int j=0;j<=nombreBoton.length-1;j++){
-
-                    boton[i][j] = new JButton();
-                    boton[i][j].setFont(jButton6.getFont());
-                    boton[i][j].setBackground(jButton6.getBackground());
-                    boton[i][j].setForeground(jButton6.getForeground());
-                    boton[i][j].setText(nombreBoton[j]);
-                    
-                }
-
-            }
-            
-            
-            new UbicarLista(jPanel8,scrollPane,boton);
-            
-            int cont=-1;
-            
-            for(int i=0;i<=scrollPane.length-1;i++){
-                
-                for(int j=scrollPane[i].length-1;j>=0;j--){
-
-                    cont++;
-                    objeto[cont]=scrollPane[i][j];
-                    
-                }
-                
-                for(int j=0;j<=nombreBoton.length-1;j++){
-
-                    cont++;
-                    objeto[cont]=boton[i][j];
-                    
-                }
-            }
-            
-            new EventosMenu(objeto,velocidad,boton,this.ID,ID,this,vinculo,nombrePantalla,tipo,usuario,declaracion);
 
     }
     
@@ -317,7 +228,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
                         label[i][j] = new JLabel();
 
                         label[i][j].setBackground(new java.awt.Color(204, 255, 255));
-                        label[i][j].setFont(jTextArea1.getFont());
+                        label[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
                         label[i][j].setForeground(new java.awt.Color(0, 102, 102));
                         label[i][j].setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
                         label[i][j].setText(menu[i][j]);
@@ -334,7 +245,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
                         TextArea[i][j].setBackground(jTextArea1.getBackground());
                         TextArea[i][j].setColumns(jTextArea1.getColumns());
-                        TextArea[i][j].setFont(jTextArea1.getFont());
+                        TextArea[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
                         TextArea[i][j].setForeground(jTextArea1.getForeground());
                         TextArea[i][j].setLineWrap(jTextArea1.getLineWrap());
                         TextArea[i][j].setRows(jTextArea1.getRows());
@@ -377,7 +288,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
             
                 columna[i] = new JButton();
                 columna[i].setBackground(new java.awt.Color(0, 102, 102));
-                columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+                columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
                 columna[i].setForeground(new java.awt.Color(204, 255, 255));
                 columna[i].setAutoscrolls(true);
                 columna[i].setOpaque(false); 

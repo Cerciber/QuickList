@@ -15,6 +15,7 @@
 package com.quicklist;
 
 import com.quicklist.clases.ActividadDeAprendizaje;
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Funcionario;
@@ -38,6 +39,11 @@ public final class FormResultadoDeAprendizaje extends javax.swing.JPanel {
     String[] ID_ResultadoDeAprendizaje;
     String nombrePantalla;
     
+    /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf=cargarConfiguracion();
+    
     //menu de botones
     public FormResultadoDeAprendizaje(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
         
@@ -53,6 +59,11 @@ public final class FormResultadoDeAprendizaje extends javax.swing.JPanel {
         datosActividad(ID);
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
+        
+        /*Dar fuente, tipo de letra y tamaño*/
+        jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jTextField2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        
         new MoverObjeto(jPanel8);
         
         

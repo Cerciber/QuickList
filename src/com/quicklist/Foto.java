@@ -6,6 +6,7 @@
 package com.quicklist;
 
 import com.quicklist.clases.Aprendiz;
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import com.quicklist.clases.Funcionario;
 import com.quicklist.funciones.ConvertirFoto;
 import java.awt.Frame;
@@ -42,6 +43,11 @@ public class Foto extends javax.swing.JFrame {
     boolean quitarFoto=false;
     boolean modificado=false;
     
+    /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf=cargarConfiguracion();
+    
     public Foto(JLabel label, Statement declaracion, String usuario, String tipo) {
        
         Foto.label=label;
@@ -49,6 +55,13 @@ public class Foto extends javax.swing.JFrame {
         Foto.declaracion=declaracion;
         Foto.tipo=tipo;
         initComponents();
+        
+        /*Dar fuente, tipo de letra y tamaño*/
+        jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jButton5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
+        jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
+        jButton7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
+        jButton8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         
         try{
             

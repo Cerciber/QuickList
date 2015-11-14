@@ -13,6 +13,7 @@
  */
 package com.quicklist;
 
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Funcionario;
@@ -69,6 +70,11 @@ public final class FormHorario extends javax.swing.JPanel {
     String[] ID_Instructor;
     
     /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf=cargarConfiguracion();
+    
+    /**
      * Metodo constructor de la clase
      * @param tipo
      * @param retorno
@@ -99,6 +105,26 @@ public final class FormHorario extends javax.swing.JPanel {
         
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
+        
+        /*Dar fuente, tipo de letra y tamaño*/
+        jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel17.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel18.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel20.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel21.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel22.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel23.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jComboBox3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jComboBox4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jComboBox5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jComboBox6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jComboBox7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jComboBox8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jComboBox9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jDateChooser1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jDateChooser2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla

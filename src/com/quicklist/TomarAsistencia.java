@@ -14,6 +14,7 @@
 
 package com.quicklist;
 
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
 import javax.swing.JButton;
@@ -42,6 +43,11 @@ public final class TomarAsistencia extends javax.swing.JPanel {
     String[][] lista;
     String nombrePantalla;
     
+    /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf=cargarConfiguracion();
+    
     //menu de botones
     public TomarAsistencia(String tipo,String vinculo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
         
@@ -58,6 +64,7 @@ public final class TomarAsistencia extends javax.swing.JPanel {
         datosActividad(ID);
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
+        
         new MoverObjeto(jPanel8);
         
         
@@ -86,7 +93,7 @@ public final class TomarAsistencia extends javax.swing.JPanel {
             
             columna[i] = new JButton();
             columna[i].setBackground(new java.awt.Color(0, 102, 102));
-            columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+            columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
             columna[i].setForeground(new java.awt.Color(204, 255, 255));
             columna[i].setAutoscrolls(true);
             columna[i].setOpaque(false);  
@@ -105,7 +112,7 @@ public final class TomarAsistencia extends javax.swing.JPanel {
 
                 label[i][j] = new JLabel();
                 label[i][j].setBackground(new java.awt.Color(204, 255, 255));
-                label[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+                label[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3])); // NOI18N
                 label[i][j].setForeground(new java.awt.Color(0, 102, 102));
                 label[i][j].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 label[i][j].setText(lista[i][j+1]);
@@ -119,7 +126,7 @@ public final class TomarAsistencia extends javax.swing.JPanel {
             
             jComboBox[i][0] = new JComboBox();
             jComboBox[i][0].setBackground(new java.awt.Color(0, 153, 153));
-            jComboBox[i][0].setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14));
+            jComboBox[i][0].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
             jComboBox[i][0].setForeground(new java.awt.Color(255, 255, 255));
             jComboBox[i][0].setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NO","CE", "SE" }));
             jComboBox[i][0].setSelectedItem(lista[i][5]);
@@ -127,7 +134,7 @@ public final class TomarAsistencia extends javax.swing.JPanel {
             
             jComboBox[i][1] = new JComboBox();
             jComboBox[i][1].setBackground(new java.awt.Color(0, 153, 153));
-            jComboBox[i][1].setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14));
+            jComboBox[i][1].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
             jComboBox[i][1].setForeground(new java.awt.Color(255, 255, 255));
             jComboBox[i][1].setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Si", "No" }));
             jComboBox[i][1].setSelectedItem(lista[i][6]);

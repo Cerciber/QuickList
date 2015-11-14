@@ -25,7 +25,6 @@ public class Configuracion extends javax.swing.JFrame {
         new MoverObjeto(jPanel9);
         
         /*Dar fuente, tipo de letra y tamaño*/
-        conf=cargarConfiguracion();
         jButton11.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         jButton12.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         jButton17.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));

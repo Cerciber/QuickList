@@ -6,6 +6,7 @@
 package com.quicklist;
 
 import com.quicklist.clases.Aprendiz;
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import com.quicklist.clases.Funcionario;
 import com.quicklist.clases.Inasistencia;
 import com.quicklist.funciones.MoverObjeto;
@@ -48,6 +49,11 @@ public class ReportarExcusa extends javax.swing.JFrame {
     boolean aprobar=false;
     boolean modificado=false;
     
+    /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf=cargarConfiguracion();
+    
     public ReportarExcusa(Statement declaracion,  String ID) {
        
         ReportarExcusa.ID=ID;
@@ -56,6 +62,14 @@ public class ReportarExcusa extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         new MoverObjeto(jLabel1);
         jScrollPane2.getViewport().setBackground(new java.awt.Color(0,153,153));
+        
+        /*Dar fuente, tipo de letra y tamaño*/
+        jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jTextArea1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jButton5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
+        jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
+        jButton7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
+        jButton8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         
         try{
 

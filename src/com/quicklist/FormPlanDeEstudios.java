@@ -15,6 +15,7 @@
 package com.quicklist;
 
 import com.quicklist.clases.Actividad;
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Funcionario;
@@ -39,6 +40,11 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
     String[] ID_ResultadoDeAprendizaje;
     String nombrePantalla;
     
+    /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf=cargarConfiguracion();
+    
     //menu de botones
     public FormPlanDeEstudios(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
         
@@ -55,6 +61,18 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
         
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
+        
+        /*Dar fuente, tipo de letra y tamaño*/
+        jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel17.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel18.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jTextField5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jTextField7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jTextField8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jComboBox5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         
         new MoverObjeto(jPanel8);
         
