@@ -31,7 +31,6 @@ public class Configuracion {
             for(int i=1;i<=39;i++){
                 
                 cadena = b.readLine();
-                System.out.println("1    "+cadena);
                 
                 if(i==4){datos[0]=Integer.parseInt(cadena);}
                 if(i==5){datos[1]=Integer.parseInt(cadena);}
@@ -70,7 +69,6 @@ public class Configuracion {
             for(int i=1;i<=45;i++){
                 
                 cadena = b.readLine();
-                System.out.println("1    "+cadena);
                 
                 if(i==41){datos[0]=cadena;}
                 if(i==43){datos[1]=cadena;}
@@ -98,7 +96,6 @@ public class Configuracion {
             for(int i=1;i<=45;i++){
                 
                 texto[i-1] = b.readLine();
-                System.out.println("2    "+texto[i-1]);
                 
                 if(i==4){texto[i-1]=datos[0];}
                 if(i==5){texto[i-1]=datos[1];}
@@ -123,7 +120,6 @@ public class Configuracion {
             for(int i=1;i<=45;i++){
                 
                 bw.write(texto[i-1]+"\n");
-                System.out.println("3    "+texto[i-1]);
                 
             }
             
@@ -146,7 +142,6 @@ public class Configuracion {
             for(int i=1;i<=45;i++){
                 
                 texto[i-1] = b.readLine();
-                System.out.println("2    "+texto[i-1]);
                 
                 if(i==41){texto[i-1]=usuario;}
                 if(i==43){texto[i-1]=contrasena;}
@@ -161,7 +156,6 @@ public class Configuracion {
             for(int i=1;i<=45;i++){
                 
                 bw.write(texto[i-1]+"\n");
-                System.out.println("3    "+texto[i-1]);
                 
             }
             

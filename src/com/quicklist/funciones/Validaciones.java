@@ -6,6 +6,7 @@
 package com.quicklist.funciones;
 
 import java.awt.event.KeyEvent;
+import javax.swing.JTextField;
 
 /**
  *
@@ -50,6 +51,16 @@ public class Validaciones {
             evt.consume();
             
         }
+        
+    }
+    
+    public static void numeroMinimoMaximo(JTextField campo, int minimo, int maximo) {
+        
+        /*if(Integer.parseInt(campo.getText())<minimo || real>fin){
+        
+        evt.consume();
+        
+        }*/
         
     }
 
