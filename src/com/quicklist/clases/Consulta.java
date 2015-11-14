@@ -5,6 +5,7 @@
  */
 package com.quicklist.clases;
 
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import com.quicklist.funciones.Calendario;
 import com.quicklist.funciones.ConvertirConsulta;
 import java.awt.Point;
@@ -19,6 +20,7 @@ import javax.swing.JPanel;
  */
 public class Consulta {
     
+    int[] conf=cargarConfiguracion();
     public Statement declaracion;
     public String tabla; 
     public String[] campos; 
@@ -27,8 +29,7 @@ public class Consulta {
     public int nColumnaSeleccionada=0;
     public String columnaSeleccionadaAnterior;
     public String orientacion="ASC"; 
-    public String nRegistros="40"; 
-    public int nRegistrosPagina=10; 
+    public int nRegistrosPagina=conf[11]; 
     public int paginaActual=1; 
     public int paginaFinal=1; 
     public int registroInicial=0; 
@@ -71,12 +72,6 @@ public class Consulta {
     public void orientacion(String orientacion){
         
         this.orientacion=orientacion;
-        
-    }
-    
-    public void nRegistros(String nRegistros){
-        
-        this.nRegistros=nRegistros;
         
     }
     

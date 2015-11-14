@@ -14,6 +14,7 @@
 
 package com.quicklist.funciones;
 
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -24,6 +25,8 @@ import javax.swing.JPanel;
  * @author pabloycesar
  */
 public final class UbicarLista {
+    
+    int[] conf=cargarConfiguracion();
     
     public UbicarLista(JPanel contenedor,Component[] objeto){
 
@@ -50,13 +53,13 @@ public final class UbicarLista {
         for(int i=0;i<=objeto.length-1;i++){
         
             parallelGroup2.addComponent(objeto[i], javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE);
-            parallelGroup2.addGap(5);
+            parallelGroup2.addGap(conf[5]);
         }
         
         GroupLayout.SequentialGroup sequentialGroup= layout.createSequentialGroup(); 
-        sequentialGroup.addGap(30);
+        sequentialGroup.addGap(conf[6]);
         sequentialGroup.addGroup(parallelGroup2);
-        sequentialGroup.addGap(30);
+        sequentialGroup.addGap(conf[6]);
         parallelGroup.addGroup(sequentialGroup); 
         
 
@@ -70,14 +73,14 @@ public final class UbicarLista {
         GroupLayout.ParallelGroup parallelGroup= layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING); 
         GroupLayout.SequentialGroup sequentialGroup= layout.createSequentialGroup();
         
-        sequentialGroup.addGap(30);
+        sequentialGroup.addGap(conf[6]);
         for(int i=0;i<=objeto.length-1;i++){
         
             sequentialGroup.addComponent(objeto[i], javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE); 
-            sequentialGroup.addGap(5);
+            sequentialGroup.addGap(conf[5]);
             
         }
-        sequentialGroup.addGap(30);
+        sequentialGroup.addGap(conf[6]);
 
         parallelGroup.addGroup(sequentialGroup); 
         layout.setHorizontalGroup(parallelGroup); 
@@ -142,23 +145,23 @@ public final class UbicarLista {
            
         }
         
-        sequentialGroup.addGap(30);
+        sequentialGroup.addGap(conf[6]);
         
         for(int i=0;i<=boton[0].length-1;i++){
             
             sequentialGroup.addGroup(parallelGroupBoton[i]);     
-            sequentialGroup.addGap(5);
+            sequentialGroup.addGap(conf[5]);
             
         }
         
         for(int i=0;i<=objeto[0].length-1;i++){
             
             sequentialGroup.addGroup(parallelGroupObjeto[i]);
-            sequentialGroup.addGap(5);
+            sequentialGroup.addGap(conf[5]);
             
         }
         
-        sequentialGroup.addGap(30);
+        sequentialGroup.addGap(conf[6]);
         parallelGroup.addGroup(sequentialGroup); 
         
 
@@ -173,7 +176,7 @@ public final class UbicarLista {
         GroupLayout.SequentialGroup sequentialGroup= layout.createSequentialGroup();
         GroupLayout.ParallelGroup parallelGroupComponentes[] = new GroupLayout.ParallelGroup[boton.length+objeto.length];
         
-        sequentialGroup.addGap(30);
+        sequentialGroup.addGap(conf[6]);
         
         for(int i=0;i<=boton.length+objeto.length-1;i++){
         
@@ -204,11 +207,11 @@ public final class UbicarLista {
         for(int i=0;i<=boton.length-1;i++){
 
             sequentialGroup.addGroup(parallelGroupComponentes[i]);
-            sequentialGroup.addGap(5);
+            sequentialGroup.addGap(conf[5]);
             
         }
         
-        sequentialGroup.addGap(30);
+        sequentialGroup.addGap(conf[6]);
 
         parallelGroup.addGroup(sequentialGroup); 
         layout.setHorizontalGroup(parallelGroup); 
@@ -301,23 +304,23 @@ public final class UbicarLista {
            
         }
         
-        sequentialGroup.addGap(30);
+        sequentialGroup.addGap(conf[6]);
         
         for(int i=0;i<=parallelGroupBoton.length-1;i++){
             
             sequentialGroup.addGroup(parallelGroupBoton[i]);     
-            sequentialGroup.addGap(5);
+            sequentialGroup.addGap(conf[5]);
             
         }
         
         for(int i=0;i<=parallelGroupObjeto.length-1;i++){
             
             sequentialGroup.addGroup(parallelGroupObjeto[i]);
-            sequentialGroup.addGap(5);
+            sequentialGroup.addGap(conf[5]);
             
         }
         
-        sequentialGroup.addGap(30);
+        sequentialGroup.addGap(conf[6]);
         parallelGroup.addGroup(sequentialGroup); 
         
 
@@ -332,7 +335,7 @@ public final class UbicarLista {
         GroupLayout.SequentialGroup sequentialGroup= layout.createSequentialGroup();
         GroupLayout.ParallelGroup parallelGroupComponentes[] = new GroupLayout.ParallelGroup[boton.length+1];
         
-        sequentialGroup.addGap(30);
+        sequentialGroup.addGap(conf[6]);
         
         for(int i=0;i<=parallelGroupComponentes.length-1;i++){
         
@@ -350,13 +353,13 @@ public final class UbicarLista {
             
             for(int j=0;j<=objeto[i-1].length-1;j++){
         
-                parallelGroupComponentes[i].addComponent(objeto[i-1][j], 70,70,70); 
+                parallelGroupComponentes[i].addComponent(objeto[i-1][j], conf[4],conf[4],conf[4]); 
                 
             }
 
             for(int j=0;j<=boton[i-1].length-1;j++){
         
-                parallelGroupComponentes[i].addComponent(boton[i-1][j], 70,70,70);
+                parallelGroupComponentes[i].addComponent(boton[i-1][j], conf[4],conf[4],conf[4]);
                 
             }
             
@@ -365,11 +368,11 @@ public final class UbicarLista {
         for(int i=0;i<=parallelGroupComponentes.length-1;i++){
 
             sequentialGroup.addGroup(parallelGroupComponentes[i]);
-            sequentialGroup.addGap(5);
+            sequentialGroup.addGap(conf[5]);
             
         }
         
-        sequentialGroup.addGap(30);
+        sequentialGroup.addGap(conf[6]);
 
         parallelGroup.addGroup(sequentialGroup); 
         layout.setHorizontalGroup(parallelGroup); 

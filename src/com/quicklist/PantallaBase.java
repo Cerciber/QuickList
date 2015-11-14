@@ -14,6 +14,8 @@
 
 package com.quicklist;
 
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
+
 public class PantallaBase extends javax.swing.JFrame {
 
     /**
@@ -22,7 +24,9 @@ public class PantallaBase extends javax.swing.JFrame {
     public PantallaBase(){
         
         initComponents();
-        this.setSize(750, 530);
+        
+        int[] conf=cargarConfiguracion();
+        this.setSize(conf[0], conf[1]);
         this.setLocationRelativeTo(null);
         
         PantallaInicio p = new PantallaInicio();

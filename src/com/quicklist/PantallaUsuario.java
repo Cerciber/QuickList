@@ -15,6 +15,7 @@
 package com.quicklist;
 
 import com.quicklist.clases.Aprendiz;
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import com.quicklist.clases.Consulta;
 import com.quicklist.clases.Funcionario;
 import java.awt.Component;
@@ -57,6 +58,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
     boolean mostrarBotones=true;
     JScrollPane[][] scrollPane;
     Consulta consulta;
+    int[] conf=cargarConfiguracion();
     
     //menu de botones
     public PantallaUsuario(String tipo,String[] menu,String[] vinculo,String retorno,String nombrePantalla,String usuario,Statement declaracion,String[] ID) {
@@ -347,8 +349,6 @@ public final class PantallaUsuario extends javax.swing.JPanel {
                         componente[i][j]=scrollPane[i][j];
                         
                     }
-                    
-                    
 
                 }
 

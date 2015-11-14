@@ -18,9 +18,9 @@ import java.io.IOException;
  */
 public class Configuracion {
     
-    public static String[] cargar(){
+    public static int[] cargarConfiguracion(){
         
-        String[] datos=new String[13];
+        int[] datos=new int[16];
         
         try{
         
@@ -33,19 +33,19 @@ public class Configuracion {
                 cadena = b.readLine();
                 System.out.println("1    "+cadena);
                 
-                if(i==4){datos[0]=cadena;}
-                if(i==5){datos[1]=cadena;}
-                if(i==7){datos[2]=cadena;}
-                if(i==9){datos[3]=cadena;}
-                if(i==11){datos[4]=cadena;}
-                if(i==13){datos[5]=cadena;}
-                if(i==15){datos[6]=cadena;}
-                if(i==20){datos[7]=cadena;}
-                if(i==22){datos[8]=cadena;}
-                if(i==27){datos[9]=cadena;}
-                if(i==29){datos[10]=cadena;}
-                if(i==34){datos[11]=cadena;}
-                if(i==39){datos[12]=cadena;}
+                if(i==4){datos[0]=Integer.parseInt(cadena);}
+                if(i==5){datos[1]=Integer.parseInt(cadena);}
+                if(i==7){datos[2]=Integer.parseInt(cadena);}
+                if(i==9){datos[3]=Integer.parseInt(cadena);}
+                if(i==11){datos[4]=Integer.parseInt(cadena);}
+                if(i==13){datos[5]=Integer.parseInt(cadena);}
+                if(i==15){datos[6]=Integer.parseInt(cadena);}
+                if(i==20){datos[7]=Integer.parseInt(cadena);}
+                if(i==22){datos[8]=Integer.parseInt(cadena);}
+                if(i==27){datos[9]=Integer.parseInt(cadena);}
+                if(i==29){datos[10]=Integer.parseInt(cadena);}
+                if(i==34){datos[11]=Integer.parseInt(cadena);}
+                if(i==39){datos[12]=Integer.parseInt(cadena);}
                 
             }
             
@@ -57,16 +57,45 @@ public class Configuracion {
         return datos;
     }
     
-    public static void guardar(String[] datos){
+    public static String[] cargarLogin(){
         
-        String[] texto=new String[39];
+        String[] datos=new String[3];
+        
+        try{
+        
+            String cadena;
+            FileReader f = new FileReader("src/com/quicklist/configuracion/configuracion.txt");
+            BufferedReader b = new BufferedReader(f);
+
+            for(int i=1;i<=45;i++){
+                
+                cadena = b.readLine();
+                System.out.println("1    "+cadena);
+                
+                if(i==41){datos[0]=cadena;}
+                if(i==43){datos[1]=cadena;}
+                if(i==45){datos[2]=cadena;}
+                
+            }
+            
+            b.close();
+            
+        }catch(FileNotFoundException ex){System.out.println(ex);}
+         catch(IOException ex){System.out.println(ex);}
+            
+        return datos;
+    }
+    
+    public static void guardarConfiguracion(String[] datos){
+        
+        String[] texto=new String[45];
         
         try{
         
             FileReader f = new FileReader("src/com/quicklist/configuracion/configuracion.txt");
             BufferedReader b = new BufferedReader(f);
 
-            for(int i=1;i<=39;i++){
+            for(int i=1;i<=45;i++){
                 
                 texto[i-1] = b.readLine();
                 System.out.println("2    "+texto[i-1]);
@@ -91,7 +120,45 @@ public class Configuracion {
             
             BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/quicklist/configuracion/configuracion.txt"));
             
-            for(int i=1;i<=39;i++){
+            for(int i=1;i<=45;i++){
+                
+                bw.write(texto[i-1]+"\n");
+                System.out.println("3    "+texto[i-1]);
+                
+            }
+            
+            bw.close();
+            
+        }catch(FileNotFoundException ex){System.out.println(ex);}
+         catch(IOException ex){System.out.println(ex);}
+
+    }
+    
+    public static void guardarLogin(String usuario, String contrasena, String tipo){
+        
+        String[] texto=new String[45];
+        
+        try{
+        
+            FileReader f = new FileReader("src/com/quicklist/configuracion/configuracion.txt");
+            BufferedReader b = new BufferedReader(f);
+
+            for(int i=1;i<=45;i++){
+                
+                texto[i-1] = b.readLine();
+                System.out.println("2    "+texto[i-1]);
+                
+                if(i==41){texto[i-1]=usuario;}
+                if(i==43){texto[i-1]=contrasena;}
+                if(i==45){texto[i-1]=tipo;}
+                
+            }
+            
+            b.close();
+            
+            BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/quicklist/configuracion/configuracion.txt"));
+            
+            for(int i=1;i<=45;i++){
                 
                 bw.write(texto[i-1]+"\n");
                 System.out.println("3    "+texto[i-1]);

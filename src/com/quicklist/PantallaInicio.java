@@ -14,6 +14,9 @@
 
 package com.quicklist;
 
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
+import static com.quicklist.clases.Configuracion.cargarLogin;
+import static com.quicklist.clases.Configuracion.guardarLogin;
 import com.quicklist.funciones.AnimacionObjetos;
 import java.awt.Component;
 import java.sql.Connection;
@@ -36,11 +39,21 @@ public class PantallaInicio extends javax.swing.JPanel {
     String usuario;
     String tipo;
     Statement declaracion;
+    int[] conf=cargarConfiguracion();
     
     public PantallaInicio() {
         
         initComponents();
         new MoverObjeto(jPanel1);
+        
+        if(conf[12]==1){
+            
+            String[] login=cargarLogin();
+            jTextField2.setText(login[0]);
+            jPasswordField1.setText(login[1]);
+            jComboBox1.setSelectedItem(login[2]);
+            
+        }
         
     }
     
@@ -339,7 +352,7 @@ public class PantallaInicio extends javax.swing.JPanel {
                 
                 if(new ConvertirConsulta().NRegistros(resultado)==1){
                 
-
+                  guardarLogin(usuario,contrasena,tipo);
                   new AnimacionObjetos().RIzquierda(objeto, velocidad, (JPanel) this,"T_Aprendiz","",tipo,usuario,ID,declaracion);
                     
                 }else{
@@ -357,6 +370,7 @@ public class PantallaInicio extends javax.swing.JPanel {
                 
                 if(new ConvertirConsulta().NRegistros(resultado)==1){
                 
+                    guardarLogin(usuario,contrasena,tipo);
                     new AnimacionObjetos().RIzquierda(objeto, velocidad, (JPanel) this,"T_Instructor","",tipo,usuario,ID,declaracion);
                     
                 }else{
@@ -372,11 +386,13 @@ public class PantallaInicio extends javax.swing.JPanel {
                 
                 if(new ConvertirConsulta().NRegistros(resultado)==1){
                 
+                    guardarLogin(usuario,contrasena,tipo);
                     new AnimacionObjetos().RIzquierda(objeto, velocidad, (JPanel) this,"T_Administrador","",tipo,usuario,ID,declaracion);
                     
                 }else{
                 
                     jLabel7.setText("Administrador Incorrecto"); 
+                    
                 }
             }
             

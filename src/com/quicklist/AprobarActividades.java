@@ -13,6 +13,7 @@
  */
 package com.quicklist;
 
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
 import javax.swing.JButton;
@@ -68,6 +69,11 @@ public final class AprobarActividades extends javax.swing.JPanel {
      * por registro
      */
     JCheckBox[][] jCheckBox;
+    
+    /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf=cargarConfiguracion();
     
     
     /**
@@ -160,7 +166,7 @@ public final class AprobarActividades extends javax.swing.JPanel {
             columna[i].setBackground(new java.awt.Color(0, 102, 102)); 
             
             /*Dar fuente, tipo de letra y tamaño*/
-            columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+            columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
             
             /*Dar color de letra*/
             columna[i].setForeground(new java.awt.Color(204, 255, 255));
@@ -198,7 +204,7 @@ public final class AprobarActividades extends javax.swing.JPanel {
                 
                 /*Dar fuente, tipo de letra y tamaño*/
                 label[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
-                                                      24));
+                                                      conf[3]));
                 
                 /*Dar color de letra*/
                 label[i][j].setForeground(new java.awt.Color(0, 102, 102));
@@ -236,10 +242,6 @@ public final class AprobarActividades extends javax.swing.JPanel {
                 /*Dar color de fondo*/
                 jCheckBox[i][j].setBackground(new java.awt.Color(204, 255, 
                                                                  255));
-                
-                /*Dar fuente, tipo de letra y tamaño*/
-                jCheckBox[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi",
-                                                          0, 14));
                 
                 /*Dar color de letra*/
                 jCheckBox[i][j].setForeground(new java.awt.Color(255, 255,

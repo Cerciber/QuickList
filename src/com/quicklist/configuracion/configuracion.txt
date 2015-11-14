@@ -6,11 +6,11 @@ Ventana:
 Titulos:
 24
 Contenido tabla:
-24
+20
 Altura de campo:
 70
 Espacio entre celdas:
-10
+3
 Espacio bordes:
 30
 ---------------------
@@ -26,14 +26,20 @@ MOVIMIENTO DEL TECLADO
 Estado:
 1
 Velocidad:
-30
+20
 ---------------------
 PAGINACI�N
 ---------------------
 Registros por pagina:
-5
+6
 ---------------------
 CUENTA
 ---------------------
 Recordar contrase�a:
 1
+Usuario:
+2
+Contraseña:
+2
+tipo:
+Instructor

@@ -13,6 +13,7 @@
  */
 package com.quicklist;
 
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.funciones.MoverObjeto;
@@ -57,6 +58,11 @@ public final class Confirmacion extends javax.swing.JPanel {
     String[] vinculo;
     
     /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf=cargarConfiguracion();
+    
+    /**
      * Metodo constructor de la clase
      * @param tipo
      * @param retorno
@@ -92,6 +98,11 @@ public final class Confirmacion extends javax.swing.JPanel {
         
         /* Se asigna la variable String con la pregunta en el label */
         jLabel15.setText(pregunta);
+        
+        /*Dar fuente, tipo de letra y tamaño*/
+        jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        jButton5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
+        jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla

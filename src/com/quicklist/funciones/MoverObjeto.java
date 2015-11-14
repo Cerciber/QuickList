@@ -14,6 +14,7 @@
 
 package com.quicklist.funciones;
 
+import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
@@ -27,6 +28,8 @@ public class MoverObjeto {
     
     int LugarPresionadoY;
     int LugarPresionadoX;
+    
+    int[] conf=cargarConfiguracion();
     
     public MoverObjeto(final Component objeto){
         
@@ -128,46 +131,51 @@ public class MoverObjeto {
     
     public void movimientoFlechas(java.awt.event.KeyEvent evt, Component panel){
         
-        if (evt.getKeyCode()==KeyEvent.VK_LEFT && panel.getLocation().x<0-30) {
+        if(conf[9]==1){
             
-            panel.setLocation(panel.getLocation().x+30, panel.getLocation().y);
-            
-        }else if(evt.getKeyCode()==KeyEvent.VK_LEFT){
-            
-            panel.setLocation(0, panel.getLocation().y);
+            if (evt.getKeyCode()==KeyEvent.VK_LEFT && panel.getLocation().x<0-conf[10]) {
+
+                panel.setLocation(panel.getLocation().x+conf[10], panel.getLocation().y);
+
+            }else if(evt.getKeyCode()==KeyEvent.VK_LEFT){
+
+                panel.setLocation(0, panel.getLocation().y);
+
+            }
+
+            if (evt.getKeyCode()==KeyEvent.VK_RIGHT && panel.getLocation().x+panel.getWidth()>panel.getParent().getParent().getParent().getWidth()+conf[10]) {
+
+                panel.setLocation(panel.getLocation().x-conf[10], panel.getLocation().y);
+
+            }else if(evt.getKeyCode()==KeyEvent.VK_RIGHT){
+
+                panel.setLocation(panel.getParent().getParent().getParent().getWidth()-panel.getWidth(), panel.getLocation().y);
+
+            }
+
+            if (evt.getKeyCode()==KeyEvent.VK_DOWN && panel.getLocation().y+panel.getHeight()>panel.getParent().getHeight()+conf[10]) {
+
+                panel.setLocation(panel.getLocation().x, panel.getLocation().y-conf[10]);
+
+            }else if(evt.getKeyCode()==KeyEvent.VK_DOWN){
+
+                panel.setLocation(panel.getLocation().x, panel.getParent().getHeight()-panel.getHeight());
+
+            }
+
+            if (evt.getKeyCode()==KeyEvent.VK_UP && panel.getLocation().y<0-conf[10]) {
+
+                panel.setLocation(panel.getLocation().x, panel.getLocation().y+conf[10]);
+
+            }else if(evt.getKeyCode()==KeyEvent.VK_UP){
+
+                panel.setLocation(panel.getLocation().x, 0);
+
+            }
             
         }
         
-        if (evt.getKeyCode()==KeyEvent.VK_RIGHT && panel.getLocation().x+panel.getWidth()>panel.getParent().getParent().getParent().getWidth()+30) {
             
-            panel.setLocation(panel.getLocation().x-30, panel.getLocation().y);
-            
-        }else if(evt.getKeyCode()==KeyEvent.VK_RIGHT){
-            
-            panel.setLocation(panel.getParent().getParent().getParent().getWidth()-panel.getWidth(), panel.getLocation().y);
-            
-        }
-        
-        if (evt.getKeyCode()==KeyEvent.VK_DOWN && panel.getLocation().y+panel.getHeight()>panel.getParent().getHeight()+30) {
-            
-            panel.setLocation(panel.getLocation().x, panel.getLocation().y-30);
-            
-        }else if(evt.getKeyCode()==KeyEvent.VK_DOWN){
-            
-            panel.setLocation(panel.getLocation().x, panel.getParent().getHeight()-panel.getHeight());
-            
-        }
-        
-        if (evt.getKeyCode()==KeyEvent.VK_UP && panel.getLocation().y<0-30) {
-            
-            panel.setLocation(panel.getLocation().x, panel.getLocation().y+30);
-            
-        }else if(evt.getKeyCode()==KeyEvent.VK_UP){
-            
-            panel.setLocation(panel.getLocation().x, 0);
-            
-        }
-        
     } 
     
 }
