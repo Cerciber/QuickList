@@ -96,6 +96,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
         jTextField3.setText(consulta.busqueda);
         jTextField4.setText(consulta.nRegistrosPagina+"");
         jLabel6.setText("1-"+consulta.paginaActual+"-"+consulta.paginaFinal);
+        DarIcono.darIcono(jButton7,"Buscar");
         
     }    
     
@@ -519,7 +520,6 @@ public final class PantallaUsuario extends javax.swing.JPanel {
         jButton7.setBackground(new java.awt.Color(0, 102, 102));
         jButton7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jButton7.setForeground(new java.awt.Color(204, 255, 255));
-        jButton7.setText("O");
         jButton7.setAutoscrolls(true);
         jButton7.setOpaque(false);
         jButton7.addActionListener(new java.awt.event.ActionListener() {

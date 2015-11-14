@@ -115,6 +115,12 @@ public class DarIcono {
                 icono = new ImageIcon("src/com/quicklist/iconos/Ficha.png");
                 
             break;  
+                
+            case "Buscar":
+                
+                icono = new ImageIcon("src/com/quicklist/iconos/Buscar 2.png");
+                
+            break;  
             
         }
         
