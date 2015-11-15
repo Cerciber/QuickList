@@ -425,7 +425,13 @@ public final class FormActividadDeAprendizaje extends javax.swing.JPanel {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         
-        new AnimacionObjetos().RIzquierda(objeto, velocidad,this,"EditarMisDatos",nombrePantalla,tipo,usuario,ID,declaracion);
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
+        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                                     "EditarMisDatos", nombrePantalla, tipo, 
+                                     usuario, ID, declaracion);
         
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -490,7 +496,7 @@ public final class FormActividadDeAprendizaje extends javax.swing.JPanel {
          */
         String[] datos = new String[3];
         
-        /** Se obtiene el identificador del la competencia */
+        /** Se obtiene el identificador de la competencia */
         datos[0] = ID[ID.length-2];
         
         /** Se obtiene el la fase de la actividad de aprendizaje */
@@ -562,7 +568,6 @@ public final class FormActividadDeAprendizaje extends javax.swing.JPanel {
             }
                 
         }
-
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -583,9 +588,13 @@ public final class FormActividadDeAprendizaje extends javax.swing.JPanel {
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
         
-        Foto foto = new Foto(jLabel3,declaracion,usuario,tipo);
-        foto.setLocationRelativeTo(null);
-        foto.setVisible(true);
+        /**
+         * Se abre el Frame corespondiente para gestionar la foto del 
+         * usuario actual
+         */
+        Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
+        foto.setLocationRelativeTo(null);   //se ubica al centro
+        foto.setVisible(true);      //se le da visivilidad
         
     }//GEN-LAST:event_jLabel3MousePressed
 

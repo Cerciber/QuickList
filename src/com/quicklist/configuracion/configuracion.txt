@@ -26,7 +26,7 @@ MOVIMIENTO DEL TECLADO
 Estado:
 1
 Velocidad:
-20
+50
 ---------------------
 PAGINACI�N
 ---------------------

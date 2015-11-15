@@ -57,7 +57,7 @@ public final class FormFuncionarios extends javax.swing.JPanel {
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
-    int[] conf=cargarConfiguracion();
+    int[] conf = cargarConfiguracion();
     
     /**
      * Metodo constructor de la clase
@@ -101,15 +101,33 @@ public final class FormFuncionarios extends javax.swing.JPanel {
         jLabel21.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel22.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel23.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jTextField2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jPasswordField1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jTextField3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jTextField4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jTextField5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jComboBox1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jTextField7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jTextField8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        
+        jTextField2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                              conf[3]));
+        
+        jPasswordField1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                                  conf[3]));
+        
+        jTextField3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                              conf[3]));
+        
+        jTextField4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                              conf[3]));
+        
+        jTextField5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                              conf[3]));
+        
+        jComboBox1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                             conf[3]));
+        
+        jTextField7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                              conf[3]));
+        
+        jTextField8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                              conf[3]));
+        
+        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                              conf[3]));
         
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
@@ -702,13 +720,7 @@ public final class FormFuncionarios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
-        if (!usuario.equals(ID[ID.length - 1])) {
-                
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,"EditarMisDatos",nombrePantalla,tipo,usuario,ID,declaracion);
-                    
-        }
-        
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -1037,9 +1049,13 @@ public final class FormFuncionarios extends javax.swing.JPanel {
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
         
-        Foto foto = new Foto(jLabel3,declaracion,usuario,tipo);
-        foto.setLocationRelativeTo(null);
-        foto.setVisible(true);
+        /**
+         * Se abre el Frame corespondiente para gestionar la foto del 
+         * usuario actual
+         */
+        Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
+        foto.setLocationRelativeTo(null);   //se ubica al centro
+        foto.setVisible(true);      //se le da visivilidad
         
     }//GEN-LAST:event_jLabel3MousePressed
 

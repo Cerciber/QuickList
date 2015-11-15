@@ -1,5 +1,5 @@
 /*
- * DatosHorario.java
+ * FormHorario.java
  *
  * version 1.0
  *
@@ -72,7 +72,7 @@ public final class FormHorario extends javax.swing.JPanel {
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
-    int[] conf=cargarConfiguracion();
+    int[] conf = cargarConfiguracion();
     
     /**
      * Metodo constructor de la clase
@@ -115,16 +115,36 @@ public final class FormHorario extends javax.swing.JPanel {
         jLabel21.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel22.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel23.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jComboBox3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jComboBox4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jComboBox5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jComboBox6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jComboBox7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jComboBox8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jComboBox9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jDateChooser1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jDateChooser2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        
+        jComboBox3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                             conf[3]));
+        
+        jComboBox4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                             conf[3]));
+        
+        jComboBox5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                             conf[3]));
+        
+        jComboBox6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                             conf[3]));
+        
+        jComboBox7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                             conf[3]));
+        
+        jComboBox8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                             conf[3]));
+        
+        jComboBox9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                             conf[3]));
+        
+        jDateChooser1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                                conf[3]));
+        
+        jDateChooser2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                                conf[3]));
+        
+        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                              conf[3]));
         
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
@@ -170,12 +190,14 @@ public final class FormHorario extends javax.swing.JPanel {
         
         /*
          * Se asignan los nombres de los funcionarios en la lista 
-         * desplegable
+         * desplegable y en la variable global
          */
         for (int i = 0; i <= nombres.length - 1; i++) {
         
             ID_Instructor[i] = nombres[i][0];
-            this.jComboBox4.addItem(nombres[i][1]+" "+nombres[i][2]+" "+nombres[i][3]+" - "+nombres[i][0]);
+            
+            this.jComboBox4.addItem(nombres[i][1]+" "+nombres[i][2]
+                                    +" "+nombres[i][3]+" - "+nombres[i][0]);
             
         }
         
@@ -814,9 +836,13 @@ public final class FormHorario extends javax.swing.JPanel {
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
         
-        Foto foto = new Foto(jLabel3,declaracion,usuario,tipo);
-        foto.setLocationRelativeTo(null);
-        foto.setVisible(true);
+        /**
+         * Se abre el Frame corespondiente para gestionar la foto del 
+         * usuario actual
+         */
+        Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
+        foto.setLocationRelativeTo(null);   //se ubica al centro
+        foto.setVisible(true);      //se le da visivilidad
         
     }//GEN-LAST:event_jLabel3MousePressed
 

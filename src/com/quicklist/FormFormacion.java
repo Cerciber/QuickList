@@ -1,5 +1,5 @@
 /*
- * DatosFormacion.java
+ * FormFormacion.java
  *
  * version 1.0
  *
@@ -11,14 +11,12 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist;
 
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Formacion;
-import com.quicklist.clases.Funcionario;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
@@ -61,7 +59,7 @@ public final class FormFormacion extends javax.swing.JPanel {
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
-    int[] conf=cargarConfiguracion();
+    int[] conf = cargarConfiguracion();
     
     /**
      * Metodo constructor de la clase
@@ -100,7 +98,9 @@ public final class FormFormacion extends javax.swing.JPanel {
         
         /*Dar fuente, tipo de letra y tamaño*/
         jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jDateChooser1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+        
+        jDateChooser1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                                conf[3]));
         
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
@@ -405,9 +405,7 @@ public final class FormFormacion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
-        new AnimacionObjetos().RIzquierda(objeto, velocidad,this,"EditarMisDatos",nombrePantalla,tipo,usuario,ID,declaracion);
-        
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -470,13 +468,13 @@ public final class FormFormacion extends javax.swing.JPanel {
          * con una longitud de 2 correspondientes a identificador del horario
          * más la fecha de la formación
          */
-        String[] datos=new String[2];
+        String[] datos = new String[2];
         
         /** Se obtiene el identificador del horario */
-        datos[0]=ID[ID.length-2];
+        datos[0] = ID[ID.length - 2];
         
         /** Se obtiene la fecha de la formación */
-        datos[1]=Calendario.obtenerFecha(jDateChooser1);
+        datos[1] = Calendario.obtenerFecha(jDateChooser1);
         
         /*
          * El simbolo "☺" representa un dato vacio en el arreglo de 
@@ -575,9 +573,13 @@ public final class FormFormacion extends javax.swing.JPanel {
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
         
-        Foto foto = new Foto(jLabel3,declaracion,usuario,tipo);
-        foto.setLocationRelativeTo(null);
-        foto.setVisible(true);
+        /**
+         * Se abre el Frame corespondiente para gestionar la foto del 
+         * usuario actual
+         */
+        Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
+        foto.setLocationRelativeTo(null);   //se ubica al centro
+        foto.setVisible(true);      //se le da visivilidad
         
     }//GEN-LAST:event_jLabel3MousePressed
 

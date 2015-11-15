@@ -23,12 +23,9 @@ import com.quicklist.clases.Funcionario;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
-import com.quicklist.funciones.ConvertirConsulta;
 import com.quicklist.funciones.AnimacionObjetos;
 import com.quicklist.funciones.DatosUsuario;
 import com.quicklist.funciones.Validaciones;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Esta clase permite a los usuarios instructor y administrador ingresar y 
@@ -74,7 +71,8 @@ public final class FormAprendiz extends javax.swing.JPanel {
      * @param ID
      * @param declaracion 
      */
-    public FormAprendiz(String tipo,String retorno,String nombrePantalla,String usuario,String[] ID,Statement declaracion) {
+    public FormAprendiz(String tipo, String retorno, String nombrePantalla, 
+            String usuario, String[] ID, Statement declaracion) {
         
         /*
          * Se asignan los valores de los parametros de forma global
@@ -96,7 +94,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
         
-        /*Dar fuente, tipo de letra y tamaño*/
+        /*Dar fuente, tipo de letra y tamaño a los elementos de la pantalla*/
         jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel17.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
@@ -130,7 +128,6 @@ public final class FormAprendiz extends javax.swing.JPanel {
         jTextField14.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jTextField15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         
-        
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
@@ -139,7 +136,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
         
     }
     
-    public void datosActividad(String[] ID){
+    public void datosActividad(String[] ID) {
         
         /*
          * Se realiza la busqueda en la base de datos de los nombres de las 
@@ -223,7 +220,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
              * Se verifica si el tipo de usuario que accedió al sistema es un 
              * aprendiz
              */
-            if("Aprendiz".equals(tipo)){
+            if ("Aprendiz".equals(tipo)) {
             
                 jTextField2.setFocusable(false);    //No seleccionable
                 jTextField3.setFocusable(false);    //No seleccionable
@@ -244,7 +241,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
 
     }
     
-    public void movimiento(){
+    public void movimiento() {
         
         /* Se crea el arreglo con los componentes */
         Component[] objeto2 = {jPanel8};
@@ -961,7 +958,13 @@ public final class FormAprendiz extends javax.swing.JPanel {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         
-        new AnimacionObjetos().RIzquierda(objeto, velocidad,this,"EditarMisDatos",nombrePantalla,tipo,usuario,ID,declaracion);
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
+        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                                     "EditarMisDatos", nombrePantalla, tipo, 
+                                     usuario, ID, declaracion);
         
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -1353,9 +1356,13 @@ public final class FormAprendiz extends javax.swing.JPanel {
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
         
-        Foto foto = new Foto(jLabel3,declaracion,usuario,tipo);
-        foto.setLocationRelativeTo(null);
-        foto.setVisible(true);
+        /**
+         * Se abre el Frame corespondiente para gestionar la foto del 
+         * usuario actual
+         */
+        Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
+        foto.setLocationRelativeTo(null);   //se ubica al centro
+        foto.setVisible(true);      //se le da visivilidad
         
     }//GEN-LAST:event_jLabel3MousePressed
 

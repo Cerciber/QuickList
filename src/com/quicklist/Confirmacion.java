@@ -121,9 +121,9 @@ public final class Confirmacion extends javax.swing.JPanel {
         
         /* Se crea el arreglo global con los componentes */
         objeto = new Component[3];
-        objeto[0]=this.jLabel15;
-        objeto[1]=this.jButton5;
-        objeto[2]=this.jButton6;
+        objeto[0] = this.jLabel15;
+        objeto[1] = this.jButton5;
+        objeto[2] = this.jButton6;
         
         /* 
          * Permite dar un movimiento inicial a los objetos del arreglo en 
@@ -378,8 +378,14 @@ public final class Confirmacion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
-        new AnimacionObjetos().RIzquierda(objeto, velocidad,this,"EditarMisDatos",nombrePantalla,tipo,usuario,ID,declaracion);
+
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
+        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                                     "EditarMisDatos", nombrePantalla, tipo, 
+                                     usuario, ID, declaracion);
         
     }//GEN-LAST:event_jButton8ActionPerformed
 

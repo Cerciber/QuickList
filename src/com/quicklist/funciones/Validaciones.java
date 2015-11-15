@@ -50,17 +50,30 @@ public class Validaciones {
             
             evt.consume();
             
+            
         }
         
     }
     
-    public static void numeroMinimoMaximo(JTextField campo, int minimo, int maximo) {
+    public static void numeroMinimo(KeyEvent evt, JTextField campo, int minimo) {
         
-        /*if(Integer.parseInt(campo.getText())<minimo || real>fin){
+        if(Integer.parseInt(campo.getText())<minimo){
         
-        evt.consume();
+            campo.setText(minimo+"");
+            evt.consume();
+            
+        }
         
-        }*/
+    }
+    
+    public static void numeroMaximo(KeyEvent evt, JTextField campo, int maximo) {
+        
+        if(Integer.parseInt(campo.getText())>maximo){
+        
+            campo.setText(maximo+"");
+            evt.consume();
+        
+        }
         
     }
 
