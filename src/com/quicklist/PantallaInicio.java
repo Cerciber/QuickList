@@ -11,7 +11,6 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist;
 
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
@@ -28,26 +27,43 @@ import javax.swing.JPanel;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.ConvertirConsulta;
 import com.quicklist.funciones.Validaciones;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author pabloycesar
+/** 
+ * Esta clase es la pantalla de inicio, la cual permite a los usuarios 
+ * logearse en el sistema
  */
 public class PantallaInicio extends javax.swing.JPanel {
 
-    int velocidad=100;
-    String usuario;
-    String tipo;
-    Statement declaracion;
-    int[] conf=cargarConfiguracion();
+    int velocidad = 100;    //Corrimiento de la animación de los objetos
+    String usuario;     //Documento del usuario que accede a la clase
+    String tipo;    //Rol del usuario que accede a la clase
     
+    /**
+     * Objeto empleado para realizar la consultas en la base de datos
+     */
+    Statement declaracion;     
+    
+    /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf = cargarConfiguracion();
+    
+    /** Metodo constructor de la clase */
     public PantallaInicio() {
         
-        initComponents();
-        new MoverObjeto(jPanel1);
+        initComponents();   //Se crean los componentes graficos
         
-        if(conf[12]==1){
+        /**
+         * Permite que el usuario pueda mover el panel que contiene la tabla
+         * dentro del frame con el mouse y con las flechas del teclado
+         */
+        new MoverObjeto(jPanel8); 
+        
+        /** Se verifica si esta activada la opción de recordar contraseña */
+        if(conf[12] == 1){
             
+            /** Se cargan los datos de el ultimo ingreso a la aplicación */
             String[] login=cargarLogin();
             jTextField2.setText(login[0]);
             jPasswordField1.setText(login[1]);
@@ -57,9 +73,19 @@ public class PantallaInicio extends javax.swing.JPanel {
         
     }
     
-    public void movimiento(){
+    /**
+     * Permite seleccionar los componentes en el panel a los cuales 
+     * se les dara animación
+     */
+    public void movimiento() {
     
-        Component[] objeto={jPanel2,jPanel7,jPanel5,jPanel8,jPanel6};
+        /* Se crea el arreglo con los componentes */
+        Component[] objeto = {jPanel2, jPanel7, jPanel5, jPanel8, jPanel6};
+        
+        /* 
+         * Permite dar un movimiento inicial a los objetos del arreglo en 
+         * forma secuencial
+         */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
     
     }
@@ -324,74 +350,192 @@ public class PantallaInicio extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        String[] ID={"☺"};
+        /** 
+         * Se crea el areglo que va a contener los identificadores de las 
+         * pantallas 
+         */
+        String[] ID = {"☺"};
         
+        /** Se intenta establecer la conexión a la base de datos */
         try {
             
-            Connection conexion= DriverManager.getConnection("jdbc:sqlserver://CERCIBER\\SQLEXPRESS:1433;databaseName=BaseDeDatosQuickList","cerciber","123456789");
-            //Connection conexion= DriverManager.getConnection("jdbc:sqlserver://BaseDeDatosQuickList.mssql.somee.com;databaseName=BaseDeDatosQuickList","quicklistcerciber","123456789");
-            declaracion = conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            /* Se crea la conexión en la ruta local especificada */
+            Connection conexion = DriverManager
+                    .getConnection("jdbc:sqlserver://CERCIBER\\SQLEXPRESS:1433;"
+                                   + "databaseName=BaseDeDatosQuickList",
+                                     "cerciber","123456789");
+            
+            /* //Se crea la conexión en el servidor web especificado
+            Connection conexion = DriverManager
+                    .getConnection("jdbc:sqlserver://BaseDeDatosQuickList.mssql"
+                            + ".somee.com;databaseName=BaseDeDatosQuickList",
+                              "quicklistcerciber","123456789"); */
+            
+            /* Se le da la propiedad de movimiento entre los registros 
+             * y la propiedad de actualización 
+             */
+            declaracion = conexion.createStatement(ResultSet
+                    .TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            
+            /* 
+             * Variable que almacena la consulta realizada en la base de 
+             * datos 
+             */
             ResultSet resultado;
             
-            usuario=jTextField2.getText();
-            if("".equals(usuario)){usuario="0";}
-            String contrasena= String.valueOf(jPasswordField1.getPassword());
-            if("".equals(contrasena)){contrasena="0";}
-            Component[] objeto={jPanel2,jPanel7,jPanel5,jPanel8,jPanel6};
+            /* Se obtiene el dato de el usuario ingresado */
+            usuario = jTextField2.getText();
             
-            if(jComboBox1.getSelectedItem()=="Aprendiz"){
+            /** Se verifica si el capo del usuario esta vacio */
+            if ("".equals(usuario)) { 
+                usuario = "0"; 
+            }
+            
+             /** Se verifica si el capo de la contraseña esta vacio */
+            String contrasena = String.valueOf(jPasswordField1.getPassword());
+            if("".equals(contrasena)){ 
+                contrasena = "0"; 
+            }
+            
+            /* Se crea el arreglo con los componentes a animar */
+            Component[] objeto = {jPanel2, jPanel7, jPanel5, jPanel8, jPanel6};
+            
+            /* Se verifica si el rol seleccionado es un aprendiz */
+            if (jComboBox1.getSelectedItem() == "Aprendiz") {
                 
-                tipo="Aprendiz";
-                resultado = declaracion.executeQuery("select Documento_De_Identidad,Contrasena from T_Informacion_Aprendices where Documento_De_Identidad="+usuario+" and Contrasena='"+contrasena+"';");
+                /* 
+                 * Se asigna el tipo de usuario que esta accediendo al 
+                 * sistema 
+                */
+                tipo = "Aprendiz";
                 
-                if(new ConvertirConsulta().NRegistros(resultado)==1){
+                /* Se buscan los datos ingresados en la base de datos */
+                resultado = declaracion.executeQuery("select "
+                        + "Documento_De_Identidad,Contrasena from "
+                        + "T_Informacion_Aprendices where "
+                        + "Documento_De_Identidad=" + usuario + " and "
+                        + "Contrasena='" + contrasena + "';");
                 
-                  guardarLogin(usuario,contrasena,tipo);
-                  new AnimacionObjetos().RIzquierda(objeto, velocidad, (JPanel) this,"T_Aprendiz","",tipo,usuario,ID,declaracion);
+                /** Se verifica si existe el registro ingresado */
+                if (new ConvertirConsulta().NRegistros(resultado) == 1) {
+                
+                    /** 
+                     * Se guarda el login en caso de que se desee recordar la 
+                     * contraseña 
+                     */
+                    guardarLogin(usuario, contrasena, tipo);
+                  
+                    /* 
+                     * Se animan los objetos para que salgan del panel y se 
+                     * realiza el cambio de pantalla
+                     */
+                    new AnimacionObjetos().RIzquierda(objeto, velocidad, 
+                            (JPanel) this, "T_Aprendiz", "", tipo, usuario, 
+                            ID, declaracion);
                     
                 }else{
                 
+                    /** Se notifica que los datos son erroneos */
                     jLabel7.setText("Aprendiz Incorrecto");
                     
                 }
                 
             }
             
-            else if(jComboBox1.getSelectedItem()=="Instructor"){
+            /* Se verifica si el rol seleccionado es un Instructor */
+            else if (jComboBox1.getSelectedItem() == "Instructor") {
                 
-                tipo="Instructor";
-                resultado = declaracion.executeQuery("  select Documento_De_Identidad,Contrasena from T_Informacion_Funcionarios where Documento_De_Identidad="+usuario+" and Contrasena='"+contrasena+"' and cargo='INSTRUCTOR';");
+                /* 
+                 * Se asigna el tipo de usuario que esta accediendo al 
+                 * sistema 
+                 */
+                tipo = "Instructor";
                 
-                if(new ConvertirConsulta().NRegistros(resultado)==1){
+                /* Se buscan los datos ingresados en la base de datos */
+                resultado = declaracion.executeQuery("select "
+                        + "Documento_De_Identidad,Contrasena from "
+                        + "T_Informacion_Funcionarios where "
+                        + "Documento_De_Identidad=" + usuario + " and "
+                        + "Contrasena='" + contrasena + "' and "
+                        + "cargo='INSTRUCTOR';");
                 
-                    guardarLogin(usuario,contrasena,tipo);
-                    new AnimacionObjetos().RIzquierda(objeto, velocidad, (JPanel) this,"T_Instructor","",tipo,usuario,ID,declaracion);
+                /** Se verifica si existe el registro ingresado */
+                if (new ConvertirConsulta().NRegistros(resultado) == 1) {
+                
+                    /** 
+                     * Se guarda el login en caso de que se desee recordar la 
+                     * contraseña 
+                     */
+                    guardarLogin(usuario, contrasena, tipo);
                     
-                }else{
+                    /* 
+                     * Se animan los objetos para que salgan del panel y se 
+                     * realiza el cambio de pantalla
+                     */
+                    new AnimacionObjetos().RIzquierda(objeto, velocidad, 
+                            (JPanel) this, "T_Instructor", "", tipo, usuario, 
+                            ID, declaracion);
+                    
+                } else {
                 
+                    /** Se notifica que los datos son erroneos */
                     jLabel7.setText("Instructor Incorrecto"); 
+                    
                 }
+                
             }
             
-            else if(jComboBox1.getSelectedItem()=="Administrador"){
+            /* Se verifica si el rol seleccionado es un Instructor */
+            else if (jComboBox1.getSelectedItem() == "Administrador") { 
                 
-                tipo="Administrador";
-                resultado = declaracion.executeQuery("select Documento_De_Identidad,Contrasena from T_Informacion_Funcionarios where Documento_De_Identidad="+usuario+" and Contrasena='"+contrasena+"' and cargo='ADMINISTRADOR';");
+                /* 
+                 * Se asigna el tipo de usuario que esta accediendo al 
+                 * sistema 
+                 */
+                tipo = "Administrador";
                 
-                if(new ConvertirConsulta().NRegistros(resultado)==1){
+                /* Se buscan los datos ingresados en la base de datos */
+                resultado = declaracion.executeQuery("select "
+                        + "Documento_De_Identidad,Contrasena from "
+                        + "T_Informacion_Funcionarios where "
+                        + "Documento_De_Identidad=" + usuario + " and "
+                        + "Contrasena='" + contrasena + "' and "
+                        + "cargo='ADMINISTRADOR';");
                 
-                    guardarLogin(usuario,contrasena,tipo);
-                    new AnimacionObjetos().RIzquierda(objeto, velocidad, (JPanel) this,"T_Administrador","",tipo,usuario,ID,declaracion);
+                /* Se verifica si existe el registro ingresado */
+                if (new ConvertirConsulta().NRegistros(resultado) == 1) {
+                
+                    /** 
+                     * Se guarda el login en caso de que se desee recordar la 
+                     * contraseña 
+                     */
+                    guardarLogin(usuario, contrasena, tipo);
                     
-                }else{
+                    /* 
+                     * Se animan los objetos para que salgan del panel y se 
+                     * realiza el cambio de pantalla
+                     */
+                    new AnimacionObjetos().RIzquierda(objeto, velocidad, 
+                            (JPanel) this, "T_Administrador", "", tipo, usuario,
+                            ID, declaracion);
+                    
+                } else {
                 
+                    /** Se notifica que los datos son erroneos */
                     jLabel7.setText("Administrador Incorrecto"); 
                     
                 }
+                
             }
             
-            
-        } catch (SQLException ex) {System.out.println(ex);}
+        } catch (SQLException ex) {
+        
+            /* Se muestra un mensaje de error */
+            JOptionPane.showMessageDialog(null,
+            "No se pudo establecer la conexión", "Error", 
+            JOptionPane.ERROR_MESSAGE);
+        
+        }
         
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -402,16 +546,20 @@ public class PantallaInicio extends javax.swing.JPanel {
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
         
-        Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
+        /* Dar una longitud maxima de caracteres de 18 */
         Validaciones.longitud(evt, jTextField2.getText().length(), 18);
-        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 32);
-        Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
+        
+        /* restringir caracteres no numericos */
+        Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
         
     }//GEN-LAST:event_jTextField2KeyTyped
 
     private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
         
+        /* Dar una longitud maxima de caracteres de 30 */
         Validaciones.longitud(evt, String.valueOf(jPasswordField1.getPassword()).length(), 30);
+        
+        /* restringir caracteres no numericos */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
         
     }//GEN-LAST:event_jPasswordField1KeyTyped

@@ -16,14 +16,12 @@ package com.quicklist;
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
-import com.quicklist.clases.Funcionario;
 import com.quicklist.clases.PlanDeEstudios;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.AnimacionObjetos;
 import com.quicklist.funciones.DatosUsuario;
 import com.quicklist.funciones.Validaciones;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -59,7 +57,7 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
-    int[] conf=cargarConfiguracion();
+    int[] conf = cargarConfiguracion();
     
     /**
      * Metodo constructor de la clase
