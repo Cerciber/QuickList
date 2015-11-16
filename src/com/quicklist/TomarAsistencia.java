@@ -509,7 +509,13 @@ public final class TomarAsistencia extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+        
+        /* Se abre la ventana de configuración de la aplicación */
+        Configuracion c = new Configuracion();  //Instanciación
+        c.setSize(800, 600);    //Tamaño de ventana
+        c.setLocationRelativeTo(null);      //Ubicar al centro
+        c.setVisible(true);     //Dar visivilidad
+        
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jPanel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MousePressed

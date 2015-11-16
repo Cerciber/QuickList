@@ -11,17 +11,12 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist;
 
-import com.quicklist.clases.Aprendiz;
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import com.quicklist.clases.Consulta;
-import com.quicklist.clases.Funcionario;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,7 +24,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
-import com.quicklist.funciones.ConvertirConsulta;
 import com.quicklist.funciones.EventosMenu;
 import com.quicklist.funciones.AnimacionObjetos;
 import com.quicklist.funciones.UbicarLista;
@@ -37,378 +31,784 @@ import com.quicklist.funciones.DarIcono;
 import com.quicklist.funciones.DatosUsuario;
 import com.quicklist.funciones.Validaciones;
 import java.awt.Dimension;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-
 
 public final class PantallaUsuario extends javax.swing.JPanel {
 
-    public String usuario;
-    Statement declaracion;
-    public Component[] objeto;
-    public int velocidad=100;
-    String retorno;
-    String tipo;
-    String nombrePantalla;
-    public JTextArea[][] TextArea;
-    public JLabel[][] label;
-    public Component[][] componente;
-    String[] ID;
-    boolean mostrarBotones=true;
-    JScrollPane[][] scrollPane;
-    Consulta consulta;
-    int[] conf=cargarConfiguracion();
+    int velocidad = 100;    //Corrimiento de la animación de los objetos
+    String usuario;     //Documento del usuario que accede a la clase
+    String retorno;     //Ruta de acceso a la ventana anterior
+    String tipo;    //Rol del usuario que accede a la clase
+    String nombrePantalla;      //Ruta de la ventana actual
     
-    //menu de botones
-    public PantallaUsuario(String tipo,String[] menu,String[] vinculo,String retorno,String nombrePantalla,String usuario,Statement declaracion,String[] ID) {
+    /** 
+     * Arreglo que almacena los identificadores nesesarios para cargar los 
+     * datos en cada una de las pantallas a las que se ha accedido desde el 
+     * login para recuperar las pantallas anteriores en caso de retorno
+     */
+    String[] ID;    
+    
+    /**
+     * Objeto empleado para realizar la consultas en la base de datos
+     */
+    Statement declaracion;      
+    
+    /**
+     * Arreglo que contiene todos los componentes de la pantalla 
+     * a los cuales se les da movimineto inicial
+     */
+    Component[] objeto;
+    
+    /**
+     * Arreglo que contiene la configuración actual de la aplicación
+     */
+    int[] conf = cargarConfiguracion();
+    
+    /**
+     * Arreglo que contiene los textos de mas de 30 caracteres en la pantalla
+     */
+    public JTextArea[][] TextArea;
+    
+    /**
+     * Arreglo que contiene los textos de menos de 30 caracteres en la pantalla
+     */
+    public JLabel[][] label;
+    
+    /**
+     * Arreglo que contiene la combinación de los labels y los textArea 
+     * empleados
+     */
+    public Component[][] componente;
+    
+    /** Variable que verifica si se deben mostrar los botones de las tablas */
+    boolean mostrarBotones=true;
+    
+    /**
+     * Arreglo que contiene los textAreas empleados en las tablas
+     */
+    JScrollPane[][] scrollPane;
+    
+    /** 
+     * Objeto que contiene todos los datos necesarios para gentionar las 
+     * tablas en las busquedas
+     */
+    Consulta consulta;
+    
+    /**
+     * Metodo constructor de la clase para menus
+     * @param tipo
+     * @param menu
+     * @param vinculo
+     * @param retorno
+     * @param nombrePantalla
+     * @param usuario
+     * @param ID
+     * @param declaracion 
+     */
+    public PantallaUsuario(String tipo, String[] menu, String[] vinculo, 
+            String retorno, String nombrePantalla, String usuario, 
+            Statement declaracion, String[] ID) {
         
-        this.tipo=tipo;
-        this.retorno=retorno;
-        this.nombrePantalla=nombrePantalla;
-        this.usuario=usuario;
-        this.declaracion=declaracion;
-        this.ID=ID;
+        /*
+         * Se asignan los valores de los parametros de forma global
+         */
+        this.tipo = tipo;
+        this.retorno = retorno;
+        this.usuario = usuario;
+        this.declaracion = declaracion;
+        this.ID = ID;
+        this.nombrePantalla = nombrePantalla;
         
-        initComponents();
-        new DatosUsuario(usuario,tipo,declaracion,jLabel1,jLabel2,jLabel3);
-        PantallaUsuario.this.crearMenu(menu,vinculo);
-        new MoverObjeto(jPanel8);
+        initComponents();   //Se crean los componentes graficos
+        
+        /* Se cargan y se ubican los datos del usuario */
+        new DatosUsuario(usuario, tipo, declaracion,jLabel1, jLabel2, jLabel3);
+        
+        /* Se cargan los datos del menu de opciones de la pantalla actual */
+        crearMenu(menu, vinculo);
+        
+        /* Se oculta la sección de busqueda de la tabla */
         jPanel5.setVisible(false);
+        
+        /**
+         * Permite que el usuario pueda mover el panel que contiene la tabla
+         * dentro del frame con el mouse y con las flechas del teclado
+         */
+        new MoverObjeto(jPanel8);
         
     }
     
-    //menu de texto con botones
-    public PantallaUsuario(String tipo,String[][] menu,String[] nombreBoton, String[] nombreIcono,String[] nombreColumna,String[] vinculo,String retorno,String nombrePantalla,String usuario,Statement declaracion,String[] ID,Consulta consulta) {
+    /**
+     * Metodo constructor de la clase para tablas
+     * @param tipo
+     * @param menu
+     * @param nombreBoton
+     * @param nombreIcono
+     * @param vinculo
+     * @param nombreColumna
+     * @param retorno
+     * @param nombrePantalla
+     * @param usuario
+     * @param ID
+     * @param declaracion 
+     * @param consulta 
+     */
+    public PantallaUsuario(String tipo, String[][] menu, String[] nombreBoton, 
+            String[] nombreIcono, String[] nombreColumna, String[] vinculo, 
+            String retorno, String nombrePantalla, String usuario, 
+            Statement declaracion, String[] ID, Consulta consulta) {
         
-        this.tipo=tipo;
-        this.retorno=retorno;
-        this.nombrePantalla=nombrePantalla;
-        this.usuario=usuario;
-        this.declaracion=declaracion;
-        this.ID=ID;
-        this.consulta=consulta;
+        /*
+         * Se asignan los valores de los parametros de forma global
+         */
+        this.tipo = tipo;
+        this.retorno = retorno;
+        this.nombrePantalla = nombrePantalla;
+        this.usuario = usuario;
+        this.declaracion = declaracion;
+        this.ID = ID;
+        this.consulta = consulta;
         
-        initComponents();
-        new DatosUsuario(usuario,tipo,declaracion,jLabel1,jLabel2,jLabel3);
+        initComponents();   //Se crean los componentes graficos
+        
+        /* Se cargan y se ubican los datos del usuario */
+        new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
+        
+        /* Se cargan los datos de la tabla de la pantalla actual */
         crearMenu(menu,vinculo,nombreBoton,nombreIcono,nombreColumna);
+        
+        /**
+         * Permite que el usuario pueda mover el panel que contiene la tabla
+         * dentro del frame con el mouse y con las flechas del teclado
+         */
         new MoverObjeto(jPanel8);
+        
+        /** Se asigna el dato de la busqueda que se desea realizar */
         jTextField3.setText(consulta.busqueda);
-        jTextField4.setText(consulta.nRegistrosPagina+"");
-        jLabel6.setText("1-"+consulta.paginaActual+"-"+consulta.paginaFinal);
-        DarIcono.darIcono(jButton7,"Buscar");
+        
+        /** Se asigna el numero de registros por pagina */
+        jTextField4.setText(consulta.nRegistrosPagina + "");
+        
+        /** 
+         * Se asigna el numero de pagina inicial, el numero de pagina actual 
+         * y el numero de pagina final 
+         */
+        jLabel6.setText("1 - " + consulta.paginaActual + " - "
+                        + consulta.paginaFinal);
+        
+        /** Se asigna el icono de busqueda en el boton correspondiente */
+        DarIcono.darIcono(jButton7, "Buscar");
         
     }    
     
+    /** 
+     * Este metodo permite dar el el primer movimiento de objetos al loguearse 
+     * en el sistema
+     */
     public void movimientoInicial(){
         
-        Component[] componentes=new Component[objeto.length+2];
-        componentes[0]=jPanel2;
-        componentes[1]=jPanel3;
+        /*
+         * Se crea un arreglo de componentes para alamcenar todos los objetos 
+         * que se van a animar
+         */
+        Component[] componentes = new Component[objeto.length + 2];
         
-        for(int i=2;i<=componentes.length-1;i++){
         
-            componentes[i]=objeto[i-2];
+        componentes[0] = jPanel2;   //Se añade el panel superior
+        componentes[1] = jPanel3;   //Se añade el panel inferior
+        
+        /* Se añaden los demas objetos a los que se les dió la animación */
+        for (int i = 2; i <= componentes.length - 1; i++) {
+        
+            componentes[i] = objeto[i - 2];
             
         }
         
+        /* 
+         * Permite dar un movimiento inicial a los objetos del arreglo en 
+         * forma secuencial
+         */
         new AnimacionObjetos().Izquierda(componentes, velocidad);
     
     }
     
+    /** 
+     * Este metodo permite dar el  movimiento de objetos contenidos en el 
+     * panel central
+     */
     public void movimientoSecuencial(){
         
+        /* 
+         * Permite dar un movimiento inicial a los objetos del arreglo en 
+         * forma secuencial
+         */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
     
     }
     
-    public void crearMenu(String[] menu,String[] vinculo){
+    /** 
+     * Este metodo permite cargar los datos del menu de la pantalla actual 
+     * @param menu
+     * @param vinculo
+     */
+    public void crearMenu(String[] menu, String[] vinculo){
         
-            JButton[] boton = new JButton[menu.length];
-            objeto = new Component[menu.length];
-
-            for(int i=0;i<=boton.length-1;i++){
-
-                boton[i] = new JButton();
-                boton[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
-                boton[i].setBackground(jButton5.getBackground());
-                boton[i].setForeground(jButton5.getForeground());
-                boton[i].setText(menu[i]);
-
-                objeto[i]=boton[i];
-
-            }
-
-            new UbicarLista(jPanel8,boton);
-            new EventosMenu(objeto,velocidad,boton,this,vinculo,nombrePantalla,tipo,usuario,declaracion,ID);
-
-    }
-    
-    public String[][] buscar(String[] nombreBoton, String[] nombreIcono,String[] nombreColumna,String[] vinculo){
-                
-        consulta.posicion=jPanel8.getLocation();
+        /** 
+         * Se crea un areglo de botones para contener cada uno de los 
+         * elementos del menú 
+         */
+        JButton[] boton = new JButton[menu.length];
         
-        if(!jTextField4.getText().isEmpty()){
+        /** 
+         * Se crea un areglo de componentes para contener cada uno de los 
+         * elementos del menú 
+         */
+        objeto = new Component[menu.length];
 
-            if(consulta.nRegistrosPagina!=Integer.parseInt(jTextField4.getText())){
-                
-                consulta.registroInicial=0;
-                consulta.paginaActual=1;
-                
-            }
+        /** Se asigna el diseño predeterminado a los botones */
+        for (int i = 0; i <= boton.length - 1; i++) {
+
+            boton[i] = new JButton();   //Instanciación
             
-            consulta.nRegistrosPagina=Integer.parseInt(jTextField4.getText());
+            /* Dar fuente, tipo de letra y tamaño */
+            boton[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                                               conf[2]));
+            
+            /* Dar Fondo */
+            boton[i].setBackground(jButton5.getBackground());
+            
+            /* Dar Color de letra */
+            boton[i].setForeground(jButton5.getForeground());
+            
+            /* Dar texto correspondiente a un item del menú */
+            boton[i].setText(menu[i]);
+
+            /* 
+             * Se asigna el botón actual al arreglo de componentes 
+             * para la animación 
+             */
+            objeto[i] = boton[i];
 
         }
 
+        /** Se ubican los elementos creados en el panel en forma de tabla */
+        new UbicarLista(jPanel8,boton);
+        
+        /* 
+         * Se asignan los eventos en los botones para realizar el cambio 
+         * de pantalla 
+         */
+        new EventosMenu(objeto, velocidad, boton, this, vinculo, 
+                nombrePantalla, tipo, usuario, declaracion, ID);
+
+    }
+    
+    /** 
+     * Este método permite ejecutar la busqueda en la base de datos 
+     * modificando el estado de la tabla
+     * @param nombreBoton
+     * @param nombreIcono
+     * @param vinculo
+     * @param nombreColumna
+     * @return
+     */
+    public String[][] buscar(String[] nombreBoton, String[] nombreIcono, 
+                             String[] nombreColumna, String[] vinculo){
+                
+        /* Se gualda la localización de la tabla actual */
+        consulta.posicion = jPanel8.getLocation();
+        
+        /* 
+         * Se verifica que el limitante de registros no este vacio ni sea 
+         * igual a 0 
+         */
+        if (!jTextField4.getText().isEmpty() && !"0".
+                equals(jTextField4.getText())) {
+
+            /* 
+             * Se verifica si el numero ingresado en el limitante se ha 
+             * cambiado 
+             */
+            if(consulta.nRegistrosPagina != Integer
+                    .parseInt(jTextField4.getText())){
+                
+                /* Se reinicia el paginado de la tabla */
+                consulta.registroInicial = 0; 
+                consulta.paginaActual = 1; 
+                
+            }
+            
+            /* Se asigna el numero de registros por tabla */
+            consulta.nRegistrosPagina = Integer.parseInt(jTextField4.getText());
+
+        }
+
+        /* Se asigna el filtro que se desea realizar */
         consulta.busqueda(jTextField3.getText()); 
         
-        String[][]menu=consulta.ejecutarConsulta();
+        /* Se realiza la busqueda en la base de datos */
+        String[][]menu = consulta.ejecutarConsulta();
         
-        PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBoton,nombreIcono,nombreColumna,vinculo, retorno,nombrePantalla,usuario,declaracion,ID,consulta);
-        consulta.panelContenedor.removeAll();
-        consulta.panelContenedor.add(p);
-        consulta.panelContenedor.validate();
+        /* Se recarga la pantalla con la nueva consulta realizada */
+        PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBoton, 
+                nombreIcono, nombreColumna, vinculo, retorno, nombrePantalla, 
+                usuario, declaracion, ID, consulta);
+        
+        consulta.panelContenedor.removeAll();   //Se remueve el panel actual
+        consulta.panelContenedor.add(p);    //Se asigna el nuevo panel
+        consulta.panelContenedor.validate();    //Se vualve a cargar la pantalla
 
-        try{
+        /* Se sintenta verificar si hay registros para mostrar */
+        try {
 
-            if(menu[0][0]!=null){
+            /* Se verifica si hay registros para mostrar */
+            if (menu[0][0] != null) {
+                
+                /* Se asigna la localización del panel anterior */
                 p.jPanel8.setLocation(consulta.posicion);
+                
             }
 
         }catch(ArrayIndexOutOfBoundsException ex){}
 
-
-        EventosMenu.darColorColumna(p.componente, consulta.nColumnaSeleccionada);
+        /* Se asigna el color de la columna seleccionada para resaltarla */
+        EventosMenu.darColorColumna(p.componente, 
+                consulta.nColumnaSeleccionada);
                 
+        /* Se retorna la variable con la consulta realizada */
         return menu;
+        
     }
     
-    public void crearMenu(String[][] menu, String[] vinculo, String[] nombreBoton,String[] nombreIcono, String[] nombreColumna){
+    /** 
+     * Este metodo permite cargar los datos de la tabla de la pantalla actual 
+     * @param menu
+     * @param vinculo
+     * @param nombreBoton
+     * @param nombreIcono
+     * @param nombreColumna
+     */
+    public void crearMenu(String[][] menu, String[] vinculo, 
+            String[] nombreBoton, String[] nombreIcono, 
+            String[] nombreColumna) {
         
-            String[] ID = new String[menu.length]; 
-            String[][] menu2;
-            
-            try{
-            
-                menu2 = new String[menu.length][menu[0].length-1];
-            
-            }catch(ArrayIndexOutOfBoundsException ex){
-            
-                menu2 = new String[1][1];
-                menu2[0][0]="No existen registros para mostrar";
-                mostrarBotones=false;
-                
-            }
-            
-            
-            for(int i=0;i<=menu.length-1;i++){
-            
-                ID[i] = menu[i][0];
-                
-                for(int j=1;j<=menu[0].length-1;j++){
-
-                    menu2[i][j-1]=menu[i][j];
-
-                }
-            }
-            menu=menu2;  
+        /* 
+         * Se crea un arreglo para almacenar el identificador de cada registro 
+         * de la tabla 
+         */
+        String[] ID = new String[menu.length]; 
         
-            label = new JLabel[menu.length][menu[0].length];
-            scrollPane = new JScrollPane[menu.length][menu[0].length];
-            TextArea = new JTextArea[menu.length][menu[0].length];
-            componente = new Component[menu.length][menu[0].length];
-            objeto = new Component[(menu.length*menu[0].length)+(menu.length*nombreBoton.length)];
+        /* Se crea un srreglo bidimencional para verificar si exsisten registros */
+        String[][] menu2;
+
+        /* Se intenta asignar la longitud del arreglo*/
+        try{
+
+            /* Se asigna la longitud dependiendo del numero de registros */
+            menu2 = new String[menu.length][menu[0].length-1];
+
+        }catch(ArrayIndexOutOfBoundsException ex){
+
+            /* se le da una longitud de 1 x 1*/
+            menu2 = new String[1][1];
             
-            for(int i=0;i<=label.length-1;i++){
+            /*Se le almacena el mensaje de notificación*/
+            menu2[0][0]="No existen registros para mostrar";
+            
+            /* Se desactiva el verificador de mostrar botones */
+            mostrarBotones=false;
 
-                for(int j=0;j<=label[i].length-1;j++){
+        }
+
+        /* 
+         * Se asignan los datos de la cosulta en la variable en caso de que
+         * hallan 
+         */
+        for (int i = 0; i <= menu.length - 1; i++) {
+
+            /* Se asigna el identificador del registro */
+            ID[i] = menu[i][0];
+
+            /* Se asignan los campos del registro */
+            for (int j = 1; j <= menu[0].length - 1; j++) {
+
+                menu2[i][j - 1] = menu[i][j];
+
+            }
+            
+        }
+        
+        /*Se asigna el resultado de la variable de verificación en la real*/
+        menu = menu2;  
+
+        /* Se definen las longitudes de los elemtos de la pantalla de acuerdo 
+         * a las dimenciones de los registros 
+         */
+        label = new JLabel[menu.length][menu[0].length];
+        scrollPane = new JScrollPane[menu.length][menu[0].length];
+        TextArea = new JTextArea[menu.length][menu[0].length];
+        componente = new Component[menu.length][menu[0].length];
+        objeto = new Component[(menu.length*menu[0].length)+(menu.length*nombreBoton.length)];
+
+        /*
+         * Se efectuan dos ciclos repetitivos para recorrer cada uno de los 
+         * campos de la consulta
+         */
+        for (int i = 0; i <=label.length - 1; i++) {
+
+            for (int j = 0; j <= label[i].length - 1; j++) {
+
+                /* 
+                 * Se verifica si la longitud del texto del campo el mayor a 30
+                 */
+                if (menu[i][j].length() < 30) {
+
+                    label[i][j] = new JLabel();     //Instanciación
+
+                    /* Se le da el diseño predeterminado al label */
                     
-                    if(menu[i][j].length()<30){
+                    /* Se asigna el color de fondo */
+                    label[i][j].setBackground(new java.awt.Color(204, 255, 
+                                                                 255));
                     
-                        label[i][j] = new JLabel();
+                    /* Se asigna la fuente, el tipo de letra y el tamaño */
+                    label[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi",
+                                                          1, conf[3]));
+                    
+                    /* Se asigna el color de letra */
+                    label[i][j].setForeground(new java.awt.Color(0, 102, 102));
+                    
+                    /* Se asigna el alineamiento al centro */
+                    label[i][j].setHorizontalAlignment(javax.swing
+                            .SwingConstants.CENTER);
+                    
+                    /* Se asigna el dato del campo */
+                    label[i][j].setText(menu[i][j]);
+                    
+                    /* Se asigna el tipo de borde */
+                    label[i][j].setBorder(javax.swing.BorderFactory
+                            .createBevelBorder(javax.swing.border
+                                    .BevelBorder.RAISED));
+                    
+                    /* Opacar */
+                    label[i][j].setOpaque(true);
+                    
+                    /* Se asigna el label en el arreglo de componentes */
+                    componente[i][j]=label[i][j];
 
-                        label[i][j].setBackground(new java.awt.Color(204, 255, 255));
-                        label[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-                        label[i][j].setForeground(new java.awt.Color(0, 102, 102));
-                        label[i][j].setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-                        label[i][j].setText(menu[i][j]);
-                        label[i][j].setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-                        label[i][j].setOpaque(true);
-                        componente[i][j]=label[i][j];
-                        
-                    }else{
-                        
-                        scrollPane[i][j] = new JScrollPane();
-                        scrollPane[i][j].setBorder(jScrollPane1.getBorder());
+                } else {
 
-                        TextArea[i][j] = new JTextArea();
+                    scrollPane[i][j] = new JScrollPane();     //Instanciación
+                    
+                    /* Asignar el tipo de borde */
+                    scrollPane[i][j].setBorder(jScrollPane1.getBorder());
 
-                        TextArea[i][j].setBackground(jTextArea1.getBackground());
-                        TextArea[i][j].setColumns(jTextArea1.getColumns());
-                        TextArea[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-                        TextArea[i][j].setForeground(jTextArea1.getForeground());
-                        TextArea[i][j].setLineWrap(jTextArea1.getLineWrap());
-                        TextArea[i][j].setRows(jTextArea1.getRows());
-                        TextArea[i][j].setOpaque(true);
-                        TextArea[i][j].setText(menu[i][j]);
-                        TextArea[i][j].setWrapStyleWord(jTextArea1.getWrapStyleWord());
-                        TextArea[i][j].setFocusable(false);
-                        TextArea[i][j].setComponentOrientation (ComponentOrientation.RIGHT_TO_LEFT);
-                        
-                        scrollPane[i][j].setMinimumSize(new Dimension(100,100));
-                        scrollPane[i][j].setViewportView(TextArea[i][j]);
-                        componente[i][j]=scrollPane[i][j];
-                        
-                    }
+                    TextArea[i][j] = new JTextArea();     //Instanciación
+
+                    /* Color de fondo */
+                    TextArea[i][j].setBackground(jTextArea1.getBackground());
+                    
+                    /* numero de columnas */
+                    TextArea[i][j].setColumns(jTextArea1.getColumns());
+                    
+                    /* Fuente, tipo de letra y tamaño */
+                    TextArea[i][j].setFont(new java.awt
+                            .Font("Berlin Sans FB Demi", 1, conf[3]));
+                    
+                    /* Color de letra */
+                    TextArea[i][j].setForeground(jTextArea1.getForeground());
+                    
+                    /* Autoajustar texto */
+                    TextArea[i][j].setLineWrap(jTextArea1.getLineWrap());
+                    
+                    /* numero de filas */
+                    TextArea[i][j].setRows(jTextArea1.getRows());
+                    
+                    /* Opacar */
+                    TextArea[i][j].setOpaque(true);
+                    
+                    /* Se asigna el dato del campo */
+                    TextArea[i][j].setText(menu[i][j]);
+                    
+                    /* Estilo de envolvimiento de texto */
+                    TextArea[i][j].setWrapStyleWord(jTextArea1
+                            .getWrapStyleWord());
+                    
+                     /* No seleccionable */
+                    TextArea[i][j].setFocusable(false);
+
+                    /* Dar tama{o minimo */
+                    scrollPane[i][j].setMinimumSize(new Dimension(100, 100));
+                    
+                    /* Asisgnar el textArea al scrollPane */
+                    scrollPane[i][j].setViewportView(TextArea[i][j]);
+                    
+                    /* Se asigna el scrollPane al arreglo de componentes */
+                    componente[i][j] = scrollPane[i][j];
 
                 }
 
             }
-            
-            JButton[][] boton = new JButton[menu.length][nombreBoton.length];
-            JButton[] columna = new JButton [menu[0].length+nombreBoton.length];
-            
-            for(int i=0;i<=menu.length-1;i++){
 
-                for(int j=0;j<=nombreBoton.length-1;j++){
+        }
 
-                    boton[i][j] = new JButton();
-                    boton[i][j].setFont(jButton6.getFont());
-                    boton[i][j].setBackground(jButton6.getBackground());
-                    boton[i][j].setForeground(jButton6.getForeground());
-                    DarIcono.darIcono(boton[i][j],nombreIcono[j]);
-                    boton[i][j].setVisible(mostrarBotones);
-                    boton[i][j].setToolTipText(nombreBoton[j]);
-                    
-                }
+        /* 
+         * Se crea un arreglo para contener los botones de opción de cada 
+         * registro 
+         */
+        JButton[][] boton = new JButton[menu.length][nombreBoton.length];
+        
+        /* 
+         * Se crea un arreglo para contener los titulos de los campos de los
+         * registros
+         */
+        JButton[] columna = new JButton [menu[0].length + nombreBoton.length];
 
-            }
-            
-            for(int i=0;i<=columna.length-1;i++){
-            
-                columna[i] = new JButton();
-                columna[i].setBackground(new java.awt.Color(0, 102, 102));
-                columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
-                columna[i].setForeground(new java.awt.Color(204, 255, 255));
-                columna[i].setAutoscrolls(true);
-                columna[i].setOpaque(false); 
-                columna[i].setText(nombreColumna[i]);
-                columna[i].setVisible(mostrarBotones);
+        /* 
+         * Se efectuan dos ciclos repetitivos para recorrer el arreglo 
+         * de botones
+         */
+        for (int i = 0; i <= menu.length - 1; i++) {
+
+            for (int j = 0; j <= nombreBoton.length - 1; j++) {
+
+                boton[i][j] = new JButton();    //Instanciación
                 
-                if("".equals(nombreColumna[i])){
-                    columna[i].setBackground(new java.awt.Color(190, 255, 255));
-                    columna[i].setFocusable(false);
-                }else{
-                    
-                    final int i2=i-boton[0].length;
-                    final String[] ID1=this.ID;
-                    
-                    columna[i].addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                /* Fuente, tipo y tamaño */
+                boton[i][j].setFont(jButton6.getFont());
+                
+                /* Color de fondo */
+                boton[i][j].setBackground(jButton6.getBackground());
+                
+                /* Color de letra */
+                boton[i][j].setForeground(jButton6.getForeground());
+                
+                /* Asignar icono */
+                DarIcono.darIcono(boton[i][j],nombreIcono[j]);
+                
+                /* Mostrar u ocultar */
+                boton[i][j].setVisible(mostrarBotones);
+                
+                /* Mesaje de información */
+                boton[i][j].setToolTipText(nombreBoton[j]);
+
+            }
+
+        }
+
+        /* Se crea un ciclo repetitivo para recorrer los botones de titulo */
+        for (int i = 0; i <= columna.length - 1; i++) {
+
+            columna[i] = new JButton();     //Instanciación
+            
+            /* Color de fondo */
+            columna[i].setBackground(new java.awt.Color(0, 102, 102));
+            
+            /* Fuente, tipo y tamaño */
+            columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
+            
+            /* Color de letra */
+            columna[i].setForeground(new java.awt.Color(204, 255, 255));
+            
+            /* No opacar */
+            columna[i].setOpaque(false); 
+            
+            /* Asinar nombre de la columna */
+            columna[i].setText(nombreColumna[i]);
+            
+            /* Mostrar u ocultar */
+            columna[i].setVisible(mostrarBotones);
+
+            /* Varificar si el boton esta vacío */
+            if ("".equals(nombreColumna[i])) {
+                
+                /* Dar color de fondo */
+                columna[i].setBackground(new java.awt.Color(190, 255, 255));
+                
+                /* No seleccionable */
+                columna[i].setFocusable(false);
+                
+            } else {
+                
+                /* 
+                 * Se crea una variable para ubicar los botones de titulo 
+                 * seleccionables 
+                 */
+                final int i2 = i - boton[0].length;
+                
+                /* 
+                 * Se crea un arreglo temporal para contener los 
+                 * identificadores 
+                 */
+                final String[] ID1 = this.ID;
+
+                /* 
+                 * Se asigna el evento para organizar los registros por ese 
+                 * campo 
+                 */
+                columna[i].addActionListener(new java.awt.event
+                        .ActionListener() {
                             
-                            consulta.columnaSeleccionadaAnterior=consulta.columnaSeleccionada;
-                            consulta.columnaSeleccionada(consulta.campos[i2+1]);
-                            consulta.nColumnaSeleccionada=i2;
+                    @Override
+                    public void actionPerformed(java.awt.event
+                            .ActionEvent evt) {
+
+                        /* Se gusrda el dato del ultimo campo seleccionado */
+                        consulta.columnaSeleccionadaAnterior = consulta
+                                .columnaSeleccionada;
+                        
+                        /* Se asigna la columna que se seleccionó */
+                        consulta.columnaSeleccionada(consulta.campos[i2 + 1]);
+                        
+                        /* Se asigna el numero de la columna seleccionada */
+                        consulta.nColumnaSeleccionada = i2;
+
+                        /* Gusrdar la posición actual del panel */
+                        consulta.posicion = jPanel8.getLocation();
+
+                        /* 
+                         * Se verifica si se volvió a seleccionar la misma 
+                         * fila
+                         */
+                        if (consulta.columnaSeleccionadaAnterior
+                                .equals(consulta.columnaSeleccionada)) {
+
+                            /* Si la orientación es acendente */
+                            if ("ASC".equals(consulta.orientacion)) {
+                                
+                                /* Dar orientacion descendente */
+                                consulta.orientacion("DESC");
+                                
+                            } else {
+                                
+                                /* Dar orientacion ascendente */
+                                consulta.orientacion("ASC");
                             
-                            consulta.posicion=jPanel8.getLocation();
-                            
-                            if(consulta.columnaSeleccionadaAnterior.equals(consulta.columnaSeleccionada)){
-                                
-                                if("ASC".equals(consulta.orientacion)){
-                                    consulta.orientacion("DESC");
-                                }else{
-                                    consulta.orientacion("ASC");
-                                }
-                                
-                            }else{
-                                
-                                consulta.busqueda="";
                             }
+
+                        } else {
                             
-                            String menu[][]=consulta.ejecutarConsulta();
-                            
-                            PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBoton,nombreIcono,nombreColumna,vinculo,retorno,nombrePantalla,usuario,declaracion,ID1,consulta);
-                            consulta.panelContenedor.removeAll();
-                            consulta.panelContenedor.add(p);
-                            consulta.panelContenedor.validate();
-                            p.jPanel8.setLocation(consulta.posicion);
-                            EventosMenu.darColorColumna(p.componente, consulta.nColumnaSeleccionada);
-                            
-                            
+                            /* Se elimina el filtro de la consulta */
+                            consulta.busqueda = "";
+                        
                         }
-                    });
-                }
+
+                        /* Realizar la busqueda en la base de datos */
+                        String menu[][] = consulta.ejecutarConsulta();
+
+                        /* Volver a crear la tabla en el panel */
+                        PantallaUsuario p = new PantallaUsuario(tipo, menu, 
+                                nombreBoton, nombreIcono, nombreColumna, 
+                                vinculo, retorno, nombrePantalla, usuario, 
+                                declaracion, ID1, consulta);
+                        
+                        consulta.panelContenedor.removeAll(); // Remover panel
+                        consulta.panelContenedor.add(p);    //Añadir nuevo panel
+                        consulta.panelContenedor.validate();    //Actualizar
+                        
+                        /* Asignar la posición guardada anteriormente */
+                        p.jPanel8.setLocation(consulta.posicion);
+                        
+                        /* Resaltar la columna seleccionada */
+                        EventosMenu.darColorColumna(p.componente, 
+                                consulta.nColumnaSeleccionada);
+
+                    }
+                    
+                });
+                
             }
             
-            final String[] ID1=this.ID;
-            
-            jButton7.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
+        }
 
+        /* Evento del botón buscar */
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+                /* Se realiza la busqueda en la base de datos empleando el 
+                 * filtro de información 
+                 */
+                buscar(nombreBoton,nombreIcono,nombreColumna,vinculo);
+
+            }
+        });
+
+        /* 
+         * Evento del boton pagina anterior que se encarga de configurar 
+         * la consulta para cargar la información anterior a la actual 
+         */
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+                /* Se verifica que se pueda retroceder en la consulta */
+                if (consulta.registroInicial - consulta.nRegistrosPagina >= 0) {
+
+                    /* Se le resta un valor a la pagina actual */
+                    consulta.paginaActual--;
+                    
+                    /* 
+                     * Se le restan los registros necesarios al inicial para 
+                     * cargar la pagina anterior 
+                     */
+                    consulta.registroInicial -= consulta.nRegistrosPagina;
+                    
+                    /* Se realiza la busqueda con los cambios realizados */
+                    buscar(nombreBoton, nombreIcono, nombreColumna, vinculo);
+
+                }
+
+            }
+        });
+
+        /* 
+         * Evento del boton pagina posterior que se encarga de configurar 
+         * la consulta para cargar la información anterior a la actual 
+         */
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+                /* Se le suma un valor a la pagina actual */
+                consulta.paginaActual++;
+                
+                /* 
+                 * Se le suman los registros necesarios al iniciar para 
+                 * cargar la pagina posterior 
+                 */
+                consulta.registroInicial += consulta.nRegistrosPagina;
+                
+                /* Se realiza la busqueda con los cambios realizados */
+                String[][] menu = buscar(nombreBoton, nombreIcono, 
+                        nombreColumna, vinculo);
+
+                /* Se verifica si no hay registros a mostrar */
+                if (menu.length == 0) {
+
+                    /* Se regrsa a la pagina anterior */
+                    consulta.paginaActual--;
+                    consulta.registroInicial-=consulta.nRegistrosPagina;
                     buscar(nombreBoton,nombreIcono,nombreColumna,vinculo);
 
                 }
-            });
-            
-            jButton9.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
 
-                    if(consulta.registroInicial-consulta.nRegistrosPagina>=0){
-                        
-                        consulta.paginaActual--;
-                        consulta.registroInicial-=consulta.nRegistrosPagina;
-                        buscar(nombreBoton,nombreIcono,nombreColumna,vinculo);
-                        
-                    }
-
-                }
-            });
-            
-            jButton10.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-
-                    consulta.paginaActual++;
-                    consulta.registroInicial+=consulta.nRegistrosPagina;
-                    String[][] menu = buscar(nombreBoton,nombreIcono,nombreColumna,vinculo);
-                    
-                    if(menu.length==0){
-                        
-                        consulta.paginaActual--;
-                        consulta.registroInicial-=consulta.nRegistrosPagina;
-                        buscar(nombreBoton,nombreIcono,nombreColumna,vinculo);
-                        
-                    }
-
-                }
-            });
-            
-            new UbicarLista(jPanel8,componente,boton,columna);
-            
-            int cont=-1;
-            
-            for(int i=0;i<=componente.length-1;i++){
-                
-                for(int j=componente[i].length-1;j>=0;j--){
-
-                    cont++;
-                    objeto[cont]=componente[i][j];
-                    
-                }
-                
-                for(int j=0;j<=nombreBoton.length-1;j++){
-
-                    cont++;
-                    objeto[cont]=boton[i][j];
-                    
-                }
             }
-            
-            objeto = new Component[2];
-            objeto[0]=jPanel8;
-            objeto[1]=jPanel5;
+        });
 
-            new EventosMenu(objeto,velocidad,boton,this.ID,ID,this,vinculo,nombrePantalla,tipo,usuario,declaracion);
+        /* Se ubican los elementos en el panel en forma de tabla */
+        new UbicarLista(jPanel8, componente, boton, columna);
+        
+        /* Se asigna una longitud de 2 para contener el panel de la tabla y 
+         * el panel de busqueda para su posterior animación
+         */
+        objeto = new Component[2];
+        
+        /* Se asigna el panel de la tabla */
+        objeto[0] = jPanel8;
+        
+        /* Se asigna el panl de busqueda */
+        objeto[1] = jPanel5;
+
+        /* Se asignan los eventos del cambio de pantalla */
+        new EventosMenu(objeto, velocidad, boton, this.ID, ID, this, vinculo, 
+                nombrePantalla, tipo, usuario, declaracion);
 
     }
 
@@ -840,45 +1240,71 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         
-        new AnimacionObjetos().RIzquierda(objeto, velocidad,this,"EditarMisDatos",nombrePantalla,tipo,usuario,ID,declaracion);
+       /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
+        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
+                                     "EditarMisDatos", nombrePantalla, tipo, 
+                                     usuario, ID, declaracion);
         
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
        
-        if("PantallaInicio".equals(retorno)){
-        
+        /* Se verifica si el retorno corresponde a la pantalla inicio.*/
+        if ("PantallaInicio".equals(retorno)) {
+
+            /* Se emplea la funcionalidad del botón "Salir" */
             jButton4ActionPerformed(evt);
+
+        } else {
+
+            /* 
+             * Se animan los objetos para que salgan del panel y se realiza 
+             * el cambio de pantalla
+             */
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
+                                         nombrePantalla, tipo, usuario, 
+                                         Arreglo.quitar(ID), declaracion);
             
-        }else{
-        
-            new AnimacionObjetos().RIzquierda(objeto, velocidad,this,retorno,nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-        
         }
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        Configuracion c = new Configuracion();
-        c.setSize(800, 600);
-        c.setLocationRelativeTo(null);
-        c.setVisible(true);
+        /* Se abre la ventana de configuración de la aplicación */
+        Configuracion c = new Configuracion();  //Instanciación
+        c.setSize(800, 600);    //Tamaño de ventana
+        c.setLocationRelativeTo(null);      //Ubicar al centro
+        c.setVisible(true);     //Dar visivilidad
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
   
-        Component[] componentes=new Component[objeto.length+2];
-        componentes[0]=jPanel2;
-        componentes[1]=jPanel3;
+        /*
+         * Se crea un arreglo de componentes para alamcenar todos los objetos 
+         * que se van a animar al momento de la salida
+         */
+        Component[] componentes = new Component[objeto.length + 2];
         
-        for(int i=2;i<=componentes.length-1;i++){
-        
-            componentes[i]=objeto[i-2];
+        componentes[0] = jPanel2;   //Se añade el panel superior
+        componentes[1] = jPanel3;   //Se añade el panel inferior
+
+        /* Se añaden los demas objetos a los que se les dió la animación */
+        for (int i = 2; i <= componentes.length - 1; i++) {
+            componentes[i] = objeto[i - 2];       
         }
-        
-        new AnimacionObjetos().RIzquierda(componentes, velocidad,this,"PantallaInicio",nombrePantalla,tipo,usuario,null,declaracion);
+
+        /* 
+         * Se animan los objetos para que salgan del panel y se realiza 
+         * el cambio de pantalla
+         */
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
+                                     "PantallaInicio", nombrePantalla, tipo, 
+                                     usuario, null, declaracion);
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -897,9 +1323,13 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
     private void jPanel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MousePressed
         
-        Foto foto = new Foto(jLabel3,declaracion,usuario,tipo);
-        foto.setLocationRelativeTo(null);
-        foto.setVisible(true);
+        /**
+         * Se abre el Frame corespondiente para gestionar la foto del 
+         * usuario actual
+         */
+        Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
+        foto.setLocationRelativeTo(null);   //se ubica al centro
+        foto.setVisible(true);      //se le da visivilidad
         
     }//GEN-LAST:event_jPanel6MousePressed
 

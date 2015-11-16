@@ -467,7 +467,13 @@ public final class Confirmacion extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        // TODO add your handling code here:
+        
+        /* Se abre la ventana de configuración de la aplicación */
+        Configuracion c = new Configuracion();  //Instanciación
+        c.setSize(800, 600);    //Tamaño de ventana
+        c.setLocationRelativeTo(null);      //Ubicar al centro
+        c.setVisible(true);     //Dar visivilidad
+        
     }//GEN-LAST:event_jButton15ActionPerformed
 
 
