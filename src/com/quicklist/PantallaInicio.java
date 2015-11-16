@@ -350,6 +350,8 @@ public class PantallaInicio extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
+        /**Boton "Ingresar"*/
+        
         /** 
          * Se crea el areglo que va a contener los identificadores de las 
          * pantallas 
