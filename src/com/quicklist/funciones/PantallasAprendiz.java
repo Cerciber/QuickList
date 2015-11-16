@@ -121,20 +121,20 @@ public class PantallasAprendiz {
                 p.movimientoSecuencial();
 
             }
-//            
+            
             if("Aprendiz.Asistencia.Horario.Descripcion".equals(nombreClase)){
 
                 String[] nombreBotones={"Excusa"};
                 String[] nombreIcono={"Excusa"};
-                String[] columna={"","Fecha","Estado","Justificacion"};
+                String[] columna={"","Fecha","Estado"};
                 String[] vinculo={"Aprendiz.Asistencia.Horario.Descripcion.ReportarExcusa"};
                 String retorno="Aprendiz.Asistencia.Horario";
                 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Inasistencia join T_Formacion on T_Inasistencia.ID_Formacion = T_Formacion.ID_Formacion ");
-                String[] campos={"ID_Inasistencia","Fecha","Estado_De_Inasistencia","Justificacion_De_Inasistencia"};
+                String[] campos={"ID_Inasistencia","Fecha","Estado_De_Inasistencia"};
                 c.campos(campos);
-                String[] alias={"ID_Inasistencia","Fecha","Estado_De_Inasistencia","Justificacion_De_Inasistencia"};
+                String[] alias={"ID_Inasistencia","Fecha","Estado_De_Inasistencia"};
                 c.alias(alias);
                 c.columnaSeleccionada("Fecha");
                 c.condicion("ID_Horario="+ID[ID.length-1]+" and ID_Aprendiz="+usuario);
