@@ -13,121 +13,121 @@ import javax.swing.JButton;
  * @author cesaraugusto
  */
 public class DarIcono {
-    
-    public static void darIcono(JButton boton, String nombreIcono){
-        
+
+    public static void darIcono(JButton boton, String nombreIcono) {
+
         ImageIcon icono = null;
-        
-        switch (nombreIcono){
-            
+
+        switch (nombreIcono) {
+
             case "Editar":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Editar.png");
-                
-            break;   
-            
+
+                break;
+
             case "Editar Usuario":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Editar 1.png");
-                
-            break;   
-              
+
+                break;
+
             case "Borrar":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/eliminar.png");
-                
-            break;       
-                
+
+                break;
+
             case "Borrar Usuario":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Eliminar 2.png");
-                
-            break;   
-                
+
+                break;
+
             case "Aprendices":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Aprendices 2.png");
-                
-            break;   
-                
+
+                break;
+
             case "Horarios":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Horario 1.png");
-                
-            break;   
-            
+
+                break;
+
             case "Formaciones":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Formacion.png");
-                
-            break;  
-                
+
+                break;
+
             case "Actividades":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Actividades.png");
-                
-            break;   
-            
+
+                break;
+
             case "Asistencia":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/asistencia.png");
-                
-            break;   
-                
+
+                break;
+
             case "Aprobar":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/aprobar.png");
-                
-            break;   
-                
+
+                break;
+
             case "Competencias":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Competencias.png");
-                
-            break;   
-                
+
+                break;
+
             case "Actividades De Aprendizaje":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Competencias.png");
-                
-            break;   
-                
+
+                break;
+
             case "Resultado De Aprendizaje":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Competencias.png");
-                
-            break;   
-                
+
+                break;
+
             case "Excusa":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/excusa.png");
-                
-            break;  
-                
+
+                break;
+
             case "Formato":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Formato.png");
-                
-            break;  
-                
+
+                break;
+
             case "Ficha":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Ficha.png");
-                
-            break;  
-                
+
+                break;
+
             case "Buscar":
-                
+
                 icono = new ImageIcon("src/com/quicklist/iconos/Buscar 2.png");
-                
-            break;  
-            
+
+                break;
+
         }
-        
-        ImageIcon imageScalada = new ImageIcon(icono.getImage().getScaledInstance( 30,30, 30)); 
-        
+
+        ImageIcon imageScalada = new ImageIcon(icono.getImage().getScaledInstance(30, 30, 30));
+
         boton.setIcon(imageScalada);
-        
+
     }
-    
+
 }

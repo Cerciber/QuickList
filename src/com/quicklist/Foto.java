@@ -25,50 +25,54 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
 /**
- * Esta clase permite a todos los usuarios cambiar y eliminar su propia foto 
- * de perfil plan de estudios especifico
+ * Esta clase permite a todos los usuarios cambiar y eliminar su propia foto de
+ * perfil plan de estudios especifico
  */
 public class Foto extends javax.swing.JFrame {
 
     static String usuario;  //Identificador del usuario actual
     static String tipo;     //Rol del usuario actual
     static JLabel label;    //Cuadro de la foto del frame principal
-    
+
     /**
      * Objeto empleado para realizar la consultas en la base de datos
      */
-    static Statement declaracion;      
+    static Statement declaracion;
 
-    /** 
-     * Objeto empleado para seleccionar la ubicación de la foto en el 
-     * ordenador 
+    /**
+     * Objeto empleado para seleccionar la ubicación de la foto en el ordenador
      */
     JFileChooser abrirArchivo = new JFileChooser();
-    
-    /** Objeto que almacena la ruta de la foto seleccionada */
+
+    /**
+     * Objeto que almacena la ruta de la foto seleccionada
+     */
     File direccion;
-    
-    /** Objeto que contiene el codigo byte de la imagen que se va a almacenar */
+
+    /**
+     * Objeto que contiene el codigo byte de la imagen que se va a almacenar
+     */
     FileInputStream archivoImagen = null;
-    
+
     boolean quitarFoto = false;   // Verifica si se ha quitado la foto actual
     boolean modificado = false;   // Verifica si se ha cambiado la foto actual
-    
+
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
     int[] conf = cargarConfiguracion();
-    
+
     /**
      * Metodo constructor de la clase
+     *
      * @param label
      * @param tipo
      * @param usuario
-     * @param declaracion 
+     * @param declaracion
      */
-    public Foto(JLabel label, Statement declaracion, String usuario, 
-                String tipo) {
-       
+    public Foto(JLabel label, Statement declaracion, String usuario,
+            String tipo) {
+
         /*
          * Se asignan los valores de los parametros de forma global
          */
@@ -76,67 +80,66 @@ public class Foto extends javax.swing.JFrame {
         Foto.usuario = usuario;
         Foto.declaracion = declaracion;
         Foto.tipo = tipo;
-        
-        
+
         initComponents();   //Se crean los componentes graficos
-        
+
         /*Dar fuente, tipo de letra y tamaño*/
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jButton5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         jButton7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         jButton8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
-        
+
         /* Se intenta cargar la foto almacenada en la base de datos */
-        try{
-            
+        try {
+
             /* Se verifica si el usuario actual es un funcionario */
             if ("Administrador".equals(tipo) || "Instructor".equals(tipo)) {
 
                 /* Se carga la imagen de la base de datos */
                 ImageIcon icono = new ImageIcon(Funcionario
                         .SeleccionarFoto(declaracion, usuario));
-                
+
                 /* Se se redimenciona la imagen */
                 ImageIcon imageScalada = new ImageIcon(icono.getImage()
-                        .getScaledInstance( jLabel1.getWidth(),jLabel1.
-                                getHeight(), 300)); 
-                
+                        .getScaledInstance(jLabel1.getWidth(), jLabel1.
+                                getHeight(), 300));
+
                 /* Se asigna la imagen redimencionada en el label */
                 this.jLabel1.setIcon(imageScalada);
-                
+
                 /* Se eimina el teto de label */
                 this.jLabel1.setText(null);
 
-            /* Se verifica si el usuario actual es un aprendiz */
+                /* Se verifica si el usuario actual es un aprendiz */
             } else if ("Aprendiz".equals(tipo)) {
 
                 /* Se carga la imagen de la base de datos */
                 ImageIcon icono = new ImageIcon(Aprendiz
                         .SeleccionarFoto(declaracion, usuario));
-                
+
                 /* Se se redimenciona la imagen */
                 ImageIcon imageScalada = new ImageIcon(icono.getImage()
-                        .getScaledInstance( jLabel1.getWidth(),jLabel1
-                                .getHeight(), 300)); 
-                
+                        .getScaledInstance(jLabel1.getWidth(), jLabel1
+                                .getHeight(), 300));
+
                 /* Se asigna la imagen redimencionada en el label */
                 this.jLabel1.setIcon(imageScalada);
-                
+
                 /* Se eimina el teto de label */
                 this.jLabel1.setText(null);
 
             }
-            
-        /* 
-         * Se detiene la carga de la foto en caso de que esta no exista o no 
-         * se pueda cargar correctamente
-         */
-        }catch(NullPointerException ex){
-            
+
+            /* 
+             * Se detiene la carga de la foto en caso de que esta no exista o no 
+             * se pueda cargar correctamente
+             */
+        } catch (NullPointerException ex) {
+
             /* Se imprime el error en la consola serial */
             System.out.println(ex);
-            
+
         }
 
     }
@@ -285,88 +288,87 @@ public class Foto extends javax.swing.JFrame {
 
     private void jPanel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MousePressed
 
-        
 
     }//GEN-LAST:event_jPanel6MousePressed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
         int resp;   //Variable que contiene la respuesta de la carga de la foto
-        
+
         /* Se abre la ventana para buscar la foto en el equipo */
         resp = abrirArchivo.showOpenDialog(this);
 
         /* Se verifica si se seleccionó una foto */
-        if (resp == JFileChooser.APPROVE_OPTION){
-            
+        if (resp == JFileChooser.APPROVE_OPTION) {
+
             /* se guarda la ruta de la foto seleccionada */
             direccion = new File(abrirArchivo.getSelectedFile().toString());
-            
+
             /* se carga la imagen de la ruta seleccionada */
             ImageIcon icono = new ImageIcon(direccion.toString());
-            
+
             /* Se intenta cargar el codigo byte de la imagen */
             try {
-                
+
                 /* 
                  * Se carga el codigo byte de la imagen de la ruta 
                  * especificada 
                  */
                 archivoImagen = new FileInputStream(direccion);
-            
-            /* 
-             * Se detiene la carga de la foto en caso de que esta no exista o no 
-             * se pueda cargar correctamente
-             */
-            } catch (FileNotFoundException ex) { 
-                
+
+                /* 
+                 * Se detiene la carga de la foto en caso de que esta no exista o no 
+                 * se pueda cargar correctamente
+                 */
+            } catch (FileNotFoundException ex) {
+
                 /* Se imprime el error en la consola serial */
-                System.out.println(ex); 
-                
+                System.out.println(ex);
+
             }
-            
+
             /* Se redimenciona la imagen de acuerdo a el tamaño del label */
             ImageIcon imageScalada = new ImageIcon(icono.getImage()
-                    .getScaledInstance( jLabel1.getWidth(),jLabel1
-                            .getHeight(), 300)); 
+                    .getScaledInstance(jLabel1.getWidth(), jLabel1
+                            .getHeight(), 300));
 
             /* Se elimina el texto del label */
             this.jLabel1.setText(null);
-            
+
             /* Se asigna la nueva imagen al label */
             this.jLabel1.setIcon(imageScalada);
-            
+
             /* Se desactiva la verificación de foto nula */
             this.quitarFoto = false;
-            
+
             /* Se activa el verificador de cambio de foto */
             modificado = true;
 
         }
-        
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
+
         /* Se elimina la foto del label */
         this.jLabel1.setIcon(null);
-        
+
         /* Se asigna el texto que evidencia la falta de foto */
         jLabel1.setText("Sin Foto");
-        
+
         /* Se activa la verificación de foto nula */
-        quitarFoto=true;
-        
+        quitarFoto = true;
+
         /* Se activa el verificador de cambio de foto */
-        modificado=true;
-        
+        modificado = true;
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        
+
         /* Se verifica si se ha modificado el estado de la foto */
         if (modificado) {
-            
+
             /* Se verifica si se quito la foto actual */
             if (quitarFoto) {
 
@@ -374,10 +376,10 @@ public class Foto extends javax.swing.JFrame {
                 if ("Administrador".equals(tipo) || "Instructor".equals(tipo)) {
 
                     /* Se elimina la foto de la base de datos */
-                    Funcionario.ActualizarFoto(declaracion, usuario, 
-                                               archivoImagen);
+                    Funcionario.ActualizarFoto(declaracion, usuario,
+                            archivoImagen);
 
-                /* Se verifica si el usuario actual es un aprendiz */ 
+                    /* Se verifica si el usuario actual es un aprendiz */
                 } else if ("Aprendiz".equals(tipo)) {
 
                     /* Se elimina la foto de la base de datos */
@@ -389,44 +391,44 @@ public class Foto extends javax.swing.JFrame {
                 this.label.setText(null);
                 this.label.setIcon(null);
 
-            }else{
+            } else {
 
                 /* Se verifica si el usuario actual es un funcionario */
                 if ("Administrador".equals(tipo) || "Instructor".equals(tipo)) {
 
                     /* Se elimina la foto de la base de datos */
-                    Funcionario.ActualizarFoto(declaracion, usuario, 
-                                               archivoImagen);
-                    
+                    Funcionario.ActualizarFoto(declaracion, usuario,
+                            archivoImagen);
+
                     /* Se elimina el texto del label de la ventana principal */
                     this.label.setText(null);
-                    
+
                     /* Se carga la nueva foto de la base de datos */
                     ImageIcon icono = new ImageIcon(Funcionario
                             .SeleccionarFoto(declaracion, usuario));
-                    
+
                     /* Se redimenciona la imagen */
                     ImageIcon imageScalada = new ImageIcon(icono.getImage()
-                            .getScaledInstance( 66,76, 66)); 
-                    
+                            .getScaledInstance(66, 76, 66));
+
                     /* Se asigna la nueva foto en la ventana principal */
                     this.label.setIcon(imageScalada);
 
-                /* Se verifica si el usuario actual es un aprendiz */ 
+                    /* Se verifica si el usuario actual es un aprendiz */
                 } else if ("Aprendiz".equals(tipo)) {
 
                     /* Se elimina la foto de la base de datos */
                     Aprendiz.ActualizarFoto(declaracion, usuario, archivoImagen);
-                    
+
                     /* Se elimina el texto del label de la ventana principal */
                     this.label.setText(null);
-                    
+
                     /* Se carga la nueva foto de la base de datos */
                     ImageIcon icono = new ImageIcon(Aprendiz.SeleccionarFoto(declaracion, usuario));
-                    
+
                     /* Se redimenciona la imagen */
-                    ImageIcon imageScalada = new ImageIcon(icono.getImage().getScaledInstance( 66,76, 66)); 
-                    
+                    ImageIcon imageScalada = new ImageIcon(icono.getImage().getScaledInstance(66, 76, 66));
+
                     /* Se asigna la nueva foto en la ventana principal */
                     this.label.setIcon(imageScalada);
 
@@ -435,18 +437,18 @@ public class Foto extends javax.swing.JFrame {
             }
 
         }
-            
+
         /* Cerrar la ventana actual */
         this.dispose();
-        
-        
+
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
+
         /* Cerrar la ventana actual */
         this.dispose();
-        
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**

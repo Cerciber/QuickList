@@ -15,33 +15,36 @@ package com.quicklist;
 
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 
-/** Esta clase es la ventana principal me diante la cual se pueden visulaizar 
+/**
+ * Esta clase es la ventana principal me diante la cual se pueden visulaizar
  * todos los paneles o pantallas de la aplicación
  */
 public class PantallaBase extends javax.swing.JFrame {
 
-    /** Metodo constructor de la clase */
-    public PantallaBase(){
-        
+    /**
+     * Metodo constructor de la clase
+     */
+    public PantallaBase() {
+
         initComponents();   //Se crean los componentes graficos
-        
+
         /* Se carga la configuración de la aplicación */
         int[] conf = cargarConfiguracion();
-        
+
         /* Se asigna el tamaño de ventana predeterminado */
         this.setSize(conf[0], conf[1]);
-        
+
         /* Posicionar la ventana en el centro */
         this.setLocationRelativeTo(null);
-        
+
         /* Se añade el panel de inicio en la ventana */
         PantallaInicio p = new PantallaInicio();
         jPanel9.add(p);
         jPanel9.validate();
-        
+
         /* Se ejecuta la animación de los objetos */
         p.movimiento();
-        
+
     }
 
     @SuppressWarnings("unchecked")

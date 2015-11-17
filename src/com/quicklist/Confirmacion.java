@@ -22,8 +22,8 @@ import com.quicklist.funciones.AnimacionObjetos;
 import com.quicklist.funciones.DatosUsuario;
 
 /**
- * Esta clase permite confirmar si el usuario realmente desdea realizar 
- * una acción determinada de gran importancia
+ * Esta clase permite confirmar si el usuario realmente desdea realizar una
+ * acción determinada de gran importancia
  */
 public final class Confirmacion extends javax.swing.JPanel {
 
@@ -32,51 +32,52 @@ public final class Confirmacion extends javax.swing.JPanel {
     String retorno;     //Ruta de acceso a la ventana anterior
     String tipo;    //Rol del usuario que accede a la clase
     String nombrePantalla;      //Ruta de la ventana actual
-    
-    /** 
-     * Arreglo que almacena los identificadores nesesarios para cargar los 
-     * datos en cada una de las pantallas a las que se ha accedido desde el 
-     * login para recuperar las pantallas anteriores en caso de retorno
+
+    /**
+     * Arreglo que almacena los identificadores nesesarios para cargar los datos
+     * en cada una de las pantallas a las que se ha accedido desde el login para
+     * recuperar las pantallas anteriores en caso de retorno
      */
-    String[] ID;    
-    
+    String[] ID;
+
     /**
      * Objeto empleado para realizar la consultas en la base de datos
      */
     Statement declaracion;
-    
+
     /**
-     * Arreglo que contiene todos los componentes de la pantalla 
-     * a los cuales se les da movimineto inicial
+     * Arreglo que contiene todos los componentes de la pantalla a los cuales se
+     * les da movimineto inicial
      */
     Component[] objeto;
-    
+
     /**
-     * Arreglo que contiene las direcciones respectivas para la aprobacion 
-     * y el rechazo de la condición
+     * Arreglo que contiene las direcciones respectivas para la aprobacion y el
+     * rechazo de la condición
      */
     String[] vinculo;
-    
+
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
-    int[] conf=cargarConfiguracion();
-    
+    int[] conf = cargarConfiguracion();
+
     /**
      * Metodo constructor de la clase
+     *
      * @param tipo
      * @param retorno
      * @param nombrePantalla
      * @param usuario
      * @param ID
-     * @param declaracion 
-     * @param pregunta 
-     * @param vinculo 
+     * @param declaracion
+     * @param pregunta
+     * @param vinculo
      */
-    public Confirmacion(String tipo, String retorno, String nombrePantalla, 
-                        String usuario, String[] ID, Statement declaracion, 
-                        String pregunta, String[] vinculo) {
-        
+    public Confirmacion(String tipo, String retorno, String nombrePantalla,
+            String usuario, String[] ID, Statement declaracion,
+            String pregunta, String[] vinculo) {
+
         /*
          * Se asignan los valores de los parametros de forma global
          */
@@ -87,53 +88,51 @@ public final class Confirmacion extends javax.swing.JPanel {
         this.ID = ID;
         this.vinculo = vinculo;
         this.nombrePantalla = nombrePantalla;
-        
+
         initComponents();   //Se crean los componentes graficos
-        
+
         /* Se cargan y se ubican los datos del usuario */
         new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
-        
+
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
-        
+
         /* Se asigna la variable String con la pregunta en el label */
         jLabel15.setText(pregunta);
-        
+
         /*Dar fuente, tipo de letra y tamaño*/
         jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jButton5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
-        
+
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
          */
         new MoverObjeto(jPanel8);
-        
-        
-    } 
+
+    }
 
     /**
-     * Permite seleccionar los componentes en el panel a los cuales 
-     * se les dara animación
+     * Permite seleccionar los componentes en el panel a los cuales se les dara
+     * animación
      */
-    public void movimiento(){
-        
+    public void movimiento() {
+
         /* Se crea el arreglo global con los componentes */
         objeto = new Component[3];
         objeto[0] = this.jLabel15;
         objeto[1] = this.jButton5;
         objeto[2] = this.jButton6;
-        
+
         /* 
          * Permite dar un movimiento inicial a los objetos del arreglo en 
          * forma secuencial
          */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
-    
+
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -383,10 +382,10 @@ public final class Confirmacion extends javax.swing.JPanel {
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                                     "EditarMisDatos", nombrePantalla, tipo, 
-                                     usuario, ID, declaracion);
-        
+        new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                "EditarMisDatos", nombrePantalla, tipo,
+                usuario, ID, declaracion);
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -395,24 +394,23 @@ public final class Confirmacion extends javax.swing.JPanel {
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-       new AnimacionObjetos().RIzquierda(objeto, velocidad,this,vinculo[0],nombrePantalla,tipo,usuario,ID,declaracion);
+        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, vinculo[0], nombrePantalla, tipo, usuario, ID, declaracion);
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
+
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(objeto, velocidad,this,vinculo[1],nombrePantalla,tipo,usuario,Arreglo.quitar(ID),declaracion);
-        
+        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, vinculo[1], nombrePantalla, tipo, usuario, Arreglo.quitar(ID), declaracion);
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
-     * Boton "Volver"
-     * Este evento permite retornar a la pantalla desde la que 
-     * se accedió a la actual
+     * Boton "Volver" Este evento permite retornar a la pantalla desde la que se
+     * accedió a la actual
      */
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
 
@@ -428,17 +426,17 @@ public final class Confirmacion extends javax.swing.JPanel {
              * Se animan los objetos para que salgan del panel y se realiza 
              * el cambio de pantalla
              */
-            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
-                                         nombrePantalla, tipo, usuario, 
-                                         Arreglo.quitar(ID), declaracion);
-            
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno,
+                    nombrePantalla, tipo, usuario,
+                    Arreglo.quitar(ID), declaracion);
+
         }
 
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
-     * Boton "Salir"
-     * Este evento permite retornar a la pantalla de ingreso y cerrar la sesión
+     * Boton "Salir" Este evento permite retornar a la pantalla de ingreso y
+     * cerrar la sesión
      */
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
 
@@ -446,34 +444,34 @@ public final class Confirmacion extends javax.swing.JPanel {
          * Se crea un arreglo de componentes para alamcenar todos los objetos 
          * que se van a animar al momento de la salida
          */
-        Component[] componentes = new Component[objeto.length+2];
-        
+        Component[] componentes = new Component[objeto.length + 2];
+
         componentes[0] = jPanel2;   //Se añade el panel superior
         componentes[1] = jPanel3;   //Se añade el panel inferior
 
         /* Se añaden los demas objetos a los que se les dió la animación */
-        for (int i = 2; i <= componentes.length - 1; i++){
-            componentes[i] = objeto[i - 2];       
+        for (int i = 2; i <= componentes.length - 1; i++) {
+            componentes[i] = objeto[i - 2];
         }
 
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
-                                     "PantallaInicio", nombrePantalla, tipo, 
-                                     usuario, null, declaracion);
-        
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this,
+                "PantallaInicio", nombrePantalla, tipo,
+                usuario, null, declaracion);
+
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        
+
         /* Se abre la ventana de configuración de la aplicación */
         Configuracion c = new Configuracion();  //Instanciación
         c.setSize(800, 600);    //Tamaño de ventana
         c.setLocationRelativeTo(null);      //Ubicar al centro
         c.setVisible(true);     //Dar visivilidad
-        
+
     }//GEN-LAST:event_jButton15ActionPerformed
 
 

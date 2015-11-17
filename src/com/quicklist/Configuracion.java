@@ -19,7 +19,7 @@ import com.quicklist.funciones.Validaciones;
 import java.awt.Toolkit;
 
 /**
- * Esta clase permite a los usuarios instructor, administrador y aprendiz 
+ * Esta clase permite a los usuarios instructor, administrador y aprendiz
  * configurar algunos de los elemnetos de la interzar de la aplicacion
  */
 public class Configuracion extends javax.swing.JFrame {
@@ -28,19 +28,18 @@ public class Configuracion extends javax.swing.JFrame {
      * Arreglo que contiene la configuración actual de la aplicación
      */
     int[] conf = cargarConfiguracion();
-    
+
     /* Metodo constructor de la clase */
     public Configuracion() {
-        
+
         initComponents();   //Se crean los componentes graficos
-        
+
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
          */
         new MoverObjeto(jPanel9);
-        
-        
+
         /*Dar fuente, tipo de letra y tamaño a los elementos de la pantalla*/
         jButton11.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         jButton12.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
@@ -70,13 +69,13 @@ public class Configuracion extends javax.swing.JFrame {
         jTextField23.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jTextField26.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jTextField28.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        
+
         /*
          * Cargar la informacion contenida en el archivo de texto para asignar 
          * los datos 
          */
         int[] datos = com.quicklist.clases.Configuracion.cargarConfiguracion();
-        
+
         /* 
          * Se asignan los datos en los input de la ventana
          */
@@ -87,24 +86,24 @@ public class Configuracion extends javax.swing.JFrame {
         jTextField21.setText(datos[4] + "");
         jTextField24.setText(datos[5] + "");
         jTextField25.setText(datos[6] + "");
-        
+
         if (datos[7] == 1) {
             jCheckBox1.setSelected(true);
         }
-        
+
         jTextField23.setText(datos[8] + "");
-        
-        if(datos[9] ==1 ) {
-            jCheckBox2.setSelected(true); 
+
+        if (datos[9] == 1) {
+            jCheckBox2.setSelected(true);
         }
-        
+
         jTextField26.setText(datos[10] + "");
         jTextField28.setText(datos[11] + "");
-        
-        if(datos[12] == 1) { 
+
+        if (datos[12] == 1) {
             jCheckBox3.setSelected(true);
         }
-        
+
     }
 
     /**
@@ -778,19 +777,19 @@ public class Configuracion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
+
         this.dispose();
-        
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        
+
         /* 
          * Se crea un arreglo para recolectar la informacion 
          * de los inputs
          */
-        String[] datos= new String[13];
-                
+        String[] datos = new String[13];
+
         /* 
          * Se almacena la informacion ingresada el los campos de texto en el 
          * arreglo 
@@ -805,38 +804,38 @@ public class Configuracion extends javax.swing.JFrame {
         datos[8] = jTextField23.getText();
         datos[10] = jTextField26.getText();
         datos[11] = jTextField28.getText();
-        
+
         /* 
          * Se almacena la informacion ingresada el los CheckBoxs en el 
          * arreglo 
          */
-        if(jCheckBox1.isSelected()){
-            datos[7] = 1+"";
-        }else{
-            datos[7] = 0+"";
-        }
-        
-        if(jCheckBox2.isSelected()){
-            datos[9] = 1+"";
-        }else{
-            datos[9] = 0+"";
+        if (jCheckBox1.isSelected()) {
+            datos[7] = 1 + "";
+        } else {
+            datos[7] = 0 + "";
         }
 
-        if(jCheckBox3.isSelected()){
-            datos[12] = 1+"";
-        }else{
-            datos[12] = 0+"";
+        if (jCheckBox2.isSelected()) {
+            datos[9] = 1 + "";
+        } else {
+            datos[9] = 0 + "";
         }
-        
+
+        if (jCheckBox3.isSelected()) {
+            datos[12] = 1 + "";
+        } else {
+            datos[12] = 0 + "";
+        }
+
         /* 
          * Se guardan los datos contenidos en el arreglo en un archivo de 
          * texto 
          */
         com.quicklist.clases.Configuracion.guardarConfiguracion(datos);
-        
+
         /* se libera la pantalla */
         this.dispose();
-        
+
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
@@ -844,16 +843,16 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField8ActionPerformed
 
     private void jTextField8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyTyped
-        
+
         /* Restringir los caracteres no numericos */
         Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
-        
+
         /*Definir el minimo valor numerico*/
         Validaciones.numeroMinimo(evt, jTextField8, 10);
-        
+
         /*Definir el maximo valor numerico*/
         Validaciones.numeroMaximo(evt, jTextField8, Toolkit.getDefaultToolkit().getScreenSize().width);
-        
+
     }//GEN-LAST:event_jTextField8KeyTyped
 
     private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
@@ -861,16 +860,16 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField11ActionPerformed
 
     private void jTextField11KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField11KeyTyped
-        
+
         /* Restringir los caracteres no numericos */
         Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
-        
+
         /*Definir el minimo valor numerico*/
         Validaciones.numeroMinimo(evt, jTextField11, 3);
-        
+
         /*Definir el maximo valor numerico*/
         Validaciones.numeroMaximo(evt, jTextField11, 50);
-        
+
     }//GEN-LAST:event_jTextField11KeyTyped
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -954,16 +953,16 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField30ActionPerformed
 
     private void jTextField30KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField30KeyTyped
-        
+
         /* Restringir los caracteres no numericos */
         Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
-        
+
         /*Definir el minimo valor numerico*/
         Validaciones.numeroMinimo(evt, jTextField30, 10);
-        
+
         /*Definir el maximo valor numerico*/
         Validaciones.numeroMaximo(evt, jTextField30, Toolkit.getDefaultToolkit().getScreenSize().height);
-        
+
     }//GEN-LAST:event_jTextField30KeyTyped
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed

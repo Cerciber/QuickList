@@ -11,7 +11,6 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist.funciones;
 
 import java.sql.ResultSet;
@@ -21,44 +20,54 @@ import com.quicklist.PantallaInicio;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class CambiarPantallas{
+public class CambiarPantallas {
 
     int usuario;
     ResultSet resultado;
-    
-    public CambiarPantallas(String tipo,JPanel panelContenedor, String nombreClase, String pantallaActual, String usuario,String[] ID,Statement declaracion){
-           
+
+    public CambiarPantallas(String tipo, JPanel panelContenedor, String nombreClase, String pantallaActual, String usuario, String[] ID, Statement declaracion) {
+
         try {
 
-            for(int i=0;i<=ID.length-1;i++)
-            {System.out.print(ID[i]+" ");}
-            System.out.println();      
+            for (int i = 0; i <= ID.length - 1; i++) {
+                System.out.print(ID[i] + " ");
+            }
+            System.out.println();
 
-        } catch (NullPointerException ex) {}
-            
-        panelContenedor=(JPanel) panelContenedor.getParent();
+        } catch (NullPointerException ex) {
+        }
 
-        if("PantallaInicio".equals(nombreClase)){
+        panelContenedor = (JPanel) panelContenedor.getParent();
+
+        if ("PantallaInicio".equals(nombreClase)) {
 
             try {
 
                 panelContenedor.removeAll();
 
-            } catch (NullPointerException ex) {System.out.println(ex);}
+            } catch (NullPointerException ex) {
+                System.out.println(ex);
+            }
 
             PantallaInicio p = new PantallaInicio();
             panelContenedor.add(p);
             panelContenedor.validate();
             p.movimiento();
 
-        }else{
+        } else {
 
-            if("Aprendiz".equals(tipo)){new PantallasAprendiz(tipo,panelContenedor,nombreClase,pantallaActual,usuario,ID,declaracion);}
-            if("Instructor".equals(tipo)){new PantallasInstructor(tipo,panelContenedor,nombreClase,pantallaActual,usuario,ID,declaracion);}
-            if("Administrador".equals(tipo)){new PantallasAdministrador(tipo,panelContenedor,nombreClase,pantallaActual,usuario,ID,declaracion);}
+            if ("Aprendiz".equals(tipo)) {
+                new PantallasAprendiz(tipo, panelContenedor, nombreClase, pantallaActual, usuario, ID, declaracion);
+            }
+            if ("Instructor".equals(tipo)) {
+                new PantallasInstructor(tipo, panelContenedor, nombreClase, pantallaActual, usuario, ID, declaracion);
+            }
+            if ("Administrador".equals(tipo)) {
+                new PantallasAdministrador(tipo, panelContenedor, nombreClase, pantallaActual, usuario, ID, declaracion);
+            }
 
         }
-            
+
     }
-    
+
 }

@@ -11,31 +11,30 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist.funciones;
 
 public class Esperar {
-    
-    public Esperar(Thread hilo,int tiempo){
-    
+
+    public Esperar(Thread hilo, int tiempo) {
+
         boolean esperaInterrumpida;
 
-        do{
+        do {
 
-            esperaInterrumpida=false;
+            esperaInterrumpida = false;
 
             try {
 
                 hilo.join(tiempo);
-                
+
             } catch (InterruptedException ex) {
 
-                esperaInterrumpida=true;
+                esperaInterrumpida = true;
 
             }
 
-        }while(esperaInterrumpida);
-    
+        } while (esperaInterrumpida);
+
     }
-    
+
 }

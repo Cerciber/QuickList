@@ -27,68 +27,66 @@ import com.quicklist.funciones.UbicarLista;
 import javax.swing.JCheckBox;
 
 /**
- * Esta clase permite a los usuarios instructor y administrador aprobar 
- * las actividades requeridas para el diligenciamiento del Formato de 
- * Etapa Lectiva
+ * Esta clase permite a los usuarios instructor y administrador aprobar las
+ * actividades requeridas para el diligenciamiento del Formato de Etapa Lectiva
  */
 public final class AprobarActividades extends javax.swing.JPanel {
-    
+
     int velocidad = 100;    //Corrimiento de la animación de los objetos
     String usuario;     //Documento del usuario que accede a la clase
     String retorno;     //Ruta de acceso a la ventana anterior
     String tipo;    //Rol del usuario que accede a la clase
     String nombrePantalla;      //Ruta de la ventana actual
-    
-    /** 
-     * Arreglo que almacena los identificadores nesesarios para cargar los 
-     * datos en cada una de las pantallas a las que se ha accedido desde el 
-     * login para recuperar las pantallas anteriores en caso de retorno
-     */
-    String[] ID;    
-    
+
     /**
-     * Arreglo que contiene la tabla de información proveniente 
-     * de la base de datos
+     * Arreglo que almacena los identificadores nesesarios para cargar los datos
+     * en cada una de las pantallas a las que se ha accedido desde el login para
+     * recuperar las pantallas anteriores en caso de retorno
+     */
+    String[] ID;
+
+    /**
+     * Arreglo que contiene la tabla de información proveniente de la base de
+     * datos
      */
     String[][] lista;
-    
+
     /**
      * Objeto empleado para realizar la consultas en la base de datos
      */
-    Statement declaracion;      
-    
+    Statement declaracion;
+
     /**
-     * Arreglo que contiene todos los componentes de la pantalla 
-     * a los cuales se les da movimineto inicial
+     * Arreglo que contiene todos los componentes de la pantalla a los cuales se
+     * les da movimineto inicial
      */
     Component[] objeto;
-    
+
     /**
-     * Arreglo que contiene la lista desplegable de cada componente
-     * por registro
+     * Arreglo que contiene la lista desplegable de cada componente por registro
      */
     JCheckBox[][] jCheckBox;
-    
+
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
-    int[] conf=cargarConfiguracion();
-    
-    
+    int[] conf = cargarConfiguracion();
+
     /**
      * Metodo constructor de la clase
+     *
      * @param tipo
      * @param retorno
      * @param nombrePantalla
      * @param usuario
      * @param ID
-     * @param declaracion 
+     * @param declaracion
      */
-    public AprobarActividades(String tipo, String retorno, 
-                              String nombrePantalla, 
-                              String usuario, String[] ID, 
-                              Statement declaracion) {
-        
+    public AprobarActividades(String tipo, String retorno,
+            String nombrePantalla,
+            String usuario, String[] ID,
+            Statement declaracion) {
+
         /*
          * Se asignan los valores de los parametros de forma global
          */
@@ -98,83 +96,84 @@ public final class AprobarActividades extends javax.swing.JPanel {
         this.declaracion = declaracion;
         this.ID = ID;
         this.nombrePantalla = nombrePantalla;
-        
+
         initComponents();   //Se crean los componentes graficos
-        
+
         /* Se cargan y se ubican los datos del usuario */
         new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
-        
+
         datosActividad(ID);     //Se carga y se ubica la tabla de información
-        
+
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
          */
-        new MoverObjeto(jPanel8); 
-        
+        new MoverObjeto(jPanel8);
+
     }
-    
+
     /**
      * Este metodo carga y ubica los datos de la tabla de aprobar actividades
+     *
      * @param ID
      */
     public void datosActividad(String[] ID) {
-        
+
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
-        
+
         /*
          * Se realiza la busqueda en la base de datos y se asigna en un 
          * arreglo bidimensional
          */
         lista = EstadoActividad.SeleccionarEstadosDeActividad(declaracion,
-                                                              ID[ID.length-1]);
-        
+                ID[ID.length - 1]);
+
         /**
-         * Se crea un arreglo de botones para los titulos de los campos de 
-         * la tabla con una longitud igual al numero de campos de la tabla 
+         * Se crea un arreglo de botones para los titulos de los campos de la
+         * tabla con una longitud igual al numero de campos de la tabla
          */
         JButton[] columna = new JButton[8];
-        
+
         /**
-         * Se crea un arreglo bidimensional de labels para contener el nombre, 
-         * apellido y documento de cada aprendiz con una longitud vertical 
-         * igual a 3 referentes a los datos mencionados y una longitud 
-         * horizontal igual al numero de aprendices
+         * Se crea un arreglo bidimensional de labels para contener el nombre,
+         * apellido y documento de cada aprendiz con una longitud vertical igual
+         * a 3 referentes a los datos mencionados y una longitud horizontal
+         * igual al numero de aprendices
          */
         JLabel[][] label = new JLabel[lista.length][3];
-        
+
         /**
-         * Se crea un arreglo bidimensional de labels para contener los 
-         * siguentes datos: Autenticidad, Calidad, Pertinencia, Vigenicia 
-         * y Estado del aprendizaje de cada aprendiz con una longitud vertical 
-         * igual a 3 referentes a los datos mencionados y una longitud 
+         * Se crea un arreglo bidimensional de labels para contener los
+         * siguentes datos: Autenticidad, Calidad, Pertinencia, Vigenicia y
+         * Estado del aprendizaje de cada aprendiz con una longitud vertical
+         * igual a 3 referentes a los datos mencionados y una longitud
          * horizontal igual al numero de aprendices
          */
         jCheckBox = new JCheckBox[lista.length][5];
-        
+
         /*
          * Se le da el diseño a los botones del titulo de cada columna
          */
         for (int i = 0; i <= columna.length - 1; i++) {
-            
+
             /*Instanciación*/
             columna[i] = new JButton();
-            
+
             /*Dar color de fondo*/
-            columna[i].setBackground(new java.awt.Color(0, 102, 102)); 
-            
+            columna[i].setBackground(new java.awt.Color(0, 102, 102));
+
             /*Dar fuente, tipo de letra y tamaño*/
             columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
-            
+
             /*Dar color de letra*/
             columna[i].setForeground(new java.awt.Color(204, 255, 255));
-            
+
             /*No opacar*/
-            columna[i].setOpaque(false);  
+            columna[i].setOpaque(false);
 
         }
-        
+
         /*
          * Se le da el nombre a los botones del titulo de cada columna
          */
@@ -186,119 +185,114 @@ public final class AprobarActividades extends javax.swing.JPanel {
         columna[5].setText("P");
         columna[6].setText("V");
         columna[7].setText("L");
-        
+
         /**
-         * Se le da el diseño al arreglo de labels y se asignan en ellos 
-         * los valores correspondientes al nombre, a los apellidos y 
-         * al documento
+         * Se le da el diseño al arreglo de labels y se asignan en ellos los
+         * valores correspondientes al nombre, a los apellidos y al documento
          */
-        for (int i=0; i <= label.length - 1; i++) {
+        for (int i = 0; i <= label.length - 1; i++) {
             for (int j = 0; j <= label[i].length - 1; j++) {
 
                 /*Instanciación*/
                 label[i][j] = new JLabel();
-                
+
                 /*Dar color de fondo*/
                 label[i][j].setBackground(new java.awt.Color(204, 255, 255));
-                
+
                 /*Dar fuente, tipo de letra y tamaño*/
                 label[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
-                                                      conf[3]));
-                
+                        conf[3]));
+
                 /*Dar color de letra*/
                 label[i][j].setForeground(new java.awt.Color(0, 102, 102));
-                
+
                 /*Dar alineación al centro*/
-                label[i][j].setHorizontalAlignment(javax.swing.SwingConstants
-                                                   .CENTER);
-                
+                label[i][j].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
                 /*Asignar el dato de la consulta en el label*/
                 label[i][j].setText(lista[i][j + 1]);
-                
+
                 /*Asignar el tipo de borde sobresalido*/
                 label[i][j].setBorder(javax.swing.BorderFactory
-                                      .createBevelBorder(javax.swing.border
-                                      .BevelBorder.RAISED));
-                
+                        .createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
                 /*Opacar*/
                 label[i][j].setOpaque(true);
 
             }
         }
-        
+
         /**
-         * Se le da el diseño al arreglo de ComboBoxs y se asignan en ellos 
-         * los valores correspondientes los siguientes datos: Autenticidad, 
-         * Calidad, Pertinencia, Vigenicia y Estado del aprendizaje de cada 
-         * aprendiz 
+         * Se le da el diseño al arreglo de ComboBoxs y se asignan en ellos los
+         * valores correspondientes los siguientes datos: Autenticidad, Calidad,
+         * Pertinencia, Vigenicia y Estado del aprendizaje de cada aprendiz
          */
         for (int i = 0; i <= jCheckBox.length - 1; i++) {
-            for (int j = 0; j <= jCheckBox[i].length -1; j++) {
+            for (int j = 0; j <= jCheckBox[i].length - 1; j++) {
 
                 /*Instanciación*/
                 jCheckBox[i][j] = new JCheckBox();
-                
+
                 /*Dar color de fondo*/
-                jCheckBox[i][j].setBackground(new java.awt.Color(204, 255, 
-                                                                 255));
-                
+                jCheckBox[i][j].setBackground(new java.awt.Color(204, 255,
+                        255));
+
                 /*Dar color de letra*/
                 jCheckBox[i][j].setForeground(new java.awt.Color(255, 255,
-                                                                 255));
-                
+                        255));
+
                 /*Dar alineamiento horizontal*/
                 jCheckBox[i][j].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                
+
                 /*Opacar*/
                 jCheckBox[i][j].setOpaque(true);
-                
+
                 /*Asignar cuadro seleccionado segun la consulta */
                 if ("Si".equals(lista[i][j + 5])) {
-                    
+
                     jCheckBox[i][j].setSelected(true);
-                    
-                } else if ("No".equals(lista[i][j + 5])){
-                    
+
+                } else if ("No".equals(lista[i][j + 5])) {
+
                     jCheckBox[i][j].setSelected(false);
-                    
+
                 }
 
             }
         }
-        
+
         /**
-         * Permite ubicar cada uno de los componentes definidos anteriormete 
-         * en forma de tabla relacionando a los aprendices con el estado de 
-         * la actividad y con el titulo de cada columna
+         * Permite ubicar cada uno de los componentes definidos anteriormete en
+         * forma de tabla relacionando a los aprendices con el estado de la
+         * actividad y con el titulo de cada columna
          */
         new UbicarLista(jPanel8, jCheckBox, label, columna);
-        
+
     }
-    
+
     /**
-     * Permite seleccionar los componentes en el panel a los cuales 
-     * se les dara animación
+     * Permite seleccionar los componentes en el panel a los cuales se les dara
+     * animación
      */
     public void movimiento() {
-        
+
         /* Se crea el arreglo con los componentes */
         Component[] objeto2 = {jPanel8};
-        
+
         /*
          * Se asigna el arreglo de forma global para que este se pueda 
          * utiizar en los eventos
          */
         objeto = objeto2;
-        
+
         /* 
          * Permite dar un movimiento inicial a los objetos del arreglo en 
          * forma secuencial
          */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
-    
+
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -558,8 +552,8 @@ public final class AprobarActividades extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
-     * Boton "Guardar"
-     * Este evento permite almacenar los cambios realizados en la base de datos
+     * Boton "Guardar" Este evento permite almacenar los cambios realizados en
+     * la base de datos
      */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
@@ -567,51 +561,49 @@ public final class AprobarActividades extends javax.swing.JPanel {
          * Se crea un arreglo bidimencional para recolectar la informacion 
          * de los ComboBoxs
          */
-        String[][] datos = new String[jCheckBox.length]
-                                     [jCheckBox[0].length + 1];
-        
+        String[][] datos = new String[jCheckBox.length][jCheckBox[0].length + 1];
+
         /* 
          * Se obtiene el item seleccionado en cada ComboBox y se guarda 
          * en el arreglo
          */
         for (int i = 0; i <= jCheckBox.length - 1; i++) {
-            for (int j = 0;j <= jCheckBox[i].length - 1; j++) {
+            for (int j = 0; j <= jCheckBox[i].length - 1; j++) {
 
                 /*Obtener dato seleccionado en el checkbox*/
                 if (jCheckBox[i][j].isSelected()) {
-                    
+
                     datos[i][j] = "Si";
-                    
+
                 } else {
-                    
+
                     datos[i][j] = "No";
-                    
+
                 }
 
             }
-            
+
             /*Se añade el ID del estado de la actividad en el arreglo*/
             datos[i][5] = lista[i][0];
-            
+
         }
-        
+
         /*Se actualizan los estados de actividad en la base de datos*/
         EstadoActividad.ActualizarEstadosDeActividad(declaracion, datos);
-        
+
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
-                                     nombrePantalla, tipo, usuario, 
-                                     Arreglo.quitar(ID), declaracion);
-        
+        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno,
+                nombrePantalla, tipo, usuario,
+                Arreglo.quitar(ID), declaracion);
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
-     * Boton "Volver"
-     * Este evento permite retornar a la pantalla desde la que 
-     * se accedió a la actual
+     * Boton "Volver" Este evento permite retornar a la pantalla desde la que se
+     * accedió a la actual
      */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
@@ -627,17 +619,17 @@ public final class AprobarActividades extends javax.swing.JPanel {
              * Se animan los objetos para que salgan del panel y se realiza 
              * el cambio de pantalla
              */
-            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
-                                         nombrePantalla, tipo, usuario, 
-                                         Arreglo.quitar(ID), declaracion);
-            
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno,
+                    nombrePantalla, tipo, usuario,
+                    Arreglo.quitar(ID), declaracion);
+
         }
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
-     * Boton "Salir"
-     * Este evento permite retornar a la pantalla de ingreso y cerrar la sesión
+     * Boton "Salir" Este evento permite retornar a la pantalla de ingreso y
+     * cerrar la sesión
      */
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
 
@@ -645,34 +637,34 @@ public final class AprobarActividades extends javax.swing.JPanel {
          * Se crea un arreglo de componentes para alamcenar todos los objetos 
          * que se van a animar al momento de la salida
          */
-        Component[] componentes = new Component[objeto.length+2];
-        
+        Component[] componentes = new Component[objeto.length + 2];
+
         componentes[0] = jPanel2;   //Se añade el panel superior
         componentes[1] = jPanel3;   //Se añade el panel inferior
 
         /* Se añaden los demas objetos a los que se les dió la animación */
-        for (int i = 2; i <= componentes.length - 1; i++){
-            componentes[i] = objeto[i - 2];       
+        for (int i = 2; i <= componentes.length - 1; i++) {
+            componentes[i] = objeto[i - 2];
         }
 
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
-                                     "PantallaInicio", nombrePantalla, tipo, 
-                                     usuario, null, declaracion);
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this,
+                "PantallaInicio", nombrePantalla, tipo,
+                usuario, null, declaracion);
 
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        
+
         /* Se abre la ventana de configuración de la aplicación */
         Configuracion c = new Configuracion();  //Instanciación
         c.setSize(800, 600);    //Tamaño de ventana
         c.setLocationRelativeTo(null);      //Ubicar al centro
         c.setVisible(true);     //Dar visivilidad
-        
+
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -681,22 +673,22 @@ public final class AprobarActividades extends javax.swing.JPanel {
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                                     "EditarMisDatos", nombrePantalla, tipo, 
-                                     usuario, ID, declaracion);
-        
+        new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                "EditarMisDatos", nombrePantalla, tipo,
+                usuario, ID, declaracion);
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
-        
+
         /**
-         * Se abre el Frame corespondiente para gestionar la foto del 
-         * usuario actual
+         * Se abre el Frame corespondiente para gestionar la foto del usuario
+         * actual
          */
         Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
         foto.setLocationRelativeTo(null);   //se ubica al centro
         foto.setVisible(true);      //se le da visivilidad
-        
+
     }//GEN-LAST:event_jLabel3MousePressed
 
 

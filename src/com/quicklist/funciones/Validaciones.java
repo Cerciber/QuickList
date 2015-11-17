@@ -13,98 +13,97 @@ import javax.swing.JTextField;
  * @author cesaraugusto
  */
 public class Validaciones {
-    
+
     public static void longitud(KeyEvent evt, int real, int esperado) {
-        
-        if(real>=esperado){
-            
+
+        if (real >= esperado) {
+
             evt.consume();
-            
+
         }
-        
+
     }
-    
+
     public static void restringirCaracter(KeyEvent evt, char real, char esperado) {
-        
-        if(real==esperado){
-            
+
+        if (real == esperado) {
+
             evt.consume();
-            
+
         }
-        
+
     }
-    
+
     public static void restringirCaracterEntre(KeyEvent evt, char real, char inicio, char fin) {
-        
-        if(real>=inicio && real<=fin){
-            
+
+        if (real >= inicio && real <= fin) {
+
             evt.consume();
-            
+
         }
-        
+
     }
-    
+
     public static void restringirCaracterFueraDe(KeyEvent evt, char real, char inicio, char fin) {
-        
-        if(real<inicio || real>fin){
-            
+
+        if (real < inicio || real > fin) {
+
             evt.consume();
-            
-            
+
         }
-        
+
     }
-    
+
     public static void numeroMinimo(KeyEvent evt, JTextField campo, int minimo) {
-        
-        if(Integer.parseInt(campo.getText())<minimo){
-        
-            campo.setText(minimo+"");
+
+        if (Integer.parseInt(campo.getText()) < minimo) {
+
+            campo.setText(minimo + "");
             evt.consume();
-            
+
         }
-        
+
     }
-    
+
     public static void numeroMaximo(KeyEvent evt, JTextField campo, int maximo) {
-        
-        if(Integer.parseInt(campo.getText())>maximo){
-        
-            campo.setText(maximo+"");
+
+        if (Integer.parseInt(campo.getText()) > maximo) {
+
+            campo.setText(maximo + "");
             evt.consume();
-        
+
         }
-        
+
     }
 
     public static boolean formatoCorreo(String correo) {
-        
+
         boolean arroba = false;
         boolean punto = false;
         boolean formato = false;
-        
+
         for (int i = 0; i < correo.length(); i++) {
-            
-            if(correo.charAt(i)=='@' && !arroba){
-                
+
+            if (correo.charAt(i) == '@' && !arroba) {
+
                 arroba = true;
-                
-            } else if(correo.charAt(i)=='.' && arroba){
+
+            } else if (correo.charAt(i) == '.' && arroba) {
 
                 punto = true;
 
             }
-            
+
         }
-        
-        if(arroba && punto){
-            
+
+        if (arroba && punto) {
+
             formato = true;
-            
+
         }
-        
+
         return formato;
-        
+
     }
-    
+
 }

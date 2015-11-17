@@ -28,8 +28,8 @@ import com.quicklist.funciones.Validaciones;
 import javax.swing.JOptionPane;
 
 /**
- * Esta clase permite al administrador ingresar y 
- * editar los datos de un horario específico
+ * Esta clase permite al administrador ingresar y editar los datos de un horario
+ * específico
  */
 public final class FormHorario extends javax.swing.JPanel {
 
@@ -38,54 +38,55 @@ public final class FormHorario extends javax.swing.JPanel {
     String retorno;     //Ruta de acceso a la ventana anterior
     String tipo;    //Rol del usuario que accede a la clase
     String nombrePantalla;      //Ruta de la ventana actual
-    
-    /** 
-     * Arreglo que almacena los identificadores nesesarios para cargar los 
-     * datos en cada una de las pantallas a las que se ha accedido desde el 
-     * login para recuperar las pantallas anteriores en caso de retorno
+
+    /**
+     * Arreglo que almacena los identificadores nesesarios para cargar los datos
+     * en cada una de las pantallas a las que se ha accedido desde el login para
+     * recuperar las pantallas anteriores en caso de retorno
      */
-    String[] ID;    
-    
+    String[] ID;
+
     /**
      * Objeto empleado para realizar la consultas en la base de datos
      */
-    Statement declaracion;      
-    
+    Statement declaracion;
+
     /**
-     * Arreglo que contiene todos los componentes de la pantalla 
-     * a los cuales se les da movimineto inicial
+     * Arreglo que contiene todos los componentes de la pantalla a los cuales se
+     * les da movimineto inicial
      */
     Component[] objeto;
-    
+
     /* 
      * Arreglo que contiene el identificador de los resultados de 
      * aprendizaje existentes en el plan de estudios
      */
     String[] ID_ResultadoDeAprendizaje;
-    
+
     /* 
      * Arreglo que contiene el identificador de los instructores
      * existentes en el plan de estudios
      */
     String[] ID_Instructor;
-    
+
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
     int[] conf = cargarConfiguracion();
-    
+
     /**
      * Metodo constructor de la clase
+     *
      * @param tipo
      * @param retorno
      * @param nombrePantalla
      * @param usuario
      * @param ID
-     * @param declaracion 
+     * @param declaracion
      */
-    public FormHorario(String tipo, String retorno, String nombrePantalla, 
+    public FormHorario(String tipo, String retorno, String nombrePantalla,
             String usuario, String[] ID, Statement declaracion) {
-        
+
         /*
          * Se asignan los valores de los parametros de forma global
          */
@@ -95,17 +96,17 @@ public final class FormHorario extends javax.swing.JPanel {
         this.declaracion = declaracion;
         this.ID = ID;
         this.nombrePantalla = nombrePantalla;
-        
+
         initComponents();   //Se crean los componentes graficos
-        
+
         /* Se cargan y se ubican los datos del usuario */
         new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
-        
+
         datosActividad(ID);     //Se carga y se ubica la tabla de información
-        
+
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
-        
+
         /*Dar fuente, tipo de letra y tamaño*/
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel17.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
@@ -115,47 +116,47 @@ public final class FormHorario extends javax.swing.JPanel {
         jLabel21.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel22.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel23.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        
-        jComboBox3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                             conf[3]));
-        
-        jComboBox4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                             conf[3]));
-        
-        jComboBox5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                             conf[3]));
-        
-        jComboBox6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                             conf[3]));
-        
-        jComboBox7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                             conf[3]));
-        
-        jComboBox8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                             conf[3]));
-        
-        jComboBox9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                             conf[3]));
-        
-        jDateChooser1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                                conf[3]));
-        
-        jDateChooser2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                                conf[3]));
-        
-        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        
+
+        jComboBox3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jComboBox4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jComboBox5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jComboBox6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jComboBox7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jComboBox8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jComboBox9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jDateChooser1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jDateChooser2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
          */
-        new MoverObjeto(jPanel8); 
-        
+        new MoverObjeto(jPanel8);
+
     }
-    
+
     public void datosActividad(String[] ID) {
-        
+
         /*
          * Se realiza la busqueda en la base de datos de los nombres de los 
          * resultados de aprendizajes accesibles y se asigna en un arreglo 
@@ -163,44 +164,44 @@ public final class FormHorario extends javax.swing.JPanel {
          */
         String[][] nombres = ResultadoDeAprendizaje
                 .SeleccionarNombres(declaracion);
-        
+
         /*Se prepara el arreglo con el numero de registros cargados*/
         ID_ResultadoDeAprendizaje = new String[nombres.length];
-        
+
         /*
          * Se asignan los nombres de los resultaados de aprendizaje a la lista 
          * desplegable y se añaden en el arreglo
          */
         for (int i = 0; i <= nombres.length - 1; i++) {
-        
+
             ID_ResultadoDeAprendizaje[i] = nombres[i][0];
             this.jComboBox3.addItem(nombres[i][1]);
-            
+
         }
-        
+
         /*
          * Se realiza la busqueda en la base de datos de los nombres de los 
          * funcionarios accesibles y se asigna en un arreglo 
          * bidimensional
          */
         nombres = Funcionario.SeleccionarNombres(declaracion);
-        
+
         /*Se prepara el arreglo con el numero de registros cargados*/
         ID_Instructor = new String[nombres.length];
-        
+
         /*
          * Se asignan los nombres de los funcionarios en la lista 
          * desplegable y en la variable global
          */
         for (int i = 0; i <= nombres.length - 1; i++) {
-        
+
             ID_Instructor[i] = nombres[i][0];
-            
-            this.jComboBox4.addItem(nombres[i][1]+" "+nombres[i][2]
-                                    +" "+nombres[i][3]+" - "+nombres[i][0]);
-            
+
+            this.jComboBox4.addItem(nombres[i][1] + " " + nombres[i][2]
+                    + " " + nombres[i][3] + " - " + nombres[i][0]);
+
         }
-        
+
         /*
          * El simbolo "☺" representa un dato vacio en el arreglo de 
          * identificadores lo que identifica que se esta haciendo una insersión
@@ -212,63 +213,62 @@ public final class FormHorario extends javax.swing.JPanel {
              * Se realiza la busqueda en la base de datos y se asigna en un 
              * arreglo bidimensional
              */
-            String[][] lista = Horario.SeleccionarPorID(declaracion, 
-                                                        ID[ID.length - 1]);
+            String[][] lista = Horario.SeleccionarPorID(declaracion,
+                    ID[ID.length - 1]);
 
             /* Se asigna el resultado de aprendizaje */
             jComboBox3.setSelectedItem(lista[0][3]);
-            
+
             /* Se asigna el funcionario */
             jComboBox4.setSelectedItem(lista[0][4]);
-            
+
             /* Se asigna el dia de la semana */
             jComboBox5.setSelectedItem(lista[0][5]);
-            
+
             /* Se asigna la hora de la hora de inicio */
-            jComboBox6.setSelectedItem(lista[0][6].substring(0,2));
-            
+            jComboBox6.setSelectedItem(lista[0][6].substring(0, 2));
+
             /* Se asigna el minuto de la hora de inicio */
-            jComboBox7.setSelectedItem(lista[0][6].substring(3,5));
-            
+            jComboBox7.setSelectedItem(lista[0][6].substring(3, 5));
+
             /* Se asigna la hora de la hora de finalización */
-            jComboBox8.setSelectedItem(lista[0][7].substring(0,2));
-            
+            jComboBox8.setSelectedItem(lista[0][7].substring(0, 2));
+
             /* Se asigna el minuto de la hora de finalización */
-            jComboBox9.setSelectedItem(lista[0][7].substring(3,5));
-            
+            jComboBox9.setSelectedItem(lista[0][7].substring(3, 5));
+
             /* Se asigna la fecha de inicio */
-            Calendario.darFecha(jDateChooser1,lista[0][8]);
-            
+            Calendario.darFecha(jDateChooser1, lista[0][8]);
+
             /* Se asigna la fecha de finalización */
-            Calendario.darFecha(jDateChooser2,lista[0][9]);
-            
+            Calendario.darFecha(jDateChooser2, lista[0][9]);
+
             /* Se asigna el lugar de la formación */
             jTextField9.setText(lista[0][10]);
 
         }
 
     }
-    
-    public void movimiento(){
-        
+
+    public void movimiento() {
+
         /* Se crea el arreglo con los componentes */
         Component[] objeto2 = {jPanel8};
-        
+
         /*
          * Se asigna el arreglo de forma global para que este se pueda 
          * utiizar en los eventos
          */
         objeto = objeto2;
-        
+
         /* 
          * Permite dar un movimiento inicial a los objetos del arreglo en 
          * forma secuencial
          */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
-    
+
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -701,12 +701,12 @@ public final class FormHorario extends javax.swing.JPanel {
              * Se animan los objetos para que salgan del panel y se realiza 
              * el cambio de pantalla
              */
-            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
-                                         nombrePantalla, tipo, usuario, 
-                                         Arreglo.quitar(ID), declaracion);
-            
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno,
+                    nombrePantalla, tipo, usuario,
+                    Arreglo.quitar(ID), declaracion);
+
         }
-        
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -716,57 +716,57 @@ public final class FormHorario extends javax.swing.JPanel {
          * que se van a animar al momento de la salida
          */
         Component[] componentes = new Component[objeto.length + 2];
-        
+
         componentes[0] = jPanel2;   //Se añade el panel superior
         componentes[1] = jPanel3;   //Se añade el panel inferior
 
         /* Se añaden los demas objetos a los que se les dió la animación */
         for (int i = 2; i <= componentes.length - 1; i++) {
-            componentes[i] = objeto[i - 2];       
+            componentes[i] = objeto[i - 2];
         }
 
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
-                                     "PantallaInicio", nombrePantalla, tipo, 
-                                     usuario, null, declaracion);
-        
-        
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this,
+                "PantallaInicio", nombrePantalla, tipo,
+                usuario, null, declaracion);
+
+
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        
+
         /* Se abre la ventana de configuración de la aplicación */
         Configuracion c = new Configuracion();  //Instanciación
         c.setSize(800, 600);    //Tamaño de ventana
         c.setLocationRelativeTo(null);      //Ubicar al centro
         c.setVisible(true);     //Dar visivilidad
-        
+
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
+
         /*
          * Se crea un arrelo para recojer los datos de los inputs 
-         */  
-        String[] datos={ID[ID.length-2],
-                        ID_ResultadoDeAprendizaje[jComboBox3.getSelectedIndex()],
-                        ID_Instructor[jComboBox4.getSelectedIndex()],
-                        jComboBox5.getSelectedItem().toString(),
-                        jComboBox6.getSelectedItem().toString() + ":"+jComboBox7.getSelectedItem().toString(),
-                        jComboBox8.getSelectedItem().toString() + ":"+jComboBox9.getSelectedItem().toString(),
-                        Calendario.obtenerFecha(jDateChooser1),
-                        Calendario.obtenerFecha(jDateChooser2),
-                        jTextField9.getText()};
-        
+         */
+        String[] datos = {ID[ID.length - 2],
+            ID_ResultadoDeAprendizaje[jComboBox3.getSelectedIndex()],
+            ID_Instructor[jComboBox4.getSelectedIndex()],
+            jComboBox5.getSelectedItem().toString(),
+            jComboBox6.getSelectedItem().toString() + ":" + jComboBox7.getSelectedItem().toString(),
+            jComboBox8.getSelectedItem().toString() + ":" + jComboBox9.getSelectedItem().toString(),
+            Calendario.obtenerFecha(jDateChooser1),
+            Calendario.obtenerFecha(jDateChooser2),
+            jTextField9.getText()};
+
         /*
          * El simbolo "☺" representa un dato vacio en el arreglo de 
          * identificadores lo que identifica que se esta haciendo una insersión
          * y no una actualización.
          */
-        if ("☺".equals(ID[ID.length - 1])){
+        if ("☺".equals(ID[ID.length - 1])) {
 
             /* Se verifica si los datos del formulario estan vacios */
             if ("".equals(jTextField9.getText())
@@ -775,81 +775,81 @@ public final class FormHorario extends javax.swing.JPanel {
 
                 /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
-                "Debe diligenciar los campos obligatorios (*)", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+                        "Debe diligenciar los campos obligatorios (*)", "Error",
+                        JOptionPane.ERROR_MESSAGE);
 
             } else {
-                
-                 /*
+
+                /*
                  * Se insertan los datos del horario en 
                  * la base de datos
                  */
                 Horario.Insertar(declaracion, datos);
-                
+
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
                  * el cambio de pantalla
                  */
-                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                        retorno + ".Ver", nombrePantalla, tipo, usuario, 
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                        retorno + ".Ver", nombrePantalla, tipo, usuario,
                         Arreglo.quitar(ID), declaracion);
-                
+
             }
-                
+
         } else {
 
             /* Se verifica si los datos del formulario estan vacios */
             if ("".equals(jTextField9.getText())
-                        || Calendario.obtenerFecha(jDateChooser1) == null
-                        || Calendario.obtenerFecha(jDateChooser2) == null) {
+                    || Calendario.obtenerFecha(jDateChooser1) == null
+                    || Calendario.obtenerFecha(jDateChooser2) == null) {
 
                 /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
-                "Debe diligenciar los campos obligatorios (*)", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+                        "Debe diligenciar los campos obligatorios (*)", "Error",
+                        JOptionPane.ERROR_MESSAGE);
 
             } else {
-                
+
                 /*
                  * Se actualizan los datos del horario en 
                  * la base de datos
                  */
                 Horario.ActualizarEnID(declaracion, datos, ID[ID.length - 1]);
-                
+
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
                  * el cambio de pantalla
                  */
-                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                        retorno, nombrePantalla, tipo, usuario, 
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                        retorno, nombrePantalla, tipo, usuario,
                         Arreglo.quitar(ID), declaracion);
-                
+
             }
-                
+
         }
-        
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 2147483647 */
         Validaciones.longitud(evt, jTextField9.getText().length(), 2147483647);
-        
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
     }//GEN-LAST:event_jTextField9KeyTyped
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
-        
+
         /**
-         * Se abre el Frame corespondiente para gestionar la foto del 
-         * usuario actual
+         * Se abre el Frame corespondiente para gestionar la foto del usuario
+         * actual
          */
         Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
         foto.setLocationRelativeTo(null);   //se ubica al centro
         foto.setVisible(true);      //se le da visivilidad
-        
+
     }//GEN-LAST:event_jLabel3MousePressed
 
 

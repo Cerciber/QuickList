@@ -25,7 +25,7 @@ import com.quicklist.funciones.DatosUsuario;
 import com.quicklist.funciones.Validaciones;
 
 /**
- * Esta clase permite a los usuarios administrador e instructor ingresar y 
+ * Esta clase permite a los usuarios administrador e instructor ingresar y
  * editar los datos de un funcionario especifico
  */
 public final class FormFuncionarios extends javax.swing.JPanel {
@@ -35,42 +35,43 @@ public final class FormFuncionarios extends javax.swing.JPanel {
     String retorno;     //Ruta de acceso a la ventana anterior
     String tipo;    //Rol del usuario que accede a la clase
     String nombrePantalla;      //Ruta de la ventana actual
-    
-    /** 
-     * Arreglo que almacena los identificadores nesesarios para cargar los 
-     * datos en cada una de las pantallas a las que se ha accedido desde el 
-     * login para recuperar las pantallas anteriores en caso de retorno
+
+    /**
+     * Arreglo que almacena los identificadores nesesarios para cargar los datos
+     * en cada una de las pantallas a las que se ha accedido desde el login para
+     * recuperar las pantallas anteriores en caso de retorno
      */
-    String[] ID;    
-    
+    String[] ID;
+
     /**
      * Objeto empleado para realizar la consultas en la base de datos
      */
-    Statement declaracion;      
-    
+    Statement declaracion;
+
     /**
-     * Arreglo que contiene todos los componentes de la pantalla 
-     * a los cuales se les da movimineto inicial
+     * Arreglo que contiene todos los componentes de la pantalla a los cuales se
+     * les da movimineto inicial
      */
     Component[] objeto;
-    
+
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
     int[] conf = cargarConfiguracion();
-    
+
     /**
      * Metodo constructor de la clase
+     *
      * @param tipo
      * @param retorno
      * @param nombrePantalla
      * @param usuario
      * @param ID
-     * @param declaracion 
+     * @param declaracion
      */
-    public FormFuncionarios(String tipo, String retorno, String nombrePantalla, 
+    public FormFuncionarios(String tipo, String retorno, String nombrePantalla,
             String usuario, String[] ID, Statement declaracion) {
-        
+
         /*
          * Se asignan los valores de los parametros de forma global
          */
@@ -80,17 +81,17 @@ public final class FormFuncionarios extends javax.swing.JPanel {
         this.declaracion = declaracion;
         this.ID = ID;
         this.nombrePantalla = nombrePantalla;
-        
+
         initComponents();   //Se crean los componentes graficos
-        
+
         /* Se cargan y se ubican los datos del usuario */
         new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
-        
+
         datosActividad(ID);     //Se carga y se ubica la tabla de información
-        
+
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
-        
+
         /*Dar fuente, tipo de letra y tamaño*/
         jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
@@ -101,44 +102,44 @@ public final class FormFuncionarios extends javax.swing.JPanel {
         jLabel21.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel22.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel23.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        
-        jTextField2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        
-        jPasswordField1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                                  conf[3]));
-        
-        jTextField3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        
-        jTextField4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        
-        jTextField5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        
-        jComboBox1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                             conf[3]));
-        
-        jTextField7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        
-        jTextField8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        
-        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        
+
+        jTextField2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jPasswordField1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jTextField3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jTextField4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jTextField5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jComboBox1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jTextField7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jTextField8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
          */
-        new MoverObjeto(jPanel8); 
-        
+        new MoverObjeto(jPanel8);
+
     }
 
     public void datosActividad(String[] ID) {
-        
+
         /*
          * El simbolo "☺" representa un dato vacio en el arreglo de 
          * identificadores lo que identifica que se esta haciendo una insersión
@@ -155,28 +156,28 @@ public final class FormFuncionarios extends javax.swing.JPanel {
 
             /*Se asigna el documento del instructor*/
             jTextField2.setText(lista[0][1]);
-            
+
             /*Se asigna la contrseña del instructor*/
             jPasswordField1.setText(lista[0][2]);
-            
+
             /*Se asigna el nombre del instructor*/
             jTextField3.setText(lista[0][3]);
-            
+
             /*Se asigna el primer apellido del instructor*/
             jTextField4.setText(lista[0][4]);
-            
+
             /*Se asigna el segundo apellido del instructor*/
             jTextField5.setText(lista[0][5]);
-            
+
             /*Se asigna el cargo del instructor*/
             jComboBox1.setSelectedItem(lista[0][6]);
-            
+
             /*Se asigna el correo del instructor*/
             jTextField7.setText(lista[0][7]);
-            
+
             /*Se asigna el telefono fijo del instructor*/
             jTextField8.setText(lista[0][8]);
-            
+
             /*Se asigna el telefono celular del instructor*/
             jTextField9.setText(lista[0][9]);
 
@@ -184,43 +185,41 @@ public final class FormFuncionarios extends javax.swing.JPanel {
              * Se verifica si el tipo de usuario que accedió al sistema es un 
              * instructor
              */
-            if("Instructor".equals(tipo)){
-            
+            if ("Instructor".equals(tipo)) {
+
                 jTextField2.setFocusable(false);    //No seleccionable
                 jTextField3.setFocusable(false);    //No seleccionable
                 jTextField4.setFocusable(false);    //No seleccionable
                 jTextField5.setFocusable(false);    //No seleccionable
-                
+
                 /*Se asigna un unico elemento en la lista desplegable*/
-                jComboBox1.setModel(new javax.swing
-                        .DefaultComboBoxModel(new String[] { lista[0][6] }));
-            
+                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[]{lista[0][6]}));
+
             }
-            
+
         }
 
     }
-    
-    public void movimiento(){
-        
+
+    public void movimiento() {
+
         /* Se crea el arreglo con los componentes */
         Component[] objeto2 = {jPanel8};
-        
+
         /*
          * Se asigna el arreglo de forma global para que este se pueda 
          * utiizar en los eventos
          */
         objeto = objeto2;
-        
+
         /* 
          * Permite dar un movimiento inicial a los objetos del arreglo en 
          * forma secuencial
          */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
-    
+
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -737,12 +736,12 @@ public final class FormFuncionarios extends javax.swing.JPanel {
              * Se animan los objetos para que salgan del panel y se realiza 
              * el cambio de pantalla
              */
-            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
-                                         nombrePantalla, tipo, usuario, 
-                                         Arreglo.quitar(ID), declaracion);
-            
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno,
+                    nombrePantalla, tipo, usuario,
+                    Arreglo.quitar(ID), declaracion);
+
         }
-        
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -752,50 +751,50 @@ public final class FormFuncionarios extends javax.swing.JPanel {
          * que se van a animar al momento de la salida
          */
         Component[] componentes = new Component[objeto.length + 2];
-        
+
         componentes[0] = jPanel2;   //Se añade el panel superior
         componentes[1] = jPanel3;   //Se añade el panel inferior
 
         /* Se añaden los demas objetos a los que se les dió la animación */
         for (int i = 2; i <= componentes.length - 1; i++) {
-            componentes[i] = objeto[i - 2];       
+            componentes[i] = objeto[i - 2];
         }
 
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
-                                     "PantallaInicio", nombrePantalla, tipo, 
-                                     usuario, null, declaracion);
-        
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this,
+                "PantallaInicio", nombrePantalla, tipo,
+                usuario, null, declaracion);
+
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        
+
         /* Se abre la ventana de configuración de la aplicación */
         Configuracion c = new Configuracion();  //Instanciación
         c.setSize(800, 600);    //Tamaño de ventana
         c.setLocationRelativeTo(null);      //Ubicar al centro
         c.setVisible(true);     //Dar visivilidad
-        
+
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
+
         /*
          * Se crea un arrelo para recojer los datos de los inputs 
-         */   
-        String[] datos={ jTextField2.getText(),
-                         String.valueOf(jPasswordField1.getPassword()),
-                         jTextField3.getText(),
-                         jTextField4.getText(),
-                         jTextField5.getText(),
-                         jComboBox1.getSelectedItem().toString(),
-                         jTextField7.getText(),
-                         jTextField8.getText(),
-                         jTextField9.getText() };
-        
+         */
+        String[] datos = {jTextField2.getText(),
+            String.valueOf(jPasswordField1.getPassword()),
+            jTextField3.getText(),
+            jTextField4.getText(),
+            jTextField5.getText(),
+            jComboBox1.getSelectedItem().toString(),
+            jTextField7.getText(),
+            jTextField8.getText(),
+            jTextField9.getText()};
+
         /*
          * El simbolo "☺" representa un dato vacio en el arreglo de 
          * identificadores lo que identifica que se esta haciendo una insersión
@@ -805,34 +804,34 @@ public final class FormFuncionarios extends javax.swing.JPanel {
 
             /* Se verifica si los datos del formulario estan vacios */
             if ("".equals(jTextField2.getText())
-                || "".equals(String.valueOf(jPasswordField1.getPassword())) 
-                || "".equals(jTextField3.getText()) 
-                || "".equals(jTextField4.getText()) 
-                || "".equals(jTextField5.getText()) 
-                || "".equals(jTextField7.getText()) 
-                || "".equals(jTextField9.getText())) {
+                    || "".equals(String.valueOf(jPasswordField1.getPassword()))
+                    || "".equals(jTextField3.getText())
+                    || "".equals(jTextField4.getText())
+                    || "".equals(jTextField5.getText())
+                    || "".equals(jTextField7.getText())
+                    || "".equals(jTextField9.getText())) {
 
                 /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
-                "Debe diligenciar los campos obligatorios (*)", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+                        "Debe diligenciar los campos obligatorios (*)", "Error",
+                        JOptionPane.ERROR_MESSAGE);
 
-            /* Se verifica si el formato del correo es correcto */
+                /* Se verifica si el formato del correo es correcto */
             } else if (!Validaciones.formatoCorreo(jTextField7.getText())) {
-                
-                /* Se muestra un mensaje de error */
-                JOptionPane.showMessageDialog(null,
-                "Formato de correo incorrecto", "Error", 
-                JOptionPane.ERROR_MESSAGE);
-
-            /* Se verifica si el docuemento ingresado ya existe */
-            } else if (Funcionario.VerificarDocumento(declaracion, 
-                                                      jTextField2.getText())) {
 
                 /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
-                "El documento seleccionado ya existe", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+                        "Formato de correo incorrecto", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+
+                /* Se verifica si el docuemento ingresado ya existe */
+            } else if (Funcionario.VerificarDocumento(declaracion,
+                    jTextField2.getText())) {
+
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                        "El documento seleccionado ya existe", "Error",
+                        JOptionPane.ERROR_MESSAGE);
 
             } else {
 
@@ -841,13 +840,13 @@ public final class FormFuncionarios extends javax.swing.JPanel {
                  * la base de datos
                  */
                 Funcionario.Insertar(declaracion, datos);
-                
-                 /* 
+
+                /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
                  * el cambio de pantalla
                  */
-                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                        retorno + ".Ver", nombrePantalla, tipo, usuario, 
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                        retorno + ".Ver", nombrePantalla, tipo, usuario,
                         Arreglo.agregar(Arreglo.quitar(ID)), declaracion);
 
             }
@@ -856,38 +855,38 @@ public final class FormFuncionarios extends javax.swing.JPanel {
 
             /* Se verifica si los datos del formulario estan vacios */
             if ("".equals(jTextField2.getText())
-                || "".equals(String.valueOf(jPasswordField1.getPassword())) 
-                || "".equals(jTextField3.getText()) 
-                || "".equals(jTextField4.getText()) 
-                || "".equals(jTextField5.getText()) 
-                || "".equals(jTextField7.getText()) 
-                || "".equals(jTextField9.getText())) {
+                    || "".equals(String.valueOf(jPasswordField1.getPassword()))
+                    || "".equals(jTextField3.getText())
+                    || "".equals(jTextField4.getText())
+                    || "".equals(jTextField5.getText())
+                    || "".equals(jTextField7.getText())
+                    || "".equals(jTextField9.getText())) {
 
                 /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
-                "Debe diligenciar los campos obligatorios (*)", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+                        "Debe diligenciar los campos obligatorios (*)", "Error",
+                        JOptionPane.ERROR_MESSAGE);
 
-            /* Se verifica si el formato del correo es correcto */
+                /* Se verifica si el formato del correo es correcto */
             } else if (!Validaciones.formatoCorreo(jTextField7.getText())) {
-                
-                /* Se muestra un mensaje de error */
-                JOptionPane.showMessageDialog(null,
-                "Formato de correo incorrecto", "Error", 
-                JOptionPane.ERROR_MESSAGE);    
-            
-            /* 
-             * Se verifica si el docuemento ingresado ya existe y es 
-             * diferente al actual
-             */
-            } else if (Funcionario.VerificarDocumento(declaracion, 
-                    jTextField2.getText()) && !jTextField2.getText()
-                            .equals(ID[ID.length - 1])) {
 
                 /* Se muestra un mensaje de error */
-                JOptionPane.showMessageDialog(null, 
-                "El documento seleccionado ya existe", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Formato de correo incorrecto", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+
+                /* 
+                 * Se verifica si el docuemento ingresado ya existe y es 
+                 * diferente al actual
+                 */
+            } else if (Funcionario.VerificarDocumento(declaracion,
+                    jTextField2.getText()) && !jTextField2.getText()
+                    .equals(ID[ID.length - 1])) {
+
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                        "El documento seleccionado ya existe", "Error",
+                        JOptionPane.ERROR_MESSAGE);
 
             } else {
 
@@ -895,33 +894,32 @@ public final class FormFuncionarios extends javax.swing.JPanel {
                  * Se actualizan los datos del instructor en 
                  * la base de datos
                  */
-                Funcionario.ActualizarEnDocumento(declaracion, datos, 
-                                                  ID[ID.length - 1]);
-                
-                
+                Funcionario.ActualizarEnDocumento(declaracion, datos,
+                        ID[ID.length - 1]);
+
                 /* 
                  * Se verifica si el documento del usuario se ha actualizado 
                  * para cambiarlo en pantalla
                  */
                 if (usuario.equals(ID[ID.length - 1])) {
-                
+
                     usuario = jTextField2.getText();
-                    
+
                 }
-                
+
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
                  * el cambio de pantalla
                  */
-                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                        retorno, nombrePantalla, tipo, usuario, 
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                        retorno, nombrePantalla, tipo, usuario,
                         Arreglo.quitar(ID), declaracion);
 
             }
-            
+
         }
 
-        
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
@@ -953,116 +951,116 @@ public final class FormFuncionarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 18 */
         Validaciones.longitud(evt, jTextField2.getText().length(), 18);
-        
+
         /* Restringir los caracteres no numericos */
         Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
-        
+
     }//GEN-LAST:event_jTextField2KeyTyped
 
     private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 30 */
         Validaciones.longitud(evt, String.valueOf(jPasswordField1.getPassword()).length(), 30);
-        
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
     }//GEN-LAST:event_jPasswordField1KeyTyped
 
     private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 30 */
         Validaciones.longitud(evt, jTextField3.getText().length(), 30);
-        
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
         /* Restringir el caracter 32 (espacio) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 32);
-        
+
         /* restringir numeros */
         Validaciones.restringirCaracterEntre(evt, evt.getKeyChar(), '0', '9');
-        
+
     }//GEN-LAST:event_jTextField3KeyTyped
 
     private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 30 */
         Validaciones.longitud(evt, jTextField4.getText().length(), 30);
-        
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
         /* Restringir el caracter 32 (espacio) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 32);
-        
+
         /* restringir numeros */
         Validaciones.restringirCaracterEntre(evt, evt.getKeyChar(), '0', '9');
-        
+
     }//GEN-LAST:event_jTextField4KeyTyped
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 30 */
         Validaciones.longitud(evt, jTextField5.getText().length(), 30);
-        
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
         /* Restringir el caracter 32 (espacio) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 32);
-        
+
         /* restringir numeros */
         Validaciones.restringirCaracterEntre(evt, evt.getKeyChar(), '0', '9');
-        
+
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 30 */
         Validaciones.longitud(evt, jTextField7.getText().length(), 100);
-        
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
         /* Restringir el caracter 32 (espacio) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 32);
-        
+
     }//GEN-LAST:event_jTextField7KeyTyped
 
     private void jTextField8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 18 */
         Validaciones.longitud(evt, jTextField8.getText().length(), 18);
-        
+
         /* Restringir los caracteres no numericos*/
         Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
-        
+
     }//GEN-LAST:event_jTextField8KeyTyped
 
     private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 18 */
         Validaciones.longitud(evt, jTextField9.getText().length(), 18);
-        
+
         /* Restringir los caracteres no numericos*/
         Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
-        
+
     }//GEN-LAST:event_jTextField9KeyTyped
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
-        
+
         /**
-         * Se abre el Frame corespondiente para gestionar la foto del 
-         * usuario actual
+         * Se abre el Frame corespondiente para gestionar la foto del usuario
+         * actual
          */
         Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
         foto.setLocationRelativeTo(null);   //se ubica al centro
         foto.setVisible(true);      //se le da visivilidad
-        
+
     }//GEN-LAST:event_jLabel3MousePressed
 
 

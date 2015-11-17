@@ -26,55 +26,56 @@ import com.quicklist.funciones.Validaciones;
 import javax.swing.JOptionPane;
 
 /**
- * Esta clase permite a los usuarios instructor y administrador ingresar y 
- * editar los datos de las actividades requeridas para el diligenciamiento del 
+ * Esta clase permite a los usuarios instructor y administrador ingresar y
+ * editar los datos de las actividades requeridas para el diligenciamiento del
  * Formato de Etapa Lectiva
  */
 public final class FormActividad extends javax.swing.JPanel {
-    
+
     int velocidad = 100;    //Corrimiento de la animación de los objetos 
     String usuario;     //Documento del usuario que accede a la clase 
     String retorno;     //Ruta de acceso a la ventana anterior 
     String tipo;    //Rol del usuario que accede a la clase 
     String nombrePantalla;      //Ruta de la ventana actual 
-    
-    /** 
-     * Arreglo que almacena los identificadores nesesarios para cargar los 
-     * datos en cada una de las pantallas a las que se ha accedido desde el 
-     * login para recuperar las pantallas anteriores en caso de retorno
+
+    /**
+     * Arreglo que almacena los identificadores nesesarios para cargar los datos
+     * en cada una de las pantallas a las que se ha accedido desde el login para
+     * recuperar las pantallas anteriores en caso de retorno
      */
-    String[] ID;    
-    
+    String[] ID;
+
     /**
      * Objeto empleado para realizar la consultas en la base de datos
      */
-    Statement declaracion;      
-    
+    Statement declaracion;
+
     /**
-     * Arreglo que contiene todos los componentes de la pantalla 
-     * a los cuales se les da movimineto inicial
+     * Arreglo que contiene todos los componentes de la pantalla a los cuales se
+     * les da movimineto inicial
      */
     Component[] objeto;
-    
+
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
-    int[] conf=cargarConfiguracion();
-    
+    int[] conf = cargarConfiguracion();
+
     /**
      * Metodo constructor de la clase
+     *
      * @param tipo
      * @param retorno
      * @param nombrePantalla
      * @param usuario
      * @param ID
-     * @param declaracion 
+     * @param declaracion
      */
-    public FormActividad(String tipo, String retorno, 
-                         String nombrePantalla, 
-                         String usuario, String[] ID, 
-                         Statement declaracion) {
-        
+    public FormActividad(String tipo, String retorno,
+            String nombrePantalla,
+            String usuario, String[] ID,
+            Statement declaracion) {
+
         /*
          * Se asignan los valores de los parametros de forma global
          */
@@ -84,17 +85,17 @@ public final class FormActividad extends javax.swing.JPanel {
         this.declaracion = declaracion;
         this.ID = ID;
         this.nombrePantalla = nombrePantalla;
-        
+
         initComponents();   //Se crean los componentes graficos
-        
+
         /* Se cargan y se ubican los datos del usuario */
         new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
-        
+
         datosActividad(ID);     //Se carga y se ubica la tabla de información
-        
+
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
-        
+
         /*Dar fuente, tipo de letra y tamaño*/
         jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
@@ -106,22 +107,23 @@ public final class FormActividad extends javax.swing.JPanel {
         jComboBox4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jComboBox5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jDateChooser1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        
+
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
          */
-        new MoverObjeto(jPanel8); 
-        
+        new MoverObjeto(jPanel8);
+
     }
-    
+
     /**
-     * Este metodo carga los datos de la actividad que se quiere modificar 
+     * Este metodo carga los datos de la actividad que se quiere modificar
      * cuando sea necesario
+     *
      * @param ID
      */
     public void datosActividad(String[] ID) {
-        
+
         /*
          * El simbolo "☺" representa un dato vacio en el arreglo de 
          * identificadores lo que identifica que se esta haciendo una insersión
@@ -133,58 +135,74 @@ public final class FormActividad extends javax.swing.JPanel {
              * Se realiza la busqueda en la base de datos y se asigna en un 
              * arreglo bidimensional
              */
-            String[][] lista = Actividad.SeleccionarPorID(declaracion, 
-                                                          ID[ID.length - 1]);
+            String[][] lista = Actividad.SeleccionarPorID(declaracion,
+                    ID[ID.length - 1]);
 
-            /** Se asigna el dato del nombre de la actividad */
+            /**
+             * Se asigna el dato del nombre de la actividad
+             */
             jTextField5.setText(lista[0][2]);
-            
-            /** Se asigna el dato del nombre de la evidencia */
+
+            /**
+             * Se asigna el dato del nombre de la evidencia
+             */
             jTextField7.setText(lista[0][3]);
-            
-            /** Se asigna el dato del medio de porte de la actividad */
-            if ("D".equals(lista[0][4])) jComboBox4.setSelectedItem("Digital");
-            if ("F".equals(lista[0][4])) jComboBox4.setSelectedItem("Fisico");
-            
-            /** Se asigna el dato del tipo de actividad */
-            if ("C".equals(lista[0][5])) 
+
+            /**
+             * Se asigna el dato del medio de porte de la actividad
+             */
+            if ("D".equals(lista[0][4])) {
+                jComboBox4.setSelectedItem("Digital");
+            }
+            if ("F".equals(lista[0][4])) {
+                jComboBox4.setSelectedItem("Fisico");
+            }
+
+            /**
+             * Se asigna el dato del tipo de actividad
+             */
+            if ("C".equals(lista[0][5])) {
                 jComboBox5.setSelectedItem("Conocimiento");
-            if ("D".equals(lista[0][5])) 
+            }
+            if ("D".equals(lista[0][5])) {
                 jComboBox5.setSelectedItem("Desempeño");
-            if ("P".equals(lista[0][5])) 
+            }
+            if ("P".equals(lista[0][5])) {
                 jComboBox5.setSelectedItem("Producto");
-            
-            /** Se asigna la fecha de entrega de la evidencia */
+            }
+
+            /**
+             * Se asigna la fecha de entrega de la evidencia
+             */
             Calendario.darFecha(jDateChooser1, lista[0][6]);
 
         }
 
     }
-    
+
     /**
-     * Permite seleccionar los componentes en el panel a los cuales 
-     * se les dara animación
+     * Permite seleccionar los componentes en el panel a los cuales se les dara
+     * animación
      */
     public void movimiento() {
-        
+
         /* Se crea el arreglo con los componentes */
         Component[] objeto2 = {jPanel8};
-        
+
         /*
          * Se asigna el arreglo de forma global para que este se pueda 
          * utiizar en los eventos
          */
         objeto = objeto2;
-        
+
         /* 
          * Permite dar un movimiento inicial a los objetos del arreglo en 
          * forma secuencial
          */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
-    
+
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -529,15 +547,15 @@ public final class FormActividad extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-       
+
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                                     "EditarMisDatos", nombrePantalla, tipo, 
-                                     usuario, ID, declaracion);
-        
+        new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                "EditarMisDatos", nombrePantalla, tipo,
+                usuario, ID, declaracion);
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
@@ -562,12 +580,12 @@ public final class FormActividad extends javax.swing.JPanel {
              * Se animan los objetos para que salgan del panel y se realiza 
              * el cambio de pantalla
              */
-            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
-                                         nombrePantalla, tipo, usuario, 
-                                         Arreglo.quitar(ID), declaracion);
-            
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno,
+                    nombrePantalla, tipo, usuario,
+                    Arreglo.quitar(ID), declaracion);
+
         }
-        
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -577,65 +595,87 @@ public final class FormActividad extends javax.swing.JPanel {
          * que se van a animar al momento de la salida
          */
         Component[] componentes = new Component[objeto.length + 2];
-        
+
         componentes[0] = jPanel2;   //Se añade el panel superior
         componentes[1] = jPanel3;   //Se añade el panel inferior
 
         /* Se añaden los demas objetos a los que se les dió la animación */
         for (int i = 2; i <= componentes.length - 1; i++) {
-            componentes[i] = objeto[i - 2];       
+            componentes[i] = objeto[i - 2];
         }
 
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
-                                     "PantallaInicio", nombrePantalla, tipo, 
-                                     usuario, null, declaracion);
-        
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this,
+                "PantallaInicio", nombrePantalla, tipo,
+                usuario, null, declaracion);
+
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-       
+
         /* Se abre la ventana de configuración de la aplicación */
         Configuracion c = new Configuracion();  //Instanciación
         c.setSize(800, 600);    //Tamaño de ventana
         c.setLocationRelativeTo(null);      //Ubicar al centro
         c.setVisible(true);     //Dar visivilidad
-        
+
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
+
         /*
          * Se crea un arrelo para contener los datos de la actividad con una 
          * longitud de 6 correspondientes a identificador del horario más los
          * inputs 
          */
         String[] datos = new String[6];
-        
-        /** Se obtiene el identificador del horario actual */
+
+        /**
+         * Se obtiene el identificador del horario actual
+         */
         datos[0] = ID[ID.length - 2];
-        
-        /** Se obtiene el nombre de la actividad */
+
+        /**
+         * Se obtiene el nombre de la actividad
+         */
         datos[1] = jTextField5.getText();
-        
-        /** Se obtiene el nombre de la evidencia */
+
+        /**
+         * Se obtiene el nombre de la evidencia
+         */
         datos[2] = jTextField7.getText();
-        
-        /** Se obtiene el medio de porte de la actividad */
-        if ("Digital".equals(jComboBox4.getSelectedItem())) datos[3] = "D";
-        if ("Fisico".equals(jComboBox4.getSelectedItem())) datos[3] = "F";
-        
-        /** Se obtiene el tipo de actividad */
-        if ("Conocimiento".equals(jComboBox5.getSelectedItem())) datos[4] = "C";
-        if ("Desempeño".equals(jComboBox5.getSelectedItem())) datos[4] = "D";
-        if ("Producto".equals(jComboBox5.getSelectedItem())) datos[4] = "P";
-        
-        /** Se obtiene la fecha de entrega de la evidencia */
+
+        /**
+         * Se obtiene el medio de porte de la actividad
+         */
+        if ("Digital".equals(jComboBox4.getSelectedItem())) {
+            datos[3] = "D";
+        }
+        if ("Fisico".equals(jComboBox4.getSelectedItem())) {
+            datos[3] = "F";
+        }
+
+        /**
+         * Se obtiene el tipo de actividad
+         */
+        if ("Conocimiento".equals(jComboBox5.getSelectedItem())) {
+            datos[4] = "C";
+        }
+        if ("Desempeño".equals(jComboBox5.getSelectedItem())) {
+            datos[4] = "D";
+        }
+        if ("Producto".equals(jComboBox5.getSelectedItem())) {
+            datos[4] = "P";
+        }
+
+        /**
+         * Se obtiene la fecha de entrega de la evidencia
+         */
         datos[5] = Calendario.obtenerFecha(jDateChooser1);
-        
+
         /*
          * El simbolo "☺" representa un dato vacio en el arreglo de 
          * identificadores lo que identifica que se esta haciendo una insersión
@@ -644,92 +684,92 @@ public final class FormActividad extends javax.swing.JPanel {
         if ("☺".equals(ID[ID.length - 1])) {
 
             /* Se verifica si los datos del formulario estan vacios */
-            if ("".equals(jTextField5.getText()) ||
-                    "".equals(jTextField7.getText()) ||
-                    Calendario.obtenerFecha(jDateChooser1) == null) {
-
-                /* Se muestra un mensaje de error */
-                JOptionPane.showMessageDialog(null, 
-                "Debe diligenciar los campos obligatorios (*)", "Error", 
-                JOptionPane.ERROR_MESSAGE);
-
-            } else {
-                
-                /*Se insertan los datos de la actividad en la base de datos*/
-                Actividad.Insertar(declaracion,ID,datos);
-                
-                /* 
-                 * Se animan los objetos para que salgan del panel y se realiza 
-                 * el cambio de pantalla
-                 */
-                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                        retorno + ".Ver", nombrePantalla, tipo, usuario, 
-                        Arreglo.quitar(ID), declaracion);
-               
-            }
-                
-        } else {
-
-            /* Se verifica si los datos del formulario estan vacios */
-            if ("".equals(jTextField5.getText()) ||
-                    "".equals(jTextField7.getText()) ||
-                    Calendario.obtenerFecha(jDateChooser1) == null) {
+            if ("".equals(jTextField5.getText())
+                    || "".equals(jTextField7.getText())
+                    || Calendario.obtenerFecha(jDateChooser1) == null) {
 
                 /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
-                "Debe diligenciar los campos obligatorios (*)", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+                        "Debe diligenciar los campos obligatorios (*)", "Error",
+                        JOptionPane.ERROR_MESSAGE);
 
             } else {
-                
-                /*Se actualizan los datos de la actividad en la base de datos*/
-                Actividad.ActualizarEnID(declaracion, datos, ID[ID.length - 1]);
-                
+
+                /*Se insertan los datos de la actividad en la base de datos*/
+                Actividad.Insertar(declaracion, ID, datos);
+
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
                  * el cambio de pantalla
                  */
-                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                        retorno, nombrePantalla, tipo, usuario, 
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                        retorno + ".Ver", nombrePantalla, tipo, usuario,
                         Arreglo.quitar(ID), declaracion);
-            
+
             }
-                
+
+        } else {
+
+            /* Se verifica si los datos del formulario estan vacios */
+            if ("".equals(jTextField5.getText())
+                    || "".equals(jTextField7.getText())
+                    || Calendario.obtenerFecha(jDateChooser1) == null) {
+
+                /* Se muestra un mensaje de error */
+                JOptionPane.showMessageDialog(null,
+                        "Debe diligenciar los campos obligatorios (*)", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+
+            } else {
+
+                /*Se actualizan los datos de la actividad en la base de datos*/
+                Actividad.ActualizarEnID(declaracion, datos, ID[ID.length - 1]);
+
+                /* 
+                 * Se animan los objetos para que salgan del panel y se realiza 
+                 * el cambio de pantalla
+                 */
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                        retorno, nombrePantalla, tipo, usuario,
+                        Arreglo.quitar(ID), declaracion);
+
+            }
+
         }
 
-        
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 100 */
         Validaciones.longitud(evt, jTextField5.getText().length(), 100);
-        
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
-       
+
         /* Dar una longitud maxima de caracteres de 100 */
         Validaciones.longitud(evt, jTextField7.getText().length(), 100);
-        
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
     }//GEN-LAST:event_jTextField7KeyTyped
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
 
         /**
-         * Se abre el Frame corespondiente para gestionar la foto del 
-         * usuario actual
+         * Se abre el Frame corespondiente para gestionar la foto del usuario
+         * actual
          */
         Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
         foto.setLocationRelativeTo(null);   //se ubica al centro
         foto.setVisible(true);      //se le da visivilidad
-        
+
     }//GEN-LAST:event_jLabel3MousePressed
 
 

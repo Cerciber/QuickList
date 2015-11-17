@@ -11,7 +11,6 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist.funciones;
 
 import com.quicklist.AprobarActividades;
@@ -37,410 +36,407 @@ import com.quicklist.clases.ResultadoDeAprendizaje;
  * @author pabloycesar
  */
 public class PantallasInstructor {
-    
+
     int usuario;
     ResultSet resultado;
-    
-    public PantallasInstructor(String tipo,JPanel panelContenedor, String nombreClase,String pantallaActual, String usuario,String[] ID,Statement declaracion){
 
-            if("EditarMisDatos".equals(nombreClase)){
-                
-                FormFuncionarios p = new FormFuncionarios(tipo,pantallaActual,nombreClase,usuario,Arreglo.agregar(ID, usuario),declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
+    public PantallasInstructor(String tipo, JPanel panelContenedor, String nombreClase, String pantallaActual, String usuario, String[] ID, Statement declaracion) {
 
-            }
-            
-            if("T_Instructor".equals(nombreClase)){
+        if ("EditarMisDatos".equals(nombreClase)) {
 
-                
-                String[] menu={"Seleccionar Ficha","Ver Horario"};
-                String[] vinculo={"Instructor.Fichas","Instructor.Horario"};
-                String retorno="PantallaInicio";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,"Instructor",usuario,declaracion,ID);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoInicial();
+            FormFuncionarios p = new FormFuncionarios(tipo, pantallaActual, nombreClase, usuario, Arreglo.agregar(ID, usuario), declaracion);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimiento();
 
-            }
-            
-            if("Instructor".equals(nombreClase)){
+        }
 
-                String[] menu={"Seleccionar Ficha","Ver Horario"};
-                String[] vinculo={"Instructor.Fichas","Instructor.Horario"};
-                String retorno="PantallaInicio";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
+        if ("T_Instructor".equals(nombreClase)) {
 
-            }
-            
-            if("Instructor.Fichas".equals(nombreClase)){
-                
-                String[] nombreBotones={"Ver Ficha"};
-                String[] nombreIcono={"Ficha"};
-                String[] columna={"","Ficha"};
-                String[] vinculo={"Instructor.Fichas.Menu"};
-                String retorno="Instructor";
-                
-                Consulta c = new Consulta(declaracion);
-                c.tabla("T_Fichas join T_Horario on T_Fichas.Numero_De_Ficha=T_Horario.ID_Ficha");
-                String[] campos={"Numero_De_Ficha","Numero_De_Ficha"};
-                c.campos(campos);
-                String[] alias={"ID","Numero_De_Ficha"};
-                c.alias(alias);
-                c.columnaSeleccionada("Numero_De_Ficha");
-                c.condicion("ID_Funcionario = "+usuario);
-                c.panelContenedor(panelContenedor);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
+            String[] menu = {"Seleccionar Ficha", "Ver Horario"};
+            String[] vinculo = {"Instructor.Fichas", "Instructor.Horario"};
+            String retorno = "PantallaInicio";
 
-            }
-            
-            if("Instructor.Fichas.Menu".equals(nombreClase)){
+            PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, "Instructor", usuario, declaracion, ID);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimientoInicial();
 
-                String[] menu={"Horarios","Reporte de aprendices"};
-                String[] vinculo={"Instructor.Fichas.Horario","Instructor.Fichas.Reporte"};
-                String retorno="Instructor.Fichas";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
+        }
 
-            }
-            
-            if("Instructor.Fichas.Reporte".equals(nombreClase)){
+        if ("Instructor".equals(nombreClase)) {
 
-                new RAprendices().porFicha(declaracion, usuario, ID[ID.length-1]);
-                new PantallasInstructor(tipo,panelContenedor,"Instructor.Fichas.Menu",nombreClase,usuario,Arreglo.quitar(ID),declaracion);
+            String[] menu = {"Seleccionar Ficha", "Ver Horario"};
+            String[] vinculo = {"Instructor.Fichas", "Instructor.Horario"};
+            String retorno = "PantallaInicio";
 
-            }
-            
-            if("Instructor.Fichas.Horario".equals(nombreClase)){
+            PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimientoSecuencial();
 
-                String[] nombreBotones={"Ver Horario"};
-                String[] nombreIcono={"Horarios"};
-                String[] columna={"","Ficha","Instructor","Dia","Hora Inicio","Hora Fin","Fecha Inicio","Fecha Fin","Lugar","Resultado De Aprendizaje"};
-                String[] vinculo={"Instructor.Fichas.Horario.Menu"};
-                String retorno="Instructor.Fichas.Menu";
+        }
 
-                Consulta c = new Consulta(declaracion);
-                c.tabla("T_Horario join T_Resultado_De_Aprendizaje on T_Horario.ID_Resultado_De_Aprendizaje=T_Resultado_De_Aprendizaje.ID_Resultado_De_Aprendizaje join T_Informacion_Funcionarios on T_Horario.ID_Funcionario=T_Informacion_Funcionarios.Documento_De_Identidad ");
-                String[] campos={"ID_Horario","ID_Ficha","CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
-                c.campos(campos);
-                String[] alias={"ID_Horario","ID_Ficha","instructor","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
-                c.alias(alias);
-                c.columnaSeleccionada("ID_Ficha");
-                c.condicion("ID_Ficha = "+ID[ID.length-1]+" and ID_Funcionario = "+usuario+" and Fecha_Inicio<=getDate() and Fecha_Fin>=getDate()");
-                c.panelContenedor(panelContenedor);
-                String menu[][]=c.ejecutarConsulta();
-                int[] nFechas={6,7};
-                c.nFechas(nFechas);
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
+        if ("Instructor.Fichas".equals(nombreClase)) {
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu".equals(nombreClase)){
+            String[] nombreBotones = {"Ver Ficha"};
+            String[] nombreIcono = {"Ficha"};
+            String[] columna = {"", "Ficha"};
+            String[] vinculo = {"Instructor.Fichas.Menu"};
+            String retorno = "Instructor";
 
-                String[] menu={"Asistencia","Formato Etapa Lectiva"};
-                String[] vinculo={"Instructor.Fichas.Horario.Menu.Asistencia","Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva"};
-                String retorno="Instructor.Fichas.Horario";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
+            Consulta c = new Consulta(declaracion);
+            c.tabla("T_Fichas join T_Horario on T_Fichas.Numero_De_Ficha=T_Horario.ID_Ficha");
+            String[] campos = {"Numero_De_Ficha", "Numero_De_Ficha"};
+            c.campos(campos);
+            String[] alias = {"ID", "Numero_De_Ficha"};
+            c.alias(alias);
+            c.columnaSeleccionada("Numero_De_Ficha");
+            c.condicion("ID_Funcionario = " + usuario);
+            c.panelContenedor(panelContenedor);
+            String menu[][] = c.ejecutarConsulta();
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.Asistencia".equals(nombreClase)){
+            PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimientoSecuencial();
 
-                String[] menu={"Ver Asistencias","Tomar Asistencia","Reporte de Asistencia"};
-                String[] vinculo={"Instructor.Fichas.Horario.Menu.Asistencia.Ver","Instructor.Fichas.Horario.Menu.Asistencia.Ingresar","Instructor.Fichas.Horario.Menu.Asistencia.Reporte"};
-                String retorno="Instructor.Fichas.Horario.Menu";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
+        }
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.Asistencia.Reporte".equals(nombreClase)){
+        if ("Instructor.Fichas.Menu".equals(nombreClase)) {
 
-                new RFormatoDeInasistencia().porTrimestre(declaracion, ID[ID.length-1]);
-                new PantallasInstructor(tipo,panelContenedor,"Instructor.Fichas.Horario.Menu.Asistencia",nombreClase,usuario,Arreglo.quitar(ID),declaracion);
+            String[] menu = {"Horarios", "Reporte de aprendices"};
+            String[] vinculo = {"Instructor.Fichas.Horario", "Instructor.Fichas.Reporte"};
+            String retorno = "Instructor.Fichas";
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.Asistencia.Ver".equals(nombreClase)){
+            PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimientoSecuencial();
 
-                String[] nombreBotones={"Editar","Borrar"};
-                String[] nombreIcono={"Editar","Borrar"};
-                String[] columna={"","","Fecha"};
-                String[] vinculo={"Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar","Instructor.Fichas.Horario.Menu.Asistencia.Ver.Borrar"};
-                String retorno="Instructor.Fichas.Horario.Menu.Asistencia";
+        }
 
-                Consulta c = new Consulta(declaracion);
-                c.tabla("T_Formacion");
-                String[] campos={"ID_Formacion","Fecha"};
-                c.campos(campos);
-                String[] alias={"ID_Formacion","Fecha"};
-                c.alias(alias);
-                c.columnaSeleccionada("Fecha");
-                c.condicion("ID_Horario = "+ID[ID.length-1]);
-                c.panelContenedor(panelContenedor);
-                int[] nFechas={1};
-                c.nFechas(nFechas);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
-                
+        if ("Instructor.Fichas.Reporte".equals(nombreClase)) {
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar".equals(nombreClase)){
+            new RAprendices().porFicha(declaracion, usuario, ID[ID.length - 1]);
+            new PantallasInstructor(tipo, panelContenedor, "Instructor.Fichas.Menu", nombreClase, usuario, Arreglo.quitar(ID), declaracion);
 
-                String retorno="Instructor.Fichas.Horario.Menu.Asistencia.Ver";
-                String vinculo="Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar.siguiente";
-                
-                FormFormacion p = new FormFormacion(tipo,vinculo,retorno,nombreClase,usuario,ID,declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
+        }
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar.siguiente".equals(nombreClase)){
-                
-                String retorno="Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar";
-                String vinculo="Instructor.Fichas.Horario.Menu.Asistencia.Ver";
-                
-                TomarAsistencia p = new TomarAsistencia(tipo,vinculo,retorno,nombreClase,usuario,ID,declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-                
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.Asistencia.Ver.Borrar".equals(nombreClase)){
+        if ("Instructor.Fichas.Horario".equals(nombreClase)) {
 
-                String[] vinculo={"Instructor.Fichas.Horario.Menu.Asistencia.Ver.Borrar.Confirmado","Instructor.Fichas.Horario.Menu.Asistencia.Ver"};
-                String retorno="Instructor.Fichas.Horario.Menu.Asistencia.Ver";
-                String pregunta="¿Desea eliminar la Formación "+ID[ID.length-1]+"?";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
+            String[] nombreBotones = {"Ver Horario"};
+            String[] nombreIcono = {"Horarios"};
+            String[] columna = {"", "Ficha", "Instructor", "Dia", "Hora Inicio", "Hora Fin", "Fecha Inicio", "Fecha Fin", "Lugar", "Resultado De Aprendizaje"};
+            String[] vinculo = {"Instructor.Fichas.Horario.Menu"};
+            String retorno = "Instructor.Fichas.Menu";
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.Asistencia.Ver.Borrar.Confirmado".equals(nombreClase)){
+            Consulta c = new Consulta(declaracion);
+            c.tabla("T_Horario join T_Resultado_De_Aprendizaje on T_Horario.ID_Resultado_De_Aprendizaje=T_Resultado_De_Aprendizaje.ID_Resultado_De_Aprendizaje join T_Informacion_Funcionarios on T_Horario.ID_Funcionario=T_Informacion_Funcionarios.Documento_De_Identidad ");
+            String[] campos = {"ID_Horario", "ID_Ficha", "CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)", "Dia_Semana", "Hora_Inicio", "Hora_Fin", "Fecha_Inicio", "Fecha_Fin", "Lugar", "Resultado_De_Aprendizaje"};
+            c.campos(campos);
+            String[] alias = {"ID_Horario", "ID_Ficha", "instructor", "Dia_Semana", "Hora_Inicio", "Hora_Fin", "Fecha_Inicio", "Fecha_Fin", "Lugar", "Resultado_De_Aprendizaje"};
+            c.alias(alias);
+            c.columnaSeleccionada("ID_Ficha");
+            c.condicion("ID_Ficha = " + ID[ID.length - 1] + " and ID_Funcionario = " + usuario + " and Fecha_Inicio<=getDate() and Fecha_Fin>=getDate()");
+            c.panelContenedor(panelContenedor);
+            String menu[][] = c.ejecutarConsulta();
+            int[] nFechas = {6, 7};
+            c.nFechas(nFechas);
 
-                Formacion.BorrarPorID(declaracion, ID[ID.length-1]);
-                new PantallasInstructor(tipo,panelContenedor,"Instructor.Fichas.Horario.Menu.Asistencia.Ver",nombreClase,usuario,Arreglo.quitar(ID),declaracion);
+            PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimientoSecuencial();
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.Asistencia.Ingresar".equals(nombreClase)){
-                
-                String retorno="Instructor.Fichas.Horario.Menu.Asistencia";
-                String vinculo="Instructor.Fichas.Horario.Menu.Asistencia.Ingresar.Siguiente";
-                
-                FormFormacion p = new FormFormacion(tipo,vinculo,retorno,nombreClase,usuario,Arreglo.agregar(Arreglo.quitar(ID),"☺"),declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-                
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.Asistencia.Ingresar.Siguiente".equals(nombreClase)){
-                
-                String retorno="Instructor.Fichas.Horario.Menu.Asistencia.Ingresar";
-                String vinculo="Instructor.Fichas.Horario.Menu.Asistencia.Ver";
-                
-                TomarAsistencia p = new TomarAsistencia(tipo,vinculo,retorno,nombreClase,usuario,(ID),declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-                
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva".equals(nombreClase)){
+        }
 
-                String[] menu={"Ver Actividades","Ingresar actividad"};
-                String[] vinculo={"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver","Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ingresar"};
-                String retorno="Instructor.Fichas.Horario.Menu";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
+        if ("Instructor.Fichas.Horario.Menu".equals(nombreClase)) {
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver".equals(nombreClase)){
+            String[] menu = {"Asistencia", "Formato Etapa Lectiva"};
+            String[] vinculo = {"Instructor.Fichas.Horario.Menu.Asistencia", "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva"};
+            String retorno = "Instructor.Fichas.Horario";
 
-                String[] nombreBotones={"Editar","Borrar","Aprobar"};
-                String[] nombreIcono={"Editar","Borrar","Aprobar"};
-                String[] columna={"","","","Nombre Actividad","Nombre Evidencia","Medio","Tipo","Fecha Recoleccion De Evidencia"};
-                String[] vinculo={"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Editar","Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar","Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Aprobar"};
-                String retorno="Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva";
+            PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimientoSecuencial();
 
-                Consulta c = new Consulta(declaracion);
-                c.tabla("T_Actividades");
-                String[] campos={"ID_Actividad","Nombre_Actividad","Nombre_Evidencia","Medio","Tipo","Fecha_RecoleccionEvidencia"};
-                c.campos(campos);
-                String[] alias={"ID_Actividad","Nombre_Actividad","Nombre_Evidencia","Medio","Tipo","Fecha_RecoleccionEvidencia"};
-                c.alias(alias);
-                c.columnaSeleccionada("Nombre_Actividad");
-                c.condicion("ID_Horario = "+ID[ID.length-1]);
-                c.panelContenedor(panelContenedor);
-                int[] nFechas={5};
-                c.nFechas(nFechas);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
-                
+        }
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Editar".equals(nombreClase)){
+        if ("Instructor.Fichas.Horario.Menu.Asistencia".equals(nombreClase)) {
 
-                String retorno="Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver";
-                
-                FormActividad p = new FormActividad(tipo,retorno,nombreClase,usuario,ID,declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
+            String[] menu = {"Ver Asistencias", "Tomar Asistencia", "Reporte de Asistencia"};
+            String[] vinculo = {"Instructor.Fichas.Horario.Menu.Asistencia.Ver", "Instructor.Fichas.Horario.Menu.Asistencia.Ingresar", "Instructor.Fichas.Horario.Menu.Asistencia.Reporte"};
+            String retorno = "Instructor.Fichas.Horario.Menu";
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar".equals(nombreClase)){
+            PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimientoSecuencial();
 
-                String[] vinculo={"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar.Confirmado","Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver"};
-                String retorno="Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver";
-                String pregunta="¿Desea eliminar la Actividad "+ID[ID.length-1]+"?";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
+        }
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar.Confirmado".equals(nombreClase)){
+        if ("Instructor.Fichas.Horario.Menu.Asistencia.Reporte".equals(nombreClase)) {
 
-                String[] vinculo={"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar.Confirmado.Confirmado","Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver"};
-                String retorno="Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver";
-                String pregunta="Al eliminarlo se borraran todos los datos ligados a este usuario";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
+            new RFormatoDeInasistencia().porTrimestre(declaracion, ID[ID.length - 1]);
+            new PantallasInstructor(tipo, panelContenedor, "Instructor.Fichas.Horario.Menu.Asistencia", nombreClase, usuario, Arreglo.quitar(ID), declaracion);
 
-            }
-            
-            if("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)){
-                
-                Actividad.BorrarPorID(declaracion, ID[ID.length-1]);
-                new PantallasInstructor(tipo,panelContenedor,"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver",nombreClase,usuario,Arreglo.quitar(Arreglo.quitar(Arreglo.quitar(ID))),declaracion);
-            
-            }
+        }
 
-            if("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ingresar".equals(nombreClase)){
+        if ("Instructor.Fichas.Horario.Menu.Asistencia.Ver".equals(nombreClase)) {
 
-                String retorno="Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva";
-                
-                FormActividad p = new FormActividad(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
+            String[] nombreBotones = {"Editar", "Borrar"};
+            String[] nombreIcono = {"Editar", "Borrar"};
+            String[] columna = {"", "", "Fecha"};
+            String[] vinculo = {"Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar", "Instructor.Fichas.Horario.Menu.Asistencia.Ver.Borrar"};
+            String retorno = "Instructor.Fichas.Horario.Menu.Asistencia";
 
-            }
+            Consulta c = new Consulta(declaracion);
+            c.tabla("T_Formacion");
+            String[] campos = {"ID_Formacion", "Fecha"};
+            c.campos(campos);
+            String[] alias = {"ID_Formacion", "Fecha"};
+            c.alias(alias);
+            c.columnaSeleccionada("Fecha");
+            c.condicion("ID_Horario = " + ID[ID.length - 1]);
+            c.panelContenedor(panelContenedor);
+            int[] nFechas = {1};
+            c.nFechas(nFechas);
+            String menu[][] = c.ejecutarConsulta();
 
-            if("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Aprobar".equals(nombreClase)){
+            PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimientoSecuencial();
 
-                String retorno="Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver";
-                
-                AprobarActividades p = new AprobarActividades(tipo,retorno,nombreClase,usuario,ID,declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
+        }
 
-            }
-           
-            if("Instructor.Horario".equals(nombreClase)){
+        if ("Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar".equals(nombreClase)) {
 
-                String[] nombreBotones={"Ir al Horario"};
-                String[] nombreIcono={"Horarios"};
-                String[] columna={"","Ficha","Dia","Hora Inicio","Hora Fin","Fecha Inicio","Fecha Fin","Lugar","Resultado De Aprendizaje"};
-                String[] vinculo={"Instructor.Fichas.Horario.Menu"};
-                String retorno="Instructor";
+            String retorno = "Instructor.Fichas.Horario.Menu.Asistencia.Ver";
+            String vinculo = "Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar.siguiente";
 
-                Consulta c = new Consulta(declaracion);
-                c.tabla("T_Horario join T_Resultado_De_Aprendizaje on T_Horario.ID_Resultado_De_Aprendizaje=T_Resultado_De_Aprendizaje.ID_Resultado_De_Aprendizaje join T_Informacion_Funcionarios on T_Horario.ID_Funcionario=T_Informacion_Funcionarios.Documento_De_Identidad ");
-                String[] campos={"ID_Horario","ID_Ficha","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
-                c.campos(campos);
-                String[] alias={"ID_Horario","ID_Ficha","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
-                c.alias(alias);
-                c.columnaSeleccionada("ID_Ficha");
-                c.condicion("ID_Funcionario = "+usuario);
-                c.panelContenedor(panelContenedor);
-                int[] nFechas={5,6};
-                c.nFechas(nFechas);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
+            FormFormacion p = new FormFormacion(tipo, vinculo, retorno, nombreClase, usuario, ID, declaracion);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimiento();
 
-            }
-    
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar.siguiente".equals(nombreClase)) {
+
+            String retorno = "Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar";
+            String vinculo = "Instructor.Fichas.Horario.Menu.Asistencia.Ver";
+
+            TomarAsistencia p = new TomarAsistencia(tipo, vinculo, retorno, nombreClase, usuario, ID, declaracion);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimiento();
+
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.Asistencia.Ver.Borrar".equals(nombreClase)) {
+
+            String[] vinculo = {"Instructor.Fichas.Horario.Menu.Asistencia.Ver.Borrar.Confirmado", "Instructor.Fichas.Horario.Menu.Asistencia.Ver"};
+            String retorno = "Instructor.Fichas.Horario.Menu.Asistencia.Ver";
+            String pregunta = "¿Desea eliminar la Formación " + ID[ID.length - 1] + "?";
+
+            Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimiento();
+
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.Asistencia.Ver.Borrar.Confirmado".equals(nombreClase)) {
+
+            Formacion.BorrarPorID(declaracion, ID[ID.length - 1]);
+            new PantallasInstructor(tipo, panelContenedor, "Instructor.Fichas.Horario.Menu.Asistencia.Ver", nombreClase, usuario, Arreglo.quitar(ID), declaracion);
+
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.Asistencia.Ingresar".equals(nombreClase)) {
+
+            String retorno = "Instructor.Fichas.Horario.Menu.Asistencia";
+            String vinculo = "Instructor.Fichas.Horario.Menu.Asistencia.Ingresar.Siguiente";
+
+            FormFormacion p = new FormFormacion(tipo, vinculo, retorno, nombreClase, usuario, Arreglo.agregar(Arreglo.quitar(ID), "☺"), declaracion);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimiento();
+
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.Asistencia.Ingresar.Siguiente".equals(nombreClase)) {
+
+            String retorno = "Instructor.Fichas.Horario.Menu.Asistencia.Ingresar";
+            String vinculo = "Instructor.Fichas.Horario.Menu.Asistencia.Ver";
+
+            TomarAsistencia p = new TomarAsistencia(tipo, vinculo, retorno, nombreClase, usuario, (ID), declaracion);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimiento();
+
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva".equals(nombreClase)) {
+
+            String[] menu = {"Ver Actividades", "Ingresar actividad"};
+            String[] vinculo = {"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver", "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ingresar"};
+            String retorno = "Instructor.Fichas.Horario.Menu";
+
+            PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimientoSecuencial();
+
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver".equals(nombreClase)) {
+
+            String[] nombreBotones = {"Editar", "Borrar", "Aprobar"};
+            String[] nombreIcono = {"Editar", "Borrar", "Aprobar"};
+            String[] columna = {"", "", "", "Nombre Actividad", "Nombre Evidencia", "Medio", "Tipo", "Fecha Recoleccion De Evidencia"};
+            String[] vinculo = {"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Editar", "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar", "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Aprobar"};
+            String retorno = "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva";
+
+            Consulta c = new Consulta(declaracion);
+            c.tabla("T_Actividades");
+            String[] campos = {"ID_Actividad", "Nombre_Actividad", "Nombre_Evidencia", "Medio", "Tipo", "Fecha_RecoleccionEvidencia"};
+            c.campos(campos);
+            String[] alias = {"ID_Actividad", "Nombre_Actividad", "Nombre_Evidencia", "Medio", "Tipo", "Fecha_RecoleccionEvidencia"};
+            c.alias(alias);
+            c.columnaSeleccionada("Nombre_Actividad");
+            c.condicion("ID_Horario = " + ID[ID.length - 1]);
+            c.panelContenedor(panelContenedor);
+            int[] nFechas = {5};
+            c.nFechas(nFechas);
+            String menu[][] = c.ejecutarConsulta();
+
+            PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimientoSecuencial();
+
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Editar".equals(nombreClase)) {
+
+            String retorno = "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver";
+
+            FormActividad p = new FormActividad(tipo, retorno, nombreClase, usuario, ID, declaracion);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimiento();
+
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar".equals(nombreClase)) {
+
+            String[] vinculo = {"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar.Confirmado", "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver"};
+            String retorno = "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver";
+            String pregunta = "¿Desea eliminar la Actividad " + ID[ID.length - 1] + "?";
+
+            Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimiento();
+
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar.Confirmado".equals(nombreClase)) {
+
+            String[] vinculo = {"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar.Confirmado.Confirmado", "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver"};
+            String retorno = "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver";
+            String pregunta = "Al eliminarlo se borraran todos los datos ligados a este usuario";
+
+            Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimiento();
+
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
+
+            Actividad.BorrarPorID(declaracion, ID[ID.length - 1]);
+            new PantallasInstructor(tipo, panelContenedor, "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver", nombreClase, usuario, Arreglo.quitar(Arreglo.quitar(Arreglo.quitar(ID))), declaracion);
+
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ingresar".equals(nombreClase)) {
+
+            String retorno = "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva";
+
+            FormActividad p = new FormActividad(tipo, retorno, nombreClase, usuario, Arreglo.agregar(ID, "☺"), declaracion);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimiento();
+
+        }
+
+        if ("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Aprobar".equals(nombreClase)) {
+
+            String retorno = "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver";
+
+            AprobarActividades p = new AprobarActividades(tipo, retorno, nombreClase, usuario, ID, declaracion);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimiento();
+
+        }
+
+        if ("Instructor.Horario".equals(nombreClase)) {
+
+            String[] nombreBotones = {"Ir al Horario"};
+            String[] nombreIcono = {"Horarios"};
+            String[] columna = {"", "Ficha", "Dia", "Hora Inicio", "Hora Fin", "Fecha Inicio", "Fecha Fin", "Lugar", "Resultado De Aprendizaje"};
+            String[] vinculo = {"Instructor.Fichas.Horario.Menu"};
+            String retorno = "Instructor";
+
+            Consulta c = new Consulta(declaracion);
+            c.tabla("T_Horario join T_Resultado_De_Aprendizaje on T_Horario.ID_Resultado_De_Aprendizaje=T_Resultado_De_Aprendizaje.ID_Resultado_De_Aprendizaje join T_Informacion_Funcionarios on T_Horario.ID_Funcionario=T_Informacion_Funcionarios.Documento_De_Identidad ");
+            String[] campos = {"ID_Horario", "ID_Ficha", "Dia_Semana", "Hora_Inicio", "Hora_Fin", "Fecha_Inicio", "Fecha_Fin", "Lugar", "Resultado_De_Aprendizaje"};
+            c.campos(campos);
+            String[] alias = {"ID_Horario", "ID_Ficha", "Dia_Semana", "Hora_Inicio", "Hora_Fin", "Fecha_Inicio", "Fecha_Fin", "Lugar", "Resultado_De_Aprendizaje"};
+            c.alias(alias);
+            c.columnaSeleccionada("ID_Ficha");
+            c.condicion("ID_Funcionario = " + usuario);
+            c.panelContenedor(panelContenedor);
+            int[] nFechas = {5, 6};
+            c.nFechas(nFechas);
+            String menu[][] = c.ejecutarConsulta();
+
+            PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
+            panelContenedor.removeAll();
+            panelContenedor.add(p);
+            panelContenedor.validate();
+            p.movimientoSecuencial();
+
+        }
+
     }
-    
+
 }

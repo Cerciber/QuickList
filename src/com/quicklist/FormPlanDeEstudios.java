@@ -35,43 +35,44 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
     String retorno;     //Ruta de acceso a la ventana anterior
     String tipo;    //Rol del usuario que accede a la clase
     String nombrePantalla;      //Ruta de la ventana actual
-    
-    /** 
-     * Arreglo que almacena los identificadores nesesarios para cargar los 
-     * datos en cada una de las pantallas a las que se ha accedido desde el 
-     * login para recuperar las pantallas anteriores en caso de retorno
+
+    /**
+     * Arreglo que almacena los identificadores nesesarios para cargar los datos
+     * en cada una de las pantallas a las que se ha accedido desde el login para
+     * recuperar las pantallas anteriores en caso de retorno
      */
-    String[] ID;    
-    
+    String[] ID;
+
     /**
      * Objeto empleado para realizar la consultas en la base de datos
      */
-    Statement declaracion;      
-    
+    Statement declaracion;
+
     /**
-     * Arreglo que contiene todos los componentes de la pantalla 
-     * a los cuales se les da movimineto inicial
+     * Arreglo que contiene todos los componentes de la pantalla a los cuales se
+     * les da movimineto inicial
      */
     Component[] objeto;
-    
+
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
     int[] conf = cargarConfiguracion();
-    
+
     /**
      * Metodo constructor de la clase
+     *
      * @param tipo
      * @param retorno
      * @param nombrePantalla
      * @param usuario
      * @param ID
-     * @param declaracion 
+     * @param declaracion
      */
-    public FormPlanDeEstudios(String tipo, String retorno, 
-            String nombrePantalla, String usuario, String[] ID, 
+    public FormPlanDeEstudios(String tipo, String retorno,
+            String nombrePantalla, String usuario, String[] ID,
             Statement declaracion) {
-        
+
         /*
          * Se asignan los valores de los parametros de forma global
          */
@@ -81,58 +82,59 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
         this.declaracion = declaracion;
         this.ID = ID;
         this.nombrePantalla = nombrePantalla;
-        
+
         initComponents();   //Se crean los componentes graficos
-        
+
         /* Se cargan y se ubican los datos del usuario */
         new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
-        
+
         datosActividad(ID);     //Se carga y se ubica la tabla de información
-        
+
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
-        
+
         /*Dar fuente, tipo de letra y tamaño*/
         jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel17.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel18.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
         jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        
-        jTextField5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        
-        jTextField7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        
-        jTextField8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        
-        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        jComboBox5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                             conf[3]));
-        
+
+        jTextField5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jTextField7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jTextField8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
+        jTextField9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+        jComboBox5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
          */
-        new MoverObjeto(jPanel8); 
-        
+        new MoverObjeto(jPanel8);
+
     }
-    
+
     /**
-     * Este metodo carga los datos del plan de estudios que se quiere modificar 
+     * Este metodo carga los datos del plan de estudios que se quiere modificar
      * cuando sea necesario
+     *
      * @param ID
      */
     public void datosActividad(String[] ID) {
-        
+
         /*
-        * El simbolo "☺" representa un dato vacio en el arreglo de 
-        * identificadores lo que identifica que se esta haciendo una insersión
-        * y no una actualización.
-        */
+         * El simbolo "☺" representa un dato vacio en el arreglo de 
+         * identificadores lo que identifica que se esta haciendo una insersión
+         * y no una actualización.
+         */
         if (!"☺".equals(ID[ID.length - 1])) {
 
             /*
@@ -142,49 +144,58 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
             String[][] lista = PlanDeEstudios.SeleccionarPorID(declaracion,
                     ID[ID.length - 1]);
 
-            /** Se asigna el dato del nombre del plan de estudios */
+            /**
+             * Se asigna el dato del nombre del plan de estudios
+             */
             jTextField5.setText(lista[0][1]);
-            
-            /** Se asigna el dato del nombre del programa de formación */
+
+            /**
+             * Se asigna el dato del nombre del programa de formación
+             */
             jTextField7.setText(lista[0][2]);
-            
-            /** Se asigna el dato de la versión del plan de estudios */
+
+            /**
+             * Se asigna el dato de la versión del plan de estudios
+             */
             jTextField8.setText(lista[0][3]);
-            
-            /** Se asigna el dato de los meses de etapa lectiva */
+
+            /**
+             * Se asigna el dato de los meses de etapa lectiva
+             */
             jTextField9.setText(lista[0][4]);
-            
-            /** Se asigna el nivel de formación del plan de estudios */
+
+            /**
+             * Se asigna el nivel de formación del plan de estudios
+             */
             jComboBox5.setSelectedItem(lista[0][5]);
 
         }
 
     }
-    
+
     /**
-     * Permite seleccionar los componentes en el panel a los cuales 
-     * se les dara animación
+     * Permite seleccionar los componentes en el panel a los cuales se les dara
+     * animación
      */
     public void movimiento() {
-        
+
         /* Se crea el arreglo con los componentes */
         Component[] objeto2 = {jPanel8};
-        
+
         /*
          * Se asigna el arreglo de forma global para que este se pueda 
          * utiizar en los eventos
          */
         objeto = objeto2;
-        
+
         /* 
          * Permite dar un movimiento inicial a los objetos del arreglo en 
          * forma secuencial
          */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
-    
+
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -587,43 +598,43 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 100 */
         Validaciones.longitud(evt, jTextField5.getText().length(), 100);
-        
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 100 */
         Validaciones.longitud(evt, jTextField7.getText().length(), 100);
-        
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
     }//GEN-LAST:event_jTextField7KeyTyped
 
     private void jTextField8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 9 */
         Validaciones.longitud(evt, jTextField8.getText().length(), 9);
-        
+
         /* Restringir caracteres no numericos */
         Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
-        
+
     }//GEN-LAST:event_jTextField8KeyTyped
 
     private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 2 */
         Validaciones.longitud(evt, jTextField9.getText().length(), 2);
-        
+
         /* Restringir caracteres no numericos */
         Validaciones.restringirCaracterFueraDe(evt, evt.getKeyChar(), '0', '9');
-        
+
     }//GEN-LAST:event_jTextField9KeyTyped
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -640,12 +651,12 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
              * Se animan los objetos para que salgan del panel y se realiza 
              * el cambio de pantalla
              */
-            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
-                                         nombrePantalla, tipo, usuario, 
-                                         Arreglo.quitar(ID), declaracion);
-            
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno,
+                    nombrePantalla, tipo, usuario,
+                    Arreglo.quitar(ID), declaracion);
+
         }
-        
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -655,58 +666,68 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
          * que se van a animar al momento de la salida
          */
         Component[] componentes = new Component[objeto.length + 2];
-        
+
         componentes[0] = jPanel2;   //Se añade el panel superior
         componentes[1] = jPanel3;   //Se añade el panel inferior
 
         /* Se añaden los demas objetos a los que se les dió la animación */
         for (int i = 2; i <= componentes.length - 1; i++) {
-            componentes[i] = objeto[i - 2];       
+            componentes[i] = objeto[i - 2];
         }
 
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
-                                     "PantallaInicio", nombrePantalla, tipo, 
-                                     usuario, null, declaracion);
-        
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this,
+                "PantallaInicio", nombrePantalla, tipo,
+                usuario, null, declaracion);
+
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        
+
         /* Se abre la ventana de configuración de la aplicación */
         Configuracion c = new Configuracion();  //Instanciación
         c.setSize(800, 600);    //Tamaño de ventana
         c.setLocationRelativeTo(null);      //Ubicar al centro
         c.setVisible(true);     //Dar visivilidad
-        
+
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
+
         /*
          * Se crea un arrelo para contener los datos del plan de estudios con 
          * una longitud de 6 correspondientes a los inputs 
          */
         String[] datos = new String[5];
-        
-        /** Se obtiene el nombre del plan de estudios */
+
+        /**
+         * Se obtiene el nombre del plan de estudios
+         */
         datos[0] = jTextField5.getText();
-        
-        /** Se obtiene el programa de formación */
+
+        /**
+         * Se obtiene el programa de formación
+         */
         datos[1] = jTextField7.getText();
-        
-        /** Se obtiene la versión */
+
+        /**
+         * Se obtiene la versión
+         */
         datos[2] = jTextField8.getText();
-        
-        /** Se obtienen el los meses de etapa lectiva */
+
+        /**
+         * Se obtienen el los meses de etapa lectiva
+         */
         datos[3] = jTextField9.getText();
-        
-        /** Se obtiene el nivel de formación */
+
+        /**
+         * Se obtiene el nivel de formación
+         */
         datos[4] = jComboBox5.getSelectedItem().toString();
-        
+
         /*
          * El simbolo "☺" representa un dato vacio en el arreglo de 
          * identificadores lo que identifica que se esta haciendo una insersión
@@ -715,68 +736,68 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
         if ("☺".equals(ID[ID.length - 1])) {
 
             /* Se verifica si los datos del formulario estan vacios */
-            if ("".equals(jTextField5.getText()) ||
-                "".equals(jTextField7.getText()) ||
-                "".equals(jTextField8.getText()) ||
-                "".equals(jTextField9.getText())) {
+            if ("".equals(jTextField5.getText())
+                    || "".equals(jTextField7.getText())
+                    || "".equals(jTextField8.getText())
+                    || "".equals(jTextField9.getText())) {
 
                 /* Se muestra un mensaje de error */
-                 JOptionPane.showMessageDialog(null,
-                 "Debe diligenciar los campos obligatorios (*)", "Error", 
-                 JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Debe diligenciar los campos obligatorios (*)", "Error",
+                        JOptionPane.ERROR_MESSAGE);
 
             } else {
-                
+
                 /*
                  * Se insertan los datos del plan de estudios en la 
                  * base de datos
-                */
+                 */
                 PlanDeEstudios.Insertar(declaracion, datos);
-                
+
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
                  * el cambio de pantalla
                  */
-                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                        retorno + ".Ver", nombrePantalla, tipo, usuario, 
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                        retorno + ".Ver", nombrePantalla, tipo, usuario,
                         Arreglo.quitar(ID), declaracion);
-                
+
             }
-  
+
         } else {
 
             /* Se verifica si los datos del formulario estan vacios */
-            if ("".equals(jTextField5.getText()) ||
-                "".equals(jTextField7.getText()) ||
-                "".equals(jTextField8.getText()) ||
-                "".equals(jTextField9.getText())) {
+            if ("".equals(jTextField5.getText())
+                    || "".equals(jTextField7.getText())
+                    || "".equals(jTextField8.getText())
+                    || "".equals(jTextField9.getText())) {
 
                 /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
-                "Debe diligenciar los campos obligatorios (*)", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+                        "Debe diligenciar los campos obligatorios (*)", "Error",
+                        JOptionPane.ERROR_MESSAGE);
 
             } else {
-                
+
                 /* 
                  * Se actualizan los datos del plan de estudios en la base de 
                  * datos
                  */
-                PlanDeEstudios.ActualizarEnID(declaracion, datos, 
-                                              ID[ID.length - 1]);
-                
+                PlanDeEstudios.ActualizarEnID(declaracion, datos,
+                        ID[ID.length - 1]);
+
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
                  * el cambio de pantalla
                  */
-                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                        retorno, nombrePantalla, tipo, usuario, 
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                        retorno, nombrePantalla, tipo, usuario,
                         Arreglo.quitar(ID), declaracion);
-                
+
             }
-                
+
         }
-       
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
@@ -784,22 +805,22 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jPanel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MousePressed
-        
+
         /**
-         * Se abre el Frame corespondiente para gestionar la foto del 
-         * usuario actual
+         * Se abre el Frame corespondiente para gestionar la foto del usuario
+         * actual
          */
         Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
         foto.setLocationRelativeTo(null);   //se ubica al centro
         foto.setVisible(true);      //se le da visivilidad
-        
+
     }//GEN-LAST:event_jPanel6MousePressed
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
 
         /**
-         * Se abre el Frame corespondiente para gestionar la foto del 
-         * usuario actual
+         * Se abre el Frame corespondiente para gestionar la foto del usuario
+         * actual
          */
         Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
         foto.setLocationRelativeTo(null);   //se ubica al centro

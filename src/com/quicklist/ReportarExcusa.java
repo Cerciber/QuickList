@@ -26,7 +26,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
 /**
- * Esta clase permite al aprendiz gargar una excusa medica que evidencie la 
+ * Esta clase permite al aprendiz gargar una excusa medica que evidencie la
  * ausencia a alguna formación
  */
 public class ReportarExcusa extends javax.swing.JFrame {
@@ -38,89 +38,94 @@ public class ReportarExcusa extends javax.swing.JFrame {
     /**
      * Objeto empleado para realizar la consultas en la base de datos
      */
-    static Statement declaracion;   
-    
-    /** 
-     * Objeto empleado para seleccionar la ubicación de la excusa en el 
-     * ordenador 
+    static Statement declaracion;
+
+    /**
+     * Objeto empleado para seleccionar la ubicación de la excusa en el
+     * ordenador
      */
     JFileChooser abrirArchivo = new JFileChooser();
-    
-    /** Objeto que almacena la ruta de la foto seleccionada */
+
+    /**
+     * Objeto que almacena la ruta de la foto seleccionada
+     */
     File direccion;
-    
-    /** Objeto que contiene el codigo byte de la excusa que se va a almacenar */
+
+    /**
+     * Objeto que contiene el codigo byte de la excusa que se va a almacenar
+     */
     FileInputStream archivoImagen = null;
-    
+
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
-    int[] conf=cargarConfiguracion();
-    
+    int[] conf = cargarConfiguracion();
+
     /**
      * Metodo constructor de la case
+     *
      * @param declaracion
-     * @param ID 
+     * @param ID
      */
-    public ReportarExcusa(Statement declaracion,  String ID) {
-       
+    public ReportarExcusa(Statement declaracion, String ID) {
+
         /*
          * Se asignan los valores de los parametros de forma global
          */
         ReportarExcusa.ID = ID;
         ReportarExcusa.declaracion = declaracion;
-        
+
         initComponents();   //Se crean los componentes graficos
         this.setLocationRelativeTo(null);   //Se ubica el frame al centro
-        
+
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
          */
-        new MoverObjeto(jPanel1); 
-        
+        new MoverObjeto(jPanel1);
+
         /* Dar color de fondo */
-        jScrollPane2.getViewport().setBackground(new java.awt.Color(0, 153, 
-                                                                    153));
-        
+        jScrollPane2.getViewport().setBackground(new java.awt.Color(0, 153,
+                153));
+
         /*Dar fuente, tipo de letra y tamaño*/
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        
-        jTextArea1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                             conf[3]));
-        
+
+        jTextArea1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
         jButton5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         jButton7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
         jButton8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
-        
+
         /* Intentar cargar la excusa */
         try {
 
             /* Se carga la escusa de la base de datos */
             ImageIcon icono = new ImageIcon(Inasistencia
                     .SeleccionarExcusa(declaracion, ID));
-            
+
             /* Se  muestra la excusa en pantalla */
             this.jLabel1.setIcon(icono);
-            
+
             /* Se elimina el texto del marco de la foto */
             this.jLabel1.setText(null);
-            
+
             /* Se carga la descripción de la excusa */
             String[][] menu = Inasistencia
                     .SeleccionarDescripcionExcusa(declaracion, ID);
-            
+
             /* Se muestra el texto en pantalla */
             jTextArea1.setText(menu[0][0]);
-            
+
         } catch (NullPointerException ex) {
-            
+
             /* Se imprime el error en la consola serial */
             System.out.println(ex);
-            
+
         }
-        
+
     }
 
     /**
@@ -292,115 +297,114 @@ public class ReportarExcusa extends javax.swing.JFrame {
 
     private void jPanel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MousePressed
 
-        
 
     }//GEN-LAST:event_jPanel6MousePressed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
         int resp;  // Variable que contiene la respuesta de la carga de la excusa
-        
+
         /* Se abre la ventana para buscar la excusa en el equipo */
         resp = abrirArchivo.showOpenDialog(this);
 
         /* Se verifica si se seleccionó una excusa */
         if (resp == JFileChooser.APPROVE_OPTION) {
-            
+
             /* se guarda la ruta de la excusa seleccionada */
-            direccion = new File (abrirArchivo.getSelectedFile().toString());
-            
+            direccion = new File(abrirArchivo.getSelectedFile().toString());
+
             /* se carga la excusa de la ruta seleccionada */
             ImageIcon icono = new ImageIcon(direccion.toString());
-            
+
             /* Se intenta cargar el codigo byte de la excusa */
             try {
-                
+
                 /* 
                  * Se carga el codigo byte de la excusa de la ruta 
                  * especificada 
                  */
                 archivoImagen = new FileInputStream(direccion);
-              
-            /* 
-             * Se detiene la carga de la excusa en caso de que esta no exista o
-             * no se pueda cargar correctamente
-             */
+
+                /* 
+                 * Se detiene la carga de la excusa en caso de que esta no exista o
+                 * no se pueda cargar correctamente
+                 */
             } catch (FileNotFoundException ex) {
-                
+
                 /* Se imprime el error en la consola serial */
                 System.out.println(ex);
-            
+
             }
-            
+
             /* Se redimenciona la imagen de acuerdo a el tamaño del label */
-            ImageIcon imageScalada = new ImageIcon(icono.getImage()); 
+            ImageIcon imageScalada = new ImageIcon(icono.getImage());
 
             /* Se elimina el texto */
             this.jLabel1.setText(null);
-            
+
             /* Se muestra la foto en pantalla */
             this.jLabel1.setIcon(imageScalada);
-            
+
             /* Se desaciva el verificador de foto nula */
             this.quitarFoto = false;
-            
+
             /* Se activa el verificador de que se ha realizado un cambio */
             modificado = true;
 
         }
-        
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
+
         /* Quitar la excusa del label */
         this.jLabel1.setIcon(null);
-        
+
         /* Se asigna el texto de no excusa */
         jLabel1.setText("No hay excusa");
-        
+
         /* Se activa el verificador de que se ha quitado la foto */
         quitarFoto = true;
-        
+
         /* Se activa el verificador de que se ha realizado un cambio */
-        modificado=true;
-        
+        modificado = true;
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        
-         /* Se verifica si se ha modificado el estado de la foto */
-        if(modificado){
-            
+
+        /* Se verifica si se ha modificado el estado de la foto */
+        if (modificado) {
+
             /* Se realiza el cambio en la base de datos */
             Inasistencia.ActualizarExcusa(declaracion, ID, archivoImagen);
-            
+
         }
-        
+
         /* Se realiza el cambio de la descripción en la base de datos */
-        Inasistencia.ActualizarDescripcionExcusa(declaracion, ID, 
-                                                 jTextArea1.getText());
-        
+        Inasistencia.ActualizarDescripcionExcusa(declaracion, ID,
+                jTextArea1.getText());
+
         /* Se cierra la ventana */
         this.dispose();
-        
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
+
         /* Se cierra la ventana */
         this.dispose();
-        
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 100 */
         Validaciones.longitud(evt, jTextArea1.getText().length(), 100);
-        
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
     }//GEN-LAST:event_jTextArea1KeyTyped
 
     /**

@@ -19,7 +19,7 @@ ANIMACIONES
 Estado:
 1
 Velocidad:
-100
+85
 ---------------------
 MOVIMIENTO DEL TECLADO
 ---------------------

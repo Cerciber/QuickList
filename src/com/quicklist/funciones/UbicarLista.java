@@ -11,7 +11,6 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist.funciones;
 
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
@@ -25,361 +24,351 @@ import javax.swing.JPanel;
  * @author pabloycesar
  */
 public final class UbicarLista {
-    
-    int[] conf=cargarConfiguracion();
-    
-    public UbicarLista(JPanel contenedor,Component[] objeto){
+
+    int[] conf = cargarConfiguracion();
+
+    public UbicarLista(JPanel contenedor, Component[] objeto) {
 
         contenedor.removeAll();
-        distribucion(contenedor,objeto);
+        distribucion(contenedor, objeto);
 
     }
-    
-    public void distribucion(JPanel panel, Component[] objeto){
-    
+
+    public void distribucion(JPanel panel, Component[] objeto) {
+
         javax.swing.GroupLayout jPanelDeslizableLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(jPanelDeslizableLayout);
-        jPanelDeslizableLayout.setVerticalGroup(alineamientoVertical(jPanelDeslizableLayout,objeto));
-        jPanelDeslizableLayout.setHorizontalGroup(alineamientoHorizontal(jPanelDeslizableLayout,objeto));
-        
+        jPanelDeslizableLayout.setVerticalGroup(alineamientoVertical(jPanelDeslizableLayout, objeto));
+        jPanelDeslizableLayout.setHorizontalGroup(alineamientoHorizontal(jPanelDeslizableLayout, objeto));
 
     }
-    
-    public GroupLayout.ParallelGroup alineamientoHorizontal(GroupLayout layout, Component[] objeto){
-        
-        GroupLayout.ParallelGroup parallelGroup= layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING); 
-        GroupLayout.ParallelGroup parallelGroup2= layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING); 
-     
-        for(int i=0;i<=objeto.length-1;i++){
-        
+
+    public GroupLayout.ParallelGroup alineamientoHorizontal(GroupLayout layout, Component[] objeto) {
+
+        GroupLayout.ParallelGroup parallelGroup = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+        GroupLayout.ParallelGroup parallelGroup2 = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING);
+
+        for (int i = 0; i <= objeto.length - 1; i++) {
+
             parallelGroup2.addComponent(objeto[i], javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE);
             parallelGroup2.addGap(conf[5]);
         }
-        
-        GroupLayout.SequentialGroup sequentialGroup= layout.createSequentialGroup(); 
+
+        GroupLayout.SequentialGroup sequentialGroup = layout.createSequentialGroup();
         sequentialGroup.addGap(conf[6]);
         sequentialGroup.addGroup(parallelGroup2);
         sequentialGroup.addGap(conf[6]);
-        parallelGroup.addGroup(sequentialGroup); 
-        
+        parallelGroup.addGroup(sequentialGroup);
 
-        return parallelGroup; 
+        return parallelGroup;
 
-        
     }
-    
-     public GroupLayout.ParallelGroup alineamientoVertical(GroupLayout layout,Component[] objeto){
-        
-        GroupLayout.ParallelGroup parallelGroup= layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING); 
-        GroupLayout.SequentialGroup sequentialGroup= layout.createSequentialGroup();
-        
+
+    public GroupLayout.ParallelGroup alineamientoVertical(GroupLayout layout, Component[] objeto) {
+
+        GroupLayout.ParallelGroup parallelGroup = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+        GroupLayout.SequentialGroup sequentialGroup = layout.createSequentialGroup();
+
         sequentialGroup.addGap(conf[6]);
-        for(int i=0;i<=objeto.length-1;i++){
-        
-            sequentialGroup.addComponent(objeto[i], javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE); 
+        for (int i = 0; i <= objeto.length - 1; i++) {
+
+            sequentialGroup.addComponent(objeto[i], javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE);
             sequentialGroup.addGap(conf[5]);
-            
+
         }
         sequentialGroup.addGap(conf[6]);
 
-        parallelGroup.addGroup(sequentialGroup); 
-        layout.setHorizontalGroup(parallelGroup); 
+        parallelGroup.addGroup(sequentialGroup);
+        layout.setHorizontalGroup(parallelGroup);
 
-        return parallelGroup; 
-        
+        return parallelGroup;
+
     }
-     
-    public UbicarLista(JPanel contenedor,Component[][] objeto, Component[][] boton){
+
+    public UbicarLista(JPanel contenedor, Component[][] objeto, Component[][] boton) {
 
         contenedor.removeAll();
-        distribucion(contenedor,objeto,boton);
+        distribucion(contenedor, objeto, boton);
 
     }
-    
-    public void distribucion(JPanel panel, Component[][] objeto, Component[][] boton){
-    
+
+    public void distribucion(JPanel panel, Component[][] objeto, Component[][] boton) {
+
         javax.swing.GroupLayout jPanelDeslizableLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(jPanelDeslizableLayout);
-        jPanelDeslizableLayout.setVerticalGroup(alineamientoVertical(jPanelDeslizableLayout,objeto,boton));
-        jPanelDeslizableLayout.setHorizontalGroup(alineamientoHorizontal(jPanelDeslizableLayout,objeto,boton));
-        
+        jPanelDeslizableLayout.setVerticalGroup(alineamientoVertical(jPanelDeslizableLayout, objeto, boton));
+        jPanelDeslizableLayout.setHorizontalGroup(alineamientoHorizontal(jPanelDeslizableLayout, objeto, boton));
 
     }
-    
-    public GroupLayout.ParallelGroup alineamientoHorizontal(GroupLayout layout, Component[][] objeto, Component[][] boton){
-        
-        GroupLayout.ParallelGroup parallelGroup= layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING); 
-        GroupLayout.SequentialGroup sequentialGroup= layout.createSequentialGroup(); 
+
+    public GroupLayout.ParallelGroup alineamientoHorizontal(GroupLayout layout, Component[][] objeto, Component[][] boton) {
+
+        GroupLayout.ParallelGroup parallelGroup = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+        GroupLayout.SequentialGroup sequentialGroup = layout.createSequentialGroup();
         GroupLayout.ParallelGroup parallelGroupBoton[] = new GroupLayout.ParallelGroup[boton[0].length];
-        GroupLayout.ParallelGroup parallelGroupObjeto[] = new GroupLayout.ParallelGroup[objeto[0].length]; 
-     
-        for(int i=0;i<=boton[0].length-1;i++){
-            
-            parallelGroupBoton[i]= layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING);       
-            
-        }
-        
-        for(int i=0;i<=objeto[0].length-1;i++){
-            
-            parallelGroupObjeto[i]= layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING);       
-            
+        GroupLayout.ParallelGroup parallelGroupObjeto[] = new GroupLayout.ParallelGroup[objeto[0].length];
+
+        for (int i = 0; i <= boton[0].length - 1; i++) {
+
+            parallelGroupBoton[i] = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING);
+
         }
 
-        for(int i=0;i<=boton.length-1;i++){
-            
-            for(int j=0;j<=boton[i].length-1;j++){
-        
+        for (int i = 0; i <= objeto[0].length - 1; i++) {
+
+            parallelGroupObjeto[i] = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING);
+
+        }
+
+        for (int i = 0; i <= boton.length - 1; i++) {
+
+            for (int j = 0; j <= boton[i].length - 1; j++) {
+
                 parallelGroupBoton[j].addComponent(boton[i][j], javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE);
-        
+
             }
-           
+
         }
-        
-        for(int i=0;i<=objeto.length-1;i++){
-            
-            for(int j=0;j<=objeto[i].length-1;j++){
-        
+
+        for (int i = 0; i <= objeto.length - 1; i++) {
+
+            for (int j = 0; j <= objeto[i].length - 1; j++) {
+
                 parallelGroupObjeto[j].addComponent(objeto[i][j], javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        
+
             }
-           
+
         }
-        
+
         sequentialGroup.addGap(conf[6]);
-        
-        for(int i=0;i<=boton[0].length-1;i++){
-            
-            sequentialGroup.addGroup(parallelGroupBoton[i]);     
+
+        for (int i = 0; i <= boton[0].length - 1; i++) {
+
+            sequentialGroup.addGroup(parallelGroupBoton[i]);
             sequentialGroup.addGap(conf[5]);
-            
+
         }
-        
-        for(int i=0;i<=objeto[0].length-1;i++){
-            
+
+        for (int i = 0; i <= objeto[0].length - 1; i++) {
+
             sequentialGroup.addGroup(parallelGroupObjeto[i]);
             sequentialGroup.addGap(conf[5]);
-            
+
         }
-        
+
         sequentialGroup.addGap(conf[6]);
-        parallelGroup.addGroup(sequentialGroup); 
-        
+        parallelGroup.addGroup(sequentialGroup);
 
-        return parallelGroup; 
+        return parallelGroup;
 
-        
     }
-    
-    public GroupLayout.ParallelGroup alineamientoVertical(GroupLayout layout,Component[][] objeto, Component[][] boton){
-        
-        GroupLayout.ParallelGroup parallelGroup= layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING); 
-        GroupLayout.SequentialGroup sequentialGroup= layout.createSequentialGroup();
-        GroupLayout.ParallelGroup parallelGroupComponentes[] = new GroupLayout.ParallelGroup[boton.length+objeto.length];
-        
+
+    public GroupLayout.ParallelGroup alineamientoVertical(GroupLayout layout, Component[][] objeto, Component[][] boton) {
+
+        GroupLayout.ParallelGroup parallelGroup = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+        GroupLayout.SequentialGroup sequentialGroup = layout.createSequentialGroup();
+        GroupLayout.ParallelGroup parallelGroupComponentes[] = new GroupLayout.ParallelGroup[boton.length + objeto.length];
+
         sequentialGroup.addGap(conf[6]);
-        
-        for(int i=0;i<=boton.length+objeto.length-1;i++){
-        
-            parallelGroupComponentes[i]=layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING); 
-            
+
+        for (int i = 0; i <= boton.length + objeto.length - 1; i++) {
+
+            parallelGroupComponentes[i] = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+
         }
-        
-        for(int i=0;i<=objeto.length-1;i++){
-            
-            for(int j=0;j<=objeto[i].length-1;j++){
-        
-                parallelGroupComponentes[i].addComponent(objeto[i][j], javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE); 
-                
+
+        for (int i = 0; i <= objeto.length - 1; i++) {
+
+            for (int j = 0; j <= objeto[i].length - 1; j++) {
+
+                parallelGroupComponentes[i].addComponent(objeto[i][j], javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE);
+
             }
 
         }
-        
-        for(int i=0;i<=boton.length-1;i++){
-            
-            for(int j=0;j<=boton[i].length-1;j++){
-        
+
+        for (int i = 0; i <= boton.length - 1; i++) {
+
+            for (int j = 0; j <= boton[i].length - 1; j++) {
+
                 parallelGroupComponentes[i].addComponent(boton[i][j], javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE);
-                
+
             }
-            
+
         }
-        
-        for(int i=0;i<=boton.length-1;i++){
+
+        for (int i = 0; i <= boton.length - 1; i++) {
 
             sequentialGroup.addGroup(parallelGroupComponentes[i]);
             sequentialGroup.addGap(conf[5]);
-            
+
         }
-        
+
         sequentialGroup.addGap(conf[6]);
 
-        parallelGroup.addGroup(sequentialGroup); 
-        layout.setHorizontalGroup(parallelGroup); 
+        parallelGroup.addGroup(sequentialGroup);
+        layout.setHorizontalGroup(parallelGroup);
 
-        return parallelGroup; 
-        
+        return parallelGroup;
+
     }
-     
-    public UbicarLista(JPanel contenedor,Component[][] objeto, Component[][] boton, JButton[] campo){
+
+    public UbicarLista(JPanel contenedor, Component[][] objeto, Component[][] boton, JButton[] campo) {
 
         contenedor.removeAll();
-        distribucion(contenedor,objeto,boton,campo);
+        distribucion(contenedor, objeto, boton, campo);
 
     }
-    
-    public void distribucion(JPanel panel, Component[][] objeto, Component[][] boton, JButton[] campo){
-    
+
+    public void distribucion(JPanel panel, Component[][] objeto, Component[][] boton, JButton[] campo) {
+
         javax.swing.GroupLayout jPanelDeslizableLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(jPanelDeslizableLayout);
-        jPanelDeslizableLayout.setVerticalGroup(alineamientoVertical(jPanelDeslizableLayout,objeto,boton,campo));
-        jPanelDeslizableLayout.setHorizontalGroup(alineamientoHorizontal(jPanelDeslizableLayout,objeto,boton,campo));
-        
+        jPanelDeslizableLayout.setVerticalGroup(alineamientoVertical(jPanelDeslizableLayout, objeto, boton, campo));
+        jPanelDeslizableLayout.setHorizontalGroup(alineamientoHorizontal(jPanelDeslizableLayout, objeto, boton, campo));
 
     }
-    
-    public GroupLayout.ParallelGroup alineamientoHorizontal(GroupLayout layout, Component[][] objeto, Component[][] boton, JButton[] campo){
-        
-        GroupLayout.ParallelGroup parallelGroup= layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING); 
-        GroupLayout.SequentialGroup sequentialGroup= layout.createSequentialGroup(); 
+
+    public GroupLayout.ParallelGroup alineamientoHorizontal(GroupLayout layout, Component[][] objeto, Component[][] boton, JButton[] campo) {
+
+        GroupLayout.ParallelGroup parallelGroup = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
+        GroupLayout.SequentialGroup sequentialGroup = layout.createSequentialGroup();
         GroupLayout.ParallelGroup parallelGroupBoton[] = new GroupLayout.ParallelGroup[boton[0].length];
-        GroupLayout.ParallelGroup parallelGroupObjeto[] = new GroupLayout.ParallelGroup[objeto[0].length]; 
-     
-        for(int i=0;i<=boton[0].length-1;i++){
-            
-            parallelGroupBoton[i]= layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING);       
-            
-        }
-        
-        for(int i=0;i<=objeto[0].length-1;i++){
-            
-            parallelGroupObjeto[i]= layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING);       
-            
-        }
-        
-        for(int j=0;j<=parallelGroupBoton.length-1;j++){
+        GroupLayout.ParallelGroup parallelGroupObjeto[] = new GroupLayout.ParallelGroup[objeto[0].length];
 
-            if(campo[j].getText().isEmpty()){
-                
-                parallelGroupBoton[j].addComponent(campo[j], 50,  50,  50);
-                
-            }else{
-                
+        for (int i = 0; i <= boton[0].length - 1; i++) {
+
+            parallelGroupBoton[i] = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING);
+
+        }
+
+        for (int i = 0; i <= objeto[0].length - 1; i++) {
+
+            parallelGroupObjeto[i] = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING);
+
+        }
+
+        for (int j = 0; j <= parallelGroupBoton.length - 1; j++) {
+
+            if (campo[j].getText().isEmpty()) {
+
+                parallelGroupBoton[j].addComponent(campo[j], 50, 50, 50);
+
+            } else {
+
                 parallelGroupBoton[j].addComponent(campo[j], javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE);
-                
+
             }
-            
+
         }
-        
-        for(int i=0;i<=boton.length-1;i++){
 
-            for(int j=0;j<=parallelGroupBoton.length-1;j++){
-        
-                if(campo[j].getText().isEmpty()){
+        for (int i = 0; i <= boton.length - 1; i++) {
 
-                    parallelGroupBoton[j].addComponent(boton[i][j],  50,  50,  50);
+            for (int j = 0; j <= parallelGroupBoton.length - 1; j++) {
 
-                }else{
+                if (campo[j].getText().isEmpty()) {
 
-                    parallelGroupBoton[j].addComponent(boton[i][j],  javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE);
-                    
+                    parallelGroupBoton[j].addComponent(boton[i][j], 50, 50, 50);
+
+                } else {
+
+                    parallelGroupBoton[j].addComponent(boton[i][j], javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE);
+
                 }
-        
+
             }
-           
-        }
-        
-        for(int j=0;j<=parallelGroupObjeto.length-1;j++){
-        
-            parallelGroupObjeto[j].addComponent(campo[j+boton[0].length], javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE);
 
         }
-        
-        for(int i=0;i<=objeto.length-1;i++){
-            
-            for(int j=0;j<=objeto[i].length-1;j++){
-        
+
+        for (int j = 0; j <= parallelGroupObjeto.length - 1; j++) {
+
+            parallelGroupObjeto[j].addComponent(campo[j + boton[0].length], javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE);
+
+        }
+
+        for (int i = 0; i <= objeto.length - 1; i++) {
+
+            for (int j = 0; j <= objeto[i].length - 1; j++) {
+
                 parallelGroupObjeto[j].addComponent(objeto[i][j], javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        
+
             }
-           
+
         }
-        
+
         sequentialGroup.addGap(conf[6]);
-        
-        for(int i=0;i<=parallelGroupBoton.length-1;i++){
-            
-            sequentialGroup.addGroup(parallelGroupBoton[i]);     
+
+        for (int i = 0; i <= parallelGroupBoton.length - 1; i++) {
+
+            sequentialGroup.addGroup(parallelGroupBoton[i]);
             sequentialGroup.addGap(conf[5]);
-            
+
         }
-        
-        for(int i=0;i<=parallelGroupObjeto.length-1;i++){
-            
+
+        for (int i = 0; i <= parallelGroupObjeto.length - 1; i++) {
+
             sequentialGroup.addGroup(parallelGroupObjeto[i]);
             sequentialGroup.addGap(conf[5]);
-            
+
         }
-        
+
         sequentialGroup.addGap(conf[6]);
-        parallelGroup.addGroup(sequentialGroup); 
-        
+        parallelGroup.addGroup(sequentialGroup);
 
-        return parallelGroup; 
+        return parallelGroup;
 
-        
     }
-    
-     public GroupLayout.ParallelGroup alineamientoVertical(GroupLayout layout,Component[][] objeto, Component[][] boton, Component[] campo){
-        
-        GroupLayout.ParallelGroup parallelGroup= layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING); 
-        GroupLayout.SequentialGroup sequentialGroup= layout.createSequentialGroup();
-        GroupLayout.ParallelGroup parallelGroupComponentes[] = new GroupLayout.ParallelGroup[boton.length+1];
-        
+
+    public GroupLayout.ParallelGroup alineamientoVertical(GroupLayout layout, Component[][] objeto, Component[][] boton, Component[] campo) {
+
+        GroupLayout.ParallelGroup parallelGroup = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING);
+        GroupLayout.SequentialGroup sequentialGroup = layout.createSequentialGroup();
+        GroupLayout.ParallelGroup parallelGroupComponentes[] = new GroupLayout.ParallelGroup[boton.length + 1];
+
         sequentialGroup.addGap(conf[6]);
-        
-        for(int i=0;i<=parallelGroupComponentes.length-1;i++){
-        
-            parallelGroupComponentes[i]=layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING); 
-            
-        }
-        
-        for(int j=0;j<=campo.length-1;j++){
-        
-            parallelGroupComponentes[0].addComponent(campo[j], 70,70,70); 
+
+        for (int i = 0; i <= parallelGroupComponentes.length - 1; i++) {
+
+            parallelGroupComponentes[i] = layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING);
 
         }
-        
-        for(int i=1;i<=parallelGroupComponentes.length-1;i++){
-            
-            for(int j=0;j<=objeto[i-1].length-1;j++){
-        
-                parallelGroupComponentes[i].addComponent(objeto[i-1][j], conf[4],conf[4],conf[4]); 
-                
+
+        for (int j = 0; j <= campo.length - 1; j++) {
+
+            parallelGroupComponentes[0].addComponent(campo[j], 70, 70, 70);
+
+        }
+
+        for (int i = 1; i <= parallelGroupComponentes.length - 1; i++) {
+
+            for (int j = 0; j <= objeto[i - 1].length - 1; j++) {
+
+                parallelGroupComponentes[i].addComponent(objeto[i - 1][j], conf[4], conf[4], conf[4]);
+
             }
 
-            for(int j=0;j<=boton[i-1].length-1;j++){
-        
-                parallelGroupComponentes[i].addComponent(boton[i-1][j], conf[4],conf[4],conf[4]);
-                
+            for (int j = 0; j <= boton[i - 1].length - 1; j++) {
+
+                parallelGroupComponentes[i].addComponent(boton[i - 1][j], conf[4], conf[4], conf[4]);
+
             }
-            
+
         }
 
-        for(int i=0;i<=parallelGroupComponentes.length-1;i++){
+        for (int i = 0; i <= parallelGroupComponentes.length - 1; i++) {
 
             sequentialGroup.addGroup(parallelGroupComponentes[i]);
             sequentialGroup.addGap(conf[5]);
-            
+
         }
-        
+
         sequentialGroup.addGap(conf[6]);
 
-        parallelGroup.addGroup(sequentialGroup); 
-        layout.setHorizontalGroup(parallelGroup); 
+        parallelGroup.addGroup(sequentialGroup);
+        layout.setHorizontalGroup(parallelGroup);
 
-        return parallelGroup; 
-        
+        return parallelGroup;
+
     }
-     
 
 }

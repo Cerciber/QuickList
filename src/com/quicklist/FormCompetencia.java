@@ -25,8 +25,8 @@ import com.quicklist.funciones.Validaciones;
 import javax.swing.JOptionPane;
 
 /**
- * Esta clase permite al administrador ingresar y 
- * editar una competencia especifica
+ * Esta clase permite al administrador ingresar y editar una competencia
+ * especifica
  */
 public final class FormCompetencia extends javax.swing.JPanel {
 
@@ -35,42 +35,43 @@ public final class FormCompetencia extends javax.swing.JPanel {
     String retorno;     //Ruta de acceso a la ventana anterior
     String tipo;    //Rol del usuario que accede a la clase
     String nombrePantalla;      //Ruta de la ventana actual
-    
-    /** 
-     * Arreglo que almacena los identificadores nesesarios para cargar los 
-     * datos en cada una de las pantallas a las que se ha accedido desde el 
-     * login para recuperar las pantallas anteriores en caso de retorno
+
+    /**
+     * Arreglo que almacena los identificadores nesesarios para cargar los datos
+     * en cada una de las pantallas a las que se ha accedido desde el login para
+     * recuperar las pantallas anteriores en caso de retorno
      */
-    String[] ID;    
-    
+    String[] ID;
+
     /**
      * Objeto empleado para realizar la consultas en la base de datos
      */
-    Statement declaracion;      
-    
+    Statement declaracion;
+
     /**
-     * Arreglo que contiene todos los componentes de la pantalla 
-     * a los cuales se les da movimineto inicial
+     * Arreglo que contiene todos los componentes de la pantalla a los cuales se
+     * les da movimineto inicial
      */
     Component[] objeto;
-    
+
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
-    int[] conf=cargarConfiguracion();
-    
+    int[] conf = cargarConfiguracion();
+
     /**
      * Metodo constructor de la clase
+     *
      * @param tipo
      * @param retorno
      * @param nombrePantalla
      * @param usuario
      * @param ID
-     * @param declaracion 
+     * @param declaracion
      */
-    public FormCompetencia(String tipo, String retorno, String nombrePantalla, 
-                           String usuario, String[] ID, Statement declaracion) {
-        
+    public FormCompetencia(String tipo, String retorno, String nombrePantalla,
+            String usuario, String[] ID, Statement declaracion) {
+
         /*
          * Se asignan los valores de los parametros de forma global
          */
@@ -80,32 +81,32 @@ public final class FormCompetencia extends javax.swing.JPanel {
         this.declaracion = declaracion;
         this.ID = ID;
         this.nombrePantalla = nombrePantalla;
-        
+
         initComponents();   //Se crean los componentes graficos
-        
+
         /* Se cargan y se ubican los datos del usuario */
         new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
-        
+
         datosActividad(ID);     //Se carga y se ubica la tabla de información
-        
+
         /*Quitar el boton de edición de datos*/
         jButton8.setVisible(false);
-        
+
         /*Dar fuente, tipo de letra y tamaño*/
         jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
-        jTextField5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                              conf[3]));
-        
+        jTextField5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                conf[3]));
+
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
          */
-        new MoverObjeto(jPanel8); 
-        
+        new MoverObjeto(jPanel8);
+
     }
-    
+
     public void datosActividad(String[] ID) {
-        
+
         /*
          * El simbolo "☺" representa un dato vacio en el arreglo de 
          * identificadores lo que identifica que se esta haciendo una insersión
@@ -117,8 +118,8 @@ public final class FormCompetencia extends javax.swing.JPanel {
              * Se realiza la busqueda en la base de datos y se asigna en un 
              * arreglo bidimensional
              */
-            String[][] lista = Competencia.SeleccionarPorID(declaracion, 
-                                                            ID[ID.length - 1]);
+            String[][] lista = Competencia.SeleccionarPorID(declaracion,
+                    ID[ID.length - 1]);
 
             /* Se asigna el nombre de la competencia */
             jTextField5.setText(lista[0][2]);
@@ -126,26 +127,26 @@ public final class FormCompetencia extends javax.swing.JPanel {
         }
 
     }
-    
+
     public void movimiento() {
-        
+
         /* Se crea el arreglo con los componentes */
         Component[] objeto2 = {jPanel8};
-        
+
         /*
          * Se asigna el arreglo de forma global para que este se pueda 
          * utiizar en los eventos
          */
         objeto = objeto2;
-        
+
         /* 
          * Permite dar un movimiento inicial a los objetos del arreglo en 
          * forma secuencial
          */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
-    
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -394,15 +395,15 @@ public final class FormCompetencia extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
+
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                                     "EditarMisDatos", nombrePantalla, tipo, 
-                                     usuario, ID, declaracion);
-        
+        new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                "EditarMisDatos", nombrePantalla, tipo,
+                usuario, ID, declaracion);
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -419,12 +420,12 @@ public final class FormCompetencia extends javax.swing.JPanel {
              * Se animan los objetos para que salgan del panel y se realiza 
              * el cambio de pantalla
              */
-            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
-                                         nombrePantalla, tipo, usuario, 
-                                         Arreglo.quitar(ID), declaracion);
-            
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno,
+                    nombrePantalla, tipo, usuario,
+                    Arreglo.quitar(ID), declaracion);
+
         }
-        
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -434,50 +435,54 @@ public final class FormCompetencia extends javax.swing.JPanel {
          * que se van a animar al momento de la salida
          */
         Component[] componentes = new Component[objeto.length + 2];
-        
+
         componentes[0] = jPanel2;   //Se añade el panel superior
         componentes[1] = jPanel3;   //Se añade el panel inferior
 
         /* Se añaden los demas objetos a los que se les dió la animación */
         for (int i = 2; i <= componentes.length - 1; i++) {
-            componentes[i] = objeto[i - 2];       
+            componentes[i] = objeto[i - 2];
         }
 
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
-                                     "PantallaInicio", nombrePantalla, tipo, 
-                                     usuario, null, declaracion);
-        
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this,
+                "PantallaInicio", nombrePantalla, tipo,
+                usuario, null, declaracion);
+
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        
+
         /* Se abre la ventana de configuración de la aplicación */
         Configuracion c = new Configuracion();  //Instanciación
         c.setSize(800, 600);    //Tamaño de ventana
         c.setLocationRelativeTo(null);      //Ubicar al centro
         c.setVisible(true);     //Dar visivilidad
-        
+
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       
+
         /*
          * Se crea un arrelo para contener los datos de la competencia
          * con una longitud de 2 correspondientes a identificador 
          * del plan de estudios más el nombre de la competencia
          */
         String[] datos = new String[2];
-        
-        /** Se obtiene el identificador del plan de estudios */
+
+        /**
+         * Se obtiene el identificador del plan de estudios
+         */
         datos[0] = ID[ID.length - 2];
-        
-        /** Se obtiene el nombre de la competencia */
+
+        /**
+         * Se obtiene el nombre de la competencia
+         */
         datos[1] = jTextField5.getText();
-        
+
         /*
          * El simbolo "☺" representa un dato vacio en el arreglo de 
          * identificadores lo que identifica que se esta haciendo una insersión
@@ -490,8 +495,8 @@ public final class FormCompetencia extends javax.swing.JPanel {
 
                 /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
-                "Debe diligenciar los campos obligatorios (*)", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+                        "Debe diligenciar los campos obligatorios (*)", "Error",
+                        JOptionPane.ERROR_MESSAGE);
 
             } else {
 
@@ -500,17 +505,17 @@ public final class FormCompetencia extends javax.swing.JPanel {
                  * la base de datos
                  */
                 Competencia.Insertar(declaracion, datos);
-                
+
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
                  * el cambio de pantalla
                  */
-                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                        retorno + ".Ver", nombrePantalla, tipo, usuario, 
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                        retorno + ".Ver", nombrePantalla, tipo, usuario,
                         Arreglo.quitar(ID), declaracion);
-                
+
             }
-              
+
         } else {
 
             /* Se verifica si los datos del formulario estan vacios */
@@ -518,8 +523,8 @@ public final class FormCompetencia extends javax.swing.JPanel {
 
                 /* Se muestra un mensaje de error */
                 JOptionPane.showMessageDialog(null,
-                "Debe diligenciar los campos obligatorios (*)", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+                        "Debe diligenciar los campos obligatorios (*)", "Error",
+                        JOptionPane.ERROR_MESSAGE);
 
             } else {
 
@@ -527,21 +532,21 @@ public final class FormCompetencia extends javax.swing.JPanel {
                  * Se actualizan los datos de la competencia en 
                  * la base de datos
                  */
-                Competencia.ActualizarEnID(declaracion, datos, 
-                                           ID[ID.length - 1]);
-                
+                Competencia.ActualizarEnID(declaracion, datos,
+                        ID[ID.length - 1]);
+
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
                  * el cambio de pantalla
                  */
-                new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                        retorno, nombrePantalla, tipo, usuario, 
+                new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                        retorno, nombrePantalla, tipo, usuario,
                         Arreglo.quitar(ID), declaracion);
-                
-             }
-                
+
+            }
+
         }
-        
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
@@ -549,26 +554,26 @@ public final class FormCompetencia extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 2147483647 */
-        Validaciones.longitud(evt, jTextField5.getText().length(), 
-                                2147483647);
-        
+        Validaciones.longitud(evt, jTextField5.getText().length(),
+                2147483647);
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
-        
+
         /**
-         * Se abre el Frame corespondiente para gestionar la foto del 
-         * usuario actual
+         * Se abre el Frame corespondiente para gestionar la foto del usuario
+         * actual
          */
         Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
         foto.setLocationRelativeTo(null);   //se ubica al centro
         foto.setVisible(true);      //se le da visivilidad
-        
+
     }//GEN-LAST:event_jLabel3MousePressed
 
 

@@ -11,7 +11,6 @@
  * All rights reserved.
  *
  */
-
 package com.quicklist.funciones;
 
 import java.sql.ResultSet;
@@ -49,754 +48,652 @@ import com.quicklist.clases.Consulta;
  * @author pabloycesar
  */
 public class PantallasAdministrador {
-    
+
     int usuario;
     ResultSet resultado;
-    
-    public PantallasAdministrador(String tipo,JPanel panelContenedor, String nombreClase,String pantallaActual, String usuario ,String[] ID,Statement declaracion){
-    
+
+    public PantallasAdministrador(String tipo, JPanel panelContenedor, String nombreClase, String pantallaActual, String usuario, String[] ID, Statement declaracion) {
+
         try {
-            
-            if("EditarMisDatos".equals(nombreClase)){
-                
-                FormFuncionarios p = new FormFuncionarios(tipo,pantallaActual,nombreClase,usuario,Arreglo.agregar(ID, usuario),declaracion);
+
+            if ("EditarMisDatos".equals(nombreClase)) {
+
+                FormFuncionarios p = new FormFuncionarios(tipo, pantallaActual, nombreClase, usuario, Arreglo.agregar(ID, usuario), declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("T_Administrador".equals(nombreClase)){
 
-                
-                String[] menu={"Funcionarios","Fichas","Plan de estudios"};
-                String[] vinculo={"Administrador.Funcionarios","Administrador.Fichas","Administrador.PlanDeEstudios"};
-                String retorno="PantallaInicio";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,"Administrador",usuario,declaracion,ID);
+            if ("T_Administrador".equals(nombreClase)) {
+
+                String[] menu = {"Funcionarios", "Fichas", "Plan de estudios"};
+                String[] vinculo = {"Administrador.Funcionarios", "Administrador.Fichas", "Administrador.PlanDeEstudios"};
+                String retorno = "PantallaInicio";
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, "Administrador", usuario, declaracion, ID);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoInicial();
 
             }
-            
-            if("Administrador".equals(nombreClase)){
 
-                
-                String[] menu={"Funcionarios","Fichas","Plan de estudios"};
-                String[] vinculo={"Administrador.Funcionarios","Administrador.Fichas","Administrador.PlanDeEstudios"};
-                String retorno="PantallaInicio";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+            if ("Administrador".equals(nombreClase)) {
+
+                String[] menu = {"Funcionarios", "Fichas", "Plan de estudios"};
+                String[] vinculo = {"Administrador.Funcionarios", "Administrador.Fichas", "Administrador.PlanDeEstudios"};
+                String retorno = "PantallaInicio";
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
             }
-            
-            if("Administrador.Funcionarios".equals(nombreClase)){
 
-                
-                String[] menu={"Ver Funcionarios","Ingresar Funcionario"};
-                String[] vinculo={"Administrador.Funcionarios.Ver","Administrador.Funcionarios.Ingresar"};
-                String retorno="Administrador";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+            if ("Administrador.Funcionarios".equals(nombreClase)) {
+
+                String[] menu = {"Ver Funcionarios", "Ingresar Funcionario"};
+                String[] vinculo = {"Administrador.Funcionarios.Ver", "Administrador.Funcionarios.Ingresar"};
+                String retorno = "Administrador";
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
             }
-            
-            if("Administrador.Funcionarios.Ver".equals(nombreClase)){
 
-                String[] nombreBotones={"Editar","Borrar"};
-                String[] nombreIcono={"Editar Usuario","Borrar Usuario"};
-                String[] columna={"","","Documento","Contraseña","Nombre","Primer Apellido","Segundo Apellido","cargo","Correo Electronico","Telefono","Celular"};
-                String[] vinculo={"Administrador.Funcionarios.Ver.Editar","Administrador.Funcionarios.Ver.Borrar"};
-                String retorno="Administrador.Funcionarios";
+            if ("Administrador.Funcionarios.Ver".equals(nombreClase)) {
+
+                String[] nombreBotones = {"Editar", "Borrar"};
+                String[] nombreIcono = {"Editar Usuario", "Borrar Usuario"};
+                String[] columna = {"", "", "Documento", "Contraseña", "Nombre", "Primer Apellido", "Segundo Apellido", "cargo", "Correo Electronico", "Telefono", "Celular"};
+                String[] vinculo = {"Administrador.Funcionarios.Ver.Editar", "Administrador.Funcionarios.Ver.Borrar"};
+                String retorno = "Administrador.Funcionarios";
 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Informacion_Funcionarios");
-                String[] campos={"Documento_De_Identidad","Documento_De_Identidad","Contrasena","Nombre","Primer_Apellido","Segundo_Apellido","cargo","Correo_Electronico","Telefono_Fijo","Telefono_Celular"};
+                String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
                 c.campos(campos);
-                String[] alias={"ID","Documento_De_Identidad","Contrasena","Nombre","Primer_Apellido","Segundo_Apellido","cargo","Correo_Electronico","Telefono_Fijo","Telefono_Celular"};
+                String[] alias = {"ID", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
                 c.alias(alias);
                 c.columnaSeleccionada("Documento_De_Identidad");
                 c.panelContenedor(panelContenedor);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
+                String menu[][] = c.ejecutarConsulta();
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
             }
-            
-            if("Administrador.Funcionarios.Ver.Editar".equals(nombreClase)){
 
-                String retorno="Administrador.Funcionarios.Ver";
-                
-                FormFuncionarios p = new FormFuncionarios(tipo,retorno,pantallaActual,usuario,ID,declaracion);
+            if ("Administrador.Funcionarios.Ver.Editar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Funcionarios.Ver";
+
+                FormFuncionarios p = new FormFuncionarios(tipo, retorno, pantallaActual, usuario, ID, declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Funcionarios.Ver.Borrar".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.Funcionarios.Ver.Borrar.Confirmado","Administrador.Funcionarios.Ver"};
-                String retorno="Administrador.Funcionarios.Ver";
-                String pregunta="¿Desea eliminar el registro "+ID[ID.length-1]+"?";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.Funcionarios.Ver.Borrar".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Funcionarios.Ver.Borrar.Confirmado", "Administrador.Funcionarios.Ver"};
+                String retorno = "Administrador.Funcionarios.Ver";
+                String pregunta = "¿Desea eliminar el registro " + ID[ID.length - 1] + "?";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Funcionarios.Ver.Borrar.Confirmado".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado","Administrador.Funcionarios.Ver"};
-                String retorno="Administrador.Funcionarios.Ver";
-                String pregunta="Al eliminarlo se borraran todos los datos ligados a este usuario";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.Funcionarios.Ver.Borrar.Confirmado".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado", "Administrador.Funcionarios.Ver"};
+                String retorno = "Administrador.Funcionarios.Ver";
+                String pregunta = "Al eliminarlo se borraran todos los datos ligados a este usuario";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)){
-                
-                if(ID[ID.length-1].equals(usuario)){
-                
-                    String[] vinculo={"Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado.BorrarMiCuanta","Administrador.Funcionarios.Ver"};
-                    String retorno="Administrador.Funcionarios.Ver";
-                    String pregunta="Esta apunto de borrar su cuenta";
 
-                    Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
+
+                if (ID[ID.length - 1].equals(usuario)) {
+
+                    String[] vinculo = {"Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado.BorrarMiCuanta", "Administrador.Funcionarios.Ver"};
+                    String retorno = "Administrador.Funcionarios.Ver";
+                    String pregunta = "Esta apunto de borrar su cuenta";
+
+                    Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                     panelContenedor.removeAll();
                     panelContenedor.add(p);
                     panelContenedor.validate();
                     p.movimiento();
-                
-                }else{
-                
-                    Funcionario.BorrarEnDocumento(declaracion,ID[ID.length-1]);
-                    
-                    String[] nombreBotones={"Editar","Borrar"};
-                    String[] nombreIcono={"Editar Usuario","Borrar Usuario"};
-                    String[] columna={"","","Documento","Contraseña","Nombre","Primer Apellido","Segundo Apellido","cargo","Correo Electronico","Telefono","Celular"};
-                    String[] vinculo={"Administrador.Funcionarios.Ver.Editar","Administrador.Funcionarios.Ver.Borrar"};
-                    String retorno="Administrador.Funcionarios";
+
+                } else {
+
+                    Funcionario.BorrarEnDocumento(declaracion, ID[ID.length - 1]);
+
+                    String[] nombreBotones = {"Editar", "Borrar"};
+                    String[] nombreIcono = {"Editar Usuario", "Borrar Usuario"};
+                    String[] columna = {"", "", "Documento", "Contraseña", "Nombre", "Primer Apellido", "Segundo Apellido", "cargo", "Correo Electronico", "Telefono", "Celular"};
+                    String[] vinculo = {"Administrador.Funcionarios.Ver.Editar", "Administrador.Funcionarios.Ver.Borrar"};
+                    String retorno = "Administrador.Funcionarios";
 
                     Consulta c = new Consulta(declaracion);
                     c.tabla("T_Informacion_Funcionarios");
-                    String[] campos={"Documento_De_Identidad","Documento_De_Identidad","Contrasena","Nombre","Primer_Apellido","Segundo_Apellido","cargo","Correo_Electronico","Telefono_Fijo","Telefono_Celular"};
+                    String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
                     c.campos(campos);
-                    String[] alias={"ID","Documento_De_Identidad","Contrasena","Nombre","Primer_Apellido","Segundo_Apellido","cargo","Correo_Electronico","Telefono_Fijo","Telefono_Celular"};
+                    String[] alias = {"ID", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
                     c.alias(alias);
                     c.columnaSeleccionada("Documento_De_Identidad");
                     c.panelContenedor(panelContenedor);
-                    String menu[][]=c.ejecutarConsulta();
-                    
-                    PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,Arreglo.quitar(ID),c);
+                    String menu[][] = c.ejecutarConsulta();
+
+                    PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, Arreglo.quitar(ID), c);
                     panelContenedor.removeAll();
                     panelContenedor.add(p);
                     panelContenedor.validate();
                     p.movimientoSecuencial();
-                
+
                 }
 
-
             }
-            
-            if("Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado.BorrarMiCuanta".equals(nombreClase)){
 
-                Funcionario.BorrarEnDocumento(declaracion, ID[ID.length-1]);
-                
+            if ("Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado.BorrarMiCuanta".equals(nombreClase)) {
+
+                Funcionario.BorrarEnDocumento(declaracion, ID[ID.length - 1]);
+
                 PantallaInicio p = new PantallaInicio();
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
-                
-            }
-            
-            if("Administrador.Funcionarios.Ingresar".equals(nombreClase)){
 
-                
-                String retorno="Administrador.Funcionarios";
-                
-                FormFuncionarios p = new FormFuncionarios(tipo,retorno,pantallaActual,usuario,ID,declaracion);
+            }
+
+            if ("Administrador.Funcionarios.Ingresar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Funcionarios";
+
+                FormFuncionarios p = new FormFuncionarios(tipo, retorno, pantallaActual, usuario, ID, declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas".equals(nombreClase)){
 
-                
-                String[] menu={"Ver Fichas","Ingresar Fichas"};
-                String[] vinculo={"Administrador.Fichas.Ver","Administrador.Fichas.Ingresar"};
-                String retorno="Administrador";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+            if ("Administrador.Fichas".equals(nombreClase)) {
+
+                String[] menu = {"Ver Fichas", "Ingresar Fichas"};
+                String[] vinculo = {"Administrador.Fichas.Ver", "Administrador.Fichas.Ingresar"};
+                String retorno = "Administrador";
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
             }
-            
-            if("Administrador.Fichas.Ver".equals(nombreClase)){
 
-                String[] nombreBotones={"Editar","Borrar","Aprendices","Horarios"};
-                String[] nombreIcono={"Editar","Borrar","Aprendices","Horarios"};
-                String[] columna={"","","","","Ficha","Plan De Estudios","Fecha Inicio","Fecha Fin"};
-                String[] vinculo={"Administrador.Fichas.Ver.Editar","Administrador.Fichas.Ver.Borrar","Administrador.Fichas.Ver.Aprendices","Administrador.Fichas.Ver.Horarios"};
-                String retorno="Administrador.Fichas";
+            if ("Administrador.Fichas.Ver".equals(nombreClase)) {
+
+                String[] nombreBotones = {"Editar", "Borrar", "Aprendices", "Horarios"};
+                String[] nombreIcono = {"Editar", "Borrar", "Aprendices", "Horarios"};
+                String[] columna = {"", "", "", "", "Ficha", "Plan De Estudios", "Fecha Inicio", "Fecha Fin"};
+                String[] vinculo = {"Administrador.Fichas.Ver.Editar", "Administrador.Fichas.Ver.Borrar", "Administrador.Fichas.Ver.Aprendices", "Administrador.Fichas.Ver.Horarios"};
+                String retorno = "Administrador.Fichas";
 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Fichas join T_Plan_De_Estudios on T_Fichas.ID_Plan_De_Estudios=T_Plan_De_Estudios.ID_Plan_De_Estudios");
-                String[] campos={"Numero_De_Ficha","Numero_De_Ficha","Nombre_PlanDeEstudios","Fecha_Inicio","Fecha_Fin"};
+                String[] campos = {"Numero_De_Ficha", "Numero_De_Ficha", "Nombre_PlanDeEstudios", "Fecha_Inicio", "Fecha_Fin"};
                 c.campos(campos);
-                String[] alias={"ID","Numero_De_Ficha","Nombre_PlanDeEstudios","Fecha_Inicio","Fecha_Fin"};
+                String[] alias = {"ID", "Numero_De_Ficha", "Nombre_PlanDeEstudios", "Fecha_Inicio", "Fecha_Fin"};
                 c.alias(alias);
                 c.columnaSeleccionada("Numero_De_Ficha");
-                int[] nFechas={3,4};
+                int[] nFechas = {3, 4};
                 c.nFechas(nFechas);
                 c.panelContenedor(panelContenedor);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
+                String menu[][] = c.ejecutarConsulta();
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
             }
-            
-            if("Administrador.Fichas.Ver.Editar".equals(nombreClase)){
 
-                String retorno="Administrador.Fichas.Ver";
-                
-                FormFicha p = new FormFicha(tipo,retorno,nombreClase,usuario,ID,declaracion);
+            if ("Administrador.Fichas.Ver.Editar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Fichas.Ver";
+
+                FormFicha p = new FormFicha(tipo, retorno, nombreClase, usuario, ID, declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Borrar".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.Fichas.Ver.Borrar.Confirmado","Administrador.Fichas.Ver"};
-                String retorno="Administrador.Fichas.Ver";
-                String pregunta="¿Desea eliminar la ficha "+ID[ID.length-1]+"?";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.Fichas.Ver.Borrar".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Fichas.Ver.Borrar.Confirmado", "Administrador.Fichas.Ver"};
+                String retorno = "Administrador.Fichas.Ver";
+                String pregunta = "¿Desea eliminar la ficha " + ID[ID.length - 1] + "?";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Borrar.Confirmado".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.Fichas.Ver.Borrar.Confirmado.Confirmado","Administrador.Fichas.Ver"};
-                String retorno="Administrador.Fichas.Ver";
-                String pregunta="Al eliminarlo se borraran todos los datos ligados a esta ficha";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.Fichas.Ver.Borrar.Confirmado".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Fichas.Ver.Borrar.Confirmado.Confirmado", "Administrador.Fichas.Ver"};
+                String retorno = "Administrador.Fichas.Ver";
+                String pregunta = "Al eliminarlo se borraran todos los datos ligados a esta ficha";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)){
-                
-                Ficha.BorrarEnID(declaracion,ID[ID.length-1]);
-                new PantallasAdministrador(tipo,panelContenedor,"Administrador.Fichas.Ver",pantallaActual,usuario,ID,declaracion);
-                
-            }
-            
-            if("Administrador.Fichas.Ingresar".equals(nombreClase)){
 
-                
-                String retorno="Administrador.Fichas";
-                
-                FormFicha p = new FormFicha(tipo,retorno,nombreClase,usuario,ID,declaracion);
+            if ("Administrador.Fichas.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
+
+                Ficha.BorrarEnID(declaracion, ID[ID.length - 1]);
+                new PantallasAdministrador(tipo, panelContenedor, "Administrador.Fichas.Ver", pantallaActual, usuario, ID, declaracion);
+
+            }
+
+            if ("Administrador.Fichas.Ingresar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Fichas";
+
+                FormFicha p = new FormFicha(tipo, retorno, nombreClase, usuario, ID, declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Aprendices".equals(nombreClase)){
 
-                                                                                
-                String[] menu={"Ver Aprendices","Ingresar Aprendices"};
-                String[] vinculo={"Administrador.Fichas.Ver.Aprendices.Ver","Administrador.Fichas.Ver.Aprendices.Ingresar"};
-                String retorno="Administrador.Fichas.Ver";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+            if ("Administrador.Fichas.Ver.Aprendices".equals(nombreClase)) {
+
+                String[] menu = {"Ver Aprendices", "Ingresar Aprendices"};
+                String[] vinculo = {"Administrador.Fichas.Ver.Aprendices.Ver", "Administrador.Fichas.Ver.Aprendices.Ingresar"};
+                String retorno = "Administrador.Fichas.Ver";
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
             }
-            
-            if("Administrador.Fichas.Ver.Aprendices.Ver".equals(nombreClase)){
 
-                String[] nombreBotones={"Editar","Borrar"};
-                String[] nombreIcono={"Editar Usuario","Borrar Usuario"};
-                String[] columna={"","","Documento","Contrasena","Nombre","Primer Apellido","Segundo Apellido","Fecha De Nacimiento","Correo Electronico","Genero","Ficha","Telefono","Celular","estado","Proyecto","Estilos Y Ritmos De Aprendizaje","Estrategia Metodológica De Preferencia","Caracteristicas Culturales Y Sociales"};
-                String[] vinculo={"Administrador.Fichas.Ver.Aprendices.Ver.Editar","Administrador.Fichas.Ver.Aprendices.Ver.Borrar"};
-                String retorno="Administrador.Fichas.Ver.Aprendices";
+            if ("Administrador.Fichas.Ver.Aprendices.Ver".equals(nombreClase)) {
+
+                String[] nombreBotones = {"Editar", "Borrar"};
+                String[] nombreIcono = {"Editar Usuario", "Borrar Usuario"};
+                String[] columna = {"", "", "Documento", "Contrasena", "Nombre", "Primer Apellido", "Segundo Apellido", "Fecha De Nacimiento", "Correo Electronico", "Genero", "Ficha", "Telefono", "Celular", "estado", "Proyecto", "Estilos Y Ritmos De Aprendizaje", "Estrategia Metodológica De Preferencia", "Caracteristicas Culturales Y Sociales"};
+                String[] vinculo = {"Administrador.Fichas.Ver.Aprendices.Ver.Editar", "Administrador.Fichas.Ver.Aprendices.Ver.Borrar"};
+                String retorno = "Administrador.Fichas.Ver.Aprendices";
 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Informacion_Aprendices");
-                String[] campos={"Documento_De_Identidad","Documento_De_Identidad","Contrasena","Nombre","Primer_Apellido","Segundo_Apellido","Fecha_De_Nacimiento","Correo_Electronico","Genero","ID_Ficha","Telefono_Fijo","Telefono_Celular","estado","nombre_Proyecto","Estilos_Y_Ritmos_De_Aprendizaje","Estrategia_Metodológica_De_Preferencia","Caracteristicas_Culturales_Y_Sociales"};
+                String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "Fecha_De_Nacimiento", "Correo_Electronico", "Genero", "ID_Ficha", "Telefono_Fijo", "Telefono_Celular", "estado", "nombre_Proyecto", "Estilos_Y_Ritmos_De_Aprendizaje", "Estrategia_Metodológica_De_Preferencia", "Caracteristicas_Culturales_Y_Sociales"};
                 c.campos(campos);
-                String[] alias={"ID","Documento_De_Identidad","Contrasena","Nombre","Primer_Apellido","Segundo_Apellido","Fecha_De_Nacimiento","Correo_Electronico","Genero","ID_Ficha","Telefono_Fijo","Telefono_Celular","estado","nombre_Proyecto","Estilos_Y_Ritmos_De_Aprendizaje","Estrategia_Metodológica_De_Preferencia","Caracteristicas_Culturales_Y_Sociales"};
+                String[] alias = {"ID", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "Fecha_De_Nacimiento", "Correo_Electronico", "Genero", "ID_Ficha", "Telefono_Fijo", "Telefono_Celular", "estado", "nombre_Proyecto", "Estilos_Y_Ritmos_De_Aprendizaje", "Estrategia_Metodológica_De_Preferencia", "Caracteristicas_Culturales_Y_Sociales"};
                 c.alias(alias);
                 c.columnaSeleccionada("Documento_De_Identidad");
-                c.condicion("ID_Ficha = "+ID[ID.length-1]);
-                int[] nFechas={6};
+                c.condicion("ID_Ficha = " + ID[ID.length - 1]);
+                int[] nFechas = {6};
                 c.nFechas(nFechas);
                 c.panelContenedor(panelContenedor);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
+                String menu[][] = c.ejecutarConsulta();
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
             }
-            
-            if("Administrador.Fichas.Ver.Aprendices.Ver.Editar".equals(nombreClase)){
 
-                String retorno="Administrador.Fichas.Ver.Aprendices.Ver";
-                
-                FormAprendiz p = new FormAprendiz(tipo,retorno,nombreClase,usuario,ID,declaracion);
+            if ("Administrador.Fichas.Ver.Aprendices.Ver.Editar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Fichas.Ver.Aprendices.Ver";
+
+                FormAprendiz p = new FormAprendiz(tipo, retorno, nombreClase, usuario, ID, declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Aprendices.Ver.Borrar".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.Fichas.Ver.Aprendices.Ver.Borrar.Confirmado","Administrador.Fichas.Ver.Aprendices.Ver"};
-                String retorno="Administrador.Fichas.Ver.Aprendices.Ver";
-                String pregunta="¿Desea eliminar el registro "+ID[ID.length-1]+"?";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.Fichas.Ver.Aprendices.Ver.Borrar".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Fichas.Ver.Aprendices.Ver.Borrar.Confirmado", "Administrador.Fichas.Ver.Aprendices.Ver"};
+                String retorno = "Administrador.Fichas.Ver.Aprendices.Ver";
+                String pregunta = "¿Desea eliminar el registro " + ID[ID.length - 1] + "?";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Aprendices.Ver.Borrar.Confirmado".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.Fichas.Ver.Aprendices.Ver.Borrar.Confirmado.Confirmado","Administrador.Fichas.Ver.Aprendices.Ver"};
-                String retorno="Administrador.Fichas.Ver.Aprendices.Ver";
-                String pregunta="Al eliminarlo se borraran todos los datos ligados a este usuario";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.Fichas.Ver.Aprendices.Ver.Borrar.Confirmado".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Fichas.Ver.Aprendices.Ver.Borrar.Confirmado.Confirmado", "Administrador.Fichas.Ver.Aprendices.Ver"};
+                String retorno = "Administrador.Fichas.Ver.Aprendices.Ver";
+                String pregunta = "Al eliminarlo se borraran todos los datos ligados a este usuario";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Aprendices.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)){
-                
-                Aprendiz.BorrarEnDocumento(declaracion, ID[ID.length-1]);
-                new PantallasAdministrador(tipo,panelContenedor,"Administrador.Fichas.Ver.Aprendices.Ver",pantallaActual,usuario,Arreglo.quitar(ID),declaracion);
-            
-            }
-            
-            if("Administrador.Fichas.Ver.Aprendices.Ingresar".equals(nombreClase)){
 
-                
-                String retorno="Administrador.Fichas.Ver.Aprendices";
-                
-                FormAprendiz p = new FormAprendiz(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
+            if ("Administrador.Fichas.Ver.Aprendices.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
+
+                Aprendiz.BorrarEnDocumento(declaracion, ID[ID.length - 1]);
+                new PantallasAdministrador(tipo, panelContenedor, "Administrador.Fichas.Ver.Aprendices.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
+
+            }
+
+            if ("Administrador.Fichas.Ver.Aprendices.Ingresar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Fichas.Ver.Aprendices";
+
+                FormAprendiz p = new FormAprendiz(tipo, retorno, nombreClase, usuario, Arreglo.agregar(ID, "☺"), declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Horarios".equals(nombreClase)){
 
-                
-                String[] menu={"Ver Horarios","Ingresar Horarios"};
-                String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver","Administrador.Fichas.Ver.Horarios.Ingresar"};
-                String retorno="Administrador.Fichas.Ver";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+            if ("Administrador.Fichas.Ver.Horarios".equals(nombreClase)) {
+
+                String[] menu = {"Ver Horarios", "Ingresar Horarios"};
+                String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver", "Administrador.Fichas.Ver.Horarios.Ingresar"};
+                String retorno = "Administrador.Fichas.Ver";
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
             }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver".equals(nombreClase)){
 
-                String[] nombreBotones={"Editar","Borrar","Actividades","Asistencia"};
-                String[] nombreIcono={"Editar","Borrar","Actividades","Asistencia"};
-                String[] columna={"","","","","instructor","Dia","Hora Inicio","Hora Fin","Fecha Inicio","Fecha Fin","Lugar","Resultado De Aprendizaje"};
-                String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Editar","Administrador.Fichas.Ver.Horarios.Ver.Borrar","Administrador.Fichas.Ver.Horarios.Ver.Actividades","Administrador.Fichas.Ver.Horarios.Ver.Asistencia"};
-                String retorno="Administrador.Fichas.Ver.Horarios";
+            if ("Administrador.Fichas.Ver.Horarios.Ver".equals(nombreClase)) {
+
+                String[] nombreBotones = {"Editar", "Borrar", "Actividades", "Asistencia"};
+                String[] nombreIcono = {"Editar", "Borrar", "Actividades", "Asistencia"};
+                String[] columna = {"", "", "", "", "instructor", "Dia", "Hora Inicio", "Hora Fin", "Fecha Inicio", "Fecha Fin", "Lugar", "Resultado De Aprendizaje"};
+                String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Editar", "Administrador.Fichas.Ver.Horarios.Ver.Borrar", "Administrador.Fichas.Ver.Horarios.Ver.Actividades", "Administrador.Fichas.Ver.Horarios.Ver.Asistencia"};
+                String retorno = "Administrador.Fichas.Ver.Horarios";
 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Horario join T_Resultado_De_Aprendizaje on T_Horario.ID_Resultado_De_Aprendizaje=T_Resultado_De_Aprendizaje.ID_Resultado_De_Aprendizaje join T_Informacion_Funcionarios on T_Horario.ID_Funcionario=T_Informacion_Funcionarios.Documento_De_Identidad");
-                String[] campos={"ID_Horario","CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
+                String[] campos = {"ID_Horario", "CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)", "Dia_Semana", "Hora_Inicio", "Hora_Fin", "Fecha_Inicio", "Fecha_Fin", "Lugar", "Resultado_De_Aprendizaje"};
                 c.campos(campos);
-                String[] alias={"ID_Horario","instructor","Dia_Semana","Hora_Inicio","Hora_Fin","Fecha_Inicio","Fecha_Fin","Lugar","Resultado_De_Aprendizaje"};
+                String[] alias = {"ID_Horario", "instructor", "Dia_Semana", "Hora_Inicio", "Hora_Fin", "Fecha_Inicio", "Fecha_Fin", "Lugar", "Resultado_De_Aprendizaje"};
                 c.alias(alias);
                 c.columnaSeleccionada("CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)");
-                c.condicion("ID_Ficha = "+ID[ID.length-1]);
-                int[] nFechas={5,6};
+                c.condicion("ID_Ficha = " + ID[ID.length - 1]);
+                int[] nFechas = {5, 6};
                 c.nFechas(nFechas);
                 c.panelContenedor(panelContenedor);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
+                String menu[][] = c.ejecutarConsulta();
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
             }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Editar".equals(nombreClase)){
 
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver";
-                
-                FormHorario p = new FormHorario(tipo,retorno,nombreClase,usuario,ID,declaracion);
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Editar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver";
+
+                FormHorario p = new FormHorario(tipo, retorno, nombreClase, usuario, ID, declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Borrar".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Borrar.Confirmado","Administrador.Fichas.Ver.Horarios.Ver"};
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver";
-                String pregunta="¿Desea eliminar el horario "+ID[ID.length-1]+"?";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Borrar".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Borrar.Confirmado", "Administrador.Fichas.Ver.Horarios.Ver"};
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver";
+                String pregunta = "¿Desea eliminar el horario " + ID[ID.length - 1] + "?";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Borrar.Confirmado".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Borrar.Confirmado.Confirmado","Administrador.Fichas.Ver.Horarios.Ver"};
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver";
-                String pregunta="Al eliminarlo se borraran todos los datos ligados a este Horario";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Borrar.Confirmado".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Borrar.Confirmado.Confirmado", "Administrador.Fichas.Ver.Horarios.Ver"};
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver";
+                String pregunta = "Al eliminarlo se borraran todos los datos ligados a este Horario";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)){
-                
-                Horario.BorrarPorID(declaracion, ID[ID.length-1]);
-                new PantallasAdministrador(tipo,panelContenedor,"Administrador.Fichas.Ver.Horarios.Ver",pantallaActual,usuario,Arreglo.quitar(ID),declaracion);
+
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
+
+                Horario.BorrarPorID(declaracion, ID[ID.length - 1]);
+                new PantallasAdministrador(tipo, panelContenedor, "Administrador.Fichas.Ver.Horarios.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
 
             }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ingresar".equals(nombreClase)){
-                
-                String retorno="Administrador.Fichas.Ver.Horarios";
-                
-                FormHorario p = new FormHorario(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
+
+            if ("Administrador.Fichas.Ver.Horarios.Ingresar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Fichas.Ver.Horarios";
+
+                FormHorario p = new FormHorario(tipo, retorno, nombreClase, usuario, Arreglo.agregar(ID, "☺"), declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
-                
-            }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Actividades".equals(nombreClase)){
 
-                String[] menu={"Ver Actividades","Ingresar Actividad"};
-                String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver","Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ingresar"};
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+            }
+
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Actividades".equals(nombreClase)) {
+
+                String[] menu = {"Ver Actividades", "Ingresar Actividad"};
+                String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver", "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ingresar"};
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver";
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
-                
-
             }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver".equals(nombreClase)){
 
-                String[] nombreBotones={"Editar","Borrar","Aprobar"};
-                String[] nombreIcono={"Editar","Borrar","Aprobar"};
-                String[] columna={"","","","Nombre Actividad","Nombre Evidencia","Medio","Tipo","Fecha RecoleccionEvidencia"};
-                String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Editar","Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar","Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Aprobar"};
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver.Actividades";
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver".equals(nombreClase)) {
+
+                String[] nombreBotones = {"Editar", "Borrar", "Aprobar"};
+                String[] nombreIcono = {"Editar", "Borrar", "Aprobar"};
+                String[] columna = {"", "", "", "Nombre Actividad", "Nombre Evidencia", "Medio", "Tipo", "Fecha RecoleccionEvidencia"};
+                String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Editar", "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar", "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Aprobar"};
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Actividades";
 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Actividades");
-                String[] campos={"ID_Actividad","Nombre_Actividad","Nombre_Evidencia","Medio","Tipo","Fecha_RecoleccionEvidencia"};
+                String[] campos = {"ID_Actividad", "Nombre_Actividad", "Nombre_Evidencia", "Medio", "Tipo", "Fecha_RecoleccionEvidencia"};
                 c.campos(campos);
-                String[] alias={"ID_Actividad","Nombre_Actividad","Nombre_Evidencia","Medio","Tipo","Fecha_RecoleccionEvidencia"};
+                String[] alias = {"ID_Actividad", "Nombre_Actividad", "Nombre_Evidencia", "Medio", "Tipo", "Fecha_RecoleccionEvidencia"};
                 c.alias(alias);
                 c.columnaSeleccionada("Nombre_Actividad");
-                c.condicion("ID_Horario = "+ID[ID.length-1]);
-                int[] nFechas={5};
+                c.condicion("ID_Horario = " + ID[ID.length - 1]);
+                int[] nFechas = {5};
                 c.nFechas(nFechas);
                 c.panelContenedor(panelContenedor);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
+                String menu[][] = c.ejecutarConsulta();
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
             }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Editar".equals(nombreClase)){
 
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver";
-                
-                FormActividad p = new FormActividad(tipo,retorno,nombreClase,usuario,ID,declaracion);
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Editar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver";
+
+                FormActividad p = new FormActividad(tipo, retorno, nombreClase, usuario, ID, declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar.Confirmado","Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver"};
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver";
-                String pregunta="¿Desea eliminar la Actividad "+ID[ID.length-1]+"?";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar.Confirmado", "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver"};
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver";
+                String pregunta = "¿Desea eliminar la Actividad " + ID[ID.length - 1] + "?";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar.Confirmado".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar.Confirmado.Confirmado","Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver"};
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver";
-                String pregunta="Al eliminarlo se borraran todos los datos ligados a este usuario";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar.Confirmado".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar.Confirmado.Confirmado", "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver"};
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver";
+                String pregunta = "Al eliminarlo se borraran todos los datos ligados a este usuario";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)){
-                
-                Actividad.BorrarPorID(declaracion, ID[ID.length-1]);
-                new PantallasAdministrador(tipo,panelContenedor,"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver",pantallaActual,usuario,Arreglo.quitar(ID),declaracion);
-            
-            }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ingresar".equals(nombreClase)){
-                
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver.Actividades";
-                
-                FormActividad p = new FormActividad(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-                
-            }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Aprobar".equals(nombreClase)){
-                
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver";
-                
-                AprobarActividades p = new AprobarActividades(tipo,retorno,nombreClase,usuario,ID,declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-                
-            }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Asistencia".equals(nombreClase)){
 
-                String[] menu={"Ver Asistencias","Tomar Asistencia"};
-                String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver","Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ingresar"};
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
+
+                Actividad.BorrarPorID(declaracion, ID[ID.length - 1]);
+                new PantallasAdministrador(tipo, panelContenedor, "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
+
+            }
+
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ingresar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Actividades";
+
+                FormActividad p = new FormActividad(tipo, retorno, nombreClase, usuario, Arreglo.agregar(ID, "☺"), declaracion);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Aprobar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver";
+
+                AprobarActividades p = new AprobarActividades(tipo, retorno, nombreClase, usuario, ID, declaracion);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Asistencia".equals(nombreClase)) {
+
+                String[] menu = {"Ver Asistencias", "Tomar Asistencia"};
+                String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver", "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ingresar"};
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver";
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
             }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver".equals(nombreClase)){
 
-                String[] nombreBotones={"Editar","Borrar"};
-                String[] nombreIcono={"Editar","Borrar"};
-                String[] columna={"","","Fecha"};
-                String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar","Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Borrar"};
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver.Asistencia";
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver".equals(nombreClase)) {
+
+                String[] nombreBotones = {"Editar", "Borrar"};
+                String[] nombreIcono = {"Editar", "Borrar"};
+                String[] columna = {"", "", "Fecha"};
+                String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar", "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Borrar"};
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia";
 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Formacion");
-                String[] campos={"ID_Formacion","Fecha"};
+                String[] campos = {"ID_Formacion", "Fecha"};
                 c.campos(campos);
-                String[] alias={"ID_Formacion","Fecha"};
+                String[] alias = {"ID_Formacion", "Fecha"};
                 c.alias(alias);
                 c.columnaSeleccionada("Fecha");
-                c.condicion("ID_Horario = "+ID[ID.length-1]);
-                int[] nFechas={1};
+                c.condicion("ID_Horario = " + ID[ID.length - 1]);
+                int[] nFechas = {1};
                 c.nFechas(nFechas);
                 c.panelContenedor(panelContenedor);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
-                
+                String menu[][] = c.ejecutarConsulta();
 
-            }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar".equals(nombreClase)){
-
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver";
-                String vinculo="Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar.Siguiente";
-                
-                FormFormacion p = new FormFormacion(tipo,vinculo,retorno,nombreClase,usuario,ID,declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-
-            }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar.Siguiente".equals(nombreClase)){
-                
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar";
-                String vinculo="Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver";
-                
-                TomarAsistencia p = new TomarAsistencia(tipo,vinculo,retorno,nombreClase,usuario,(ID),declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-                
-            }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Borrar".equals(nombreClase)){
-
-                String[] vinculo={"Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Borrar.Confirmado","Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver"};
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver";
-                String pregunta="¿Desea eliminar la Formación "+ID[ID.length-1]+"?";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-
-            }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Borrar.Confirmado".equals(nombreClase)){
-
-                Formacion.BorrarPorID(declaracion, ID[ID.length-1]);
-                new PantallasAdministrador(tipo,panelContenedor,"Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver",pantallaActual,usuario,Arreglo.quitar(ID),declaracion);
-            
-
-            }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ingresar".equals(nombreClase)){
-                
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver.Asistencia";
-                String vinculo="Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ingresar.Siguiente";
-                
-                FormFormacion p = new FormFormacion(tipo,vinculo,retorno,nombreClase,usuario,Arreglo.agregar(Arreglo.quitar(ID),"☺"),declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-                
-            }
-            
-            if("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ingresar.Siguiente".equals(nombreClase)){
-                
-                String retorno="Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ingresar";
-                String vinculo="Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver";
-                
-                TomarAsistencia p = new TomarAsistencia(tipo,vinculo,retorno,nombreClase,usuario,(ID),declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-                
-            }
-            
-            if("Administrador.PlanDeEstudios".equals(nombreClase)){
-
-                
-                String[] menu={"Ver Plan De Estudios","Ingresar Plan De Estudios"};
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver","Administrador.PlanDeEstudios.Ingresar"};
-                String retorno="Administrador";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -804,399 +701,483 @@ public class PantallasAdministrador {
 
             }
 
-            if("Administrador.PlanDeEstudios.Ver".equals(nombreClase)){
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar".equals(nombreClase)) {
 
-                String[] nombreBotones={"Editar","Borrar","Competencias"};
-                String[] nombreIcono={"Editar","Borrar","Competencias"};
-                String[] columna={"","","","Nombre","Programa","Version","Meses Etapa Lectiva","Nivel De Formacion"};
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Editar","Administrador.PlanDeEstudios.Ver.Borrar","Administrador.PlanDeEstudios.Ver.Competencia"};
-                String retorno="Administrador.PlanDeEstudios";
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver";
+                String vinculo = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar.Siguiente";
+
+                FormFormacion p = new FormFormacion(tipo, vinculo, retorno, nombreClase, usuario, ID, declaracion);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar.Siguiente".equals(nombreClase)) {
+
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar";
+                String vinculo = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver";
+
+                TomarAsistencia p = new TomarAsistencia(tipo, vinculo, retorno, nombreClase, usuario, (ID), declaracion);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Borrar".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Borrar.Confirmado", "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver"};
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver";
+                String pregunta = "¿Desea eliminar la Formación " + ID[ID.length - 1] + "?";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Borrar.Confirmado".equals(nombreClase)) {
+
+                Formacion.BorrarPorID(declaracion, ID[ID.length - 1]);
+                new PantallasAdministrador(tipo, panelContenedor, "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
+
+            }
+
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ingresar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia";
+                String vinculo = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ingresar.Siguiente";
+
+                FormFormacion p = new FormFormacion(tipo, vinculo, retorno, nombreClase, usuario, Arreglo.agregar(Arreglo.quitar(ID), "☺"), declaracion);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ingresar.Siguiente".equals(nombreClase)) {
+
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ingresar";
+                String vinculo = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver";
+
+                TomarAsistencia p = new TomarAsistencia(tipo, vinculo, retorno, nombreClase, usuario, (ID), declaracion);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.PlanDeEstudios".equals(nombreClase)) {
+
+                String[] menu = {"Ver Plan De Estudios", "Ingresar Plan De Estudios"};
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver", "Administrador.PlanDeEstudios.Ingresar"};
+                String retorno = "Administrador";
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimientoSecuencial();
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver".equals(nombreClase)) {
+
+                String[] nombreBotones = {"Editar", "Borrar", "Competencias"};
+                String[] nombreIcono = {"Editar", "Borrar", "Competencias"};
+                String[] columna = {"", "", "", "Nombre", "Programa", "Version", "Meses Etapa Lectiva", "Nivel De Formacion"};
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Editar", "Administrador.PlanDeEstudios.Ver.Borrar", "Administrador.PlanDeEstudios.Ver.Competencia"};
+                String retorno = "Administrador.PlanDeEstudios";
 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Plan_De_Estudios");
-                String[] campos={"ID_Plan_De_Estudios","Nombre_PlanDeEstudios","Nombre_Programa","Version_Plan_De_Estudios","Meses_Etapa_Lectiva","Nivel_De_Formacion"};
+                String[] campos = {"ID_Plan_De_Estudios", "Nombre_PlanDeEstudios", "Nombre_Programa", "Version_Plan_De_Estudios", "Meses_Etapa_Lectiva", "Nivel_De_Formacion"};
                 c.campos(campos);
-                String[] alias={"ID_Plan_De_Estudios","Nombre_PlanDeEstudios","Nombre_Programa","Version_Plan_De_Estudios","Meses_Etapa_Lectiva","Nivel_De_Formacion"};
+                String[] alias = {"ID_Plan_De_Estudios", "Nombre_PlanDeEstudios", "Nombre_Programa", "Version_Plan_De_Estudios", "Meses_Etapa_Lectiva", "Nivel_De_Formacion"};
                 c.alias(alias);
                 c.columnaSeleccionada("Nombre_PlanDeEstudios");
                 c.panelContenedor(panelContenedor);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
+                String menu[][] = c.ejecutarConsulta();
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
-                
-                
+
                 panelContenedor.validate();
                 p.movimientoSecuencial();
-                
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ver.Editar".equals(nombreClase)){
 
-                String retorno="Administrador.PlanDeEstudios.Ver";
-                
-                FormPlanDeEstudios p = new FormPlanDeEstudios(tipo,retorno,nombreClase,usuario,ID,declaracion);
+            if ("Administrador.PlanDeEstudios.Ver.Editar".equals(nombreClase)) {
+
+                String retorno = "Administrador.PlanDeEstudios.Ver";
+
+                FormPlanDeEstudios p = new FormPlanDeEstudios(tipo, retorno, nombreClase, usuario, ID, declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ver.Borrar".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Borrar.Confirmado","Administrador.PlanDeEstudios.Ver"};
-                String retorno="Administrador.PlanDeEstudios.Ver";
-                String pregunta="¿Desea eliminar el Plan De Estudios "+ID[ID.length-1]+"?";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.PlanDeEstudios.Ver.Borrar".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Borrar.Confirmado", "Administrador.PlanDeEstudios.Ver"};
+                String retorno = "Administrador.PlanDeEstudios.Ver";
+                String pregunta = "¿Desea eliminar el Plan De Estudios " + ID[ID.length - 1] + "?";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ver.Borrar.Confirmado".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Borrar.Confirmado.Confirmado","Administrador.PlanDeEstudios.Ver"};
-                String retorno="Administrador.PlanDeEstudios.Ver";
-                String pregunta="Al eliminarlo se borraran todos los datos ligados a este Plan De Estudios";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.PlanDeEstudios.Ver.Borrar.Confirmado".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Borrar.Confirmado.Confirmado", "Administrador.PlanDeEstudios.Ver"};
+                String retorno = "Administrador.PlanDeEstudios.Ver";
+                String pregunta = "Al eliminarlo se borraran todos los datos ligados a este Plan De Estudios";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)){
-                
-                PlanDeEstudios.BorrarEnID(declaracion, ID[ID.length-1]);
-                new PantallasAdministrador(tipo,panelContenedor,"Administrador.PlanDeEstudios.Ver",pantallaActual,usuario,Arreglo.quitar(ID),declaracion);
+
+            if ("Administrador.PlanDeEstudios.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
+
+                PlanDeEstudios.BorrarEnID(declaracion, ID[ID.length - 1]);
+                new PantallasAdministrador(tipo, panelContenedor, "Administrador.PlanDeEstudios.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ingresar".equals(nombreClase)){
-                
-                String retorno="Administrador.PlanDeEstudios";
-                
-                FormPlanDeEstudios p = new FormPlanDeEstudios(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
+
+            if ("Administrador.PlanDeEstudios.Ingresar".equals(nombreClase)) {
+
+                String retorno = "Administrador.PlanDeEstudios";
+
+                FormPlanDeEstudios p = new FormPlanDeEstudios(tipo, retorno, nombreClase, usuario, Arreglo.agregar(ID, "☺"), declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
-                
-            }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia".equals(nombreClase)){
 
-                String[] menu={"Ver Competencias","Ingresar Competencia"};
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver","Administrador.PlanDeEstudios.Ver.Competencia.Ingresar"};
-                String retorno="Administrador.PlanDeEstudios.Ver";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia".equals(nombreClase)) {
+
+                String[] menu = {"Ver Competencias", "Ingresar Competencia"};
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver", "Administrador.PlanDeEstudios.Ver.Competencia.Ingresar"};
+                String retorno = "Administrador.PlanDeEstudios.Ver";
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver".equals(nombreClase)){
 
-                String[] nombreBotones={"Editar","Borrar","Actividades De Aprendizaje"};
-                String[] nombreIcono={"Editar","Borrar","Actividades De Aprendizaje"};
-                String[] columna={"","","","Competencia A Desarrollar"};
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.Editar","Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje"};
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia";
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver".equals(nombreClase)) {
+
+                String[] nombreBotones = {"Editar", "Borrar", "Actividades De Aprendizaje"};
+                String[] nombreIcono = {"Editar", "Borrar", "Actividades De Aprendizaje"};
+                String[] columna = {"", "", "", "Competencia A Desarrollar"};
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.Editar", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje"};
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia";
 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Competencias");
-                String[] campos={"ID_Competencia","Competencia_A_Desarrollar"};
+                String[] campos = {"ID_Competencia", "Competencia_A_Desarrollar"};
                 c.campos(campos);
-                String[] alias={"ID_Competencia","Competencia_A_Desarrollar"};
+                String[] alias = {"ID_Competencia", "Competencia_A_Desarrollar"};
                 c.alias(alias);
                 c.columnaSeleccionada("Competencia_A_Desarrollar");
-                c.condicion("ID_Plan_De_Estudios = "+ID[ID.length-1]);
+                c.condicion("ID_Plan_De_Estudios = " + ID[ID.length - 1]);
                 c.panelContenedor(panelContenedor);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
-                
+                String menu[][] = c.ejecutarConsulta();
 
-            }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.Editar".equals(nombreClase)){
-
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver";
-                
-                FormCompetencia p = new FormCompetencia(tipo,retorno,nombreClase,usuario,ID,declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-
-            }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar".equals(nombreClase)){
-
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar.Confirmado","Administrador.PlanDeEstudios.Ver.Competencia.Ver"};
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver";
-                String pregunta="¿Desea eliminar la Competencia "+ID[ID.length-1]+"?";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-
-            }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar.Confirmado".equals(nombreClase)){
-
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar.Confirmado.Confirmado","Administrador.PlanDeEstudios.Ver.Competencia.Ver"};
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver";
-                String pregunta="Al eliminarlo se borraran todos los datos ligados a esta competencia";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-
-            }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)){
-                
-                Competencia.BorrarEnID(declaracion, ID[ID.length-1]);
-                new PantallasAdministrador(tipo,panelContenedor,"Administrador.PlanDeEstudios.Ver.Competencia.Ver",pantallaActual,usuario,Arreglo.quitar(ID),declaracion);
-
-            }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ingresar".equals(nombreClase)){
-                
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia";
-                
-                FormCompetencia p = new FormCompetencia(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-                
-            }
-
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje".equals(nombreClase)){
-
-                String[] menu={"Ver Actividades De Aprendizaje","Ingresar Actividad De Aprendizaje"};
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ingresar"};
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver".equals(nombreClase)){
 
-                String[] nombreBotones={"Editar","Borrar","Resultado De Aprendizaje"};
-                String[] nombreIcono={"Editar","Borrar","Resultado De Aprendizaje"};
-                String[] columna={"","","","Fase Del Proyecto","Actividad De Aprendizaje"};
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Editar","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje"};
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje";
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.Editar".equals(nombreClase)) {
+
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver";
+
+                FormCompetencia p = new FormCompetencia(tipo, retorno, nombreClase, usuario, ID, declaracion);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar.Confirmado", "Administrador.PlanDeEstudios.Ver.Competencia.Ver"};
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver";
+                String pregunta = "¿Desea eliminar la Competencia " + ID[ID.length - 1] + "?";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar.Confirmado".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar.Confirmado.Confirmado", "Administrador.PlanDeEstudios.Ver.Competencia.Ver"};
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver";
+                String pregunta = "Al eliminarlo se borraran todos los datos ligados a esta competencia";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
+
+                Competencia.BorrarEnID(declaracion, ID[ID.length - 1]);
+                new PantallasAdministrador(tipo, panelContenedor, "Administrador.PlanDeEstudios.Ver.Competencia.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ingresar".equals(nombreClase)) {
+
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia";
+
+                FormCompetencia p = new FormCompetencia(tipo, retorno, nombreClase, usuario, Arreglo.agregar(ID, "☺"), declaracion);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje".equals(nombreClase)) {
+
+                String[] menu = {"Ver Actividades De Aprendizaje", "Ingresar Actividad De Aprendizaje"};
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ingresar"};
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver";
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimientoSecuencial();
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver".equals(nombreClase)) {
+
+                String[] nombreBotones = {"Editar", "Borrar", "Resultado De Aprendizaje"};
+                String[] nombreIcono = {"Editar", "Borrar", "Resultado De Aprendizaje"};
+                String[] columna = {"", "", "", "Fase Del Proyecto", "Actividad De Aprendizaje"};
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Editar", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje"};
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje";
 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Actividad_De_Aprendizaje");
-                String[] campos={"ID_Actividad_De_Aprendizaje","Fase_Del_Proyecto","Actividad_De_Aprendizaje"};
+                String[] campos = {"ID_Actividad_De_Aprendizaje", "Fase_Del_Proyecto", "Actividad_De_Aprendizaje"};
                 c.campos(campos);
-                String[] alias={"ID_Actividad_De_Aprendizaje","Fase_Del_Proyecto","Actividad_De_Aprendizaje"};
+                String[] alias = {"ID_Actividad_De_Aprendizaje", "Fase_Del_Proyecto", "Actividad_De_Aprendizaje"};
                 c.alias(alias);
                 c.columnaSeleccionada("Fase_Del_Proyecto");
-                c.condicion("ID_Competencia = "+ID[ID.length-1]);
+                c.condicion("ID_Competencia = " + ID[ID.length - 1]);
                 c.panelContenedor(panelContenedor);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimientoSecuencial();
-                
+                String menu[][] = c.ejecutarConsulta();
 
-            }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Editar".equals(nombreClase)){
-
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver";
-                
-                FormActividadDeAprendizaje p = new FormActividadDeAprendizaje(tipo,retorno,nombreClase,usuario,ID,declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-
-            }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar".equals(nombreClase)){
-
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar.Confirmado","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver"};
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver";
-                String pregunta="¿Desea eliminar la Actividad De Aprendizaje "+ID[ID.length-1]+"?";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-
-            }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar.Confirmado".equals(nombreClase)){
-
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar.Confirmado.Confirmado","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver"};
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver";
-                String pregunta="Al eliminarlo se borraran todos los datos ligados a esta competencia";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-
-            }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)){
-                
-                ActividadDeAprendizaje.BorrarEnID(declaracion, ID[ID.length-1]);
-                new PantallasAdministrador(tipo,panelContenedor,"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver",pantallaActual,usuario,Arreglo.quitar(ID),declaracion);
-
-            }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ingresar".equals(nombreClase)){
-                
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje";
-                
-                FormActividadDeAprendizaje p = new FormActividadDeAprendizaje(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
-                panelContenedor.removeAll();
-                panelContenedor.add(p);
-                panelContenedor.validate();
-                p.movimiento();
-                
-            }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje".equals(nombreClase)){
-
-                String[] menu={"Ver Resultados De Aprendizaje","Ingresar Resultado De Aprendizaje"};
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ingresar"};
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver";
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,vinculo,retorno,nombreClase,usuario,declaracion,ID);
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver".equals(nombreClase)){
 
-                String[] nombreBotones={"Editar","Borrar"};
-                String[] nombreIcono={"Editar","Borrar"};
-                String[] columna={"","","Resultado_De_Aprendizaje"};
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Editar","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar"};
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje";
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Editar".equals(nombreClase)) {
+
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver";
+
+                FormActividadDeAprendizaje p = new FormActividadDeAprendizaje(tipo, retorno, nombreClase, usuario, ID, declaracion);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar.Confirmado", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver"};
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver";
+                String pregunta = "¿Desea eliminar la Actividad De Aprendizaje " + ID[ID.length - 1] + "?";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar.Confirmado".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar.Confirmado.Confirmado", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver"};
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver";
+                String pregunta = "Al eliminarlo se borraran todos los datos ligados a esta competencia";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
+
+                ActividadDeAprendizaje.BorrarEnID(declaracion, ID[ID.length - 1]);
+                new PantallasAdministrador(tipo, panelContenedor, "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ingresar".equals(nombreClase)) {
+
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje";
+
+                FormActividadDeAprendizaje p = new FormActividadDeAprendizaje(tipo, retorno, nombreClase, usuario, Arreglo.agregar(ID, "☺"), declaracion);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje".equals(nombreClase)) {
+
+                String[] menu = {"Ver Resultados De Aprendizaje", "Ingresar Resultado De Aprendizaje"};
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ingresar"};
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver";
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimientoSecuencial();
+
+            }
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver".equals(nombreClase)) {
+
+                String[] nombreBotones = {"Editar", "Borrar"};
+                String[] nombreIcono = {"Editar", "Borrar"};
+                String[] columna = {"", "", "Resultado_De_Aprendizaje"};
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Editar", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar"};
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje";
 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Resultado_De_Aprendizaje");
-                String[] campos={"ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje"};
+                String[] campos = {"ID_Resultado_De_Aprendizaje", "Resultado_De_Aprendizaje"};
                 c.campos(campos);
-                String[] alias={"ID_Resultado_De_Aprendizaje","Resultado_De_Aprendizaje"};
+                String[] alias = {"ID_Resultado_De_Aprendizaje", "Resultado_De_Aprendizaje"};
                 c.alias(alias);
                 c.columnaSeleccionada("Resultado_De_Aprendizaje");
-                c.condicion("ID_Actividad_De_Aprendizaje = "+ID[ID.length-1]);
+                c.condicion("ID_Actividad_De_Aprendizaje = " + ID[ID.length - 1]);
                 c.panelContenedor(panelContenedor);
-                String menu[][]=c.ejecutarConsulta();
-                
-                PantallaUsuario p = new PantallaUsuario(tipo,menu,nombreBotones,nombreIcono,columna,vinculo,retorno,nombreClase,usuario,declaracion,ID,c);
+                String menu[][] = c.ejecutarConsulta();
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimientoSecuencial();
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Editar".equals(nombreClase)){
 
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver";
-                
-                FormResultadoDeAprendizaje p = new FormResultadoDeAprendizaje(tipo,retorno,nombreClase,usuario,ID,declaracion);
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Editar".equals(nombreClase)) {
+
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver";
+
+                FormResultadoDeAprendizaje p = new FormResultadoDeAprendizaje(tipo, retorno, nombreClase, usuario, ID, declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar.Confirmado","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver"};
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver";
-                String pregunta="¿Desea eliminar el Resultado De Aprendizaje "+ID[ID.length-1]+"?";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar.Confirmado", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver"};
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver";
+                String pregunta = "¿Desea eliminar el Resultado De Aprendizaje " + ID[ID.length - 1] + "?";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar.Confirmado".equals(nombreClase)){
 
-                String[] vinculo={"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar.Confirmado.Confirmado","Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver"};
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver";
-                String pregunta="Al eliminarlo se borraran todos los datos ligados a esta competencia";
-               
-                Confirmacion p = new Confirmacion(tipo,retorno,nombreClase,usuario,ID,declaracion,pregunta,vinculo);
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar.Confirmado".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar.Confirmado.Confirmado", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver"};
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver";
+                String pregunta = "Al eliminarlo se borraran todos los datos ligados a esta competencia";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)){
-                
-                ResultadoDeAprendizaje.BorrarEnID(declaracion, ID[ID.length-1]);
-                new PantallasAdministrador(tipo,panelContenedor,"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver",pantallaActual,usuario,Arreglo.quitar(ID),declaracion);
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
+
+                ResultadoDeAprendizaje.BorrarEnID(declaracion, ID[ID.length - 1]);
+                new PantallasAdministrador(tipo, panelContenedor, "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
 
             }
-            
-            if("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ingresar".equals(nombreClase)){
-                
-                String retorno="Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje";
-                
-                FormResultadoDeAprendizaje p = new FormResultadoDeAprendizaje(tipo,retorno,nombreClase,usuario,Arreglo.agregar(ID,"☺"),declaracion);
+
+            if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ingresar".equals(nombreClase)) {
+
+                String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje";
+
+                FormResultadoDeAprendizaje p = new FormResultadoDeAprendizaje(tipo, retorno, nombreClase, usuario, Arreglo.agregar(ID, "☺"), declaracion);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
                 p.movimiento();
-                
+
             }
 
-        } catch (NullPointerException ex) {System.out.println(ex);}
-    
+        } catch (NullPointerException ex) {
+            System.out.println(ex);
+        }
+
     }
-    
-    
+
 }

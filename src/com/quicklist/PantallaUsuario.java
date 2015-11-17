@@ -31,9 +31,9 @@ import com.quicklist.funciones.DatosUsuario;
 import com.quicklist.funciones.Validaciones;
 import java.awt.Dimension;
 
-/** 
- * Esta clase esta que permite cargar los menus y las tabas de toda la 
- * aplicación 
+/**
+ * Esta clase esta que permite cargar los menus y las tabas de toda la
+ * aplicación
  */
 public final class PantallaUsuario extends javax.swing.JPanel {
 
@@ -42,62 +42,65 @@ public final class PantallaUsuario extends javax.swing.JPanel {
     String retorno;     //Ruta de acceso a la ventana anterior
     String tipo;    //Rol del usuario que accede a la clase
     String nombrePantalla;      //Ruta de la ventana actual
-    
-    /** 
-     * Arreglo que almacena los identificadores nesesarios para cargar los 
-     * datos en cada una de las pantallas a las que se ha accedido desde el 
-     * login para recuperar las pantallas anteriores en caso de retorno
+
+    /**
+     * Arreglo que almacena los identificadores nesesarios para cargar los datos
+     * en cada una de las pantallas a las que se ha accedido desde el login para
+     * recuperar las pantallas anteriores en caso de retorno
      */
-    String[] ID;    
-    
+    String[] ID;
+
     /**
      * Objeto empleado para realizar la consultas en la base de datos
      */
-    Statement declaracion;      
-    
+    Statement declaracion;
+
     /**
-     * Arreglo que contiene todos los componentes de la pantalla 
-     * a los cuales se les da movimineto inicial
+     * Arreglo que contiene todos los componentes de la pantalla a los cuales se
+     * les da movimineto inicial
      */
     Component[] objeto;
-    
+
     /**
      * Arreglo que contiene la configuración actual de la aplicación
      */
     int[] conf = cargarConfiguracion();
-    
+
     /**
      * Arreglo que contiene los textos de mas de 30 caracteres en la pantalla
      */
     public JTextArea[][] TextArea;
-    
+
     /**
      * Arreglo que contiene los textos de menos de 30 caracteres en la pantalla
      */
     public JLabel[][] label;
-    
+
     /**
-     * Arreglo que contiene la combinación de los labels y los textArea 
+     * Arreglo que contiene la combinación de los labels y los textArea
      * empleados
      */
     public Component[][] componente;
-    
-    /** Variable que verifica si se deben mostrar los botones de las tablas */
-    boolean mostrarBotones=true;
-    
+
+    /**
+     * Variable que verifica si se deben mostrar los botones de las tablas
+     */
+    boolean mostrarBotones = true;
+
     /**
      * Arreglo que contiene los textAreas empleados en las tablas
      */
     JScrollPane[][] scrollPane;
-    
-    /** 
-     * Objeto que contiene todos los datos necesarios para gentionar las 
-     * tablas en las busquedas
+
+    /**
+     * Objeto que contiene todos los datos necesarios para gentionar las tablas
+     * en las busquedas
      */
     Consulta consulta;
-    
+
     /**
      * Metodo constructor de la clase para menus
+     *
      * @param tipo
      * @param menu
      * @param vinculo
@@ -105,12 +108,12 @@ public final class PantallaUsuario extends javax.swing.JPanel {
      * @param nombrePantalla
      * @param usuario
      * @param ID
-     * @param declaracion 
+     * @param declaracion
      */
-    public PantallaUsuario(String tipo, String[] menu, String[] vinculo, 
-            String retorno, String nombrePantalla, String usuario, 
+    public PantallaUsuario(String tipo, String[] menu, String[] vinculo,
+            String retorno, String nombrePantalla, String usuario,
             Statement declaracion, String[] ID) {
-        
+
         /*
          * Se asignan los valores de los parametros de forma global
          */
@@ -120,28 +123,29 @@ public final class PantallaUsuario extends javax.swing.JPanel {
         this.declaracion = declaracion;
         this.ID = ID;
         this.nombrePantalla = nombrePantalla;
-        
+
         initComponents();   //Se crean los componentes graficos
-        
+
         /* Se cargan y se ubican los datos del usuario */
-        new DatosUsuario(usuario, tipo, declaracion,jLabel1, jLabel2, jLabel3);
-        
+        new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
+
         /* Se cargan los datos del menu de opciones de la pantalla actual */
         crearMenu(menu, vinculo);
-        
+
         /* Se oculta la sección de busqueda de la tabla */
         jPanel5.setVisible(false);
-        
+
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
          */
         new MoverObjeto(jPanel8);
-        
+
     }
-    
+
     /**
      * Metodo constructor de la clase para tablas
+     *
      * @param tipo
      * @param menu
      * @param nombreBoton
@@ -152,14 +156,14 @@ public final class PantallaUsuario extends javax.swing.JPanel {
      * @param nombrePantalla
      * @param usuario
      * @param ID
-     * @param declaracion 
-     * @param consulta 
+     * @param declaracion
+     * @param consulta
      */
-    public PantallaUsuario(String tipo, String[][] menu, String[] nombreBoton, 
-            String[] nombreIcono, String[] nombreColumna, String[] vinculo, 
-            String retorno, String nombrePantalla, String usuario, 
+    public PantallaUsuario(String tipo, String[][] menu, String[] nombreBoton,
+            String[] nombreIcono, String[] nombreColumna, String[] vinculo,
+            String retorno, String nombrePantalla, String usuario,
             Statement declaracion, String[] ID, Consulta consulta) {
-        
+
         /*
          * Se asignan los valores de los parametros de forma global
          */
@@ -170,118 +174,126 @@ public final class PantallaUsuario extends javax.swing.JPanel {
         this.declaracion = declaracion;
         this.ID = ID;
         this.consulta = consulta;
-        
+
         initComponents();   //Se crean los componentes graficos
-        
+
         /* Se cargan y se ubican los datos del usuario */
         new DatosUsuario(usuario, tipo, declaracion, jLabel1, jLabel2, jLabel3);
-        
+
         /* Se cargan los datos de la tabla de la pantalla actual */
-        crearMenu(menu,vinculo,nombreBoton,nombreIcono,nombreColumna);
-        
+        crearMenu(menu, vinculo, nombreBoton, nombreIcono, nombreColumna);
+
         /**
          * Permite que el usuario pueda mover el panel que contiene la tabla
          * dentro del frame con el mouse y con las flechas del teclado
          */
         new MoverObjeto(jPanel8);
-        
-        /** Se asigna el dato de la busqueda que se desea realizar */
+
+        /**
+         * Se asigna el dato de la busqueda que se desea realizar
+         */
         jTextField3.setText(consulta.busqueda);
-        
-        /** Se asigna el numero de registros por pagina */
+
+        /**
+         * Se asigna el numero de registros por pagina
+         */
         jTextField4.setText(consulta.nRegistrosPagina + "");
-        
-        /** 
-         * Se asigna el numero de pagina inicial, el numero de pagina actual 
-         * y el numero de pagina final 
+
+        /**
+         * Se asigna el numero de pagina inicial, el numero de pagina actual y
+         * el numero de pagina final
          */
         jLabel6.setText("1 - " + consulta.paginaActual + " - "
-                        + consulta.paginaFinal);
-        
-        /** Se asigna el icono de busqueda en el boton correspondiente */
+                + consulta.paginaFinal);
+
+        /**
+         * Se asigna el icono de busqueda en el boton correspondiente
+         */
         DarIcono.darIcono(jButton7, "Buscar");
-        
-    }    
-    
-    /** 
-     * Este metodo permite dar el el primer movimiento de objetos al loguearse 
+
+    }
+
+    /**
+     * Este metodo permite dar el el primer movimiento de objetos al loguearse
      * en el sistema
      */
-    public void movimientoInicial(){
-        
+    public void movimientoInicial() {
+
         /*
          * Se crea un arreglo de componentes para alamcenar todos los objetos 
          * que se van a animar
          */
         Component[] componentes = new Component[objeto.length + 2];
-        
-        
+
         componentes[0] = jPanel2;   //Se añade el panel superior
         componentes[1] = jPanel3;   //Se añade el panel inferior
-        
+
         /* Se añaden los demas objetos a los que se les dió la animación */
         for (int i = 2; i <= componentes.length - 1; i++) {
-        
+
             componentes[i] = objeto[i - 2];
-            
+
         }
-        
+
         /* 
          * Permite dar un movimiento inicial a los objetos del arreglo en 
          * forma secuencial
          */
         new AnimacionObjetos().Izquierda(componentes, velocidad);
-    
+
     }
-    
-    /** 
-     * Este metodo permite dar el  movimiento de objetos contenidos en el 
-     * panel central
+
+    /**
+     * Este metodo permite dar el movimiento de objetos contenidos en el panel
+     * central
      */
-    public void movimientoSecuencial(){
-        
+    public void movimientoSecuencial() {
+
         /* 
          * Permite dar un movimiento inicial a los objetos del arreglo en 
          * forma secuencial
          */
         new AnimacionObjetos().Izquierda(objeto, velocidad);
-    
+
     }
-    
-    /** 
-     * Este metodo permite cargar los datos del menu de la pantalla actual 
+
+    /**
+     * Este metodo permite cargar los datos del menu de la pantalla actual
+     *
      * @param menu
      * @param vinculo
      */
-    public void crearMenu(String[] menu, String[] vinculo){
-        
-        /** 
-         * Se crea un areglo de botones para contener cada uno de los 
-         * elementos del menú 
+    public void crearMenu(String[] menu, String[] vinculo) {
+
+        /**
+         * Se crea un areglo de botones para contener cada uno de los elementos
+         * del menú
          */
         JButton[] boton = new JButton[menu.length];
-        
-        /** 
-         * Se crea un areglo de componentes para contener cada uno de los 
-         * elementos del menú 
+
+        /**
+         * Se crea un areglo de componentes para contener cada uno de los
+         * elementos del menú
          */
         objeto = new Component[menu.length];
 
-        /** Se asigna el diseño predeterminado a los botones */
+        /**
+         * Se asigna el diseño predeterminado a los botones
+         */
         for (int i = 0; i <= boton.length - 1; i++) {
 
             boton[i] = new JButton();   //Instanciación
-            
+
             /* Dar fuente, tipo de letra y tamaño */
-            boton[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
-                                               conf[2]));
-            
+            boton[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                    conf[2]));
+
             /* Dar Fondo */
             boton[i].setBackground(jButton5.getBackground());
-            
+
             /* Dar Color de letra */
             boton[i].setForeground(jButton5.getForeground());
-            
+
             /* Dar texto correspondiente a un item del menú */
             boton[i].setText(menu[i]);
 
@@ -293,33 +305,36 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
         }
 
-        /** Se ubican los elementos creados en el panel en forma de tabla */
-        new UbicarLista(jPanel8,boton);
-        
+        /**
+         * Se ubican los elementos creados en el panel en forma de tabla
+         */
+        new UbicarLista(jPanel8, boton);
+
         /* 
          * Se asignan los eventos en los botones para realizar el cambio 
          * de pantalla 
          */
-        new EventosMenu(objeto, velocidad, boton, this, vinculo, 
+        new EventosMenu(objeto, velocidad, boton, this, vinculo,
                 nombrePantalla, tipo, usuario, declaracion, ID);
 
     }
-    
-    /** 
-     * Este método permite ejecutar la busqueda en la base de datos 
-     * modificando el estado de la tabla
+
+    /**
+     * Este método permite ejecutar la busqueda en la base de datos modificando
+     * el estado de la tabla
+     *
      * @param nombreBoton
      * @param nombreIcono
      * @param vinculo
      * @param nombreColumna
      * @return
      */
-    public String[][] buscar(String[] nombreBoton, String[] nombreIcono, 
-                             String[] nombreColumna, String[] vinculo){
-                
+    public String[][] buscar(String[] nombreBoton, String[] nombreIcono,
+            String[] nombreColumna, String[] vinculo) {
+
         /* Se gualda la localización de la tabla actual */
         consulta.posicion = jPanel8.getLocation();
-        
+
         /* 
          * Se verifica que el limitante de registros no este vacio ni sea 
          * igual a 0 
@@ -331,31 +346,31 @@ public final class PantallaUsuario extends javax.swing.JPanel {
              * Se verifica si el numero ingresado en el limitante se ha 
              * cambiado 
              */
-            if(consulta.nRegistrosPagina != Integer
-                    .parseInt(jTextField4.getText())){
-                
+            if (consulta.nRegistrosPagina != Integer
+                    .parseInt(jTextField4.getText())) {
+
                 /* Se reinicia el paginado de la tabla */
-                consulta.registroInicial = 0; 
-                consulta.paginaActual = 1; 
-                
+                consulta.registroInicial = 0;
+                consulta.paginaActual = 1;
+
             }
-            
+
             /* Se asigna el numero de registros por tabla */
             consulta.nRegistrosPagina = Integer.parseInt(jTextField4.getText());
 
         }
 
         /* Se asigna el filtro que se desea realizar */
-        consulta.busqueda(jTextField3.getText()); 
-        
+        consulta.busqueda(jTextField3.getText());
+
         /* Se realiza la busqueda en la base de datos */
-        String[][]menu = consulta.ejecutarConsulta();
-        
+        String[][] menu = consulta.ejecutarConsulta();
+
         /* Se recarga la pantalla con la nueva consulta realizada */
-        PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBoton, 
-                nombreIcono, nombreColumna, vinculo, retorno, nombrePantalla, 
+        PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBoton,
+                nombreIcono, nombreColumna, vinculo, retorno, nombrePantalla,
                 usuario, declaracion, ID, consulta);
-        
+
         consulta.panelContenedor.removeAll();   //Se remueve el panel actual
         consulta.panelContenedor.add(p);    //Se asigna el nuevo panel
         consulta.panelContenedor.validate();    //Se vualve a cargar la pantalla
@@ -365,60 +380,65 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
             /* Se verifica si hay registros para mostrar */
             if (menu[0][0] != null) {
-                
+
                 /* Se asigna la localización del panel anterior */
                 p.jPanel8.setLocation(consulta.posicion);
-                
+
             }
 
-        }catch(ArrayIndexOutOfBoundsException ex){}
+        } catch (ArrayIndexOutOfBoundsException ex) {
+        }
 
         /* Se asigna el color de la columna seleccionada para resaltarla */
-        EventosMenu.darColorColumna(p.componente, 
+        EventosMenu.darColorColumna(p.componente,
                 consulta.nColumnaSeleccionada);
-                
+
         /* Se retorna la variable con la consulta realizada */
         return menu;
-        
+
     }
-    
-    /** 
-     * Este metodo permite cargar los datos de la tabla de la pantalla actual 
+
+    /**
+     * Este metodo permite cargar los datos de la tabla de la pantalla actual
+     *
      * @param menu
      * @param vinculo
      * @param nombreBoton
      * @param nombreIcono
      * @param nombreColumna
      */
-    public void crearMenu(String[][] menu, String[] vinculo, 
-            String[] nombreBoton, String[] nombreIcono, 
+    public void crearMenu(String[][] menu, String[] vinculo,
+            String[] nombreBoton, String[] nombreIcono,
             String[] nombreColumna) {
-        
+
         /* 
          * Se crea un arreglo para almacenar el identificador de cada registro 
          * de la tabla 
          */
-        String[] ID = new String[menu.length]; 
-        
-        /* Se crea un srreglo bidimencional para verificar si exsisten registros */
+        String[] ID = new String[menu.length];
+
+        /* 
+         * Se crea un srreglo bidimencional para verificar si exsisten 
+         * registros 
+         */
         String[][] menu2;
 
         /* Se intenta asignar la longitud del arreglo*/
-        try{
+        try {
 
             /* Se asigna la longitud dependiendo del numero de registros */
-            menu2 = new String[menu.length][menu[0].length-1];
+            menu2 = new String[menu.length][menu[0].length - 1];
 
-        }catch(ArrayIndexOutOfBoundsException ex){
+        } catch (ArrayIndexOutOfBoundsException ex) {
 
             /* se le da una longitud de 1 x 1*/
             menu2 = new String[1][1];
-            
+
             /*Se le almacena el mensaje de notificación*/
-            menu2[0][0]="No existen registros para mostrar";
-            
+            menu2[0][0] = "No existen registros para mostrar";
+
             /* Se desactiva el verificador de mostrar botones */
-            mostrarBotones=false;
+            mostrarBotones = false;
 
         }
 
@@ -437,11 +457,11 @@ public final class PantallaUsuario extends javax.swing.JPanel {
                 menu2[i][j - 1] = menu[i][j];
 
             }
-            
+
         }
-        
+
         /*Se asigna el resultado de la variable de verificación en la real*/
-        menu = menu2;  
+        menu = menu2;
 
         /* Se definen las longitudes de los elemetos de la pantalla de acuerdo 
          * a las dimenciones de los registros 
@@ -450,13 +470,14 @@ public final class PantallaUsuario extends javax.swing.JPanel {
         scrollPane = new JScrollPane[menu.length][menu[0].length];
         TextArea = new JTextArea[menu.length][menu[0].length];
         componente = new Component[menu.length][menu[0].length];
-        objeto = new Component[(menu.length*menu[0].length)+(menu.length*nombreBoton.length)];
+        objeto = new Component[(menu.length * menu[0].length)
+                + (menu.length * nombreBoton.length)];
 
         /*
          * Se efectuan dos ciclos repetitivos para recorrer cada uno de los 
          * campos de la consulta
          */
-        for (int i = 0; i <=label.length - 1; i++) {
+        for (int i = 0; i <= label.length - 1; i++) {
 
             for (int j = 0; j <= label[i].length - 1; j++) {
 
@@ -468,40 +489,37 @@ public final class PantallaUsuario extends javax.swing.JPanel {
                     label[i][j] = new JLabel();     //Instanciación
 
                     /* Se le da el diseño predeterminado al label */
-                    
                     /* Se asigna el color de fondo */
-                    label[i][j].setBackground(new java.awt.Color(204, 255, 
-                                                                 255));
-                    
+                    label[i][j].setBackground(new java.awt.Color(204, 255,
+                            255));
+
                     /* Se asigna la fuente, el tipo de letra y el tamaño */
                     label[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi",
-                                                          1, conf[3]));
-                    
+                            1, conf[3]));
+
                     /* Se asigna el color de letra */
                     label[i][j].setForeground(new java.awt.Color(0, 102, 102));
-                    
+
                     /* Se asigna el alineamiento al centro */
-                    label[i][j].setHorizontalAlignment(javax.swing
-                            .SwingConstants.CENTER);
-                    
+                    label[i][j].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
                     /* Se asigna el dato del campo */
                     label[i][j].setText(menu[i][j]);
-                    
+
                     /* Se asigna el tipo de borde */
                     label[i][j].setBorder(javax.swing.BorderFactory
-                            .createBevelBorder(javax.swing.border
-                                    .BevelBorder.RAISED));
-                    
+                            .createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
                     /* Opacar */
                     label[i][j].setOpaque(true);
-                    
+
                     /* Se asigna el label en el arreglo de componentes */
-                    componente[i][j]=label[i][j];
+                    componente[i][j] = label[i][j];
 
                 } else {
 
                     scrollPane[i][j] = new JScrollPane();     //Instanciación
-                    
+
                     /* Asignar el tipo de borde */
                     scrollPane[i][j].setBorder(jScrollPane1.getBorder());
 
@@ -509,42 +527,41 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
                     /* Color de fondo */
                     TextArea[i][j].setBackground(jTextArea1.getBackground());
-                    
+
                     /* numero de columnas */
                     TextArea[i][j].setColumns(jTextArea1.getColumns());
-                    
+
                     /* Fuente, tipo de letra y tamaño */
-                    TextArea[i][j].setFont(new java.awt
-                            .Font("Berlin Sans FB Demi", 1, conf[3]));
-                    
+                    TextArea[i][j].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[3]));
+
                     /* Color de letra */
                     TextArea[i][j].setForeground(jTextArea1.getForeground());
-                    
+
                     /* Autoajustar texto */
                     TextArea[i][j].setLineWrap(jTextArea1.getLineWrap());
-                    
+
                     /* numero de filas */
                     TextArea[i][j].setRows(jTextArea1.getRows());
-                    
+
                     /* Opacar */
                     TextArea[i][j].setOpaque(true);
-                    
+
                     /* Se asigna el dato del campo */
                     TextArea[i][j].setText(menu[i][j]);
-                    
+
                     /* Estilo de envolvimiento de texto */
                     TextArea[i][j].setWrapStyleWord(jTextArea1
                             .getWrapStyleWord());
-                    
-                     /* No seleccionable */
+
+                    /* No seleccionable */
                     TextArea[i][j].setFocusable(false);
 
                     /* Dar tama{o minimo */
                     scrollPane[i][j].setMinimumSize(new Dimension(100, 100));
-                    
+
                     /* Asisgnar el textArea al scrollPane */
                     scrollPane[i][j].setViewportView(TextArea[i][j]);
-                    
+
                     /* Se asigna el scrollPane al arreglo de componentes */
                     componente[i][j] = scrollPane[i][j];
 
@@ -559,12 +576,12 @@ public final class PantallaUsuario extends javax.swing.JPanel {
          * registro 
          */
         JButton[][] boton = new JButton[menu.length][nombreBoton.length];
-        
+
         /* 
          * Se crea un arreglo para contener los titulos de los campos de los
          * registros
          */
-        JButton[] columna = new JButton [menu[0].length + nombreBoton.length];
+        JButton[] columna = new JButton[menu[0].length + nombreBoton.length];
 
         /* 
          * Se efectuan dos ciclos repetitivos para recorrer el arreglo 
@@ -575,22 +592,22 @@ public final class PantallaUsuario extends javax.swing.JPanel {
             for (int j = 0; j <= nombreBoton.length - 1; j++) {
 
                 boton[i][j] = new JButton();    //Instanciación
-                
+
                 /* Fuente, tipo y tamaño */
                 boton[i][j].setFont(jButton6.getFont());
-                
+
                 /* Color de fondo */
                 boton[i][j].setBackground(jButton6.getBackground());
-                
+
                 /* Color de letra */
                 boton[i][j].setForeground(jButton6.getForeground());
-                
+
                 /* Asignar icono */
-                DarIcono.darIcono(boton[i][j],nombreIcono[j]);
-                
+                DarIcono.darIcono(boton[i][j], nombreIcono[j]);
+
                 /* Mostrar u ocultar */
                 boton[i][j].setVisible(mostrarBotones);
-                
+
                 /* Mesaje de información */
                 boton[i][j].setToolTipText(nombreBoton[j]);
 
@@ -602,42 +619,43 @@ public final class PantallaUsuario extends javax.swing.JPanel {
         for (int i = 0; i <= columna.length - 1; i++) {
 
             columna[i] = new JButton();     //Instanciación
-            
+
             /* Color de fondo */
             columna[i].setBackground(new java.awt.Color(0, 102, 102));
-            
+
             /* Fuente, tipo y tamaño */
-            columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
-            
+            columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+                    conf[2]));
+
             /* Color de letra */
             columna[i].setForeground(new java.awt.Color(204, 255, 255));
-            
+
             /* No opacar */
-            columna[i].setOpaque(false); 
-            
+            columna[i].setOpaque(false);
+
             /* Asinar nombre de la columna */
             columna[i].setText(nombreColumna[i]);
-            
+
             /* Mostrar u ocultar */
             columna[i].setVisible(mostrarBotones);
 
             /* Varificar si el boton esta vacío */
             if ("".equals(nombreColumna[i])) {
-                
+
                 /* Dar color de fondo */
                 columna[i].setBackground(new java.awt.Color(190, 255, 255));
-                
+
                 /* No seleccionable */
                 columna[i].setFocusable(false);
-                
+
             } else {
-                
+
                 /* 
                  * Se crea una variable para ubicar los botones de titulo 
                  * seleccionables 
                  */
                 final int i2 = i - boton[0].length;
-                
+
                 /* 
                  * Se crea un arreglo temporal para contener los 
                  * identificadores 
@@ -648,20 +666,17 @@ public final class PantallaUsuario extends javax.swing.JPanel {
                  * Se asigna el evento para organizar los registros por ese 
                  * campo 
                  */
-                columna[i].addActionListener(new java.awt.event
-                        .ActionListener() {
-                            
+                columna[i].addActionListener(new java.awt.event.ActionListener() {
+
                     @Override
-                    public void actionPerformed(java.awt.event
-                            .ActionEvent evt) {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
 
                         /* Se gusrda el dato del ultimo campo seleccionado */
-                        consulta.columnaSeleccionadaAnterior = consulta
-                                .columnaSeleccionada;
-                        
+                        consulta.columnaSeleccionadaAnterior = consulta.columnaSeleccionada;
+
                         /* Se asigna la columna que se seleccionó */
                         consulta.columnaSeleccionada(consulta.campos[i2 + 1]);
-                        
+
                         /* Se asigna el numero de la columna seleccionada */
                         consulta.nColumnaSeleccionada = i2;
 
@@ -677,50 +692,50 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
                             /* Si la orientación es acendente */
                             if ("ASC".equals(consulta.orientacion)) {
-                                
+
                                 /* Dar orientacion descendente */
                                 consulta.orientacion("DESC");
-                                
+
                             } else {
-                                
+
                                 /* Dar orientacion ascendente */
                                 consulta.orientacion("ASC");
-                            
+
                             }
 
                         } else {
-                            
+
                             /* Se elimina el filtro de la consulta */
                             consulta.busqueda = "";
-                        
+
                         }
 
                         /* Realizar la busqueda en la base de datos */
                         String menu[][] = consulta.ejecutarConsulta();
 
                         /* Volver a crear la tabla en el panel */
-                        PantallaUsuario p = new PantallaUsuario(tipo, menu, 
-                                nombreBoton, nombreIcono, nombreColumna, 
-                                vinculo, retorno, nombrePantalla, usuario, 
+                        PantallaUsuario p = new PantallaUsuario(tipo, menu,
+                                nombreBoton, nombreIcono, nombreColumna,
+                                vinculo, retorno, nombrePantalla, usuario,
                                 declaracion, ID1, consulta);
-                        
+
                         consulta.panelContenedor.removeAll(); // Remover panel
                         consulta.panelContenedor.add(p);    //Añadir nuevo panel
                         consulta.panelContenedor.validate();    //Actualizar
-                        
+
                         /* Asignar la posición guardada anteriormente */
                         p.jPanel8.setLocation(consulta.posicion);
-                        
+
                         /* Resaltar la columna seleccionada */
-                        EventosMenu.darColorColumna(p.componente, 
+                        EventosMenu.darColorColumna(p.componente,
                                 consulta.nColumnaSeleccionada);
 
                     }
-                    
+
                 });
-                
+
             }
-            
+
         }
 
         /* Evento del botón buscar */
@@ -730,7 +745,7 @@ public final class PantallaUsuario extends javax.swing.JPanel {
                 /* Se realiza la busqueda en la base de datos empleando el 
                  * filtro de información 
                  */
-                buscar(nombreBoton,nombreIcono,nombreColumna,vinculo);
+                buscar(nombreBoton, nombreIcono, nombreColumna, vinculo);
 
             }
         });
@@ -747,13 +762,13 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
                     /* Se le resta un valor a la pagina actual */
                     consulta.paginaActual--;
-                    
+
                     /* 
                      * Se le restan los registros necesarios al inicial para 
                      * cargar la pagina anterior 
                      */
                     consulta.registroInicial -= consulta.nRegistrosPagina;
-                    
+
                     /* Se realiza la busqueda con los cambios realizados */
                     buscar(nombreBoton, nombreIcono, nombreColumna, vinculo);
 
@@ -771,15 +786,15 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
                 /* Se le suma un valor a la pagina actual */
                 consulta.paginaActual++;
-                
+
                 /* 
                  * Se le suman los registros necesarios al iniciar para 
                  * cargar la pagina posterior 
                  */
                 consulta.registroInicial += consulta.nRegistrosPagina;
-                
+
                 /* Se realiza la busqueda con los cambios realizados */
-                String[][] menu = buscar(nombreBoton, nombreIcono, 
+                String[][] menu = buscar(nombreBoton, nombreIcono,
                         nombreColumna, vinculo);
 
                 /* Se verifica si no hay registros a mostrar */
@@ -787,8 +802,8 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
                     /* Se regrsa a la pagina anterior */
                     consulta.paginaActual--;
-                    consulta.registroInicial-=consulta.nRegistrosPagina;
-                    buscar(nombreBoton,nombreIcono,nombreColumna,vinculo);
+                    consulta.registroInicial -= consulta.nRegistrosPagina;
+                    buscar(nombreBoton, nombreIcono, nombreColumna, vinculo);
 
                 }
 
@@ -797,20 +812,20 @@ public final class PantallaUsuario extends javax.swing.JPanel {
 
         /* Se ubican los elementos en el panel en forma de tabla */
         new UbicarLista(jPanel8, componente, boton, columna);
-        
+
         /* Se asigna una longitud de 2 para contener el panel de la tabla y 
          * el panel de busqueda para su posterior animación
          */
         objeto = new Component[2];
-        
+
         /* Se asigna el panel de la tabla */
         objeto[0] = jPanel8;
-        
+
         /* Se asigna el panl de busqueda */
         objeto[1] = jPanel5;
 
         /* Se asignan los eventos del cambio de pantalla */
-        new EventosMenu(objeto, velocidad, boton, this.ID, ID, this, vinculo, 
+        new EventosMenu(objeto, velocidad, boton, this.ID, ID, this, vinculo,
                 nombrePantalla, tipo, usuario, declaracion);
 
     }
@@ -1241,19 +1256,20 @@ public final class PantallaUsuario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
-       /* 
+
+        /* Boton "Editar mis datos" */
+        /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(objeto, velocidad, this, 
-                                     "EditarMisDatos", nombrePantalla, tipo, 
-                                     usuario, ID, declaracion);
-        
+        new AnimacionObjetos().RIzquierda(objeto, velocidad, this,
+                "EditarMisDatos", nombrePantalla, tipo,
+                usuario, ID, declaracion);
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       
+
         /* Se verifica si el retorno corresponde a la pantalla inicio.*/
         if ("PantallaInicio".equals(retorno)) {
 
@@ -1266,48 +1282,48 @@ public final class PantallaUsuario extends javax.swing.JPanel {
              * Se animan los objetos para que salgan del panel y se realiza 
              * el cambio de pantalla
              */
-            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno, 
-                                         nombrePantalla, tipo, usuario, 
-                                         Arreglo.quitar(ID), declaracion);
-            
+            new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno,
+                    nombrePantalla, tipo, usuario,
+                    Arreglo.quitar(ID), declaracion);
+
         }
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         /* Se abre la ventana de configuración de la aplicación */
         Configuracion c = new Configuracion();  //Instanciación
         c.setSize(800, 600);    //Tamaño de ventana
         c.setLocationRelativeTo(null);      //Ubicar al centro
         c.setVisible(true);     //Dar visivilidad
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-  
+
         /*
          * Se crea un arreglo de componentes para alamcenar todos los objetos 
          * que se van a animar al momento de la salida
          */
         Component[] componentes = new Component[objeto.length + 2];
-        
+
         componentes[0] = jPanel2;   //Se añade el panel superior
         componentes[1] = jPanel3;   //Se añade el panel inferior
 
         /* Se añaden los demas objetos a los que se les dió la animación */
         for (int i = 2; i <= componentes.length - 1; i++) {
-            componentes[i] = objeto[i - 2];       
+            componentes[i] = objeto[i - 2];
         }
 
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 
          * el cambio de pantalla
          */
-        new AnimacionObjetos().RIzquierda(componentes, velocidad, this, 
-                                     "PantallaInicio", nombrePantalla, tipo, 
-                                     usuario, null, declaracion);
-        
+        new AnimacionObjetos().RIzquierda(componentes, velocidad, this,
+                "PantallaInicio", nombrePantalla, tipo,
+                usuario, null, declaracion);
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -1324,15 +1340,16 @@ public final class PantallaUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jPanel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MousePressed
-        
+
+        /* Evento editar foto */
         /**
-         * Se abre el Frame corespondiente para gestionar la foto del 
-         * usuario actual
+         * Se abre el Frame corespondiente para gestionar la foto del usuario
+         * actual en el momento en que se presiona el marco
          */
         Foto foto = new Foto(jLabel3, declaracion, usuario, tipo);
         foto.setLocationRelativeTo(null);   //se ubica al centro
         foto.setVisible(true);      //se le da visivilidad
-        
+
     }//GEN-LAST:event_jPanel6MousePressed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
@@ -1340,20 +1357,19 @@ public final class PantallaUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
-        
+
         /* Dar una longitud maxima de caracteres de 2147483647 */
-        Validaciones.longitud(evt, jTextField3.getText().length(), 
-                                2147483647);
-        
+        Validaciones.longitud(evt, jTextField3.getText().length(),
+                2147483647);
+
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);
-        
+
     }//GEN-LAST:event_jTextField3KeyTyped
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        
 
-        
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
