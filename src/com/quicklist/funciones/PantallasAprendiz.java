@@ -277,9 +277,9 @@ public class PantallasAprendiz {
 
             Consulta c = new Consulta(declaracion);
             c.tabla("T_Inasistencia join T_Formacion on T_Inasistencia.ID_Formacion = T_Formacion.ID_Formacion ");
-            String[] campos = {"ID_Inasistencia", "Fecha", "Estado_De_Inasistencia", "Justificacion_De_Inasistencia"};
+            String[] campos = {"ID_Inasistencia", "Fecha", "CAST(CASE WHEN Estado_De_Inasistencia = 'CE' THEN 'Falla con excusa' WHEN Estado_De_Inasistencia = 'SE' THEN 'Falla sin excusa' WHEN Estado_De_Inasistencia = 'NO' THEN 'Asistió' END AS varchar )"};
             c.campos(campos);
-            String[] alias = {"ID_Inasistencia", "Fecha", "Estado_De_Inasistencia", "Justificacion_De_Inasistencia"};
+            String[] alias = {"ID_Inasistencia", "Fecha", "Estado_De_Inasistencia"};
             c.alias(alias);
             c.columnaSeleccionada("Fecha");
             c.condicion("ID_Horario=" + ID[ID.length - 1] + " and ID_Aprendiz=" + usuario);
