@@ -649,7 +649,7 @@ public final class TomarAsistencia extends javax.swing.JPanel {
              */
             new AnimacionObjetos().RIzquierda(objeto, velocidad, this, retorno,
                     nombrePantalla, tipo, usuario,
-                    Arreglo.quitar(ID), declaracion);
+                    Arreglo.quitar(Arreglo.quitar(ID)), declaracion);
 
         }
 

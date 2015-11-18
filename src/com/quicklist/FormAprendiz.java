@@ -469,7 +469,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 102, 102));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("*Correo electronico");
+        jLabel19.setText("*Correo electrónico");
         jLabel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel19.setOpaque(true);
 
@@ -492,7 +492,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
         jLabel20.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 102, 102));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText("Genero");
+        jLabel20.setText("Género");
         jLabel20.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel20.setOpaque(true);
 
@@ -508,7 +508,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
         jLabel23.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(0, 102, 102));
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("Telefono fijo");
+        jLabel23.setText("Teléfono fijo");
         jLabel23.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel23.setOpaque(true);
 
@@ -531,7 +531,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
         jLabel24.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(0, 102, 102));
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("*Telefono celular");
+        jLabel24.setText("*Teléfono celular");
         jLabel24.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel24.setOpaque(true);
 
@@ -555,7 +555,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
         jLabel27.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(0, 102, 102));
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel27.setText("Estilos Y Ritmos De Aprendizaje");
+        jLabel27.setText("Estilos y ritmos de aprendizaje");
         jLabel27.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel27.setOpaque(true);
 
@@ -563,7 +563,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
         jLabel28.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(0, 102, 102));
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel28.setText("Estrategia Metodológica De Preferencia");
+        jLabel28.setText("Estrategia metodológica de preferencia");
         jLabel28.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel28.setOpaque(true);
 
@@ -571,7 +571,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
         jLabel29.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(0, 102, 102));
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel29.setText("Caracteristicas Culturales Y Sociales");
+        jLabel29.setText("Características culturales y sociales");
         jLabel29.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel29.setOpaque(true);
 

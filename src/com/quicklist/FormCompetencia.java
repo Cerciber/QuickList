@@ -255,7 +255,7 @@ public final class FormCompetencia extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 102, 102));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("*Nombre Competencia");
+        jLabel15.setText("*Nombre competencia");
         jLabel15.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel15.setOpaque(true);
 

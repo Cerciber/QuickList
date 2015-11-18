@@ -52,7 +52,7 @@ public class PantallasAprendiz {
 
         if ("T_Aprendiz".equals(nombreClase)) {
 
-            String[] menu = {"Asistencia", "Formato Etapa Lectiva"};
+            String[] menu = {"Asistencia", "Formato etapa lectiva"};
             String[] vinculo = {"Aprendiz.Asistencia", "Aprendiz.FormatoEtapaLectiva"};
             String retorno = "PantallaInicio";
 
@@ -66,7 +66,7 @@ public class PantallasAprendiz {
 
         if ("Aprendiz".equals(nombreClase)) {
 
-            String[] menu = {"Asistencia", "Formato Etapa Lectiva"};
+            String[] menu = {"Asistencia", "Formato etapa lectiva"};
             String[] vinculo = {"Aprendiz.Asistencia", "Aprendiz.FormatoEtapaLectiva"};
             String retorno = "PantallaInicio";
 
@@ -80,7 +80,7 @@ public class PantallasAprendiz {
 
         if ("Aprendiz.Asistencia".equals(nombreClase)) {
 
-            String[] menu = {"Asistencia por horario", "Buscar en Plan de Estudios"};
+            String[] menu = {"Asistencia por horario", "Buscar en plan de estudios"};
             String[] vinculo = {"Aprendiz.Asistencia.Horario", "Aprendiz.Asistencia.Competencia"};
             String retorno = "Aprendiz";
 
@@ -96,7 +96,7 @@ public class PantallasAprendiz {
 
             String[] nombreBotones = {"Formaciones"};
             String[] nombreIcono = {"Formaciones"};
-            String[] columna = {"", "instructor", "Dia Semana", "Hora Inicio", "Hora Fin", "Fecha Inicio", "Fecha Fin", "Lugar", "Resultado De Aprendizaje"};
+            String[] columna = {"", "Instructor", "Dia semana", "Hora inicio", "Hora fin", "Fecha inicio", "Fecha fin", "Lugar", "Resultado de aprendizaje"};
             String[] vinculo = {"Aprendiz.Asistencia.Horario.Descripcion"};
             String retorno = "Aprendiz.Asistencia";
 
@@ -159,9 +159,9 @@ public class PantallasAprendiz {
 
         if ("Aprendiz.Asistencia.Competencia".equals(nombreClase)) {
 
-            String[] nombreBotones = {"Actividades De Aprendizaje"};
+            String[] nombreBotones = {"Actividades de aprendizaje"};
             String[] nombreIcono = {"Actividades De Aprendizaje"};
-            String[] columna = {"", "Competencia_A_Desarrollar"};
+            String[] columna = {"", "Competencia a desarrollar"};
             String[] vinculo = {"Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje"};
             String retorno = "Aprendiz.Asistencia";
 
@@ -186,9 +186,9 @@ public class PantallasAprendiz {
 
         if ("Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje".equals(nombreClase)) {
 
-            String[] nombreBotones = {"Resultado De Aprendizaje"};
+            String[] nombreBotones = {"Resultado de aprendizaje"};
             String[] nombreIcono = {"Resultado De Aprendizaje"};
-            String[] columna = {"", "Fase_Del_Proyecto", "Actividad_De_Aprendizaje"};
+            String[] columna = {"", "Fase del proyecto", "Actividad de aprendizaje"};
             String[] vinculo = {"Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje"};
             String retorno = "Aprendiz.Asistencia.Competencia";
 
@@ -215,7 +215,7 @@ public class PantallasAprendiz {
 
             String[] nombreBotones = {"Horario"};
             String[] nombreIcono = {"Horarios"};
-            String[] columna = {"", "Resultado_De_Aprendizaje"};
+            String[] columna = {"", "Resultado de aprendizaje"};
             String[] vinculo = {"Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario"};
             String retorno = "Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje";
 
@@ -242,7 +242,7 @@ public class PantallasAprendiz {
 
             String[] nombreBotones = {"Formaciones"};
             String[] nombreIcono = {"Formaciones"};
-            String[] columna = {"", "Instructor", "Dia Semana", "Hora Inicio", "Hora Fin", "Fecha Inicio", "Fecha Fin", "Lugar", "Resultado De Aprendizaje"};
+            String[] columna = {"", "Instructor", "Dia semana", "Hora inicio", "Hora fin", "Fecha inicio", "Fecha fin", "Lugar", "Resultado de aprendizaje"};
             String[] vinculo = {"Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario.Asistencia"};
             String retorno = "Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje";
 
@@ -271,7 +271,7 @@ public class PantallasAprendiz {
 
             String[] nombreBotones = {"Excusa"};
             String[] nombreIcono = {"Excusa"};
-            String[] columna = {"", "Fecha", "Estado", "Justificacion"};
+            String[] columna = {"", "Fecha", "Estado", "Justificación"};
             String[] vinculo = {"Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario.Asistencia.ReportarExcusa"};
             String retorno = "Aprendiz.Asistencia.Competencia.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario";
 
@@ -305,7 +305,7 @@ public class PantallasAprendiz {
 
         if ("Aprendiz.FormatoEtapaLectiva".equals(nombreClase)) {
 
-            String[] menu = {"Obtener formato en blanco", "Formato por Instructor", "Formato por horario", "Buscar en Plan de Estudios"};
+            String[] menu = {"Obtener formato en blanco", "Formato por instructor", "Formato por horario", "Buscar en plan de estudios"};
             String[] vinculo = {"Aprendiz.FormatoEtapaLectiva.FormatoEnBlanco", "Aprendiz.FormatoEtapaLectiva.Instructor", "Aprendiz.FormatoEtapaLectiva.Horario", "Aprendiz.FormatoEtapaLectiva.Competencias"};
             String retorno = "Aprendiz";
 
@@ -329,9 +329,9 @@ public class PantallasAprendiz {
 
         if ("Aprendiz.FormatoEtapaLectiva.Instructor".equals(nombreClase)) {
 
-            String[] nombreBotones = {"Formato De Etapa Lectiva"};
+            String[] nombreBotones = {"Formato de etapa lectiva"};
             String[] nombreIcono = {"Formato"};
-            String[] columna = {"", "Nombre", "Primer Apellido", "Segundo Apellido", "cargo", "Correo Electronico", "Telefono", "Celular"};
+            String[] columna = {"", "Nombre", "Primer Apellido", "Segundo Apellido", "Cargo", "Correo electrónico", "Teléfono", "Celular"};
             String[] vinculo = {"Aprendiz.FormatoEtapaLectiva.Instructor.Obtener"};
             String retorno = "Aprendiz.FormatoEtapaLectiva";
 
@@ -363,9 +363,9 @@ public class PantallasAprendiz {
 
         if ("Aprendiz.FormatoEtapaLectiva.Horario".equals(nombreClase)) {
 
-            String[] nombreBotones = {"Formato De Etapa Lectiva"};
+            String[] nombreBotones = {"Formato de etapa lectiva"};
             String[] nombreIcono = {"Formato"};
-            String[] columna = {"", "instructor", "Dia", "Hora Inicio", "Hora Fin", "Fecha Inicio", "Fecha Fin", "Lugar", "Resultado De Aprendizaje"};
+            String[] columna = {"", "Instructor", "Día", "Hora inicio", "Hora fin", "Fecha inicio", "Fecha fin", "Lugar", "Resultado de aprendizaje"};
             String[] vinculo = {"Aprendiz.FormatoEtapaLectiva.Horario.Obtener"};
             String retorno = "Aprendiz.FormatoEtapaLectiva";
 
@@ -403,9 +403,9 @@ public class PantallasAprendiz {
 
         if ("Aprendiz.FormatoEtapaLectiva.Competencias".equals(nombreClase)) {
 
-            String[] nombreBotones = {"Actividades De Aprendizaje"};
+            String[] nombreBotones = {"Actividades De aprendizaje"};
             String[] nombreIcono = {"Actividades De Aprendizaje"};
-            String[] columna = {"", "Competencia A Desarrollar"};
+            String[] columna = {"", "Competencia a desarrollar"};
             String[] vinculo = {"Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje"};
             String retorno = "Aprendiz.FormatoEtapaLectiva";
 
@@ -430,9 +430,9 @@ public class PantallasAprendiz {
 
         if ("Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje".equals(nombreClase)) {
 
-            String[] nombreBotones = {"Resultado De Aprendizaje"};
+            String[] nombreBotones = {"Resultado de aprendizaje"};
             String[] nombreIcono = {"Resultado De Aprendizaje"};
-            String[] columna = {"", "Fase", "Actividad De Aprendizaje"};
+            String[] columna = {"", "Fase", "Actividad de aprendizaje"};
             String[] vinculo = {"Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje.ResultadoDeAprendizaje"};
             String retorno = "Aprendiz.FormatoEtapaLectiva.Competencias";
 
@@ -459,7 +459,7 @@ public class PantallasAprendiz {
 
             String[] nombreBotones = {"Horario"};
             String[] nombreIcono = {"Horarios"};
-            String[] columna = {"", "Resultado De Aprendizaje"};
+            String[] columna = {"", "Resultado de aprendizaje"};
             String[] vinculo = {"Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario"};
             String retorno = "Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje";
 
@@ -484,9 +484,9 @@ public class PantallasAprendiz {
 
         if ("Aprendiz.FormatoEtapaLectiva.Competencias.ActividadDeAprendizaje.ResultadoDeAprendizaje.Horario".equals(nombreClase)) {
 
-            String[] nombreBotones = {"Formato De Etapa Lactiva"};
+            String[] nombreBotones = {"Formato de etapa lectiva"};
             String[] nombreIcono = {"Formato"};
-            String[] columna = {"", "instructor", "Dia", "Hora Inicio", "Hora Fin", "Fecha Inicio", "Fecha Fin", "Lugar", "Resultado De Aprendizaje"};
+            String[] columna = {"", "Instructor", "Día", "Hora inicio", "Hora fin", "Fecha inicio", "Fecha fin", "Lugar", "Resultado de aprendizaje"};
             String[] vinculo = {"Aprendiz.FormatoEtapaLectiva.Horario.Obtener"};
             String retorno = "Aprendiz.FormatoEtapaLectiva";
 

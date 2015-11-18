@@ -54,7 +54,7 @@ public class PantallasInstructor {
 
         if ("T_Instructor".equals(nombreClase)) {
 
-            String[] menu = {"Seleccionar Ficha", "Ver Horario"};
+            String[] menu = {"Seleccionar ficha", "Ver horario"};
             String[] vinculo = {"Instructor.Fichas", "Instructor.Horario"};
             String retorno = "PantallaInicio";
 
@@ -68,7 +68,7 @@ public class PantallasInstructor {
 
         if ("Instructor".equals(nombreClase)) {
 
-            String[] menu = {"Seleccionar Ficha", "Ver Horario"};
+            String[] menu = {"Seleccionar ficha", "Ver horario"};
             String[] vinculo = {"Instructor.Fichas", "Instructor.Horario"};
             String retorno = "PantallaInicio";
 
@@ -82,7 +82,7 @@ public class PantallasInstructor {
 
         if ("Instructor.Fichas".equals(nombreClase)) {
 
-            String[] nombreBotones = {"Ver Ficha"};
+            String[] nombreBotones = {"Ver ficha"};
             String[] nombreIcono = {"Ficha"};
             String[] columna = {"", "Ficha"};
             String[] vinculo = {"Instructor.Fichas.Menu"};
@@ -130,9 +130,9 @@ public class PantallasInstructor {
 
         if ("Instructor.Fichas.Horario".equals(nombreClase)) {
 
-            String[] nombreBotones = {"Ver Horario"};
+            String[] nombreBotones = {"Ver horario"};
             String[] nombreIcono = {"Horarios"};
-            String[] columna = {"", "Ficha", "Instructor", "Dia", "Hora Inicio", "Hora Fin", "Fecha Inicio", "Fecha Fin", "Lugar", "Resultado De Aprendizaje"};
+            String[] columna = {"", "Ficha", "Instructor", "Día", "Hora inicio", "Hora fin", "Fecha inicio", "Fecha fin", "Lugar", "Resultado de aprendizaje"};
             String[] vinculo = {"Instructor.Fichas.Horario.Menu"};
             String retorno = "Instructor.Fichas.Menu";
 
@@ -159,7 +159,7 @@ public class PantallasInstructor {
 
         if ("Instructor.Fichas.Horario.Menu".equals(nombreClase)) {
 
-            String[] menu = {"Asistencia", "Formato Etapa Lectiva"};
+            String[] menu = {"Asistencia", "Actividades"};
             String[] vinculo = {"Instructor.Fichas.Horario.Menu.Asistencia", "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva"};
             String retorno = "Instructor.Fichas.Horario";
 
@@ -173,7 +173,7 @@ public class PantallasInstructor {
 
         if ("Instructor.Fichas.Horario.Menu.Asistencia".equals(nombreClase)) {
 
-            String[] menu = {"Ver Asistencias", "Tomar Asistencia", "Reporte de Asistencia"};
+            String[] menu = {"Ver asistencias", "Tomar asistencia", "Reporte de asistencia"};
             String[] vinculo = {"Instructor.Fichas.Horario.Menu.Asistencia.Ver", "Instructor.Fichas.Horario.Menu.Asistencia.Ingresar", "Instructor.Fichas.Horario.Menu.Asistencia.Reporte"};
             String retorno = "Instructor.Fichas.Horario.Menu";
 
@@ -236,7 +236,7 @@ public class PantallasInstructor {
 
         if ("Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar.siguiente".equals(nombreClase)) {
 
-            String retorno = "Instructor.Fichas.Horario.Menu.Asistencia.Ver.Editar";
+            String retorno = "Instructor.Fichas.Horario.Menu.Asistencia.Ver";
             String vinculo = "Instructor.Fichas.Horario.Menu.Asistencia.Ver";
 
             TomarAsistencia p = new TomarAsistencia(tipo, vinculo, retorno, nombreClase, usuario, ID, declaracion);
@@ -251,7 +251,7 @@ public class PantallasInstructor {
 
             String[] vinculo = {"Instructor.Fichas.Horario.Menu.Asistencia.Ver.Borrar.Confirmado", "Instructor.Fichas.Horario.Menu.Asistencia.Ver"};
             String retorno = "Instructor.Fichas.Horario.Menu.Asistencia.Ver";
-            String pregunta = "¿Desea eliminar la Formación " + ID[ID.length - 1] + "?";
+            String pregunta = "¿Desea eliminar la formación " + ID[ID.length - 1] + "?";
 
             Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
             panelContenedor.removeAll();
@@ -283,7 +283,7 @@ public class PantallasInstructor {
 
         if ("Instructor.Fichas.Horario.Menu.Asistencia.Ingresar.Siguiente".equals(nombreClase)) {
 
-            String retorno = "Instructor.Fichas.Horario.Menu.Asistencia.Ingresar";
+            String retorno = "Instructor.Fichas.Horario.Menu.Asistencia";
             String vinculo = "Instructor.Fichas.Horario.Menu.Asistencia.Ver";
 
             TomarAsistencia p = new TomarAsistencia(tipo, vinculo, retorno, nombreClase, usuario, (ID), declaracion);
@@ -296,7 +296,7 @@ public class PantallasInstructor {
 
         if ("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva".equals(nombreClase)) {
 
-            String[] menu = {"Ver Actividades", "Ingresar actividad"};
+            String[] menu = {"Ver actividades", "Ingresar actividad"};
             String[] vinculo = {"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver", "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ingresar"};
             String retorno = "Instructor.Fichas.Horario.Menu";
 
@@ -312,7 +312,7 @@ public class PantallasInstructor {
 
             String[] nombreBotones = {"Editar", "Borrar", "Aprobar"};
             String[] nombreIcono = {"Editar", "Borrar", "Aprobar"};
-            String[] columna = {"", "", "", "Nombre Actividad", "Nombre Evidencia", "Medio", "Tipo", "Fecha Recoleccion De Evidencia"};
+            String[] columna = {"", "", "", "Nombre actividad", "Nombre evidencia", "Medio", "Tipo", "Fecha recolección de evidencia"};
             String[] vinculo = {"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Editar", "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar", "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Aprobar"};
             String retorno = "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva";
 
@@ -353,7 +353,7 @@ public class PantallasInstructor {
 
             String[] vinculo = {"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar.Confirmado", "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver"};
             String retorno = "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver";
-            String pregunta = "¿Desea eliminar la Actividad " + ID[ID.length - 1] + "?";
+            String pregunta = "¿Desea eliminar la actividad " + ID[ID.length - 1] + "?";
 
             Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
             panelContenedor.removeAll();
@@ -367,7 +367,7 @@ public class PantallasInstructor {
 
             String[] vinculo = {"Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar.Confirmado.Confirmado", "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver"};
             String retorno = "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver";
-            String pregunta = "Al eliminarlo se borraran todos los datos ligados a este usuario";
+            String pregunta = "Al eliminarla se borraran todos los datos ligados a esta actividad";
 
             Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
             panelContenedor.removeAll();
@@ -410,9 +410,9 @@ public class PantallasInstructor {
 
         if ("Instructor.Horario".equals(nombreClase)) {
 
-            String[] nombreBotones = {"Ir al Horario"};
+            String[] nombreBotones = {"Ir al horario"};
             String[] nombreIcono = {"Horarios"};
-            String[] columna = {"", "Ficha", "Dia", "Hora Inicio", "Hora Fin", "Fecha Inicio", "Fecha Fin", "Lugar", "Resultado De Aprendizaje"};
+            String[] columna = {"", "Ficha", "Día", "Hora inicio", "Hora fin", "Fecha inicio", "Fecha fin", "Lugar", "Resultado de aprendizaje"};
             String[] vinculo = {"Instructor.Fichas.Horario.Menu"};
             String retorno = "Instructor";
 

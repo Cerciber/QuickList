@@ -288,7 +288,7 @@ public final class FormResultadoDeAprendizaje extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 102, 102));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("*Resultado De Aprendizaje");
+        jLabel16.setText("*Resultado de aprendizaje");
         jLabel16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel16.setOpaque(true);
 
@@ -300,7 +300,7 @@ public final class FormResultadoDeAprendizaje extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                 .addGap(30, 30, 30))
         );
         jPanel8Layout.setVerticalGroup(

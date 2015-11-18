@@ -409,7 +409,7 @@ public final class FormFuncionarios extends javax.swing.JPanel {
         jLabel18.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 102, 102));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("*Primer Apellido");
+        jLabel18.setText("*Primer apellido");
         jLabel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel18.setOpaque(true);
 
@@ -432,7 +432,7 @@ public final class FormFuncionarios extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 102, 102));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("*Segundo Apellido");
+        jLabel19.setText("*Segundo apellido");
         jLabel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel19.setOpaque(true);
 
@@ -486,7 +486,7 @@ public final class FormFuncionarios extends javax.swing.JPanel {
         jLabel22.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 102, 102));
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setText("Telefono fijo");
+        jLabel22.setText("Teléfono fijo");
         jLabel22.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel22.setOpaque(true);
 
@@ -494,7 +494,7 @@ public final class FormFuncionarios extends javax.swing.JPanel {
         jLabel23.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(0, 102, 102));
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("*Telefono celular");
+        jLabel23.setText("*Teléfono celular");
         jLabel23.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel23.setOpaque(true);
 

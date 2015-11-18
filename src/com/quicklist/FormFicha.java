@@ -328,7 +328,7 @@ public final class FormFicha extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 102, 102));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Plan De Estudios");
+        jLabel16.setText("Plan de estudios");
         jLabel16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel16.setOpaque(true);
 

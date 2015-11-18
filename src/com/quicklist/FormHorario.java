@@ -393,7 +393,7 @@ public final class FormHorario extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 102, 102));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Resultado De Aprendizaje");
+        jLabel16.setText("Resultado de aprendizaje");
         jLabel16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel16.setOpaque(true);
 
@@ -409,7 +409,7 @@ public final class FormHorario extends javax.swing.JPanel {
         jLabel18.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 102, 102));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Dia");
+        jLabel18.setText("Día");
         jLabel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel18.setOpaque(true);
 
@@ -417,7 +417,7 @@ public final class FormHorario extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 102, 102));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("Hora Inicio");
+        jLabel19.setText("Hora inicio");
         jLabel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel19.setOpaque(true);
 
@@ -425,7 +425,7 @@ public final class FormHorario extends javax.swing.JPanel {
         jLabel20.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 102, 102));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText("Hora Fin");
+        jLabel20.setText("Hora fin");
         jLabel20.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel20.setOpaque(true);
 
@@ -433,7 +433,7 @@ public final class FormHorario extends javax.swing.JPanel {
         jLabel21.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 102, 102));
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("*Fecha Inicio");
+        jLabel21.setText("*Fecha inicio");
         jLabel21.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel21.setOpaque(true);
 
@@ -441,7 +441,7 @@ public final class FormHorario extends javax.swing.JPanel {
         jLabel22.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 102, 102));
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setText("*Fecha Fin");
+        jLabel22.setText("*Fecha fin");
         jLabel22.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel22.setOpaque(true);
 

@@ -38,8 +38,8 @@ CUENTA
 Recordar contrase�a:
 1
 Usuario:
-1
+2
 Contraseña:
-1
+2
 tipo:
-Aprendiz
+Instructor

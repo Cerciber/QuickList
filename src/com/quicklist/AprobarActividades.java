@@ -182,10 +182,15 @@ public final class AprobarActividades extends javax.swing.JPanel {
         columna[1].setText("Nombre");
         columna[2].setText("Apellido");
         columna[3].setText("A");
+        columna[3].setToolTipText("Autenticidadad");
         columna[4].setText("C");
+        columna[4].setToolTipText("Calidad");
         columna[5].setText("P");
+        columna[5].setToolTipText("Pertinencia");
         columna[6].setText("V");
+        columna[6].setToolTipText("Vigencia");
         columna[7].setText("L");
+        columna[7].setToolTipText("¿Logró el aprendizaje?");
 
         /**
          * Se le da el diseño al arreglo de labels y se asignan en ellos los

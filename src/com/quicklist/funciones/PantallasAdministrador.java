@@ -96,7 +96,7 @@ public class PantallasAdministrador {
 
             if ("Administrador.Funcionarios".equals(nombreClase)) {
 
-                String[] menu = {"Ver Funcionarios", "Ingresar Funcionario"};
+                String[] menu = {"Ver funcionarios", "Ingresar funcionario"};
                 String[] vinculo = {"Administrador.Funcionarios.Ver", "Administrador.Funcionarios.Ingresar"};
                 String retorno = "Administrador";
 
@@ -112,7 +112,7 @@ public class PantallasAdministrador {
 
                 String[] nombreBotones = {"Editar", "Borrar"};
                 String[] nombreIcono = {"Editar Usuario", "Borrar Usuario"};
-                String[] columna = {"", "", "Documento", "Contraseña", "Nombre", "Primer Apellido", "Segundo Apellido", "cargo", "Correo Electronico", "Telefono", "Celular"};
+                String[] columna = {"", "", "Documento", "Contraseña", "Nombre", "Primer apellido", "Segundo apellido", "Cargo", "Correo electrónico", "Teléfono", "Celular"};
                 String[] vinculo = {"Administrador.Funcionarios.Ver.Editar", "Administrador.Funcionarios.Ver.Borrar"};
                 String retorno = "Administrador.Funcionarios";
 
@@ -170,8 +170,8 @@ public class PantallasAdministrador {
                         + ".Confirmado.Confirmado", "Administrador"
                         + ".Funcionarios.Ver"};
                 String retorno = "Administrador.Funcionarios.Ver";
-                String pregunta = "Al eliminarlo se borraran todos los datos "
-                        + "ligados a este usuario";
+                String pregunta = "Al eliminarlo se borrarán todos los datos "
+                        + "ligados a éste usuario";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, 
                         usuario, ID, declaracion, pregunta, vinculo);
@@ -191,7 +191,7 @@ public class PantallasAdministrador {
                             + ".Confirmado.Confirmado.BorrarMiCuanta", 
                         "Administrador.Funcionarios.Ver"};
                     String retorno = "Administrador.Funcionarios.Ver";
-                    String pregunta = "Esta apunto de borrar su cuenta";
+                    String pregunta = "Está a punto de borrar su cuenta";
 
                     Confirmacion p = new Confirmacion(tipo, retorno, 
                             nombreClase, usuario, ID, declaracion, pregunta, 
@@ -209,8 +209,8 @@ public class PantallasAdministrador {
                     String[] nombreBotones = {"Editar", "Borrar"};
                     String[] nombreIcono = {"Editar Usuario", "Borrar Usuario"};
                     String[] columna = {"", "", "Documento", "Contraseña", 
-                        "Nombre", "Primer Apellido", "Segundo Apellido", 
-                        "cargo", "Correo Electronico", "Telefono", "Celular"};
+                        "Nombre", "Primer apellido", "segundo Apellido", 
+                        "Cargo", "Correo electrónico", "Teléfono", "Celular"};
                     String[] vinculo = {"Administrador.Funcionarios.Ver.Editar",
                         "Administrador.Funcionarios.Ver.Borrar"};
                     String retorno = "Administrador.Funcionarios";
@@ -271,7 +271,7 @@ public class PantallasAdministrador {
 
             if ("Administrador.Fichas".equals(nombreClase)) {
 
-                String[] menu = {"Ver Fichas", "Ingresar Fichas"};
+                String[] menu = {"Ver fichas", "Ingresar fichas"};
                 String[] vinculo = {"Administrador.Fichas.Ver", "Administrador.Fichas.Ingresar"};
                 String retorno = "Administrador";
 
@@ -287,7 +287,7 @@ public class PantallasAdministrador {
 
                 String[] nombreBotones = {"Editar", "Borrar", "Aprendices", "Horarios"};
                 String[] nombreIcono = {"Editar", "Borrar", "Aprendices", "Horarios"};
-                String[] columna = {"", "", "", "", "Ficha", "Plan De Estudios", "Fecha Inicio", "Fecha Fin"};
+                String[] columna = {"", "", "", "", "Ficha", "Plan de estudios", "Fecha inicio", "Fecha Fin"};
                 String[] vinculo = {"Administrador.Fichas.Ver.Editar", "Administrador.Fichas.Ver.Borrar", "Administrador.Fichas.Ver.Aprendices", "Administrador.Fichas.Ver.Horarios"};
                 String retorno = "Administrador.Fichas";
 
@@ -340,7 +340,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.Fichas.Ver.Borrar.Confirmado.Confirmado", "Administrador.Fichas.Ver"};
                 String retorno = "Administrador.Fichas.Ver";
-                String pregunta = "Al eliminarlo se borraran todos los datos ligados a esta ficha";
+                String pregunta = "Al eliminarlo se borrarán todos los datos ligados a esta ficha";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
@@ -371,7 +371,7 @@ public class PantallasAdministrador {
 
             if ("Administrador.Fichas.Ver.Aprendices".equals(nombreClase)) {
 
-                String[] menu = {"Ver Aprendices", "Ingresar Aprendices"};
+                String[] menu = {"Ver aprendices", "Ingresar aprendices"};
                 String[] vinculo = {"Administrador.Fichas.Ver.Aprendices.Ver", "Administrador.Fichas.Ver.Aprendices.Ingresar"};
                 String retorno = "Administrador.Fichas.Ver";
 
@@ -387,7 +387,7 @@ public class PantallasAdministrador {
 
                 String[] nombreBotones = {"Editar", "Borrar"};
                 String[] nombreIcono = {"Editar Usuario", "Borrar Usuario"};
-                String[] columna = {"", "", "Documento", "Contrasena", "Nombre", "Primer Apellido", "Segundo Apellido", "Fecha De Nacimiento", "Correo Electronico", "Genero", "Ficha", "Telefono", "Celular", "estado", "Proyecto", "Estilos Y Ritmos De Aprendizaje", "Estrategia Metodológica De Preferencia", "Caracteristicas Culturales Y Sociales"};
+                String[] columna = {"", "", "Documento", "Contraseña", "Nombre", "Primer apellido", "Segundo apellido", "Fecha de nacimiento", "Correo electrónico", "Género", "Ficha", "Teléfono", "Celular", "Estado", "Proyecto", "Estilos y ritmos de aprendizaje", "Estrategia metodológica de preferencia", "Caracteristicas culturales y sociales"};
                 String[] vinculo = {"Administrador.Fichas.Ver.Aprendices.Ver.Editar", "Administrador.Fichas.Ver.Aprendices.Ver.Borrar"};
                 String retorno = "Administrador.Fichas.Ver.Aprendices";
 
@@ -441,7 +441,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.Fichas.Ver.Aprendices.Ver.Borrar.Confirmado.Confirmado", "Administrador.Fichas.Ver.Aprendices.Ver"};
                 String retorno = "Administrador.Fichas.Ver.Aprendices.Ver";
-                String pregunta = "Al eliminarlo se borraran todos los datos ligados a este usuario";
+                String pregunta = "Al eliminarlo se borrarán todos los datos ligados a este usuario";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
@@ -472,7 +472,7 @@ public class PantallasAdministrador {
 
             if ("Administrador.Fichas.Ver.Horarios".equals(nombreClase)) {
 
-                String[] menu = {"Ver Horarios", "Ingresar Horarios"};
+                String[] menu = {"Ver horarios", "Ingresar horarios"};
                 String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver", "Administrador.Fichas.Ver.Horarios.Ingresar"};
                 String retorno = "Administrador.Fichas.Ver";
 
@@ -488,7 +488,7 @@ public class PantallasAdministrador {
 
                 String[] nombreBotones = {"Editar", "Borrar", "Actividades", "Asistencia"};
                 String[] nombreIcono = {"Editar", "Borrar", "Actividades", "Asistencia"};
-                String[] columna = {"", "", "", "", "instructor", "Dia", "Hora Inicio", "Hora Fin", "Fecha Inicio", "Fecha Fin", "Lugar", "Resultado De Aprendizaje"};
+                String[] columna = {"", "", "", "", "instructor", "Día", "Hora inicio", "Hora fin", "Fecha inicio", "Fecha fin", "Lugar", "Resultado de aprendizaje"};
                 String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Editar", "Administrador.Fichas.Ver.Horarios.Ver.Borrar", "Administrador.Fichas.Ver.Horarios.Ver.Actividades", "Administrador.Fichas.Ver.Horarios.Ver.Asistencia"};
                 String retorno = "Administrador.Fichas.Ver.Horarios";
 
@@ -543,7 +543,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Borrar.Confirmado.Confirmado", "Administrador.Fichas.Ver.Horarios.Ver"};
                 String retorno = "Administrador.Fichas.Ver.Horarios.Ver";
-                String pregunta = "Al eliminarlo se borraran todos los datos ligados a este Horario";
+                String pregunta = "Al eliminarlo se borrarán todos los datos ligados a este horario";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
@@ -574,7 +574,7 @@ public class PantallasAdministrador {
 
             if ("Administrador.Fichas.Ver.Horarios.Ver.Actividades".equals(nombreClase)) {
 
-                String[] menu = {"Ver Actividades", "Ingresar Actividad"};
+                String[] menu = {"Ver actividades", "Ingresar actividad"};
                 String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver", "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ingresar"};
                 String retorno = "Administrador.Fichas.Ver.Horarios.Ver";
 
@@ -590,7 +590,7 @@ public class PantallasAdministrador {
 
                 String[] nombreBotones = {"Editar", "Borrar", "Aprobar"};
                 String[] nombreIcono = {"Editar", "Borrar", "Aprobar"};
-                String[] columna = {"", "", "", "Nombre Actividad", "Nombre Evidencia", "Medio", "Tipo", "Fecha RecoleccionEvidencia"};
+                String[] columna = {"", "", "", "Nombre actividad", "Nombre evidencia", "Medio", "Tipo", "Fecha recolección evidencia"};
                 String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Editar", "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar", "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Aprobar"};
                 String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Actividades";
 
@@ -631,7 +631,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar.Confirmado", "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver"};
                 String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver";
-                String pregunta = "¿Desea eliminar la Actividad " + ID[ID.length - 1] + "?";
+                String pregunta = "¿Desea eliminar la actividad " + ID[ID.length - 1] + "?";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
@@ -645,7 +645,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar.Confirmado.Confirmado", "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver"};
                 String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver";
-                String pregunta = "Al eliminarlo se borraran todos los datos ligados a este usuario";
+                String pregunta = "Al eliminarlo se borrarán todos los datos ligados a este usuario";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
@@ -688,7 +688,7 @@ public class PantallasAdministrador {
 
             if ("Administrador.Fichas.Ver.Horarios.Ver.Asistencia".equals(nombreClase)) {
 
-                String[] menu = {"Ver Asistencias", "Tomar Asistencia"};
+                String[] menu = {"Ver asistencias", "Tomar asistencia"};
                 String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver", "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ingresar"};
                 String retorno = "Administrador.Fichas.Ver.Horarios.Ver";
 
@@ -744,7 +744,7 @@ public class PantallasAdministrador {
 
             if ("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar.Siguiente".equals(nombreClase)) {
 
-                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Editar";
+                String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver";
                 String vinculo = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver";
 
                 TomarAsistencia p = new TomarAsistencia(tipo, vinculo, retorno, nombreClase, usuario, (ID), declaracion);
@@ -759,7 +759,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Borrar.Confirmado", "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver"};
                 String retorno = "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver";
-                String pregunta = "¿Desea eliminar la Formación " + ID[ID.length - 1] + "?";
+                String pregunta = "¿Desea eliminar la formación " + ID[ID.length - 1] + "?";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
@@ -804,7 +804,7 @@ public class PantallasAdministrador {
 
             if ("Administrador.PlanDeEstudios".equals(nombreClase)) {
 
-                String[] menu = {"Ver Plan De Estudios", "Ingresar Plan De Estudios"};
+                String[] menu = {"Ver plan de estudios", "Ingresar plan de estudios"};
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver", "Administrador.PlanDeEstudios.Ingresar"};
                 String retorno = "Administrador";
 
@@ -820,7 +820,7 @@ public class PantallasAdministrador {
 
                 String[] nombreBotones = {"Editar", "Borrar", "Competencias"};
                 String[] nombreIcono = {"Editar", "Borrar", "Competencias"};
-                String[] columna = {"", "", "", "Nombre", "Programa", "Version", "Meses Etapa Lectiva", "Nivel De Formacion"};
+                String[] columna = {"", "", "", "Nombre", "Programa", "Versión", "Meses etapa lectiva", "Nivel de formación"};
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Editar", "Administrador.PlanDeEstudios.Ver.Borrar", "Administrador.PlanDeEstudios.Ver.Competencia"};
                 String retorno = "Administrador.PlanDeEstudios";
 
@@ -859,7 +859,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Borrar.Confirmado", "Administrador.PlanDeEstudios.Ver"};
                 String retorno = "Administrador.PlanDeEstudios.Ver";
-                String pregunta = "¿Desea eliminar el Plan De Estudios " + ID[ID.length - 1] + "?";
+                String pregunta = "¿Desea eliminar el plan de estudios " + ID[ID.length - 1] + "?";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
@@ -873,7 +873,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Borrar.Confirmado.Confirmado", "Administrador.PlanDeEstudios.Ver"};
                 String retorno = "Administrador.PlanDeEstudios.Ver";
-                String pregunta = "Al eliminarlo se borraran todos los datos ligados a este Plan De Estudios";
+                String pregunta = "Al eliminarlo se borrarán todos los datos ligados a este plan de estudios";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
@@ -904,7 +904,7 @@ public class PantallasAdministrador {
 
             if ("Administrador.PlanDeEstudios.Ver.Competencia".equals(nombreClase)) {
 
-                String[] menu = {"Ver Competencias", "Ingresar Competencia"};
+                String[] menu = {"Ver competencias", "Ingresar competencia"};
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver", "Administrador.PlanDeEstudios.Ver.Competencia.Ingresar"};
                 String retorno = "Administrador.PlanDeEstudios.Ver";
 
@@ -918,9 +918,9 @@ public class PantallasAdministrador {
 
             if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver".equals(nombreClase)) {
 
-                String[] nombreBotones = {"Editar", "Borrar", "Actividades De Aprendizaje"};
+                String[] nombreBotones = {"Editar", "Borrar", "Actividades de aprendizaje"};
                 String[] nombreIcono = {"Editar", "Borrar", "Actividades De Aprendizaje"};
-                String[] columna = {"", "", "", "Competencia A Desarrollar"};
+                String[] columna = {"", "", "", "Competencia a desarrollar"};
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.Editar", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje"};
                 String retorno = "Administrador.PlanDeEstudios.Ver.Competencia";
 
@@ -959,7 +959,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar.Confirmado", "Administrador.PlanDeEstudios.Ver.Competencia.Ver"};
                 String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver";
-                String pregunta = "¿Desea eliminar la Competencia " + ID[ID.length - 1] + "?";
+                String pregunta = "¿Desea eliminar la competencia " + ID[ID.length - 1] + "?";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
@@ -1004,7 +1004,7 @@ public class PantallasAdministrador {
 
             if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje".equals(nombreClase)) {
 
-                String[] menu = {"Ver Actividades De Aprendizaje", "Ingresar Actividad De Aprendizaje"};
+                String[] menu = {"Ver actividades de aprendizaje", "Ingresar actividad de aprendizaje"};
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ingresar"};
                 String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver";
 
@@ -1018,9 +1018,9 @@ public class PantallasAdministrador {
 
             if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver".equals(nombreClase)) {
 
-                String[] nombreBotones = {"Editar", "Borrar", "Resultado De Aprendizaje"};
+                String[] nombreBotones = {"Editar", "Borrar", "Resultado de aprendizaje"};
                 String[] nombreIcono = {"Editar", "Borrar", "Resultado De Aprendizaje"};
-                String[] columna = {"", "", "", "Fase Del Proyecto", "Actividad De Aprendizaje"};
+                String[] columna = {"", "", "", "Fase del Proyecto", "Actividad de aprendizaje"};
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Editar", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje"};
                 String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje";
 
@@ -1059,7 +1059,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar.Confirmado", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver"};
                 String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver";
-                String pregunta = "¿Desea eliminar la Actividad De Aprendizaje " + ID[ID.length - 1] + "?";
+                String pregunta = "¿Desea eliminar la actividad de aprendizaje " + ID[ID.length - 1] + "?";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
@@ -1073,7 +1073,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar.Confirmado.Confirmado", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver"};
                 String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver";
-                String pregunta = "Al eliminarlo se borraran todos los datos ligados a esta competencia";
+                String pregunta = "Al eliminarlo se borrarán todos los datos ligados a esta competencia";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
@@ -1104,7 +1104,7 @@ public class PantallasAdministrador {
 
             if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje".equals(nombreClase)) {
 
-                String[] menu = {"Ver Resultados De Aprendizaje", "Ingresar Resultado De Aprendizaje"};
+                String[] menu = {"Ver resultados de aprendizaje", "Ingresar resultado de aprendizaje"};
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ingresar"};
                 String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver";
 
@@ -1120,7 +1120,7 @@ public class PantallasAdministrador {
 
                 String[] nombreBotones = {"Editar", "Borrar"};
                 String[] nombreIcono = {"Editar", "Borrar"};
-                String[] columna = {"", "", "Resultado_De_Aprendizaje"};
+                String[] columna = {"", "", "Resultado de aprendizaje"};
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Editar", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar"};
                 String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje";
 
@@ -1159,7 +1159,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar.Confirmado", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver"};
                 String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver";
-                String pregunta = "¿Desea eliminar el Resultado De Aprendizaje " + ID[ID.length - 1] + "?";
+                String pregunta = "¿Desea eliminar el resultado de aprendizaje " + ID[ID.length - 1] + "?";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
@@ -1173,7 +1173,7 @@ public class PantallasAdministrador {
 
                 String[] vinculo = {"Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar.Confirmado.Confirmado", "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver"};
                 String retorno = "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver";
-                String pregunta = "Al eliminarlo se borraran todos los datos ligados a esta competencia";
+                String pregunta = "Al eliminarlo se borrarán todos los datos ligados a esta competencia";
 
                 Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();

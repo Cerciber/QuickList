@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFComment;
@@ -239,7 +240,15 @@ public class RFormatoDeInasistencia {
 
             System.out.println(ex);
 
+        }catch (ArrayIndexOutOfBoundsException ex) {
+
+            /* Se muestra un mensaje de error */
+            JOptionPane.showMessageDialog(null,
+            "No existen registros para generar el formato(*)", "Error",
+            JOptionPane.ERROR_MESSAGE);
+
         }
+        
     }
 
 }

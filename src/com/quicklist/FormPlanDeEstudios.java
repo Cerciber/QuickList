@@ -341,7 +341,7 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
         jLabel18.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 102, 102));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("*Meses Etapa Lectiva");
+        jLabel18.setText("*Meses etapa lectiva");
         jLabel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel18.setOpaque(true);
 
