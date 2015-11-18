@@ -350,6 +350,11 @@ public final class Confirmacion extends javax.swing.JPanel {
         jButton16.setText("?");
         jButton16.setBorder(null);
         jButton16.setContentAreaFilled(false);
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
         jPanel5.add(jButton16);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -473,6 +478,17 @@ public final class Confirmacion extends javax.swing.JPanel {
         c.setVisible(true);     //Dar visivilidad
 
     }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        
+        /**
+         * Se abre el Frame corespondiente para la ayuda del sistema
+         */
+        Ayuda ayuda = new Ayuda();
+        ayuda.setLocationRelativeTo(null);   //se ubica al centro
+        ayuda.setVisible(true);      //se le da visivilidad
+        
+    }//GEN-LAST:event_jButton16ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

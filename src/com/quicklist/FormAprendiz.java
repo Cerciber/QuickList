@@ -916,6 +916,11 @@ public final class FormAprendiz extends javax.swing.JPanel {
         jButton13.setText("?");
         jButton13.setBorder(null);
         jButton13.setContentAreaFilled(false);
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
         jPanel12.add(jButton13);
 
         jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -1369,6 +1374,17 @@ public final class FormAprendiz extends javax.swing.JPanel {
         foto.setVisible(true);      //se le da visivilidad
 
     }//GEN-LAST:event_jLabel3MousePressed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        
+        /**
+         * Se abre el Frame corespondiente para la ayuda del sistema
+         */
+        Ayuda ayuda = new Ayuda();
+        ayuda.setLocationRelativeTo(null);   //se ubica al centro
+        ayuda.setVisible(true);      //se le da visivilidad
+        
+    }//GEN-LAST:event_jButton13ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

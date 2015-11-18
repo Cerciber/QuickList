@@ -519,6 +519,11 @@ public final class AprobarActividades extends javax.swing.JPanel {
         jButton12.setText("?");
         jButton12.setBorder(null);
         jButton12.setContentAreaFilled(false);
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
         jPanel9.add(jButton12);
 
         jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -703,6 +708,17 @@ public final class AprobarActividades extends javax.swing.JPanel {
         foto.setVisible(true);      //se le da visivilidad
 
     }//GEN-LAST:event_jLabel3MousePressed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        
+        /**
+         * Se abre el Frame corespondiente para la ayuda del sistema
+         */
+        Ayuda ayuda = new Ayuda();
+        ayuda.setLocationRelativeTo(null);   //se ubica al centro
+        ayuda.setVisible(true);      //se le da visivilidad
+        
+    }//GEN-LAST:event_jButton12ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

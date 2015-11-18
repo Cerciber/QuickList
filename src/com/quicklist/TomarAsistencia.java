@@ -226,10 +226,18 @@ public final class TomarAsistencia extends javax.swing.JPanel {
 
             /* Asignar opciones del campo */
             jComboBox[i].setModel(new javax.swing
-                    .DefaultComboBoxModel(new String[]{"NO", "CE", "SE"}));
+                    .DefaultComboBoxModel(new String[]{"Asistió", "Falla con excusa", "Falla sin excusa"}));
 
             /* Asignar la opcion seleccionada en la base de datos */
-            jComboBox[i].setSelectedItem(lista[i][5]);
+            if("NO".equals(lista[i][5])||"No".equals(lista[i][5])||"no".equals(lista[i][5])){
+                jComboBox[i].setSelectedIndex(0);
+            }
+            if("CE".equals(lista[i][5])){
+                jComboBox[i].setSelectedIndex(1);
+            }
+            if("SE".equals(lista[i][5])){
+                jComboBox[i].setSelectedIndex(2);
+            }
 
             /* Añadir al arreglo de componentes */
             componente[i][0] = jComboBox[i];
@@ -533,6 +541,11 @@ public final class TomarAsistencia extends javax.swing.JPanel {
         jButton12.setText("?");
         jButton12.setBorder(null);
         jButton12.setContentAreaFilled(false);
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
         jPanel9.add(jButton12);
 
         jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -592,8 +605,15 @@ public final class TomarAsistencia extends javax.swing.JPanel {
         /* Se obtiene la informacion seleccionada de los jComboBox */
         for (int i = 0; i <= jComboBox.length - 1; i++) {
 
-                /* Obtener elemento seleccionado */
-            datos[i][0] = jComboBox[i].getSelectedItem().toString();
+            if(jComboBox[i].getSelectedIndex()==0){
+                datos[i][0] = "NO";
+            }
+            if(jComboBox[i].getSelectedIndex()==1){
+                datos[i][0] = "CE";
+            }
+            if(jComboBox[i].getSelectedIndex()==2){
+                datos[i][0] = "SE";
+            }
 
             /* Se asigna el identificador de la asistencia */
             datos[i][1] = lista[i][0];
@@ -715,6 +735,17 @@ public final class TomarAsistencia extends javax.swing.JPanel {
         foto.setVisible(true);      //se le da visivilidad
 
     }//GEN-LAST:event_jLabel3MousePressed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        
+        /**
+         * Se abre el Frame corespondiente para la ayuda del sistema
+         */
+        Ayuda ayuda = new Ayuda();
+        ayuda.setLocationRelativeTo(null);   //se ubica al centro
+        ayuda.setVisible(true);      //se le da visivilidad
+        
+    }//GEN-LAST:event_jButton12ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

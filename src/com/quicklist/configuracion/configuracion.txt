@@ -31,7 +31,7 @@ Velocidad:
 PAGINACI�N
 ---------------------
 Registros por pagina:
-6
+5
 ---------------------
 CUENTA
 ---------------------
