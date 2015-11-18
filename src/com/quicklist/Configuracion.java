@@ -784,6 +784,8 @@ public class Configuracion extends javax.swing.JFrame {
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
 
+        /** Boton "Guarrdar" */
+        
         /* 
          * Se crea un arreglo para recolectar la informacion 
          * de los inputs

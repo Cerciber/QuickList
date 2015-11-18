@@ -25,7 +25,9 @@ public class Configuracion {
         try {
 
             String cadena;
-            FileReader f = new FileReader("src/com/quicklist/configuracion/configuracion.txt");
+            FileReader f = new FileReader("src/com/quicklist/configuracion/"
+                    + "configuracion.txt");
+
             BufferedReader b = new BufferedReader(f);
 
             for (int i = 1; i <= 39; i++) {
@@ -92,7 +94,8 @@ public class Configuracion {
         try {
 
             String cadena;
-            FileReader f = new FileReader("src/com/quicklist/configuracion/configuracion.txt");
+            FileReader f = new FileReader("src/com/quicklist/configuracion/"
+                    + "configuracion.txt");
             BufferedReader b = new BufferedReader(f);
 
             for (int i = 1; i <= 45; i++) {
@@ -128,7 +131,8 @@ public class Configuracion {
 
         try {
 
-            FileReader f = new FileReader("src/com/quicklist/configuracion/configuracion.txt");
+            FileReader f = new FileReader("src/com/quicklist/configuracion"
+                    + "/configuracion.txt");
             BufferedReader b = new BufferedReader(f);
 
             for (int i = 1; i <= 45; i++) {
@@ -179,7 +183,9 @@ public class Configuracion {
 
             b.close();
 
-            BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/quicklist/configuracion/configuracion.txt"));
+            BufferedWriter bw = new BufferedWriter(
+                    new FileWriter("src/com/quicklist/configuracion/"
+                            + "configuracion.txt"));
 
             for (int i = 1; i <= 45; i++) {
 
@@ -197,13 +203,15 @@ public class Configuracion {
 
     }
 
-    public static void guardarLogin(String usuario, String contrasena, String tipo) {
+    public static void guardarLogin(String usuario, String contrasena,
+            String tipo) {
 
         String[] texto = new String[45];
 
         try {
 
-            FileReader f = new FileReader("src/com/quicklist/configuracion/configuracion.txt");
+            FileReader f = new FileReader("src/com/quicklist/configuracion/"
+                    + "configuracion.txt");
             BufferedReader b = new BufferedReader(f);
 
             for (int i = 1; i <= 45; i++) {
@@ -224,7 +232,9 @@ public class Configuracion {
 
             b.close();
 
-            BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/quicklist/configuracion/configuracion.txt"));
+            BufferedWriter bw = new BufferedWriter(
+                    new FileWriter("src/com/quicklist/configuracion/"
+                            + "configuracion.txt"));
 
             for (int i = 1; i <= 45; i++) {
 

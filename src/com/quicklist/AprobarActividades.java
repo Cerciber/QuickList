@@ -164,7 +164,8 @@ public final class AprobarActividades extends javax.swing.JPanel {
             columna[i].setBackground(new java.awt.Color(0, 102, 102));
 
             /*Dar fuente, tipo de letra y tamaño*/
-            columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, conf[2]));
+            columna[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 
+                    conf[2]));
 
             /*Dar color de letra*/
             columna[i].setForeground(new java.awt.Color(204, 255, 255));
@@ -207,14 +208,16 @@ public final class AprobarActividades extends javax.swing.JPanel {
                 label[i][j].setForeground(new java.awt.Color(0, 102, 102));
 
                 /*Dar alineación al centro*/
-                label[i][j].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                label[i][j].setHorizontalAlignment(javax.swing
+                        .SwingConstants.CENTER);
 
                 /*Asignar el dato de la consulta en el label*/
                 label[i][j].setText(lista[i][j + 1]);
 
                 /*Asignar el tipo de borde sobresalido*/
                 label[i][j].setBorder(javax.swing.BorderFactory
-                        .createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+                        .createBevelBorder(javax.swing.border.BevelBorder
+                                .RAISED));
 
                 /*Opacar*/
                 label[i][j].setOpaque(true);
@@ -242,7 +245,8 @@ public final class AprobarActividades extends javax.swing.JPanel {
                         255));
 
                 /*Dar alineamiento horizontal*/
-                jCheckBox[i][j].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jCheckBox[i][j].setHorizontalAlignment(javax.swing
+                        .SwingConstants.CENTER);
 
                 /*Opacar*/
                 jCheckBox[i][j].setOpaque(true);
@@ -259,6 +263,7 @@ public final class AprobarActividades extends javax.swing.JPanel {
                 }
 
             }
+            
         }
 
         /**
@@ -557,11 +562,14 @@ public final class AprobarActividades extends javax.swing.JPanel {
      */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
+        /* Boton "Guardar" */
+         
         /* 
          * Se crea un arreglo bidimencional para recolectar la informacion 
          * de los ComboBoxs
          */
-        String[][] datos = new String[jCheckBox.length][jCheckBox[0].length + 1];
+        String[][] datos = new String[jCheckBox.length][jCheckBox[0]
+                .length + 1];
 
         /* 
          * Se obtiene el item seleccionado en cada ComboBox y se guarda 

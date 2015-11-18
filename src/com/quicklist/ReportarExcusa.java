@@ -302,7 +302,9 @@ public class ReportarExcusa extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-        int resp;  // Variable que contiene la respuesta de la carga de la excusa
+        /** Boton "Cambiar" */
+        
+        int resp; // Variable que contiene la respuesta de la carga de la excusa
 
         /* Se abre la ventana para buscar la excusa en el equipo */
         resp = abrirArchivo.showOpenDialog(this);
@@ -326,8 +328,8 @@ public class ReportarExcusa extends javax.swing.JFrame {
                 archivoImagen = new FileInputStream(direccion);
 
                 /* 
-                 * Se detiene la carga de la excusa en caso de que esta no exista o
-                 * no se pueda cargar correctamente
+                 * Se detiene la carga de la excusa en caso de que esta no 
+                 * exista o no se pueda cargar correctamente
                  */
             } catch (FileNotFoundException ex) {
 
@@ -357,6 +359,8 @@ public class ReportarExcusa extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
+        /** Boton "Quitar" */
+        
         /* Quitar la excusa del label */
         this.jLabel1.setIcon(null);
 
@@ -373,6 +377,8 @@ public class ReportarExcusa extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
+        /** Boton "Aceptar" */
+        
         /* Se verifica si se ha modificado el estado de la foto */
         if (modificado) {
 
@@ -392,6 +398,7 @@ public class ReportarExcusa extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
 
+        /** Boton "Cancelar" */
         /* Se cierra la ventana */
         this.dispose();
 

@@ -493,7 +493,8 @@ public class RFormatoDeEtapaLectiva {
         }
     }
 
-    public void porHorario(Statement declaracion, String usuario, String horario) {
+    public void porHorario(Statement declaracion, String usuario, 
+            String horario) {
 
         try {
 
@@ -504,7 +505,8 @@ public class RFormatoDeEtapaLectiva {
             HSSFSheet hoja = (HSSFSheet) excel.getSheetAt(0);
 
             String[][] menu = Horario.SeleccionarPorID(declaracion, horario);
-            menu = Aprendiz.SeleccionarDatosFormatoEtapaLectiva(declaracion, usuario, menu[0][4]);
+            menu = Aprendiz.SeleccionarDatosFormatoEtapaLectiva(declaracion, 
+                    usuario, menu[0][4]);
 
             HSSFRow fila = hoja.getRow(5);
             HSSFCell celda = fila.getCell(3);
@@ -536,15 +538,18 @@ public class RFormatoDeEtapaLectiva {
 
             fila = hoja.getRow(13);
             celda = fila.getCell(1);
-            celda.setCellValue("Estilos y Ritmos de aprendizaje: " + menu[0][7]);
+            celda.setCellValue("Estilos y Ritmos de aprendizaje: " 
+                    + menu[0][7]);
 
             fila = hoja.getRow(13);
             celda = fila.getCell(7);
-            celda.setCellValue("Estrategia metodológica de preferencia: " + menu[0][8]);
+            celda.setCellValue("Estrategia metodológica de preferencia: " 
+                    + menu[0][8]);
 
             fila = hoja.getRow(13);
             celda = fila.getCell(13);
-            celda.setCellValue("Características culturales y sociales: " + menu[0][9]);
+            celda.setCellValue("Características culturales y sociales: " 
+                    + menu[0][9]);
 
             String[][] celdaTexto = new String[3][28];
             HSSFCellStyle[][] celdaEstilo = new HSSFCellStyle[3][28];
@@ -570,7 +575,8 @@ public class RFormatoDeEtapaLectiva {
 
             }
 
-            menu = Aprendiz.SeleccionarResultadosFormatoEtapaLectivaPorHorario(declaracion, usuario, horario);
+            menu = Aprendiz.SeleccionarResultadosFormatoEtapaLectivaPorHorario(
+                    declaracion, usuario, horario);
             HSSFCellStyle[] estiloRegistro = new HSSFCellStyle[28];
 
             fila = hoja.getRow(20);
@@ -580,7 +586,8 @@ public class RFormatoDeEtapaLectiva {
                 try {
 
                     estiloRegistro[i] = fila.getCell(i).getCellStyle();
-                    estiloRegistro[i].setBorderBottom(HSSFCellStyle.BORDER_THIN);
+                    estiloRegistro[i].setBorderBottom(HSSFCellStyle
+                            .BORDER_THIN);
 
                 } catch (NullPointerException ex) {
                 }
@@ -771,7 +778,8 @@ public class RFormatoDeEtapaLectiva {
 
             for (int i = 1; i < menu.length; i++) {
 
-                if (Integer.parseInt(menu[i][12]) != Integer.parseInt(menu[i - 1][12])) {
+                if (Integer.parseInt(menu[i][12]) != Integer
+                        .parseInt(menu[i - 1][12])) {
 
                     cont++;
 
@@ -797,7 +805,8 @@ public class RFormatoDeEtapaLectiva {
 
             for (int i = 1; i < menu.length; i++) {
 
-                if (Integer.parseInt(menu[i][12]) == Integer.parseInt(menu[i - 1][12])) {
+                if (Integer.parseInt(menu[i][12]) == Integer
+                        .parseInt(menu[i - 1][12])) {
 
                     registroFinal[cont] = i;
 
@@ -826,19 +835,26 @@ public class RFormatoDeEtapaLectiva {
 
             for (int i = 0; i <= cont; i++) {
 
-                hoja.addMergedRegion(new CellRangeAddress(20 + registroInicial[i], 20 + registroFinal[i], 1, 1));
-                hoja.getRow(20 + registroInicial[i]).getCell(1).setCellValue(i + 1);
-                hoja.addMergedRegion(new CellRangeAddress(20 + registroInicial[i], 20 + registroFinal[i], 2, 4));
-                hoja.addMergedRegion(new CellRangeAddress(20 + registroInicial[i], 20 + registroFinal[i], 26, 26));
-                hoja.addMergedRegion(new CellRangeAddress(20 + registroInicial[i], 20 + registroFinal[i], 27, 27));
+                hoja.addMergedRegion(new CellRangeAddress(20 
+                        + registroInicial[i], 20 + registroFinal[i], 1, 1));
+                hoja.getRow(20 + registroInicial[i]).getCell(1)
+                        .setCellValue(i + 1);
+                hoja.addMergedRegion(new CellRangeAddress(20 
+                        + registroInicial[i], 20 + registroFinal[i], 2, 4));
+                hoja.addMergedRegion(new CellRangeAddress(20 
+                        + registroInicial[i], 20 + registroFinal[i], 26, 26));
+                hoja.addMergedRegion(new CellRangeAddress(20 
+                        + registroInicial[i], 20 + registroFinal[i], 27, 27));
 
                 if (logroElAprendizaje[i]) {
 
-                    hoja.getRow(20 + registroInicial[i]).getCell(26).setCellValue("x");
+                    hoja.getRow(20 + registroInicial[i]).getCell(26)
+                            .setCellValue("x");
 
                 } else {
 
-                    hoja.getRow(20 + registroInicial[i]).getCell(27).setCellValue("x");
+                    hoja.getRow(20 + registroInicial[i]).getCell(27)
+                            .setCellValue("x");
 
                 }
 
@@ -859,11 +875,16 @@ public class RFormatoDeEtapaLectiva {
 
             }
 
-            hoja.addMergedRegion(new CellRangeAddress(20 + menu.length, 20 + menu.length, 1, 14));
-            hoja.addMergedRegion(new CellRangeAddress(21 + menu.length, 21 + menu.length, 1, 14));
-            hoja.addMergedRegion(new CellRangeAddress(22 + menu.length, 22 + menu.length, 1, 14));
-            hoja.addMergedRegion(new CellRangeAddress(20 + menu.length, 20 + menu.length, 15, 27));
-            hoja.addMergedRegion(new CellRangeAddress(21 + menu.length, 21 + menu.length, 15, 27));
+            hoja.addMergedRegion(new CellRangeAddress(20 + menu.length, 20 
+                    + menu.length, 1, 14));
+            hoja.addMergedRegion(new CellRangeAddress(21 + menu.length, 21 
+                    + menu.length, 1, 14));
+            hoja.addMergedRegion(new CellRangeAddress(22 + menu.length, 22 
+                    + menu.length, 1, 14));
+            hoja.addMergedRegion(new CellRangeAddress(20 + menu.length, 20 
+                    + menu.length, 15, 27));
+            hoja.addMergedRegion(new CellRangeAddress(21 + menu.length, 21 
+                    + menu.length, 15, 27));
 
             int resp;
 
@@ -873,7 +894,8 @@ public class RFormatoDeEtapaLectiva {
 
                 String extencion = abrirArchivo.getSelectedFile().toString();
 
-                if (!".xls".equals(extencion.substring(extencion.length() - 4))) {
+                if (!".xls".equals(extencion
+                        .substring(extencion.length() - 4))) {
 
                     extencion = extencion + ".xls";
 

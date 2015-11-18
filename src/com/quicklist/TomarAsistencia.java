@@ -63,7 +63,10 @@ public final class TomarAsistencia extends javax.swing.JPanel {
     int[] conf = cargarConfiguracion();
 
     /* Arreglo que contiene los jCombo box de el estado de la asistencia */
-    JComboBox[][] jComboBox;
+    JComboBox[] jComboBox;
+    
+    /* Arreglo que no tifica si existe alguna excusa */
+    JLabel[] justificacion;
 
     /* Arreglo que contiene la consulta de las inasistencias de la ficha */
     String[][] lista;
@@ -122,7 +125,7 @@ public final class TomarAsistencia extends javax.swing.JPanel {
          * Se crea un arreglo para contener los titulos de los campos de los
          * registros
          */
-        JButton[] columna = new JButton[6];
+        JButton[] columna = new JButton[5];
 
         /* 
          * Se crea un arreglo para contener los datos de cada aprendiz
@@ -133,13 +136,14 @@ public final class TomarAsistencia extends javax.swing.JPanel {
          * Se da una longitud de 2 correspondiente a la asistencia y a la 
          * justificación
          */
-        jComboBox = new JComboBox[lista.length][2];
+        jComboBox = new JComboBox[lista.length];
+        justificacion = new JLabel[lista.length];
 
         /**
          * Arreglo que contiene la combinación de los jComboBox y el boton de
          * excusa
          */
-        Component[][] componente = new Component[lista.length][2 + 1];
+        Component[][] componente = new Component[lista.length][2];
 
         /* Areglo que contiene los botones de excusa de cada aprendiz */
         JButton[] excusa = new JButton[lista.length];
@@ -169,8 +173,7 @@ public final class TomarAsistencia extends javax.swing.JPanel {
         columna[1].setText("Nombre");
         columna[2].setText("Apellido");
         columna[3].setText("Estado");
-        columna[4].setText("Justificación");
-        columna[5].setText("excusa");
+        columna[4].setText("Excusa");
 
         /* Se le asignan las propiedades a la informacion de los aprendices */
         for (int i = 0; i <= label.length - 1; i++) {
@@ -189,14 +192,16 @@ public final class TomarAsistencia extends javax.swing.JPanel {
                 label[i][j].setForeground(new java.awt.Color(0, 102, 102));
 
                 /* Alinear al centro */
-                label[i][j].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                label[i][j].setHorizontalAlignment(javax.swing
+                        .SwingConstants.CENTER);
 
                 /* Asignar el dato del aprendiz */
                 label[i][j].setText(lista[i][j + 1]);
 
                 /* Tipo de borde */
                 label[i][j].setBorder(javax.swing.BorderFactory
-                        .createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+                        .createBevelBorder(javax.swing.border.BevelBorder
+                                .RAISED));
 
                 /* Opacar */
                 label[i][j].setOpaque(true);
@@ -207,47 +212,27 @@ public final class TomarAsistencia extends javax.swing.JPanel {
         /* Se le asignan las propiedades a las opciones */
         for (int i = 0; i <= jComboBox.length - 1; i++) {
 
-            jComboBox[i][0] = new JComboBox();      //Instanciación
+            jComboBox[i] = new JComboBox();      //Instanciación
 
             /* Color de fondo */
-            jComboBox[i][0].setBackground(new java.awt.Color(0, 153, 153));
+            jComboBox[i].setBackground(new java.awt.Color(0, 153, 153));
 
             /* fuente, tipo de letra y tamaño */
-            jComboBox[i][0].setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
+            jComboBox[i].setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
                     conf[2]));
 
             /* color de letra */
-            jComboBox[i][0].setForeground(new java.awt.Color(255, 255, 255));
+            jComboBox[i].setForeground(new java.awt.Color(255, 255, 255));
 
             /* Asignar opciones del campo */
-            jComboBox[i][0].setModel(new javax.swing.DefaultComboBoxModel(new String[]{"NO", "CE", "SE"}));
+            jComboBox[i].setModel(new javax.swing
+                    .DefaultComboBoxModel(new String[]{"NO", "CE", "SE"}));
 
             /* Asignar la opcion seleccionada en la base de datos */
-            jComboBox[i][0].setSelectedItem(lista[i][5]);
+            jComboBox[i].setSelectedItem(lista[i][5]);
 
             /* Añadir al arreglo de componentes */
-            componente[i][0] = jComboBox[i][0];
-
-            jComboBox[i][1] = new JComboBox();      //Instanciación
-
-            /* Color de fondo */
-            jComboBox[i][1].setBackground(new java.awt.Color(0, 153, 153));
-
-            /* fuente, tipo de letra y tamaño */
-            jComboBox[i][1].setFont(new java.awt.Font("Berlin Sans FB Demi", 1,
-                    conf[2]));
-
-            /* color de letra */
-            jComboBox[i][1].setForeground(new java.awt.Color(255, 255, 255));
-
-            /* Asignar opciones del campo */
-            jComboBox[i][1].setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Si", "No"}));
-
-            /* Asignar la opcion seleccionada en la base de datos */
-            jComboBox[i][1].setSelectedItem(lista[i][6]);
-
-            /* Añadir al arreglo de componentes */
-            componente[i][1] = jComboBox[i][1];
+            componente[i][0] = jComboBox[i];
 
             excusa[i] = new JButton();      //Instanciación
 
@@ -272,29 +257,35 @@ public final class TomarAsistencia extends javax.swing.JPanel {
              * evento 
              */
             final String inasistencia = lista[i][0];
-            final JComboBox jComboBox2 = jComboBox[i][1];
+            final JComboBox jComboBox2 = jComboBox[i];
 
-            /**
-             * Evento que permite ver la excusa de una imasistencia especifica
-             */
-            excusa[i].addActionListener(new java.awt.event.ActionListener() {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
+            if("Si".equals(lista[i][6])){
+                
+                excusa[i].setBackground(new java.awt.Color(0, 153, 153));
+                
+                /**
+                 * Evento que permite ver la excusa de una imasistencia especifica
+                 */
+                excusa[i].addActionListener(new java.awt.event.ActionListener() {
+                    @Override
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
 
-                    /**
-                     * Se abre una ventana con la excusa cargada del estudiante
-                     */
-                    VerExcusa excusa = new VerExcusa(declaracion, inasistencia,
-                            jComboBox2);
+                        /**
+                         * Se abre una ventana con la excusa cargada del estudiante
+                         */
+                        VerExcusa excusa = new VerExcusa(declaracion, inasistencia,
+                                jComboBox2);
 
-                    excusa.setLocationRelativeTo(null);     //Ubicar al centro
-                    excusa.setVisible(true);    //visualizar
+                        excusa.setLocationRelativeTo(null);     //Ubicar al centro
+                        excusa.setVisible(true);    //visualizar
 
-                }
-            });
-
+                    }
+                });
+                
+            }    
+            
             /* Se añade el boton de excusa al arreglo de componentes */
-            componente[i][2] = excusa[i];
+            componente[i][1] = excusa[i];
 
         }
 
@@ -590,23 +581,22 @@ public final class TomarAsistencia extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
+        /** Boton "Guardar" */
+        
         /* Se crea un arreglo con el numero de opciones en la pantalla mas el 
          * identificador de la asistencia
          */
         String[][] datos
-                = new String[jComboBox.length][jComboBox[0].length + 1];
+                = new String[jComboBox.length][2];
 
         /* Se obtiene la informacion seleccionada de los jComboBox */
         for (int i = 0; i <= jComboBox.length - 1; i++) {
-            for (int j = 0; j <= jComboBox[0].length - 1; j++) {
 
                 /* Obtener elemento seleccionado */
-                datos[i][j] = jComboBox[i][j].getSelectedItem().toString();
-
-            }
+            datos[i][0] = jComboBox[i].getSelectedItem().toString();
 
             /* Se asigna el identificador de la asistencia */
-            datos[i][2] = lista[i][0];
+            datos[i][1] = lista[i][0];
 
         }
 
@@ -640,7 +630,6 @@ public final class TomarAsistencia extends javax.swing.JPanel {
                     Arreglo.quitar(Arreglo.quitar(ID)), declaracion);
 
         }
-
 
     }//GEN-LAST:event_jButton6ActionPerformed
 

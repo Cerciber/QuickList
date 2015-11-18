@@ -380,7 +380,7 @@ public class Inasistencia {
         for (int i = 0; i <= datos.length - 1; i++) {
             try {
 
-                declaracion.executeQuery("update T_Inasistencia set Estado_De_Inasistencia='" + datos[i][0] + "',Justificacion_De_Inasistencia='" + datos[i][1] + "' where ID_Inasistencia=" + datos[i][2]);
+                declaracion.executeQuery("update T_Inasistencia set Estado_De_Inasistencia='" + datos[i][0] + "' where ID_Inasistencia=" + datos[i][1]);
             } catch (SQLException ex) {
                 System.out.println(ex);
             }
@@ -392,10 +392,17 @@ public class Inasistencia {
 
     public static void ActualizarExcusa(Statement declaracion, String ID, FileInputStream excusa) {
 
+        String justificacion = "No";
+        if (excusa != null) {
+            justificacion = "Si";
+        }
+
         try {
 
-            PreparedStatement preparedStatement = declaracion.getConnection().prepareStatement("update T_Inasistencia set Foto = ? where ID_Inasistencia=" + ID + ";");
+            PreparedStatement preparedStatement = declaracion.getConnection().prepareStatement("update T_Inasistencia set Foto = ?, Justificacion_De_Inasistencia = ? where ID_Inasistencia=" + ID + ";");
             preparedStatement.setBinaryStream(1, excusa);
+            preparedStatement.setString(2, justificacion);
+
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {

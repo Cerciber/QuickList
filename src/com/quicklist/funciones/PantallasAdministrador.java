@@ -147,11 +147,15 @@ public class PantallasAdministrador {
 
             if ("Administrador.Funcionarios.Ver.Borrar".equals(nombreClase)) {
 
-                String[] vinculo = {"Administrador.Funcionarios.Ver.Borrar.Confirmado", "Administrador.Funcionarios.Ver"};
+                String[] vinculo = {"Administrador.Funcionarios.Ver.Borrar"
+                        + ".Confirmado", "Administrador.Funcionarios.Ver"};
                 String retorno = "Administrador.Funcionarios.Ver";
-                String pregunta = "¿Desea eliminar el registro " + ID[ID.length - 1] + "?";
+                String pregunta = "¿Desea eliminar el registro " 
+                        + ID[ID.length - 1] + "?";
 
-                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
+                Confirmacion p = new Confirmacion(tipo, retorno, 
+                        nombreClase, usuario, ID, declaracion, pregunta,
+                        vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -159,13 +163,18 @@ public class PantallasAdministrador {
 
             }
 
-            if ("Administrador.Funcionarios.Ver.Borrar.Confirmado".equals(nombreClase)) {
+            if ("Administrador.Funcionarios.Ver.Borrar.Confirmado"
+                    .equals(nombreClase)) {
 
-                String[] vinculo = {"Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado", "Administrador.Funcionarios.Ver"};
+                String[] vinculo = {"Administrador.Funcionarios.Ver.Borrar"
+                        + ".Confirmado.Confirmado", "Administrador"
+                        + ".Funcionarios.Ver"};
                 String retorno = "Administrador.Funcionarios.Ver";
-                String pregunta = "Al eliminarlo se borraran todos los datos ligados a este usuario";
+                String pregunta = "Al eliminarlo se borraran todos los datos "
+                        + "ligados a este usuario";
 
-                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, 
+                        usuario, ID, declaracion, pregunta, vinculo);
                 panelContenedor.removeAll();
                 panelContenedor.add(p);
                 panelContenedor.validate();
@@ -173,15 +182,20 @@ public class PantallasAdministrador {
 
             }
 
-            if ("Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
+            if ("Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado"
+                    .equals(nombreClase)) {
 
                 if (ID[ID.length - 1].equals(usuario)) {
 
-                    String[] vinculo = {"Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado.BorrarMiCuanta", "Administrador.Funcionarios.Ver"};
+                    String[] vinculo = {"Administrador.Funcionarios.Ver.Borrar"
+                            + ".Confirmado.Confirmado.BorrarMiCuanta", 
+                        "Administrador.Funcionarios.Ver"};
                     String retorno = "Administrador.Funcionarios.Ver";
                     String pregunta = "Esta apunto de borrar su cuenta";
 
-                    Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, usuario, ID, declaracion, pregunta, vinculo);
+                    Confirmacion p = new Confirmacion(tipo, retorno, 
+                            nombreClase, usuario, ID, declaracion, pregunta, 
+                            vinculo);
                     panelContenedor.removeAll();
                     panelContenedor.add(p);
                     panelContenedor.validate();
@@ -189,25 +203,39 @@ public class PantallasAdministrador {
 
                 } else {
 
-                    Funcionario.BorrarEnDocumento(declaracion, ID[ID.length - 1]);
+                    Funcionario.BorrarEnDocumento(declaracion, 
+                            ID[ID.length - 1]);
 
                     String[] nombreBotones = {"Editar", "Borrar"};
                     String[] nombreIcono = {"Editar Usuario", "Borrar Usuario"};
-                    String[] columna = {"", "", "Documento", "Contraseña", "Nombre", "Primer Apellido", "Segundo Apellido", "cargo", "Correo Electronico", "Telefono", "Celular"};
-                    String[] vinculo = {"Administrador.Funcionarios.Ver.Editar", "Administrador.Funcionarios.Ver.Borrar"};
+                    String[] columna = {"", "", "Documento", "Contraseña", 
+                        "Nombre", "Primer Apellido", "Segundo Apellido", 
+                        "cargo", "Correo Electronico", "Telefono", "Celular"};
+                    String[] vinculo = {"Administrador.Funcionarios.Ver.Editar",
+                        "Administrador.Funcionarios.Ver.Borrar"};
                     String retorno = "Administrador.Funcionarios";
 
                     Consulta c = new Consulta(declaracion);
                     c.tabla("T_Informacion_Funcionarios");
-                    String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
+                    String[] campos = {"Documento_De_Identidad", 
+                        "Documento_De_Identidad", "Contrasena", "Nombre",
+                        "Primer_Apellido", "Segundo_Apellido", "cargo",
+                        "Correo_Electronico", "Telefono_Fijo",
+                        "Telefono_Celular"};
                     c.campos(campos);
-                    String[] alias = {"ID", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
+                    String[] alias = {"ID", "Documento_De_Identidad", 
+                        "Contrasena", "Nombre", "Primer_Apellido", 
+                        "Segundo_Apellido", "cargo", "Correo_Electronico", 
+                        "Telefono_Fijo", "Telefono_Celular"};
                     c.alias(alias);
                     c.columnaSeleccionada("Documento_De_Identidad");
                     c.panelContenedor(panelContenedor);
                     String menu[][] = c.ejecutarConsulta();
 
-                    PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, Arreglo.quitar(ID), c);
+                    PantallaUsuario p = new PantallaUsuario(tipo, menu, 
+                            nombreBotones, nombreIcono, columna, vinculo, 
+                            retorno, nombreClase, usuario, declaracion, 
+                            Arreglo.quitar(ID), c);
                     panelContenedor.removeAll();
                     panelContenedor.add(p);
                     panelContenedor.validate();

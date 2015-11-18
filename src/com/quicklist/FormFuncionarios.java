@@ -193,7 +193,8 @@ public final class FormFuncionarios extends javax.swing.JPanel {
                 jTextField5.setFocusable(false);    //No seleccionable
 
                 /*Se asigna un unico elemento en la lista desplegable*/
-                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[]{lista[0][6]}));
+                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(
+                        new String[]{lista[0][6]}));
 
             }
 
@@ -782,6 +783,8 @@ public final class FormFuncionarios extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
+        /* Boton "Guardar" */
+        
         /*
          * Se crea un arrelo para recojer los datos de los inputs 
          */

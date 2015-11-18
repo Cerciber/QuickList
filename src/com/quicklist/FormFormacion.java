@@ -469,6 +469,8 @@ public final class FormFormacion extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
+        /** Boton "Siguiente" */
+        
         /*
          * Se crea un arrelo para contener los datos de la formación
          * con una longitud de 2 correspondientes a identificador del horario

@@ -131,7 +131,7 @@ public class VerExcusa extends javax.swing.JFrame {
         }
 
         /* Se verifica si la excusa esta aprobada */
-        if ("Si".equals(jComboBox.getSelectedItem())) {
+        if ("CE".equals(jComboBox.getSelectedItem())) {
 
             /* Se resalta el boton de aproación */
             jButton5ActionPerformed(null);
@@ -328,12 +328,12 @@ public class VerExcusa extends javax.swing.JFrame {
         if (aprobar) {
 
             /* Se aprueba en la lista de la pantalla principal */
-            jComboBox.setSelectedItem("Si");
+            jComboBox.setSelectedItem("CE");
 
         } else {
 
             /* Se reprueba en la lista de la pantalla principal */
-            jComboBox.setSelectedItem("No");
+            jComboBox.setSelectedItem("SE");
 
         }
 

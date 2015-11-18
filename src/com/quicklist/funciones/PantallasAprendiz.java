@@ -317,10 +317,13 @@ public class PantallasAprendiz {
 
         }
 
-        if ("Aprendiz.FormatoEtapaLectiva.FormatoEnBlanco".equals(nombreClase)) {
+        if ("Aprendiz.FormatoEtapaLectiva.FormatoEnBlanco"
+                .equals(nombreClase)) {
 
             new RFormatoDeEtapaLectiva().enBlanco();
-            new PantallasAprendiz(tipo, panelContenedor, "Aprendiz.FormatoEtapaLectiva", nombreClase, usuario, Arreglo.quitar(ID), declaracion);
+            new PantallasAprendiz(tipo, panelContenedor, 
+                    "Aprendiz.FormatoEtapaLectiva", nombreClase, usuario, 
+                    Arreglo.quitar(ID), declaracion);
 
         }
 
@@ -387,10 +390,14 @@ public class PantallasAprendiz {
 
         }
 
-        if ("Aprendiz.FormatoEtapaLectiva.Horario.Obtener".equals(nombreClase)) {
+        if ("Aprendiz.FormatoEtapaLectiva.Horario.Obtener"
+                .equals(nombreClase)) {
 
-            new RFormatoDeEtapaLectiva().porHorario(declaracion, usuario, ID[ID.length - 1]);
-            new PantallasAprendiz(tipo, panelContenedor, "Aprendiz.FormatoEtapaLectiva", nombreClase, usuario, Arreglo.quitar(ID), declaracion);
+            new RFormatoDeEtapaLectiva().porHorario(declaracion, usuario, 
+                    ID[ID.length - 1]);
+            new PantallasAprendiz(tipo, panelContenedor, 
+                    "Aprendiz.FormatoEtapaLectiva", nombreClase, usuario, 
+                    Arreglo.quitar(ID), declaracion);
 
         }
 
