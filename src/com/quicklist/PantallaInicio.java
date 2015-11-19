@@ -427,7 +427,7 @@ public class PantallaInicio extends javax.swing.JPanel {
                         + "Documento_De_Identidad,Contrasena from "
                         + "T_Informacion_Aprendices where "
                         + "Documento_De_Identidad=" + usuario + " and "
-                        + "Contrasena='" + contrasena + "';");
+                        + "CONVERT(VARCHAR(300),DECRYPTBYPASSPHRASE('cerciber',contrasena))='" + contrasena + "';");
 
                 /**
                  * Se verifica si existe el registro ingresado
@@ -470,7 +470,7 @@ public class PantallaInicio extends javax.swing.JPanel {
                         + "Documento_De_Identidad,Contrasena from "
                         + "T_Informacion_Funcionarios where "
                         + "Documento_De_Identidad=" + usuario + " and "
-                        + "Contrasena='" + contrasena + "' and "
+                        + "CONVERT(VARCHAR(300),DECRYPTBYPASSPHRASE('cerciber',contrasena))='" + contrasena + "' and "
                         + "cargo='INSTRUCTOR';");
 
                 /**
@@ -514,7 +514,7 @@ public class PantallaInicio extends javax.swing.JPanel {
                         + "Documento_De_Identidad,Contrasena from "
                         + "T_Informacion_Funcionarios where "
                         + "Documento_De_Identidad=" + usuario + " and "
-                        + "Contrasena='" + contrasena + "' and "
+                        + "CONVERT(VARCHAR(300),DECRYPTBYPASSPHRASE('cerciber',contrasena))='" + contrasena + "' and "
                         + "cargo='ADMINISTRADOR';");
 
                 /* Se verifica si existe el registro ingresado */

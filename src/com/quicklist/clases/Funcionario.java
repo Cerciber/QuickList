@@ -117,8 +117,8 @@ public class Funcionario {
 
         try {
 
-            ResultSet resultado = declaracion.executeQuery("select * from T_Informacion_Funcionarios where Documento_De_Identidad = " + ID);
-            String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
+            ResultSet resultado = declaracion.executeQuery("select *,CONVERT(VARCHAR(300),DECRYPTBYPASSPHRASE('cerciber',contrasena)) as contrasenadesc from T_Informacion_Funcionarios where Documento_De_Identidad = " + ID);
+            String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "contrasenadesc", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
             menu = new ConvertirConsulta().ArregloString(resultado, campos);
 
         } catch (SQLException ex) {
@@ -176,8 +176,8 @@ public class Funcionario {
             //T_Informacion_Funcionarios
             //con los 9 valores de la variable datos.
             declaracion.executeQuery("insert into T_Informacion_Funcionarios values("
-                    + datos[0] + ", '"
-                    + datos[1] + "', '"
+                    + datos[0] + ", ENCRYPTBYPASSPHRASE('cerciber', '"
+                    + datos[1] + "'), '"
                     + datos[2] + "', '"
                     + datos[3] + "', '"
                     + datos[4] + "', '"
@@ -218,7 +218,7 @@ public class Funcionario {
             //empeando la variable ID en la condicion
             declaracion.executeQuery("update T_Informacion_Funcionarios set "
                     + "Documento_De_Identidad = " + datos[0] + ","
-                    + "Contrasena = '" + datos[1] + "',"
+                    + "Contrasena = ENCRYPTBYPASSPHRASE('cerciber', '" + datos[1] + "'),"
                     + "Nombre = '" + datos[2] + "',"
                     + "Primer_Apellido = '" + datos[3] + "',"
                     + "Segundo_Apellido = '" + datos[4] + "',"

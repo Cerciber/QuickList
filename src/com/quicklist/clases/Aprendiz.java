@@ -58,11 +58,12 @@ public class Aprendiz {
 
         try {
 
-            ResultSet resultado = declaracion.executeQuery("select * from T_Informacion_Aprendices where Documento_De_Identidad = " + ID + ";");
-            String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "Fecha_De_Nacimiento", "Correo_Electronico", "Genero", "ID_Ficha", "Telefono_Fijo", "Telefono_Celular", "estado", "nombre_Proyecto", "Estilos_Y_Ritmos_De_Aprendizaje", "Estrategia_Metodológica_De_Preferencia", "Caracteristicas_Culturales_Y_Sociales"};
+            ResultSet resultado = declaracion.executeQuery("select *,CONVERT(VARCHAR(300),DECRYPTBYPASSPHRASE('cerciber',contrasena)) as contrasenadesc from T_Informacion_Aprendices where Documento_De_Identidad = " + ID + ";");
+            String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "contrasenadesc", "Nombre", "Primer_Apellido", "Segundo_Apellido", "Fecha_De_Nacimiento", "Correo_Electronico", "Genero", "ID_Ficha", "Telefono_Fijo", "Telefono_Celular", "estado", "nombre_Proyecto", "Estilos_Y_Ritmos_De_Aprendizaje", "Estrategia_Metodológica_De_Preferencia", "Caracteristicas_Culturales_Y_Sociales"};
             menu = new ConvertirConsulta().ArregloString(resultado, campos);
 
         } catch (SQLException ex) {
+            System.out.println(ex);
         }
 
         return menu;
@@ -280,8 +281,8 @@ public class Aprendiz {
         try {
 
             declaracion.executeQuery("insert into T_Informacion_Aprendices values("
-                    + datos[0] + ", '"
-                    + datos[1] + "', '"
+                    + datos[0] + ", ENCRYPTBYPASSPHRASE('cerciber', '"
+                    + datos[1] + "'), '"
                     + datos[2] + "', '"
                     + datos[3] + "', '"
                     + datos[4] + "', '"
@@ -366,7 +367,7 @@ public class Aprendiz {
             //empeando la variable ID en la condicion
             declaracion.executeQuery("update T_Informacion_Aprendices set "
                     + "Documento_De_Identidad = " + datos[0] + ","
-                    + "Contrasena = '" + datos[1] + "',"
+                    + "Contrasena = ENCRYPTBYPASSPHRASE('cerciber', '" + datos[1] + "'),"
                     + "Nombre = '" + datos[2] + "',"
                     + "Primer_Apellido = '" + datos[3] + "',"
                     + "Segundo_Apellido = '" + datos[4] + "',"
