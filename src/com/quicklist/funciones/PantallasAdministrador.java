@@ -42,6 +42,7 @@ import com.quicklist.PantallaInicio;
 import com.quicklist.PantallaUsuario;
 import com.quicklist.TomarAsistencia;
 import com.quicklist.clases.Consulta;
+import com.quicklist.clases.Historial;
 
 /**
  *
@@ -68,8 +69,8 @@ public class PantallasAdministrador {
 
             if ("T_Administrador".equals(nombreClase)) {
 
-                String[] menu = {"Funcionarios", "Fichas", "Plan de estudios"};
-                String[] vinculo = {"Administrador.Funcionarios", "Administrador.Fichas", "Administrador.PlanDeEstudios"};
+                String[] menu = {"Funcionarios", "Fichas", "Plan de estudios","Historial de movimiento"};
+                String[] vinculo = {"Administrador.Funcionarios", "Administrador.Fichas", "Administrador.PlanDeEstudios","Administrador.Historial"};
                 String retorno = "PantallaInicio";
 
                 PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, "Administrador", usuario, declaracion, ID);
@@ -82,8 +83,8 @@ public class PantallasAdministrador {
 
             if ("Administrador".equals(nombreClase)) {
 
-                String[] menu = {"Funcionarios", "Fichas", "Plan de estudios"};
-                String[] vinculo = {"Administrador.Funcionarios", "Administrador.Fichas", "Administrador.PlanDeEstudios"};
+                String[] menu = {"Funcionarios", "Fichas", "Plan de estudios","Historial de movimiento"};
+                String[] vinculo = {"Administrador.Funcionarios", "Administrador.Fichas", "Administrador.PlanDeEstudios","Administrador.Historial"};
                 String retorno = "PantallaInicio";
 
                 PantallaUsuario p = new PantallaUsuario(tipo, menu, vinculo, retorno, nombreClase, usuario, declaracion, ID);
@@ -112,15 +113,15 @@ public class PantallasAdministrador {
 
                 String[] nombreBotones = {"Editar", "Borrar"};
                 String[] nombreIcono = {"Editar Usuario", "Borrar Usuario"};
-                String[] columna = {"", "", "Documento", "Contraseña", "Nombre", "Primer apellido", "Segundo apellido", "Cargo", "Correo electrónico", "Teléfono", "Celular"};
+                String[] columna = {"", "", "Documento", "Nombre", "Primer apellido", "Segundo apellido", "Cargo", "Correo electrónico", "Teléfono", "Celular"};
                 String[] vinculo = {"Administrador.Funcionarios.Ver.Editar", "Administrador.Funcionarios.Ver.Borrar"};
                 String retorno = "Administrador.Funcionarios";
 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Informacion_Funcionarios");
-                String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
+                String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
                 c.campos(campos);
-                String[] alias = {"ID", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
+                String[] alias = {"ID", "Documento_De_Identidad", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
                 c.alias(alias);
                 c.columnaSeleccionada("Documento_De_Identidad");
                 c.panelContenedor(panelContenedor);
@@ -205,10 +206,11 @@ public class PantallasAdministrador {
 
                     Funcionario.BorrarEnDocumento(declaracion, 
                             ID[ID.length - 1]);
+                    Historial.Insertar(declaracion, usuario, "Eliminó un funcionario");
 
                     String[] nombreBotones = {"Editar", "Borrar"};
                     String[] nombreIcono = {"Editar Usuario", "Borrar Usuario"};
-                    String[] columna = {"", "", "Documento", "Contraseña", 
+                    String[] columna = {"", "", "Documento", 
                         "Nombre", "Primer apellido", "segundo Apellido", 
                         "Cargo", "Correo electrónico", "Teléfono", "Celular"};
                     String[] vinculo = {"Administrador.Funcionarios.Ver.Editar",
@@ -218,13 +220,13 @@ public class PantallasAdministrador {
                     Consulta c = new Consulta(declaracion);
                     c.tabla("T_Informacion_Funcionarios");
                     String[] campos = {"Documento_De_Identidad", 
-                        "Documento_De_Identidad", "Contrasena", "Nombre",
+                        "Documento_De_Identidad", "Nombre",
                         "Primer_Apellido", "Segundo_Apellido", "cargo",
                         "Correo_Electronico", "Telefono_Fijo",
                         "Telefono_Celular"};
                     c.campos(campos);
                     String[] alias = {"ID", "Documento_De_Identidad", 
-                        "Contrasena", "Nombre", "Primer_Apellido", 
+                        "Nombre", "Primer_Apellido", 
                         "Segundo_Apellido", "cargo", "Correo_Electronico", 
                         "Telefono_Fijo", "Telefono_Celular"};
                     c.alias(alias);
@@ -248,6 +250,7 @@ public class PantallasAdministrador {
             if ("Administrador.Funcionarios.Ver.Borrar.Confirmado.Confirmado.BorrarMiCuanta".equals(nombreClase)) {
 
                 Funcionario.BorrarEnDocumento(declaracion, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Eliminó su propia cuenta");
 
                 PantallaInicio p = new PantallaInicio();
                 panelContenedor.removeAll();
@@ -353,6 +356,7 @@ public class PantallasAdministrador {
             if ("Administrador.Fichas.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
 
                 Ficha.BorrarEnID(declaracion, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Eliminó una ficha");
                 new PantallasAdministrador(tipo, panelContenedor, "Administrador.Fichas.Ver", pantallaActual, usuario, ID, declaracion);
 
             }
@@ -387,19 +391,19 @@ public class PantallasAdministrador {
 
                 String[] nombreBotones = {"Editar", "Borrar"};
                 String[] nombreIcono = {"Editar Usuario", "Borrar Usuario"};
-                String[] columna = {"", "", "Documento", "Contraseña", "Nombre", "Primer apellido", "Segundo apellido", "Fecha de nacimiento", "Correo electrónico", "Género", "Ficha", "Teléfono", "Celular", "Estado", "Proyecto", "Estilos y ritmos de aprendizaje", "Estrategia metodológica de preferencia", "Caracteristicas culturales y sociales"};
+                String[] columna = {"", "", "Documento", "Nombre", "Primer apellido", "Segundo apellido", "Fecha de nacimiento", "Correo electrónico", "Género", "Ficha", "Teléfono", "Celular", "Estado", "Proyecto", "Estilos y ritmos de aprendizaje", "Estrategia metodológica de preferencia", "Caracteristicas culturales y sociales"};
                 String[] vinculo = {"Administrador.Fichas.Ver.Aprendices.Ver.Editar", "Administrador.Fichas.Ver.Aprendices.Ver.Borrar"};
                 String retorno = "Administrador.Fichas.Ver.Aprendices";
 
                 Consulta c = new Consulta(declaracion);
                 c.tabla("T_Informacion_Aprendices");
-                String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "Fecha_De_Nacimiento", "Correo_Electronico", "Genero", "ID_Ficha", "Telefono_Fijo", "Telefono_Celular", "estado", "nombre_Proyecto", "Estilos_Y_Ritmos_De_Aprendizaje", "Estrategia_Metodológica_De_Preferencia", "Caracteristicas_Culturales_Y_Sociales"};
+                String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "Nombre", "Primer_Apellido", "Segundo_Apellido", "Fecha_De_Nacimiento", "Correo_Electronico", "Genero", "ID_Ficha", "Telefono_Fijo", "Telefono_Celular", "estado", "nombre_Proyecto", "Estilos_Y_Ritmos_De_Aprendizaje", "Estrategia_Metodológica_De_Preferencia", "Caracteristicas_Culturales_Y_Sociales"};
                 c.campos(campos);
-                String[] alias = {"ID", "Documento_De_Identidad", "Contrasena", "Nombre", "Primer_Apellido", "Segundo_Apellido", "Fecha_De_Nacimiento", "Correo_Electronico", "Genero", "ID_Ficha", "Telefono_Fijo", "Telefono_Celular", "estado", "nombre_Proyecto", "Estilos_Y_Ritmos_De_Aprendizaje", "Estrategia_Metodológica_De_Preferencia", "Caracteristicas_Culturales_Y_Sociales"};
+                String[] alias = {"ID", "Documento_De_Identidad", "Nombre", "Primer_Apellido", "Segundo_Apellido", "Fecha_De_Nacimiento", "Correo_Electronico", "Genero", "ID_Ficha", "Telefono_Fijo", "Telefono_Celular", "estado", "nombre_Proyecto", "Estilos_Y_Ritmos_De_Aprendizaje", "Estrategia_Metodológica_De_Preferencia", "Caracteristicas_Culturales_Y_Sociales"};
                 c.alias(alias);
                 c.columnaSeleccionada("Documento_De_Identidad");
                 c.condicion("ID_Ficha = " + ID[ID.length - 1]);
-                int[] nFechas = {6};
+                int[] nFechas = {5};
                 c.nFechas(nFechas);
                 c.panelContenedor(panelContenedor);
                 String menu[][] = c.ejecutarConsulta();
@@ -454,6 +458,7 @@ public class PantallasAdministrador {
             if ("Administrador.Fichas.Ver.Aprendices.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
 
                 Aprendiz.BorrarEnDocumento(declaracion, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Eliminó un aprendiz");
                 new PantallasAdministrador(tipo, panelContenedor, "Administrador.Fichas.Ver.Aprendices.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
 
             }
@@ -556,6 +561,7 @@ public class PantallasAdministrador {
             if ("Administrador.Fichas.Ver.Horarios.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
 
                 Horario.BorrarPorID(declaracion, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Eliminó un horario");
                 new PantallasAdministrador(tipo, panelContenedor, "Administrador.Fichas.Ver.Horarios.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
 
             }
@@ -658,6 +664,7 @@ public class PantallasAdministrador {
             if ("Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
 
                 Actividad.BorrarPorID(declaracion, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Eliminó una actividad");
                 new PantallasAdministrador(tipo, panelContenedor, "Administrador.Fichas.Ver.Horarios.Ver.Actividades.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
 
             }
@@ -772,6 +779,7 @@ public class PantallasAdministrador {
             if ("Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver.Borrar.Confirmado".equals(nombreClase)) {
 
                 Formacion.BorrarPorID(declaracion, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Eliminó una formación");
                 new PantallasAdministrador(tipo, panelContenedor, "Administrador.Fichas.Ver.Horarios.Ver.Asistencia.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
 
             }
@@ -886,6 +894,7 @@ public class PantallasAdministrador {
             if ("Administrador.PlanDeEstudios.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
 
                 PlanDeEstudios.BorrarEnID(declaracion, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Eliminó un plan de estudios");
                 new PantallasAdministrador(tipo, panelContenedor, "Administrador.PlanDeEstudios.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
 
             }
@@ -986,6 +995,7 @@ public class PantallasAdministrador {
             if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
 
                 Competencia.BorrarEnID(declaracion, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Eliminó una competencia");
                 new PantallasAdministrador(tipo, panelContenedor, "Administrador.PlanDeEstudios.Ver.Competencia.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
 
             }
@@ -1086,6 +1096,7 @@ public class PantallasAdministrador {
             if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
 
                 ActividadDeAprendizaje.BorrarEnID(declaracion, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Eliminó una actividad de aprendizaje");
                 new PantallasAdministrador(tipo, panelContenedor, "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
 
             }
@@ -1186,6 +1197,7 @@ public class PantallasAdministrador {
             if ("Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
 
                 ResultadoDeAprendizaje.BorrarEnID(declaracion, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Eliminó un resultado de aprendizaje");
                 new PantallasAdministrador(tipo, panelContenedor, "Administrador.PlanDeEstudios.Ver.Competencia.Ver.ActividadDeAprendizaje.Ver.ResultadoDeAprendizaje.Ver", pantallaActual, usuario, Arreglo.quitar(ID), declaracion);
 
             }
@@ -1202,6 +1214,182 @@ public class PantallasAdministrador {
 
             }
 
+            if ("Administrador.Historial".equals(nombreClase)) {
+
+                String[] nombreBotones = {"Ver"};
+                String[] nombreIcono = {"Ver"};
+                String[] columna = {"", "Fecha","Documento", "Funcionario", "Cargo", "Acción"};
+                String[] vinculo = {"Administrador.Historial.Ver"};
+                String retorno = "Administrador";
+
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Informacion_Funcionarios join T_log on ID_Funcionario = Documento_De_Identidad");
+                String[] campos = {"Documento_De_Identidad","Fecha", "Documento_De_Identidad", "CONCAT(T_Informacion_Funcionarios.Nombre,' ',T_Informacion_Funcionarios.Primer_Apellido,' ',T_Informacion_Funcionarios.Segundo_Apellido)", "cargo", "Accion"};
+                c.campos(campos);
+                String[] alias = {"Documento_De_Identidad","Fecha", "documento", "Instructor", "cargo", "Accion"};
+                c.alias(alias);
+                c.columnaSeleccionada("Fecha");
+                c.panelContenedor(panelContenedor);
+                String menu[][] = c.ejecutarConsulta();
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimientoSecuencial();
+            }
+            
+            if ("Administrador.Historial.Ver".equals(nombreClase)) {
+
+                String[] nombreBotones = {"Editar", "Borrar"};
+                String[] nombreIcono = {"Editar Usuario", "Borrar Usuario"};
+                String[] columna = {"", "", "Documento", "Nombre", "Primer apellido", "Segundo apellido", "Cargo", "Correo electrónico", "Teléfono", "Celular"};
+                String[] vinculo = {"Administrador.Historial.Ver.Editar", "Administrador.Historial.Ver.Borrar"};
+                String retorno = "Administrador.Historial";
+
+                Consulta c = new Consulta(declaracion);
+                c.tabla("T_Informacion_Funcionarios");
+                String[] campos = {"Documento_De_Identidad", "Documento_De_Identidad", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
+                c.campos(campos);
+                String[] alias = {"ID", "Documento_De_Identidad", "Nombre", "Primer_Apellido", "Segundo_Apellido", "cargo", "Correo_Electronico", "Telefono_Fijo", "Telefono_Celular"};
+                c.alias(alias);
+                c.columnaSeleccionada("Documento_De_Identidad");
+                c.panelContenedor(panelContenedor);
+                c.condicion("Documento_De_Identidad = " + ID[ID.length - 1]);
+                String menu[][] = c.ejecutarConsulta();
+
+                PantallaUsuario p = new PantallaUsuario(tipo, menu, nombreBotones, nombreIcono, columna, vinculo, retorno, nombreClase, usuario, declaracion, ID, c);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimientoSecuencial();
+            }
+            
+            if ("Administrador.Historial.Ver.Editar".equals(nombreClase)) {
+
+                String retorno = "Administrador.Historial.Ver";
+
+                FormFuncionarios p = new FormFuncionarios(tipo, retorno, pantallaActual, usuario, ID, declaracion);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.Historial.Ver.Borrar".equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Historial.Ver.Borrar"
+                        + ".Confirmado", "Administrador.Historial.Ver"};
+                String retorno = "Administrador.Historial.Ver";
+                String pregunta = "¿Desea eliminar el registro " 
+                        + ID[ID.length - 1] + "?";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, 
+                        nombreClase, usuario, ID, declaracion, pregunta,
+                        vinculo);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.Historial.Ver.Borrar.Confirmado"
+                    .equals(nombreClase)) {
+
+                String[] vinculo = {"Administrador.Historial.Ver.Borrar"
+                        + ".Confirmado.Confirmado", "Administrador.Historial.Ver"};
+                String retorno = "Administrador.Funcionarios.Ver";
+                String pregunta = "Al eliminarlo se borrarán todos los datos "
+                        + "ligados a éste usuario";
+
+                Confirmacion p = new Confirmacion(tipo, retorno, nombreClase, 
+                        usuario, ID, declaracion, pregunta, vinculo);
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+
+            if ("Administrador.Historial.Ver.Borrar.Confirmado.Confirmado"
+                    .equals(nombreClase)) {
+
+                if (ID[ID.length - 1].equals(usuario)) {
+
+                    String[] vinculo = {"Administrador.Historial.Ver.Borrar"
+                            + ".Confirmado.Confirmado.BorrarMiCuanta", 
+                        "Administrador.Historial.Ver"};
+                    String retorno = "Administrador.Historial.Ver";
+                    String pregunta = "Está a punto de borrar su cuenta";
+
+                    Confirmacion p = new Confirmacion(tipo, retorno, 
+                            nombreClase, usuario, ID, declaracion, pregunta, 
+                            vinculo);
+                    panelContenedor.removeAll();
+                    panelContenedor.add(p);
+                    panelContenedor.validate();
+                    p.movimiento();
+
+                } else {
+
+                    Funcionario.BorrarEnDocumento(declaracion, 
+                            ID[ID.length - 1]);
+                    Historial.Insertar(declaracion, usuario, "Eliminó un funcionario");
+
+                    String[] nombreBotones = {"Editar", "Borrar"};
+                    String[] nombreIcono = {"Editar Usuario", "Borrar Usuario"};
+                    String[] columna = {"", "", "Documento", 
+                        "Nombre", "Primer apellido", "segundo Apellido", 
+                        "Cargo", "Correo electrónico", "Teléfono", "Celular"};
+                    String[] vinculo = {"Administrador.Historial.Ver.Editar",
+                        "Administrador.Historial.Ver.Borrar"};
+                    String retorno = "Administrador.Historial";
+
+                    Consulta c = new Consulta(declaracion);
+                    c.tabla("T_Informacion_Funcionarios");
+                    String[] campos = {"Documento_De_Identidad", 
+                        "Documento_De_Identidad", "Nombre",
+                        "Primer_Apellido", "Segundo_Apellido", "cargo",
+                        "Correo_Electronico", "Telefono_Fijo",
+                        "Telefono_Celular"};
+                    c.campos(campos);
+                    String[] alias = {"ID", "Documento_De_Identidad", 
+                        "Nombre", "Primer_Apellido", 
+                        "Segundo_Apellido", "cargo", "Correo_Electronico", 
+                        "Telefono_Fijo", "Telefono_Celular"};
+                    c.alias(alias);
+                    c.columnaSeleccionada("Documento_De_Identidad");
+                    c.panelContenedor(panelContenedor);
+                    String menu[][] = c.ejecutarConsulta();
+
+                    PantallaUsuario p = new PantallaUsuario(tipo, menu, 
+                            nombreBotones, nombreIcono, columna, vinculo, 
+                            retorno, nombreClase, usuario, declaracion, 
+                            Arreglo.quitar(ID), c);
+                    panelContenedor.removeAll();
+                    panelContenedor.add(p);
+                    panelContenedor.validate();
+                    p.movimientoSecuencial();
+
+                }
+
+            }
+
+            if ("Administrador.Historial.Ver.Borrar.Confirmado.Confirmado.BorrarMiCuanta".equals(nombreClase)) {
+
+                Funcionario.BorrarEnDocumento(declaracion, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Eliminó su propia cuenta");
+
+                PantallaInicio p = new PantallaInicio();
+                panelContenedor.removeAll();
+                panelContenedor.add(p);
+                panelContenedor.validate();
+                p.movimiento();
+
+            }
+            
         } catch (NullPointerException ex) {
             System.out.println(ex);
         }

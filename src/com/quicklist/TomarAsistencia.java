@@ -14,6 +14,7 @@
 package com.quicklist;
 
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
+import com.quicklist.clases.Historial;
 import java.awt.Component;
 import java.sql.Statement;
 import javax.swing.JButton;
@@ -622,6 +623,7 @@ public final class TomarAsistencia extends javax.swing.JPanel {
 
         /* Se actualiza la información en la base de datos */
         Inasistencia.ActualizarInasistencias(declaracion, datos);
+        Historial.Insertar(declaracion, usuario, "Tomó asistencia");
 
         /*
          * El simbolo "☺" representa un dato vacio en el arreglo de 

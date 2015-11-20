@@ -18,6 +18,7 @@ import java.awt.Component;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import com.quicklist.clases.Ficha;
+import com.quicklist.clases.Historial;
 import com.quicklist.clases.PlanDeEstudios;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
@@ -612,6 +613,7 @@ public final class FormFicha extends javax.swing.JPanel {
                  * la base de datos
                  */
                 Ficha.Insertar(declaracion, datos);
+                Historial.Insertar(declaracion, usuario, "ingresó una ficha");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
@@ -653,6 +655,7 @@ public final class FormFicha extends javax.swing.JPanel {
                  * la base de datos
                  */
                 Ficha.ActualizarEnID(declaracion, datos, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Actualizó una ficha");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 

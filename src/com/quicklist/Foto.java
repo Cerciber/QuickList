@@ -16,6 +16,7 @@ package com.quicklist;
 import com.quicklist.clases.Aprendiz;
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import com.quicklist.clases.Funcionario;
+import com.quicklist.clases.Historial;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -438,6 +439,8 @@ public class Foto extends javax.swing.JFrame {
 
         }
 
+        Historial.Insertar(declaracion, usuario, "Actualizó el estado de la foto de perfil");
+        
         /* Cerrar la ventana actual */
         this.dispose();
 

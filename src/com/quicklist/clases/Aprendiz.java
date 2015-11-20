@@ -279,6 +279,12 @@ public class Aprendiz {
     public static void Insertar(Statement declaracion, String[] datos) {
 
         try {
+            
+            if("".equals(datos[9])){
+                
+                datos[9]="null";
+                         
+            }
 
             declaracion.executeQuery("insert into T_Informacion_Aprendices values("
                     + datos[0] + ", ENCRYPTBYPASSPHRASE('cerciber', '"
@@ -365,6 +371,13 @@ public class Aprendiz {
             //Se ejeculta la consulta para actualizar
             //asignando cada una de las varibles de arrgelo datos
             //empeando la variable ID en la condicion
+            
+            if("".equals(datos[9])){
+                
+                datos[9]="null";
+                         
+            }
+            
             declaracion.executeQuery("update T_Informacion_Aprendices set "
                     + "Documento_De_Identidad = " + datos[0] + ","
                     + "Contrasena = ENCRYPTBYPASSPHRASE('cerciber', '" + datos[1] + "'),"

@@ -17,6 +17,7 @@ import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Funcionario;
+import com.quicklist.clases.Historial;
 import com.quicklist.clases.ResultadoDeAprendizaje;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
@@ -520,6 +521,7 @@ public final class FormResultadoDeAprendizaje extends javax.swing.JPanel {
                  * base de datos
                  */
                 ResultadoDeAprendizaje.Insertar(declaracion, datos);
+                Historial.Insertar(declaracion, usuario, "Ingresó un resultado de aprendizaje");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
@@ -549,6 +551,7 @@ public final class FormResultadoDeAprendizaje extends javax.swing.JPanel {
                  */
                 ResultadoDeAprendizaje.ActualizarEnID(declaracion, datos,
                         ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Actualizó un resultado de aprendizaje");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
@@ -570,8 +573,8 @@ public final class FormResultadoDeAprendizaje extends javax.swing.JPanel {
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
 
-        /* Dar una longitud maxima de caracteres de 100 */
-        Validaciones.longitud(evt, jTextField2.getText().length(), 100);
+        /* Dar una longitud maxima de caracteres de 500 */
+        Validaciones.longitud(evt, jTextField2.getText().length(), 500);
 
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);

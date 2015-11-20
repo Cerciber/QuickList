@@ -13,9 +13,11 @@
  */
 package com.quicklist;
 
+import static com.quicklist.Foto.declaracion;
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import static com.quicklist.clases.Configuracion.cargarLogin;
 import static com.quicklist.clases.Configuracion.guardarLogin;
+import com.quicklist.clases.Historial;
 import com.quicklist.funciones.AnimacionObjetos;
 import java.awt.Component;
 import java.sql.Connection;
@@ -483,6 +485,7 @@ public class PantallaInicio extends javax.swing.JPanel {
                      * contraseña
                      */
                     guardarLogin(usuario, contrasena, tipo);
+                    Historial.Insertar(declaracion, usuario, "Ingrezó al sistema");
 
                     /* 
                      * Se animan los objetos para que salgan del panel y se 
@@ -525,6 +528,7 @@ public class PantallaInicio extends javax.swing.JPanel {
                      * contraseña
                      */
                     guardarLogin(usuario, contrasena, tipo);
+                    Historial.Insertar(declaracion, usuario, "Ingrezó al sistema");
 
                     /* 
                      * Se animan los objetos para que salgan del panel y se 

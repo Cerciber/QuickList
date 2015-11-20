@@ -17,6 +17,7 @@ import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Competencia;
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
+import com.quicklist.clases.Historial;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.AnimacionObjetos;
@@ -510,6 +511,7 @@ public final class FormCompetencia extends javax.swing.JPanel {
                  * la base de datos
                  */
                 Competencia.Insertar(declaracion, datos);
+                Historial.Insertar(declaracion, usuario, "Ingresó una competencia");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
@@ -539,6 +541,7 @@ public final class FormCompetencia extends javax.swing.JPanel {
                  */
                 Competencia.ActualizarEnID(declaracion, datos,
                         ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Actualizó una competencia");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 

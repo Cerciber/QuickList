@@ -17,6 +17,7 @@ import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Actividad;
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
+import com.quicklist.clases.Historial;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
@@ -702,6 +703,7 @@ public final class FormActividad extends javax.swing.JPanel {
 
                 /*Se insertan los datos de la actividad en la base de datos*/
                 Actividad.Insertar(declaracion, ID, datos);
+                Historial.Insertar(declaracion, usuario, "Ingresó una actividad de formación");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
@@ -729,6 +731,7 @@ public final class FormActividad extends javax.swing.JPanel {
 
                 /*Se actualizan los datos de la actividad en la base de datos*/
                 Actividad.ActualizarEnID(declaracion, datos, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Actualizó una actividad de formación");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
@@ -748,7 +751,7 @@ public final class FormActividad extends javax.swing.JPanel {
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
 
         /* Dar una longitud maxima de caracteres de 100 */
-        Validaciones.longitud(evt, jTextField5.getText().length(), 100);
+        Validaciones.longitud(evt, jTextField5.getText().length(), 500);
 
         /* Restringir el caracter 39 (comilla simple) */
         Validaciones.restringirCaracter(evt, evt.getKeyChar(), (char) 39);

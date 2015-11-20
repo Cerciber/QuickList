@@ -28,6 +28,7 @@ import com.quicklist.clases.Actividad;
 import com.quicklist.clases.Consulta;
 import com.quicklist.clases.Ficha;
 import com.quicklist.clases.Formacion;
+import com.quicklist.clases.Historial;
 import com.quicklist.clases.Horario;
 import com.quicklist.clases.ResultadoDeAprendizaje;
 
@@ -264,6 +265,7 @@ public class PantallasInstructor {
         if ("Instructor.Fichas.Horario.Menu.Asistencia.Ver.Borrar.Confirmado".equals(nombreClase)) {
 
             Formacion.BorrarPorID(declaracion, ID[ID.length - 1]);
+            Historial.Insertar(declaracion, usuario, "Eliminó una formación");
             new PantallasInstructor(tipo, panelContenedor, "Instructor.Fichas.Horario.Menu.Asistencia.Ver", nombreClase, usuario, Arreglo.quitar(ID), declaracion);
 
         }
@@ -380,6 +382,7 @@ public class PantallasInstructor {
         if ("Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver.Borrar.Confirmado.Confirmado".equals(nombreClase)) {
 
             Actividad.BorrarPorID(declaracion, ID[ID.length - 1]);
+            Historial.Insertar(declaracion, usuario, "Eliminó una actividad de formación");
             new PantallasInstructor(tipo, panelContenedor, "Instructor.Fichas.Horario.Menu.FormatoEtapaLectiva.Ver", nombreClase, usuario, Arreglo.quitar(Arreglo.quitar(Arreglo.quitar(ID))), declaracion);
 
         }

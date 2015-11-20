@@ -17,6 +17,7 @@ import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Funcionario;
+import com.quicklist.clases.Historial;
 import com.quicklist.clases.Horario;
 import com.quicklist.clases.ResultadoDeAprendizaje;
 import com.quicklist.funciones.MoverObjeto;
@@ -790,6 +791,7 @@ public final class FormHorario extends javax.swing.JPanel {
                  * la base de datos
                  */
                 Horario.Insertar(declaracion, datos);
+                Historial.Insertar(declaracion, usuario, "Ingresó un horario");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
@@ -820,6 +822,7 @@ public final class FormHorario extends javax.swing.JPanel {
                  * la base de datos
                  */
                 Horario.ActualizarEnID(declaracion, datos, ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Actualizó un horario");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 

@@ -484,6 +484,13 @@ public final class PantallaUsuario extends javax.swing.JPanel {
                 /* 
                  * Se verifica si la longitud del texto del campo el mayor a 30
                  */
+                
+                if(menu[i][j]==null){
+                    
+                    menu[i][j]="";
+                    
+                }
+                
                 if (menu[i][j].length() < 30) {
 
                     label[i][j] = new JLabel();     //Instanciación

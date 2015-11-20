@@ -14,6 +14,7 @@
 package com.quicklist;
 
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
+import com.quicklist.clases.Historial;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.PlanDeEstudios;
@@ -753,6 +754,7 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
                  * base de datos
                  */
                 PlanDeEstudios.Insertar(declaracion, datos);
+                Historial.Insertar(declaracion, usuario, "Ingresó un plan de estudios");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
@@ -785,6 +787,7 @@ public final class FormPlanDeEstudios extends javax.swing.JPanel {
                  */
                 PlanDeEstudios.ActualizarEnID(declaracion, datos,
                         ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Actualizó un plan de estudios");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 

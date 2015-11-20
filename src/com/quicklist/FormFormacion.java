@@ -17,6 +17,7 @@ import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.Formacion;
+import com.quicklist.clases.Historial;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
@@ -527,6 +528,7 @@ public final class FormFormacion extends javax.swing.JPanel {
                  * la base de datos
                  */
                 Formacion.Insertar(declaracion, ID, datos);
+                Historial.Insertar(declaracion, usuario, "ingresó una formación");
 
                 /* 
                  * Se selecciona el horario ingresado para obetener el 
@@ -573,6 +575,7 @@ public final class FormFormacion extends javax.swing.JPanel {
                  * la base de datos
                  */
                 Formacion.ActualizarEnID(declaracion, datos, ID[ID.length - 2]);
+                Historial.Insertar(declaracion, usuario, "Actualizó una fomación");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 

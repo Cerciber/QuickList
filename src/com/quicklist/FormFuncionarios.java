@@ -18,6 +18,7 @@ import java.awt.Component;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import com.quicklist.clases.Funcionario;
+import com.quicklist.clases.Historial;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.AnimacionObjetos;
@@ -432,7 +433,7 @@ public final class FormFuncionarios extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 102, 102));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("*Segundo apellido");
+        jLabel19.setText("Segundo apellido");
         jLabel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel19.setOpaque(true);
 
@@ -815,7 +816,6 @@ public final class FormFuncionarios extends javax.swing.JPanel {
                     || "".equals(String.valueOf(jPasswordField1.getPassword()))
                     || "".equals(jTextField3.getText())
                     || "".equals(jTextField4.getText())
-                    || "".equals(jTextField5.getText())
                     || "".equals(jTextField7.getText())
                     || "".equals(jTextField9.getText())) {
 
@@ -848,6 +848,7 @@ public final class FormFuncionarios extends javax.swing.JPanel {
                  * la base de datos
                  */
                 Funcionario.Insertar(declaracion, datos);
+                Historial.Insertar(declaracion, usuario, "ingresó un funcionario");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
@@ -866,7 +867,6 @@ public final class FormFuncionarios extends javax.swing.JPanel {
                     || "".equals(String.valueOf(jPasswordField1.getPassword()))
                     || "".equals(jTextField3.getText())
                     || "".equals(jTextField4.getText())
-                    || "".equals(jTextField5.getText())
                     || "".equals(jTextField7.getText())
                     || "".equals(jTextField9.getText())) {
 
@@ -904,6 +904,7 @@ public final class FormFuncionarios extends javax.swing.JPanel {
                  */
                 Funcionario.ActualizarEnDocumento(declaracion, datos,
                         ID[ID.length - 1]);
+                
 
                 /* 
                  * Se verifica si el documento del usuario se ha actualizado 
@@ -912,7 +913,10 @@ public final class FormFuncionarios extends javax.swing.JPanel {
                 if (usuario.equals(ID[ID.length - 1])) {
 
                     usuario = jTextField2.getText();
-
+                    Historial.Insertar(declaracion, usuario, "Actualizó sus datos personales");
+                    
+                }else{
+                    Historial.Insertar(declaracion, usuario, "Actualizó un funcionario");
                 }
 
                 /* 

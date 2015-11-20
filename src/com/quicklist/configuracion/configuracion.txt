@@ -38,8 +38,8 @@ CUENTA
 Recordar contrase�a:
 1
 Usuario:
-3
+96090410021
 Contraseña:
-3
+123456789
 tipo:
 Administrador

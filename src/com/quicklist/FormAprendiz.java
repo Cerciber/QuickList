@@ -20,6 +20,7 @@ import com.quicklist.clases.Aprendiz;
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
 import com.quicklist.clases.Ficha;
 import com.quicklist.clases.Funcionario;
+import com.quicklist.clases.Historial;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.Calendario;
@@ -1143,6 +1144,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
                  * la base de datos
                  */
                 Aprendiz.Insertar(declaracion, datos);
+                Historial.Insertar(declaracion, usuario, "ingresó un aprendiz");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
@@ -1202,6 +1204,7 @@ public final class FormAprendiz extends javax.swing.JPanel {
                  */
                 Aprendiz.ActualizarEnDocumento(declaracion, datos,
                         ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "actualizó un aprendiz");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 

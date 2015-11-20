@@ -17,6 +17,7 @@ import java.awt.Component;
 import java.sql.Statement;
 import com.quicklist.clases.ActividadDeAprendizaje;
 import static com.quicklist.clases.Configuracion.cargarConfiguracion;
+import com.quicklist.clases.Historial;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.AnimacionObjetos;
@@ -293,7 +294,7 @@ public final class FormActividadDeAprendizaje extends javax.swing.JPanel {
         jComboBox1.setBackground(new java.awt.Color(0, 153, 153));
         jComboBox1.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 14)); // NOI18N
         jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Planeacion", "Analisis", "Diseño", "Desarrollo", "Pruebas", "Implementacion" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Evaluación", "Planeación", "Análisis", "Diseño", "Desarrollo", "Pruebas", "Implementación" }));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -544,6 +545,7 @@ public final class FormActividadDeAprendizaje extends javax.swing.JPanel {
                  * la base de datos
                  */
                 ActividadDeAprendizaje.Insertar(declaracion, datos);
+                Historial.Insertar(declaracion, usuario, "Ingresó una actividad de aprendizaje");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 
@@ -573,6 +575,7 @@ public final class FormActividadDeAprendizaje extends javax.swing.JPanel {
                  */
                 ActividadDeAprendizaje.ActualizarEnID(declaracion, datos,
                         ID[ID.length - 1]);
+                Historial.Insertar(declaracion, usuario, "Actualizó una actividad de aprendizaje");
 
                 /* 
                  * Se animan los objetos para que salgan del panel y se realiza 

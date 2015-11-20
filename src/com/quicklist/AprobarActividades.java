@@ -19,6 +19,7 @@ import java.sql.Statement;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import com.quicklist.clases.EstadoActividad;
+import com.quicklist.clases.Historial;
 import com.quicklist.funciones.MoverObjeto;
 import com.quicklist.funciones.Arreglo;
 import com.quicklist.funciones.AnimacionObjetos;
@@ -608,6 +609,7 @@ public final class AprobarActividades extends javax.swing.JPanel {
 
         /*Se actualizan los estados de actividad en la base de datos*/
         EstadoActividad.ActualizarEstadosDeActividad(declaracion, datos);
+        Historial.Insertar(declaracion, usuario, "Actualizó los estados de actividad");
 
         /* 
          * Se animan los objetos para que salgan del panel y se realiza 

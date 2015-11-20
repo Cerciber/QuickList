@@ -175,6 +175,13 @@ public class Funcionario {
             //Se ejecuta la consulta para inserta en la tabla 
             //T_Informacion_Funcionarios
             //con los 9 valores de la variable datos.
+            
+            if("".equals(datos[7])){
+                
+                datos[7]="null";
+                         
+            }
+            
             declaracion.executeQuery("insert into T_Informacion_Funcionarios values("
                     + datos[0] + ", ENCRYPTBYPASSPHRASE('cerciber', '"
                     + datos[1] + "'), '"
@@ -216,6 +223,13 @@ public class Funcionario {
             //Se ejeculta la consulta para actualizar
             //asignando cada una de las varibles de arrgelo datos
             //empeando la variable ID en la condicion
+        
+            if("".equals(datos[7])){
+                
+                datos[7]="null";
+                         
+            }
+            
             declaracion.executeQuery("update T_Informacion_Funcionarios set "
                     + "Documento_De_Identidad = " + datos[0] + ","
                     + "Contrasena = ENCRYPTBYPASSPHRASE('cerciber', '" + datos[1] + "'),"
@@ -279,6 +293,7 @@ public class Funcionario {
         }
 
         return existente;
+        
     }
 
 }
