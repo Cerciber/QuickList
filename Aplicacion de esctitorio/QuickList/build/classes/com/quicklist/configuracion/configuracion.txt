@@ -1,0 +1,45 @@
+TAMA�O
+---------------------
+Ventana:
+750
+530
+Titulos:
+20
+Contenido tabla:
+17
+Altura de campo:
+70
+Espacio entre celdas:
+3
+Espacio bordes:
+30
+---------------------
+ANIMACIONES
+---------------------
+Estado:
+0
+Velocidad:
+85
+---------------------
+MOVIMIENTO DEL TECLADO
+---------------------
+Estado:
+1
+Velocidad:
+50
+---------------------
+PAGINACI�N
+---------------------
+Registros por pagina:
+5
+---------------------
+CUENTA
+---------------------
+Recordar contrase�a:
+1
+Usuario:
+96090410021
+Contraseña:
+123456789
+tipo:
+Administrador
